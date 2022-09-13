@@ -1,0 +1,29 @@
+{
+  "name": "@37bytes/sentry-release-publisher",
+  "version": "1.0.5",
+  "description": "Utility for uploading releases to Sentry. Useful for CI.",
+  "author": "37bytes",
+  "license": "MIT",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "rimraf build && ./node_modules/.bin/tsc --project ./tsconfig.json",
+    "build&watch": "rimraf build && ./node_modules/.bin/tsc --project ./tsconfig.json --watch",
+    "npm-packlist": "npm run build && npx -y npm-packlist"
+  },
+  "bin": {
+    "sentry-release-publisher": "./build/index.js"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {
+    "@sentry/cli": "^2.5.2",
+    "dotenv": "^16.0.2",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.57",
+    "@types/rimraf": "^3.0.2",
+    "typescript": "^4.8.3"
+  }
+}

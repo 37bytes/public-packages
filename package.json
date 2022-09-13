@@ -1,0 +1,17 @@
+{
+  "name": "public-packages",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "./packages/*"
+  ],
+  "scripts": {
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
+  },
+  "devDependencies": {
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
+  }
+}
