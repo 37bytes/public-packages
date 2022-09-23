@@ -2,7 +2,7 @@ import ProcessArgument, { ExtractedArguments } from '../constants/ProcessArgumen
 
 const getArgument = <T extends string | undefined>(
     args: Partial<ExtractedArguments>,
-    argument: ProcessArgument,
+    argument: keyof ExtractedArguments,
     defaultValue?: T
 ): T => {
     return typeof args[argument] === 'string' ? (args[argument] as T) : defaultValue;

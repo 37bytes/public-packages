@@ -1,6 +1,6 @@
 {
   "name": "@37bytes/sentry-release-publisher",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Utility for uploading releases to Sentry. Useful for CI.",
   "author": "37bytes",
   "license": "MIT",

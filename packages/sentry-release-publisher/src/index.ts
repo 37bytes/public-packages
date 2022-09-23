@@ -33,7 +33,8 @@ uploadRelease({
         authToken: SENTRY_TOKEN
     }),
     releaseName,
-    releaseDirectory
+    releaseDirectory,
+    staticDirectory: getArgument(restArguments, ProcessArgument.STATIC_DIRECTORY, 'static')
 })
     .catch((error) => {
         console.warn('uploadRelease failed!');

@@ -8,6 +8,7 @@ In this case app skip config reading.
 
 ### Optional parameters default values
 - RELEASE_DIRECTORY = `build`,
+- STATIC_DIRECTORY = `static`,
 - RELEASE_NAME = `undefined`',
 - RELEASE_CONFIG_NAME = `.env.production`,
 - CONFIG_RELEASE_VARIABLE = `REACT_APP_SENTRY_RELEASE`,
@@ -19,6 +20,10 @@ In this case app skip config reading.
 3. `npm run build`; `chmod +x build/index.js`; `npm link`; `sentry-release-publisher <...>`
 
 ### version history
+1.0.6
+- small typing improvement for `getArgument`
+- add new optional ProcessArgument, STATIC_DIRECTORY, path to source maps now is `${releaseDirectory}/${staticDirectory}/js`
+
 1.0.5
 - fix actions order (uploading - cleanup - finish)
 

@@ -6,6 +6,7 @@ enum ProcessArgument {
     SENTRY_PROJECT = 'SENTRY_PROJECT',
     // endregion
     RELEASE_DIRECTORY = 'RELEASE_DIRECTORY',
+    STATIC_DIRECTORY = 'STATIC_DIRECTORY',
     RELEASE_NAME = 'RELEASE_NAME',
     RELEASE_CONFIG_NAME = 'RELEASE_CONFIG',
     CONFIG_RELEASE_VARIABLE = 'CONFIG_RELEASE_VARIABLE',
@@ -20,6 +21,7 @@ export const requiredArguments = [
 ] as const;
 export const optionalArguments = [
     ProcessArgument.RELEASE_DIRECTORY,
+    ProcessArgument.STATIC_DIRECTORY,
     ProcessArgument.RELEASE_NAME,
     ProcessArgument.RELEASE_CONFIG_NAME,
     ProcessArgument.CONFIG_RELEASE_VARIABLE,

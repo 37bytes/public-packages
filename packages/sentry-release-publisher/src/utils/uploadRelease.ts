@@ -4,16 +4,17 @@ interface UploadReleaseParams {
     cli: SentryCli;
     releaseName: string;
     releaseDirectory: string;
+    staticDirectory: string;
 }
 
-const uploadRelease = async ({ cli, releaseName, releaseDirectory }: UploadReleaseParams) => {
-    console.log('uploadRelease', { releaseName, releaseDirectory });
+const uploadRelease = async ({ cli, releaseName, releaseDirectory, staticDirectory }: UploadReleaseParams) => {
+    console.log('uploadRelease', { releaseName, releaseDirectory, staticDirectory });
     console.log('uploadRelease: creating sentry release... ');
     await cli.releases.new(releaseName);
     console.log('uploadRelease: uploading source maps...');
     await cli.releases.uploadSourceMaps(releaseName, {
-        include: [`${releaseDirectory}/static/js`],
-        urlPrefix: '~/static/js',
+        include: [`${releaseDirectory}/${staticDirectory}/js`],
+        urlPrefix: `~/${staticDirectory}/js`,
         rewrite: false
     });
     console.log('uploadRelease: finalizing release...');
