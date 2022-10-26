@@ -1,7 +1,7 @@
 {
-  "name": "@37bytes/sentry-release-publisher",
-  "version": "1.0.6",
-  "description": "Utility for uploading releases to Sentry. Useful for CI.",
+  "name": "@37bytes/html-content-appender",
+  "version": "1.0.1",
+  "description": "Utility for appending a template in set of .html files",
   "author": "37bytes",
   "license": "MIT",
   "main": "build/index.js",
@@ -11,19 +11,19 @@
     "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1"
   },
   "bin": {
-    "sentry-release-publisher": "./build/index.js"
+    "html-content-appender": "./build/index.js"
   },
   "engines": {
     "node": ">=16"
   },
   "dependencies": {
-    "@sentry/cli": "^2.5.2",
-    "dotenv": "^16.0.2",
-    "rimraf": "^3.0.2"
+    "@types/jsdom": "^20.0.0",
+    "jsdom": "~20.0.1",
+    "rimraf": "~3.0.2"
   },
   "devDependencies": {
-    "@types/node": "^16.11.57",
-    "@types/rimraf": "^3.0.2",
-    "typescript": "^4.8.3"
+    "@types/node": "~16.11.57",
+    "@types/rimraf": "~3.0.2",
+    "typescript": "~4.8.3"
   }
 }

@@ -4,9 +4,9 @@
   "description": "Safe fallbacks/wrappers for some storages (localStorage, sessionStorage)",
   "main": "./build/index.js",
   "scripts": {
-    "build": "rimraf build && ./node_modules/.bin/tsc --project ./tsconfig.json",
-    "build&watch": "rimraf build && ./node_modules/.bin/tsc --project ./tsconfig.json --watch",
-    "npm-packlist": "npm run build && npx -y npm-packlist"
+    "build": "rimraf build && tsc --project ./tsconfig.json",
+    "build&watch": "rimraf build && tsc --project ./tsconfig.json --watch",
+    "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1"
   },
   "keywords": [],
   "author": "tad-nikolaeva",
