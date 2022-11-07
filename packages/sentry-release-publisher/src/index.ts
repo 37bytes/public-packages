@@ -34,7 +34,7 @@ uploadRelease({
     }),
     releaseName,
     releaseDirectory,
-    staticDirectory: getArgument(restArguments, ProcessArgument.STATIC_DIRECTORY, 'static')
+    staticDirectory: getArgument(restArguments, ProcessArgument.STATIC_DIRECTORY, 'static/js')
 })
     .catch((error) => {
         console.warn('uploadRelease failed!');

@@ -13,8 +13,8 @@ const uploadRelease = async ({ cli, releaseName, releaseDirectory, staticDirecto
     await cli.releases.new(releaseName);
     console.log('uploadRelease: uploading source maps...');
     await cli.releases.uploadSourceMaps(releaseName, {
-        include: [`${releaseDirectory}/${staticDirectory}/js`],
-        urlPrefix: `~/${staticDirectory}/js`,
+        include: [`${releaseDirectory}/${staticDirectory}`],
+        urlPrefix: `~/${staticDirectory}`,
         rewrite: false
     });
     console.log('uploadRelease: finalizing release...');
