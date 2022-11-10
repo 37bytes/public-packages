@@ -28,7 +28,7 @@ package.json:
 ```json
 {
   "proxy": "npx -y @37bytes/front-proxy PATH_TO_CONFIG=proxy/.env.proxy",
-  "proxy-dmn": "npx -y nodemon --watch proxy/.env.proxy --exec npm run proxy",
+  "proxy-dmn": "npx -y nodemon --watch proxy/.env.proxy --exec npm run proxy"
 }
 ```
 Thanks [@MRGRD56](https://github.com/MRGRD56) for research.
@@ -38,5 +38,5 @@ Thanks [@MRGRD56](https://github.com/MRGRD56) for research.
 
 ### version history
 
-2.0.0
+1.0.0
 - first public version
