@@ -2,6 +2,7 @@
   "name": "@37bytes/front-proxy",
   "version": "1.0.0",
   "description": "Proxy for special URL with predefined cookies. Created for local developing without CORS problems.",
+  "repository": "https://github.com/37bytes/public-packages/tree/master/packages/front-proxy",
   "author": "37bytes",
   "license": "MIT",
   "main": "build/proxy.js",

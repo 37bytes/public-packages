@@ -2,6 +2,7 @@
   "name": "@37bytes/html-content-appender",
   "version": "1.0.1",
   "description": "Utility for appending a template in set of .html files",
+  "repository": "https://github.com/37bytes/public-packages/tree/master/packages/html-content-appender",
   "author": "37bytes",
   "license": "MIT",
   "main": "build/index.js",
