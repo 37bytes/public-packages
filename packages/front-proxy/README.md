@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/@37bytes%2Ffront-proxy.svg)](https://badge.fury.io/js/@37bytes%2Ffront-proxy)
+
 ### arguments
 ```dotenv
 PORT=9000

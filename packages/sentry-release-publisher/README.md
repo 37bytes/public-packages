@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/@37bytes%2Fsentry-release-publisher.svg)](https://badge.fury.io/js/@37bytes%2Fsentry-release-publisher)
+
 ### Usage
 
 1. `sentry-release-publisher SENTRY_URL=https://sentry.io SENTRY_TOKEN=123 SENTRY_ORG=example SENTRY_PROJECT=test`  

@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/@37bytes%2Fhtml-content-appender.svg)](https://badge.fury.io/js/@37bytes%2Fhtml-content-appender)
+
 ### Usage
 
 1. `html-content-appender HTML_DIRECTORY=./build TEMPLATE=./extra-html-content.html`
