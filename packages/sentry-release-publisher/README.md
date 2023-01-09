@@ -22,6 +22,9 @@ In this case app skip config reading.
 3. `npm run build`; `chmod +x build/index.js`; `npm link`; `sentry-release-publisher <...>`
 
 ### version history
+1.0.8
+- added the ability to ignore the parameter `STATIC_DIRECTORY` (if value is `.`)
+
 1.0.7
 - default path for `STATIC_DIRECTORY` replaced to `static/js`
 

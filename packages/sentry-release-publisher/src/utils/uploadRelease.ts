@@ -8,13 +8,19 @@ interface UploadReleaseParams {
 }
 
 const uploadRelease = async ({ cli, releaseName, releaseDirectory, staticDirectory }: UploadReleaseParams) => {
+    if (staticDirectory === '.') {
+        console.log('uploadRelease: ignoring static directory...');
+        staticDirectory = undefined;
+    }
+
     console.log('uploadRelease', { releaseName, releaseDirectory, staticDirectory });
     console.log('uploadRelease: creating sentry release... ');
     await cli.releases.new(releaseName);
     console.log('uploadRelease: uploading source maps...');
+
     await cli.releases.uploadSourceMaps(releaseName, {
-        include: [`${releaseDirectory}/${staticDirectory}`],
-        urlPrefix: `~/${staticDirectory}`,
+        include: [[releaseDirectory, staticDirectory].filter(Boolean).join('/')],
+        urlPrefix: ['~', staticDirectory].filter(Boolean).join('/'),
         rewrite: false
     });
     console.log('uploadRelease: finalizing release...');
