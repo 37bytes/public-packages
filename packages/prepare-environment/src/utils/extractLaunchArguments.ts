@@ -1,7 +1,7 @@
-import { allowedArguments, ExtractedArguments } from '../constants/ProcessArgument';
+import { allowedArguments, ExtractedArguments, requiredArguments } from '../constants/ProcessArgument';
 
-const extractLaunchArguments = (): ExtractedArguments =>
-    process.argv.reduce((result, argument) => {
+const extractLaunchArguments = (): ExtractedArguments => {
+    const scriptArguments = process.argv.reduce((result, argument) => {
         if (!allowedArguments.some((argumentName) => argument.startsWith(argumentName))) {
             return result;
         }
@@ -13,5 +13,13 @@ const extractLaunchArguments = (): ExtractedArguments =>
 
         return result;
     }, {}) as ExtractedArguments;
+
+    const missedArguments = requiredArguments.filter((argument) => !scriptArguments[argument]);
+    if (missedArguments.length) {
+        throw new Error(`Some required arguments missed! ${missedArguments.join(', ')}`);
+    }
+
+    return scriptArguments;
+};
 
 export default extractLaunchArguments;

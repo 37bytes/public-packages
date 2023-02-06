@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
-// import prepareEnvironment from './prapareEnviroment';
+import prepareEnvironment from './prapareEnviroment';
 import extractLaunchArguments from './utils/extractLaunchArguments';
 import ProcessArgument from './constants/ProcessArgument';
 import getArgument from './utils/getArgument';
 import { loadRcFile } from './utils/loadRcFile';
 
-const { config: packageVersion } = loadRcFile({ rcFileName: 'package.json', packageJsonProperty: 'version' });
-const { config: packageName } = loadRcFile({ rcFileName: 'package.json', packageJsonProperty: 'name' });
+const { name: packageName, version: packageVersion } = require('../package.json');
 console.log(`${packageName}@${packageVersion} called!`);
 
 const { ...restArguments } = extractLaunchArguments();
@@ -23,8 +22,8 @@ function checkData(configData: { config: object; filePath: string }) {
 try {
     const configData = loadRcFile({ rcFileName: 'prepare', configurationPath });
     checkData(configData);
-    console.log('The configuration has been received', configData.config);
-    // prepareEnvironment({ configPath: CONFIG_PATH });
+    console.log('The configuration has been received, start prepareEnvironment', configData.config);
+    prepareEnvironment({ configData: configData.config, cliArguments: restArguments });
 } catch (error) {
     console.error(error);
     throw new Error(error);
