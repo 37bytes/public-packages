@@ -17,11 +17,12 @@ const script = {
 };
 
 const mockLogText =
-    'The configuration has been received {\n' +
-    "  pathToEnvironmentsFolder: './environments',\n" +
+    'The configuration has been received, start prepareEnvironment {\n' +
+    "  environmentsFolder: './environments',\n" +
+    "  resultConfig: './.env.production',\n" +
     "  allowedEnvironments: [ 'legacy_prod', 'legacy_stage', 'legacy_odr', 'stage', 'prod' ],\n" +
-    "  variablePrefix: 'REACT_APP'\n" +
-    '}';
+    "  variablePrefix: 'REACT_APP_'\n" +
+    '}\n';
 
 const testTable: Array<{ scriptCode: number; expectedCode: number }> = [
     // json with error

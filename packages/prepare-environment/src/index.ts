@@ -6,8 +6,14 @@ import ProcessArgument from './constants/ProcessArgument';
 import getArgument from './utils/getArgument';
 import { loadRcFile } from './utils/loadRcFile';
 
-const { name: packageName, version: packageVersion } = require('../package.json');
-console.log(`${packageName}@${packageVersion} called!`);
+const { config: packageVersion } = loadRcFile({ rcFileName: 'package.json', packageJsonProperty: 'version' });
+const { config: packageName } = loadRcFile({ rcFileName: 'package.json', packageJsonProperty: 'name' });
+
+if (!packageName || !packageVersion) {
+    throw new Error('package.json is empty');
+}
+const appName = `${packageName}@${packageVersion}`;
+console.log(`prepareEnvironment called for ${appName}`);
 
 const { ...restArguments } = extractLaunchArguments();
 console.log('launch arguments processed!', { ...restArguments });
@@ -23,7 +29,7 @@ try {
     const configData = loadRcFile({ rcFileName: 'prepare', configurationPath });
     checkData(configData);
     console.log('The configuration has been received, start prepareEnvironment', configData.config);
-    prepareEnvironment({ configData: configData.config, cliArguments: restArguments });
+    prepareEnvironment({ configData: configData.config, cliArguments: restArguments, appName });
 } catch (error) {
     console.error(error);
     throw new Error(error);

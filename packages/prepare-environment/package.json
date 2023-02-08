@@ -18,6 +18,7 @@
   "author": "37bytes",
   "license": "MIT",
   "dependencies": {
+    "mock-fs": "^5.2.0",
     "rc-config-loader": "^4.1.2",
     "rimraf": "^4.1.2"
   },

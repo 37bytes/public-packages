@@ -6,7 +6,10 @@ interface LoadRcFileParams {
     packageJsonProperty?: string;
 }
 export const loadRcFile = ({ rcFileName, configurationPath, packageJsonProperty }: LoadRcFileParams) =>
-    rcFile(rcFileName, {
-        configFileName: configurationPath,
-        packageJSON: { fieldName: packageJsonProperty }
-    });
+    rcFile<{ environmentsFolder: string; resultConfig: string; allowedEnvironments: string[]; variablePrefix: string }>(
+        rcFileName,
+        {
+            configFileName: configurationPath,
+            packageJSON: { fieldName: packageJsonProperty }
+        }
+    );
