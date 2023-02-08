@@ -2,6 +2,12 @@
 
 ### Usage
 
+1. `prepare-environment ENV_NAME=stage`
+   In this case app looking for .preparerc automatically. The file must be located in the root.
+
+2. `prepare-environment ENV_NAME=stage CONFIG_PATH=configs/.preparerc`  
+   In this case app get .preparerc file from the custom path.
+
 ### Optional parameters default values
 - CONFIG_PATH = `/`,
 
