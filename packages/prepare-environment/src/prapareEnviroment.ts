@@ -1,14 +1,11 @@
+import { ConfigData } from './types';
+
 const fs = require('fs');
 const path = require('path');
 import ProcessArgument, { ExtractedArguments } from './constants/ProcessArgument';
 
 interface PrepareEnvironmentParams {
-    configData: {
-        environmentsFolder: string;
-        resultConfig: string;
-        allowedEnvironments: string[];
-        variablePrefix: string;
-    };
+    configData: ConfigData;
     cliArguments: ExtractedArguments;
     appName: string;
 }
