@@ -13,8 +13,8 @@ const prepareEnvironment = ({ configData, cliArguments, appName }: PrepareEnviro
     const { variablePrefix, allowedEnvironments, environmentsFolder, resultConfig } = configData;
 
     // region константы
-    const pathToResultConfig = path.resolve(__dirname, resultConfig);
-    const pathToEnvironmentsFolder = path.resolve(__dirname, environmentsFolder);
+    const pathToResultConfig = path.resolve(process.cwd(), resultConfig);
+    const pathToEnvironmentsFolder = path.resolve(process.cwd(), environmentsFolder);
     console.log({ pathToResultConfig, pathToEnvironmentsFolder });
     // endregion
 
