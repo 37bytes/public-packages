@@ -1,11 +1,11 @@
 {
   "name": "prepare-environment",
   "version": "1.0.0",
-  "description": "",
+  "description": "Utility to prepare the environment for a React application. Useful for CI.",
+  "repository": "https://github.com/37bytes/public-packages/tree/master/packages/prepare-environment",
+  "author": "37bytes",
+  "license": "MIT",
   "main": "build/index.js",
-  "engines": {
-    "node": ">=16"
-  },
   "scripts": {
     "build": "rimraf build && tsc --project ./tsconfig.json",
     "build&watch": "rimraf build && tsc --project ./tsconfig.json --watch",
@@ -15,8 +15,9 @@
   "bin": {
     "prepare-environment": "./build/index.js"
   },
-  "author": "37bytes",
-  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
   "dependencies": {
     "mock-fs": "^5.2.0",
     "rc-config-loader": "^4.1.2",
