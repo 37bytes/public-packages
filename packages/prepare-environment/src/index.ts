@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import prepareEnvironment from './prapareEnviroment';
+import prepareEnvironment from './prepareEnviroment';
 import extractLaunchArguments from './utils/extractLaunchArguments';
 import ProcessArgument from './constants/ProcessArgument';
 import getArgument from './utils/getArgument';
