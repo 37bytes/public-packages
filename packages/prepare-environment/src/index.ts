@@ -32,6 +32,5 @@ try {
     console.log('The configuration has been received, start prepareEnvironment', configData.config);
     prepareEnvironment({ configData: configData.config, cliArguments: restArguments, appName });
 } catch (error) {
-    console.error(error);
     throw new Error(error);
 }

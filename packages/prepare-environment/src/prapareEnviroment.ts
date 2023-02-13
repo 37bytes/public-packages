@@ -1,7 +1,7 @@
 import { ConfigData } from './types';
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 import ProcessArgument, { ExtractedArguments } from './constants/ProcessArgument';
 
 interface PrepareEnvironmentParams {
@@ -9,6 +9,15 @@ interface PrepareEnvironmentParams {
     cliArguments: ExtractedArguments;
     appName: string;
 }
+
+const KEY_ENV_NAME = 'ENV_NAME';
+const KEY_CAL_VAR = 'CAL_VER';
+const KEY_COMMIT_SHORT_SHA = 'COMMIT_SHORT_SHA';
+const KEY_REF_NAME = 'REF_NAME';
+
+const allowedArgumentNames = [KEY_ENV_NAME, KEY_CAL_VAR, KEY_COMMIT_SHORT_SHA, KEY_REF_NAME];
+const requiredArgumentNames = [KEY_ENV_NAME];
+
 const prepareEnvironment = ({ configData, cliArguments, appName }: PrepareEnvironmentParams) => {
     const { variablePrefix, allowedEnvironments, environmentsFolder, resultConfig } = configData;
 
@@ -23,14 +32,6 @@ const prepareEnvironment = ({ configData, cliArguments, appName }: PrepareEnviro
     // endregion
 
     // region аргументы командной строки
-    const KEY_ENV_NAME = 'ENV_NAME';
-    const KEY_CAL_VAR = 'CAL_VER';
-    const KEY_COMMIT_SHORT_SHA = 'COMMIT_SHORT_SHA';
-    const KEY_REF_NAME = 'REF_NAME';
-
-    const allowedArgumentNames = [KEY_ENV_NAME, KEY_CAL_VAR, KEY_COMMIT_SHORT_SHA, KEY_REF_NAME];
-    const requiredArgumentNames = [KEY_ENV_NAME];
-
     const configVariablesByArguments = {
         [KEY_ENV_NAME]: `${variablePrefix}ENV_NAME`,
         [KEY_CAL_VAR]: `${variablePrefix}CAL_VER`,

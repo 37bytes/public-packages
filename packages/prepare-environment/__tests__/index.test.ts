@@ -6,8 +6,8 @@ const scriptPath = path.join(__dirname, '..', 'src/', 'index.ts');
 
 const getFixturePath = (filename: string) => path.join(__dirname, '..', '__fixtures__', filename);
 
-const configPath = getFixturePath('.preparerc');
-const configPathWithError = getFixturePath('.prepareErrorrc');
+const configPath = getFixturePath('.environmentrc.json');
+const configPathWithError = getFixturePath('.environmentErrorrc');
 
 const configPathRoot = path.join(__dirname, '..');
 const ENV_NAME_MOCK = 'ENV_NAME=test';
