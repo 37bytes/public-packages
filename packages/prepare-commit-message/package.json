@@ -1,0 +1,24 @@
+{
+  "name": "prepare-commit-message",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "keywords": [],
+  "author": "37bytes",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf build && tsc --project ./tsconfig.json",
+    "build&watch": "rimraf build && tsc --project ./tsconfig.json --watch",
+    "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1"
+  },
+  "bin": {
+    "prepare-commit-message": "./build/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^18.13.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "rc-config-loader": "^4.1.2"
+  }
+}

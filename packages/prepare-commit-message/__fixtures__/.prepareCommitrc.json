@@ -1,0 +1,6 @@
+{
+  "specialBranches": [
+    "develop", "master"
+  ],
+  "branchesPrefixes": ["MARALL-"]
+}
