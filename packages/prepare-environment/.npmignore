@@ -1,5 +1,7 @@
 .git
 .idea
 src
-
+__fixtures__
+__tests__
+jest.config.js
 tsconfig.json
