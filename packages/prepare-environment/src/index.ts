@@ -6,6 +6,7 @@ import ProcessArgument from './constants/ProcessArgument';
 import getArgument from './utils/getArgument';
 import { loadRcFile } from './utils/loadRcFile';
 import { ConfigData } from './types';
+import { CONFIG_FILE_NAME } from './constants/ConfigFileName';
 
 const { config: packageVersion } = loadRcFile({ rcFileName: 'package.json', packageJsonProperty: 'version' });
 const { config: packageName } = loadRcFile({ rcFileName: 'package.json', packageJsonProperty: 'name' });
@@ -27,7 +28,7 @@ function checkData(configData: { config: object; filePath: string }) {
 }
 
 try {
-    const configData = loadRcFile<ConfigData>({ rcFileName: 'prepare', configurationPath });
+    const configData = loadRcFile<ConfigData>({ rcFileName: CONFIG_FILE_NAME, configurationPath });
     checkData(configData);
     console.log('The configuration has been received, start prepareEnvironment', configData.config);
     prepareEnvironment({ configData: configData.config, cliArguments: restArguments, appName });

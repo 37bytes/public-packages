@@ -2,7 +2,7 @@ import { describe, beforeEach, afterEach, test, expect } from '@jest/globals';
 import mock from 'mock-fs';
 import { readFileSync } from 'fs';
 import path from 'path';
-import prepareEnvironment from '../src/prapareEnviroment';
+import prepareEnvironment from '../src/prepareEnviroment';
 import * as fs from 'fs';
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 'envs/', filename);
