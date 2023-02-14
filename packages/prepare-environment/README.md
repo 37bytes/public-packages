@@ -20,6 +20,9 @@
 
 ### version history
 
+1.0.2
+- update .npmignore
+
 1.0.1 
 - fix small bugs
 
