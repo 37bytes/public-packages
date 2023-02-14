@@ -20,6 +20,9 @@
 
 ### version history
 
+1.0.3
+- refactoring utils and main script
+
 1.0.2
 - update .npmignore
 
