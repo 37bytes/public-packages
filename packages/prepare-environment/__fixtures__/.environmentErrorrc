@@ -1,0 +1,6 @@
+{
+    "environmentsFolder": "./environments"
+    "resultConfig": "./.env.production"
+    "allowedEnvironments": ['legacy_prod', 'legacy_stage', 'legacy_odr', 'stage', 'prod'],
+    "variablePrefix": "REACT_APP"
+}
