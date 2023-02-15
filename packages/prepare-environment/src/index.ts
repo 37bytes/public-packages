@@ -12,14 +12,14 @@ import { getPackageProperty } from './utils/getPackageProperty';
 const { config: packageVersion } = getPackageProperty({ packageJsonProperty: 'version' });
 const { config: packageName } = getPackageProperty({ packageJsonProperty: 'name' });
 
-const { config: dependencies } = getPackageProperty({ packageJsonProperty: 'dependencies' });
-const scriptName = `prepareEnvironment@${dependencies['@37bytes/prepare-environment']}`;
+const { name: scriptName, version: scriptVersion } = require('../package.json');
+const scriptDescription = `${scriptName}@${scriptVersion}`;
 
-if (!packageName || !packageVersion) {
+if (!packageName || !packageVersion || !scriptVersion) {
     throw new Error('package.json is empty');
 }
 const appName = `${packageName}@${packageVersion}`;
-console.log(`${scriptName} called for ${appName}`);
+console.log(`${scriptDescription} called for ${appName}`);
 
 const { ...restArguments } = extractLaunchArguments();
 console.log('launch arguments processed!', { ...restArguments });
