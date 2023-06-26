@@ -19,7 +19,7 @@ const allowedArgumentNames = [KEY_ENV_NAME, KEY_CAL_VAR, KEY_COMMIT_SHORT_SHA, K
 const requiredArgumentNames = [KEY_ENV_NAME];
 
 const prepareEnvironment = ({ configData, cliArguments, appName }: PrepareEnvironmentParams) => {
-    const { variablePrefix, allowedEnvironments, environmentsFolder, resultConfig } = configData;
+    const { variablePrefix, environmentsFolder, resultConfig } = configData;
 
     // region константы
     const pathToResultConfig = path.resolve(process.cwd(), resultConfig);
@@ -75,9 +75,18 @@ const prepareEnvironment = ({ configData, cliArguments, appName }: PrepareEnviro
     // region поиск подходящего env-файла
     console.log('finding config...');
     const targetEnvironment = scriptArguments[KEY_ENV_NAME];
-    if (!targetEnvironment || !allowedEnvironments.includes(targetEnvironment)) {
+
+    // Получаем все env-файлы
+    const files = fs.readdirSync(pathToEnvironmentsFolder);
+
+    // Проверяем есть ли среди них нужный
+    const targetEnvironmentExists = files.some((file) => {
+        return file.startsWith('env.') && file.endsWith(targetEnvironment);
+    });
+
+    if (!targetEnvironment || targetEnvironmentExists) {
         throw new Error(
-            `targetEnvironment unknown, current value is "${targetEnvironment}", available values is [${allowedEnvironments}]`
+            `targetEnvironment unknown, current value is "${targetEnvironment}", available values is [${files}]`
         );
     }
     console.log(`target environment found! ${targetEnvironment}`);
