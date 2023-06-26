@@ -81,10 +81,10 @@ const prepareEnvironment = ({ configData, cliArguments, appName }: PrepareEnviro
 
     // Проверяем есть ли среди них нужный
     const targetEnvironmentExists = files.some((file) => {
-        return file.startsWith('env.') && file.endsWith(targetEnvironment);
+        return file === targetEnvironment;
     });
 
-    if (!targetEnvironment || targetEnvironmentExists) {
+    if (!targetEnvironment || !targetEnvironmentExists) {
         throw new Error(
             `targetEnvironment unknown, current value is "${targetEnvironment}", available values is [${files}]`
         );

@@ -1,7 +1,7 @@
 import { describe, beforeEach, afterEach, test, expect } from '@jest/globals';
 import mock from 'mock-fs';
 import { readFileSync } from 'fs';
-import path from 'path';
+import * as path from 'path';
 import prepareEnvironment from '../src/prepareEnviroment';
 import * as fs from 'fs';
 
@@ -27,7 +27,6 @@ const getConfigData = (syntheticPath: string) => {
     return {
         environmentsFolder: `${syntheticPath}/testProject/environments/`,
         resultConfig: `${syntheticPath}/testProject/.env.production`,
-        allowedEnvironments: ['legacy_prod', 'legacy_stage', 'legacy_odr', 'stage', 'prod'],
         variablePrefix: 'REACT_APP_'
     };
 };
@@ -36,6 +35,27 @@ const getPreparedEnvFile = (syntheticPath: string): string => {
     const pathToPreparedEnv = `${syntheticPath}/testProject/.env.production`;
     return readFileSync(pathToPreparedEnv, 'utf-8');
 };
+
+describe('check envs', () => {
+    const evnExists = (targetEnvironment) => {
+        const currentDir = process.cwd();
+
+        // Получаем все env-файлы
+        const files = fs.readdirSync(`${currentDir}\\__fixtures__\\envs`);
+        // Проверяем есть ли среди них нужный
+        return files.some((file) => {
+            return file === targetEnvironment;
+        });
+    };
+
+    test('check existing env', () => {
+        expect(evnExists('.env.before')).toEqual(true);
+        expect(evnExists('.evn.after')).toEqual(true);
+    });
+    test('check non-existing env', () => {
+        expect(evnExists('before')).toEqual(false);
+    });
+});
 
 describe('prepareEnvironment', () => {
     beforeEach(() => {
