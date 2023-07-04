@@ -1,0 +1,19 @@
+{
+  "name": "@37bytes/logstory",
+  "version": "1.0.0",
+  "description": "Logstory is a flexible and extensible logger for JavaScript that allows easy integration of additional features and sending events to monitoring systems such as Sentry or Graylog.",
+  "main": "build/index.js",
+  "author": "37bytes",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf build && tsc --project ./tsconfig.json",
+    "build&watch": "rimraf build && tsc --project ./tsconfig.json --watch",
+    "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1"
+  },
+  "keywords": [
+    "logger", "js-logger", "react logger"],
+  "devDependencies": {
+    "rimraf": "^5.0.1",
+    "typescript": "^5.1.6"
+  }
+}
