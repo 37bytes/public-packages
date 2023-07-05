@@ -36,27 +36,6 @@ const getPreparedEnvFile = (syntheticPath: string): string => {
     return readFileSync(pathToPreparedEnv, 'utf-8');
 };
 
-describe('check envs', () => {
-    const evnExists = (targetEnvironment) => {
-        const currentDir = process.cwd();
-
-        // Получаем все env-файлы
-        const files = fs.readdirSync(`${currentDir}\\__fixtures__\\envs`);
-        // Проверяем есть ли среди них нужный
-        return files.some((file) => {
-            return file === targetEnvironment;
-        });
-    };
-
-    test('check existing env', () => {
-        expect(evnExists('.env.before')).toEqual(true);
-        expect(evnExists('.evn.after')).toEqual(true);
-    });
-    test('check non-existing env', () => {
-        expect(evnExists('before')).toEqual(false);
-    });
-});
-
 describe('prepareEnvironment', () => {
     beforeEach(() => {
         mock({

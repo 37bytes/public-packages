@@ -3,6 +3,7 @@ import { ConfigData } from './types';
 import fs from 'fs';
 import path from 'path';
 import ProcessArgument, { ExtractedArguments } from './constants/ProcessArgument';
+import isEnvironmentExists from './utils/isEnvironmentExists';
 
 interface PrepareEnvironmentParams {
     configData: ConfigData;
@@ -76,19 +77,14 @@ const prepareEnvironment = ({ configData, cliArguments, appName }: PrepareEnviro
     console.log('finding config...');
     const targetEnvironment = scriptArguments[KEY_ENV_NAME];
 
-    // Получаем все env-файлы
-    const files = fs.readdirSync(pathToEnvironmentsFolder);
-
-    // Проверяем есть ли среди них нужный
-    const targetEnvironmentExists = files.some((file) => {
-        return file === targetEnvironment;
-    });
-
-    if (!targetEnvironment || !targetEnvironmentExists) {
+    if (!isEnvironmentExists(targetEnvironment, pathToEnvironmentsFolder)) {
         throw new Error(
-            `targetEnvironment unknown, current value is "${targetEnvironment}", available values is [${files}]`
+            `targetEnvironment is unknown, current value is "${targetEnvironment}", available values are [${fs.readdirSync(
+                pathToEnvironmentsFolder
+            )}]`
         );
     }
+
     console.log(`target environment found! ${targetEnvironment}`);
     const pathToSourceConfig = getPathToSourceConfig(targetEnvironment);
     console.log(`path to source config is "${pathToSourceConfig}"`);
