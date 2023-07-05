@@ -6,7 +6,7 @@ const isEnvironmentExists = (targetEnvironment, pathToEnvironmentsFolder) => {
 
     // Проверяем есть ли среди них нужный
     return files.some((environment) => {
-        return environment.startsWith('.env.') && environment.endsWith(targetEnvironment);
+        return environment.endsWith(`.${targetEnvironment}`);
     });
 };
 
