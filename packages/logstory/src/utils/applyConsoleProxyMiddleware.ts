@@ -4,7 +4,7 @@ export interface MiddlewareFunctionParams<Message, Extras> {
 }
 
 export type MiddlewareFunction<Message, Extras> = (params: MiddlewareFunctionParams<Message, Extras>) => void;
-export const applyMiddleware =
+export const applyConsoleProxyMiddleware =
     <Message, Extras, M extends MiddlewareFunction<Message, Extras>>(middlewares: M[]) =>
     (middlewareParams: MiddlewareFunctionParams<Message, Extras>) =>
         middlewares.forEach((middleware) => middleware(middlewareParams));
