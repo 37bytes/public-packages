@@ -16,9 +16,8 @@ Logstory is a flexible and extensible logger for JavaScript that allows easy int
 
 ## Basic Usage:
 
+#### createLogger.ts
 ```typescript
-// file createLogger.ts
-
 import {
   applyConsoleProxyMiddleware,
   CreateLoggerParams,
@@ -50,8 +49,8 @@ if (import.meta.env.DEV) {
 }
 ```
 
+#### Example.tsx
 ```tsx
-// module Example.tsx
 const pureLogger = createSimplePureLogger('Test')
 
 useEffect(() => {
@@ -62,13 +61,38 @@ useEffect(() => {
 }, [])
 
 ```
+## Change the logger name format:
+You can customize the logger output to suit your needs
 
+#### Default output
+```ts
+logger.debug('Debug message'); // -> 🥷[Feature]: debug message
+logger.log('Log message'); // -> [Feature]: log message
+logger.warn('Warning message'); // -> 😕😕😕️ [Test Feature]: Attention
+logger.error('Error message'); // -> 🔥🔥🔥🔥🔥🔥\n[Test Feature]: Error
+```
+#### Your custom output
+```typescript
+const customLoggerName = ({ loggerName, logLevel }: FormatLoggerNameParams): string => {
+  if (logLevel === 'error') {
+    return `! ${loggerName} !`;
+  }
+  return `[${loggerName}]`;
+};
+
+const logger = createLogstory({ name: 'Feature', formatLoggerName: customLoggerName });
+
+logger.debug('Debug message'); // -> [Feature] debug message
+logger.log('Log message'); // -> [Feature] log message
+logger.warn('Warning message'); // -> [Feature] Attention
+logger.error('Error message'); // -> ! Feature !: Error
+```
 
 ## Advanced Usage:
 If you want to use Sentry or GrayLog with your logger, create a special console proxy and apply the `applyConsoleProxyMiddleware` function found in the package
 
+#### createLogger.ts
 ```typescript
-// file createLogger.ts
 import getTrackingServicesConsoleProxy from './getTrackingServicesConsoleProxy';
 import {
   applyConsoleProxyMiddleware,
@@ -141,8 +165,8 @@ if (import.meta.env.DEV) {
 
 ```
 
-```typescript
-// file getTrackingServicesConsoleProxy.ts
+#### getTrackingServicesConsoleProxy.ts
+```typescript 
 import { LogLevel } from '@37bytes/logstory';
 import { MiddlewareExtras, MiddlewareFunctionCallbackType } from './createLogger';
 
@@ -207,11 +231,11 @@ const getTrackingServicesConsoleProxy = (
 export default getTrackingServicesConsoleProxy;
 ```
 
+#### logger call example
 ```typescript
 const logger = createSimpleSentryLogger('example');
 logger.warn('Warn message')
 logger.error(Error, { data: ['some data'] })
-
 ```
 
 ## Issues
