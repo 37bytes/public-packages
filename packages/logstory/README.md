@@ -216,3 +216,8 @@ logger.error(Error, { data: ['some data'] })
 
 ## Issues
 See the [open issues](https://github.com/37bytes/prepare-environment/Best-README-Template/issues) for a full list of proposed features (and known issues).
+
+### version history
+
+1.0.0
+- first version
