@@ -6,4 +6,5 @@ Utilities:
 
 Libraries:
 - [storage-fallback](/packages/storage-fallback)
+- [logstory](/packages/logstory)
 
