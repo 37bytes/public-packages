@@ -1,4 +1,4 @@
-import { CreateLoggerParams, Logger, LogLevel, LogLevelState } from './LoggerTypes';
+import { CreateLoggerParams, FormatLoggerNameParams, Logger, LogLevel, LogLevelState } from './LoggerTypes';
 
 const defaultLogLevelState: LogLevelState = {
     debug: true,
@@ -7,18 +7,33 @@ const defaultLogLevelState: LogLevelState = {
     error: true
 };
 
+const defaultFormat = ({ loggerName, logLevel }: FormatLoggerNameParams) => {
+    // %o https://stackoverflow.com/a/42406361/2973464
+    switch (logLevel) {
+        case 'debug':
+            return `🥷[${loggerName}]: %o`;
+        case 'log':
+            return `[${loggerName}]: %o`;
+        case 'warn':
+            return `😕😕😕️\n[${loggerName}]: %o`;
+        case 'error':
+            return `🔥🔥🔥🔥🔥🔥\n[${loggerName}]: %o`;
+        default:
+            return `[${loggerName}]: %o`;
+    }
+};
+
 export function createLogstory({
     name,
     logLevelState = defaultLogLevelState,
-    consoleProxy = window.console
+    consoleProxy = window.console,
+    formatLoggerName = defaultFormat
 }: CreateLoggerParams = {}): Logger {
-    const loggerName = name ? `[${name}]: ` : '';
-    // https://stackoverflow.com/a/42406361/2973464
     const logger: Logger = {
-        debug: consoleProxy.debug.bind(window.console, `🥷${loggerName}%o`),
-        log: consoleProxy.log.bind(window.console, `${loggerName}%o`),
-        warn: consoleProxy.warn.bind(window.console, `😕😕😕️\n${loggerName}%o`),
-        error: consoleProxy.error.bind(window.console, `🔥🔥🔥🔥🔥🔥\n${loggerName}%o`)
+        debug: consoleProxy.debug.bind(window.console, formatLoggerName({ loggerName: name, logLevel: 'debug' })),
+        log: consoleProxy.log.bind(window.console, formatLoggerName({ loggerName: name, logLevel: 'log' })),
+        warn: consoleProxy.warn.bind(window.console, formatLoggerName({ loggerName: name, logLevel: 'warn' })),
+        error: consoleProxy.error.bind(window.console, formatLoggerName({ loggerName: name, logLevel: 'error' }))
     };
 
     (Object.keys(logger) as Array<LogLevel>).forEach((key) => {

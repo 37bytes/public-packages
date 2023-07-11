@@ -219,6 +219,9 @@ See the [open issues](https://github.com/37bytes/logstory/issues) for a full lis
 
 ### version history
 
+1.0.2
+- add formatLoggerName
+
 1.0.1
 - fix readme
 
