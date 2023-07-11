@@ -1,6 +1,6 @@
 {
   "name": "@37bytes/logstory",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Logstory is a flexible and extensible logger for JavaScript that allows easy integration of additional features and sending events to monitoring systems such as Sentry or Graylog.",
   "repository": "https://github.com/37bytes/public-packages/tree/master/packages/logstory",
   "main": "build/index.js",

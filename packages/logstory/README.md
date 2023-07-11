@@ -11,7 +11,7 @@ Logstory is a flexible and extensible logger for JavaScript that allows easy int
 ## Installation:
 * npm
   ```sh
-  npm install npm@latest -g
+  npm install @37bytes/logstory
   ```
 
 ## Basic Usage:
@@ -215,9 +215,12 @@ logger.error(Error, { data: ['some data'] })
 ```
 
 ## Issues
-See the [open issues](https://github.com/37bytes/prepare-environment/Best-README-Template/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/37bytes/logstory/issues) for a full list of proposed features (and known issues).
 
 ### version history
+
+1.0.1
+- fix readme
 
 1.0.0
 - first version
