@@ -8,7 +8,7 @@ import * as fs from 'fs';
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 'envs/', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-const envFileAfter = readFile('.evn.after');
+const envFileAfter = readFile('.env.after');
 
 const cliArguments = {
     ENV_NAME: 'stage',

@@ -3,7 +3,7 @@ import { ConfigData } from './types';
 import fs from 'fs';
 import path from 'path';
 import ProcessArgument, { ExtractedArguments } from './constants/ProcessArgument';
-import isEnvironmentExists from './utils/isEnvironmentExists';
+import checkEnvironmentExists from './utils/checkEnvironmentExists';
 
 interface PrepareEnvironmentParams {
     configData: ConfigData;
@@ -77,7 +77,7 @@ const prepareEnvironment = ({ configData, cliArguments, appName }: PrepareEnviro
     console.log('finding config...');
     const targetEnvironment = scriptArguments[KEY_ENV_NAME];
 
-    if (!isEnvironmentExists(targetEnvironment, pathToEnvironmentsFolder)) {
+    if (!checkEnvironmentExists(targetEnvironment, pathToEnvironmentsFolder)) {
         throw new Error(
             `targetEnvironment is unknown, current value is "${targetEnvironment}", available values are [${fs.readdirSync(
                 pathToEnvironmentsFolder

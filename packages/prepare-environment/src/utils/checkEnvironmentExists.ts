@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const isEnvironmentExists = (targetEnvironment, pathToEnvironmentsFolder) => {
+const checkEnvironmentExists = (targetEnvironment, pathToEnvironmentsFolder) => {
     // Получаем все env-файлы из папки с окружениями
     const files = fs.readdirSync(pathToEnvironmentsFolder);
 
@@ -12,4 +12,4 @@ const isEnvironmentExists = (targetEnvironment, pathToEnvironmentsFolder) => {
     });
 };
 
-export default isEnvironmentExists;
+export default checkEnvironmentExists;
