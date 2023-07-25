@@ -1,13 +1,26 @@
 {
   "name": "@37bytes/storage-fallback",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Safe fallbacks/wrappers for some storages (localStorage, sessionStorage)",
   "repository": "https://github.com/37bytes/public-packages/tree/master/packages/storage-fallback",
-  "main": "./build/index.js",
+  "type": "module",
+  "main": "build/storage-fallback.umd.js",
+  "module": "build/storage-fallback.es.js",
+  "types": "build/storage-fallback.d.ts",
+  "exports": {
+    ".": {
+      "import": "./build/storage-fallback.es.js",
+      "require": "./build/storage-fallback.umd.js"
+    }
+  },
+  "files": [
+    "build"
+  ],
   "scripts": {
     "build": "rimraf build && tsc --project ./tsconfig.json",
+    "build2": "vite build",
     "build&watch": "rimraf build && tsc --project ./tsconfig.json --watch",
-    "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1"
+    "npm-packlist": "npm run build2 && npx -y npm-packlist@6.0.1"
   },
   "keywords": [],
   "author": "tad-nikolaeva",
