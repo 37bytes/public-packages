@@ -1,14 +1,14 @@
 import { describe, beforeEach, afterEach, test, expect } from '@jest/globals';
 import mock from 'mock-fs';
 import { readFileSync } from 'fs';
-import path from 'path';
+import * as path from 'path';
 import prepareEnvironment from '../src/prepareEnviroment';
 import * as fs from 'fs';
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 'envs/', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-const envFileAfter = readFile('.evn.after');
+const envFileAfter = readFile('.env.after');
 
 const cliArguments = {
     ENV_NAME: 'stage',
@@ -27,7 +27,6 @@ const getConfigData = (syntheticPath: string) => {
     return {
         environmentsFolder: `${syntheticPath}/testProject/environments/`,
         resultConfig: `${syntheticPath}/testProject/.env.production`,
-        allowedEnvironments: ['legacy_prod', 'legacy_stage', 'legacy_odr', 'stage', 'prod'],
         variablePrefix: 'REACT_APP_'
     };
 };
