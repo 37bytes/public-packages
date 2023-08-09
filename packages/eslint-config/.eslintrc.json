@@ -1,10 +1,14 @@
 {
-  "extends": [],
+  "extends": ["plugin:compat/recommended"],
   "plugins": [
     "react-hooks",
     "no-storage",
-    "import"
+    "import",
+    "compat"
   ],
+  "env": {
+    "browser": true
+  },
   "ignorePatterns": [
     "!.storybook"
   ],

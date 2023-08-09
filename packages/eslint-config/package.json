@@ -6,6 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "browserslist": [
+    "last 2 Safari major version",
+    "last 2 Chrome version",
+    "last 2 Edge version",
+    "last 2 Opera version",
+    "last 3 ChromeAndroid version",
+    "last 3 iOS major version",
+    "last 2 Samsung version",
+    "Firefox >= 91"
+  ],
   "keywords": [
     "eslint",
     "eslint-config"
@@ -16,6 +26,10 @@
     "eslint": "^8.43.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-no-storage": "^1.0.2",
+    "eslint-plugin-compat": "^4.1.4",
     "eslint-plugin-react-hooks": "^4.6.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0"
   }
 }
