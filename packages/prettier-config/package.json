@@ -1,0 +1,19 @@
+{
+  "name": "@37bytes/prettier-config",
+  "version": "1.0.2",
+  "description": "Default 37b prettier config",
+  "main": ".prettierrc.json",
+  "repository": "https://github.com/37bytes/public-packages/tree/master/packages/prettier-config",
+  "files": [
+    ".prettierrc.json"
+  ],
+  "keywords": [
+    "prettier",
+    "javascript",
+    "typescript",
+    "code formatting",
+    "configuration"
+  ],
+  "author": "37bytes",
+  "license": "MIT"
+}
