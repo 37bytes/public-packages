@@ -3,6 +3,7 @@ import { ConfigData } from './types';
 import fs from 'fs';
 import path from 'path';
 import ProcessArgument, { ExtractedArguments } from './constants/ProcessArgument';
+import checkEnvironmentExists from './utils/checkEnvironmentExists';
 
 interface PrepareEnvironmentParams {
     configData: ConfigData;
@@ -19,7 +20,7 @@ const allowedArgumentNames = [KEY_ENV_NAME, KEY_CAL_VAR, KEY_COMMIT_SHORT_SHA, K
 const requiredArgumentNames = [KEY_ENV_NAME];
 
 const prepareEnvironment = ({ configData, cliArguments, appName }: PrepareEnvironmentParams) => {
-    const { variablePrefix, allowedEnvironments, environmentsFolder, resultConfig } = configData;
+    const { variablePrefix, environmentsFolder, resultConfig } = configData;
 
     // region константы
     const pathToResultConfig = path.resolve(process.cwd(), resultConfig);
@@ -75,11 +76,15 @@ const prepareEnvironment = ({ configData, cliArguments, appName }: PrepareEnviro
     // region поиск подходящего env-файла
     console.log('finding config...');
     const targetEnvironment = scriptArguments[KEY_ENV_NAME];
-    if (!targetEnvironment || !allowedEnvironments.includes(targetEnvironment)) {
+
+    if (!checkEnvironmentExists(targetEnvironment, pathToEnvironmentsFolder)) {
         throw new Error(
-            `targetEnvironment unknown, current value is "${targetEnvironment}", available values is [${allowedEnvironments}]`
+            `targetEnvironment is unknown, current value is "${targetEnvironment}", available values are [${fs.readdirSync(
+                pathToEnvironmentsFolder
+            )}]`
         );
     }
+
     console.log(`target environment found! ${targetEnvironment}`);
     const pathToSourceConfig = getPathToSourceConfig(targetEnvironment);
     console.log(`path to source config is "${pathToSourceConfig}"`);
