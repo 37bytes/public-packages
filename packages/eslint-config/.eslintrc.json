@@ -1,13 +1,11 @@
 {
-  "extends": [],
+  "extends": ["react-app"],
   "plugins": [
     "react-hooks",
     "no-storage",
     "import"
   ],
-  "ignorePatterns": [
-    "!.storybook"
-  ],
+  "ignorePatterns": [],
   "rules": {
     "curly": "error",
     "eqeqeq": "error",

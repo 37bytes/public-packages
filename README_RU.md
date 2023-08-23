@@ -11,3 +11,4 @@
 
 Конфигурационные файлы (prettier/stylelint/eslint/etc):
 - [prettier-config](/packages/prettier-config)
+- [eslint-config](/packages/eslint-config)
