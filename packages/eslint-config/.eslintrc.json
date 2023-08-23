@@ -1,5 +1,6 @@
 {
-  "extends": ["plugin:compat/recommended"],
+  "extends": ["plugin:compat/recommended", "react-app"],
+
   "plugins": [
     "react-hooks",
     "no-storage",
@@ -9,9 +10,7 @@
   "env": {
     "browser": true
   },
-  "ignorePatterns": [
-    "!.storybook"
-  ],
+  "ignorePatterns": [],
   "rules": {
     "curly": "error",
     "eqeqeq": "error",
