@@ -1,12 +1,11 @@
 {
-  "extends": [
-    "stylelint-config-standard"
-  ],
   "defaultSeverity": "warning",
   "plugins": [
     "stylelint-order",
-    "stylelint-declaration-strict-value"
+    "stylelint-declaration-strict-value",
+    "stylelint-scss"
   ],
+  "customSyntax": "postcss-scss",
   "rules": {
     "selector-max-type": 0,
     "declaration-block-no-duplicate-properties": true,
@@ -16,9 +15,7 @@
     "declaration-property-unit-allowed-list": {
       "font-size": ["px"]
     },
-    "declaration-empty-line-before": [{} ,{
-      "except": ["first-nested"]
-    }],
+    "declaration-empty-line-before": null,
     "order/order": [
       "custom-properties",
       "declarations"
@@ -196,7 +193,6 @@
           "outline-offset"
         ]
       }]
-
     ],
     "selector-class-pattern": [
       "^[a-z][a-zA-Z0-9]*$",
@@ -207,4 +203,5 @@
     ],
     "scale-unlimited/declaration-strict-value": ["color", "background-color", "border-color", "z-index", "font-family"]
   }
+
 }
