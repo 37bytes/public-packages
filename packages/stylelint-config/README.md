@@ -19,7 +19,7 @@ stylelint configuration for use in 37bytes company projects.
 Run the following command to install the package:
 
 ```sh
-npm install --save-dev stylint @37bytes/stylelint-config
+npm install --save-dev stylelint @37bytes/stylelint-config
 ```
 
 ### Usage

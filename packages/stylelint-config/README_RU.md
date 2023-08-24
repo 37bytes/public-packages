@@ -19,7 +19,7 @@
 Выполните следующую команду, чтобы установить пакет:
 
 ```sh
-npm install --save-dev stylint @37bytes/stylelint-config
+npm install --save-dev stylelint @37bytes/stylelint-config
 ```
 
 ### Использование
