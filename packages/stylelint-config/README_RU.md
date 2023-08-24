@@ -42,7 +42,7 @@ npm install --save-dev stylelint @37bytes/stylelint-config
 
 ### История версий
 
-1.0.8
+1.0.9
 - Обновление документации.
 
 1.0.8
