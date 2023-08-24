@@ -1,6 +1,6 @@
 ### About the Project
 
-stylelint configuration for use in 37bytes company projects. It's used to standardize the writing style of styles within the company.
+stylelint configuration for use in 37bytes company projects.
 
 ### Used Rules
 
@@ -19,7 +19,7 @@ stylelint configuration for use in 37bytes company projects. It's used to standa
 Run the following command to install the package:
 
 ```sh
-npm install --save-dev @37bytes/stylelint-config
+npm install --save-dev stylint @37bytes/stylelint-config
 ```
 
 ### Usage
@@ -41,6 +41,9 @@ Add the following command to your `package.json` to run the style check:
 ```
 
 ### Version History
+
+1.0.9
+- Updated documentation.
 
 1.0.8
 - Added documentation.
