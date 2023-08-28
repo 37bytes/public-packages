@@ -201,7 +201,7 @@
         "severity": "error"
       }
     ],
-    "scale-unlimited/declaration-strict-value": ["color", "background-color", "border-color", "z-index", "font-family"]
+    "scale-unlimited/declaration-strict-value": [["/color$/", "z-index", "font-family"], { "expandShorthand": true }]
   }
 
 }

@@ -1,6 +1,6 @@
 {
   "name": "@37bytes/stylelint-config",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Default 37b stylelint config",
   "main": ".stylelintrc.json",
   "repository": "https://github.com/37bytes/public-packages/tree/master/packages/stylilint-config",
