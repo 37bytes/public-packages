@@ -42,6 +42,9 @@ Add the following command to your `package.json` to run the style check:
 
 ### Version History
 
+1.0.10
+- Update rule for variable
+
 1.0.9
 - Updated documentation.
 
