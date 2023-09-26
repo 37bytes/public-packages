@@ -1,8 +1,8 @@
 {
-  "name": "@37bytes/storage-fallback",
-  "version": "1.0.1",
-  "description": "Safe fallbacks/wrappers for some storages (localStorage, sessionStorage)",
-  "repository": "https://github.com/37bytes/public-packages/tree/master/packages/storage-fallback",
+  "name": "@37bytes/environment-info",
+  "version": "1.0.0",
+  "description": "A set of utilities to enhance work with internal environments.",
+  "repository": "https://github.com/37bytes/public-packages/tree/master/packages/environment-info",
   "main": "./build/index.js",
   "scripts": {
     "build": "rimraf build && tsc --project ./tsconfig.json",
