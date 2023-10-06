@@ -8,6 +8,7 @@ Utilities (CLI):
 
 Libraries:
 - [storage-fallback](/packages/storage-fallback)
+- [logstory](/packages/logstory)
 
 Configuration Files (prettier/stylelint/eslint/etc):
 - [prettier-config](/packages/prettier-config)
