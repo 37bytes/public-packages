@@ -1,0 +1,24 @@
+{
+  "name": "@37bytes/stylelint-config",
+  "version": "1.0.10",
+  "description": "Default 37b stylelint config",
+  "main": ".stylelintrc.json",
+  "repository": "https://github.com/37bytes/public-packages/tree/master/packages/stylilint-config",
+  "files": [
+    ".stylelintrc.json"
+  ],
+  "author": "37bytes",
+  "license": "MIT",
+  "peerDependencies": {
+    "stylelint": "^15.10.2"
+  },
+  "dependencies": {
+    "stylelint-config-standard-scss": "10.0.0",
+    "stylelint-declaration-strict-value": "^1.9.2",
+    "stylelint-order": "^6.0.3",
+    "stylelint-scss": "5.1.0"
+  },
+  "scripts": {
+    "lint:styles": "stylelint **/*.{scss,css} --fix"
+  }
+}

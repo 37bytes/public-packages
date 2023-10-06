@@ -20,6 +20,11 @@
 
 ### version history
 
+2.0.0
+- Elimination of allowedEnvironments. Instead, available environments are computed from the environments folder.
+- Added 'isEnvironmentExists' function in utils. The function takes parameters: targetEnvironment - the name of the environment, and pathToEnvironmentsFolder - the path to the folder containing the environments. The function checks for the presence of the .env.targetEnvironment file in the environments folder.
+- fix for environment name check
+
 1.0.4
 - refactoring the script version
 
