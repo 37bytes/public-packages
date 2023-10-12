@@ -1,0 +1,12 @@
+{
+  "root": true,
+  "extends": ["@37bytes/eslint-config"],
+  "ignorePatterns": ["build/"],
+  "rules": {
+    "no-console": "off",
+    "import/no-extraneous-dependencies": 0,
+    "import/newline-after-import": 0,
+    "import/prefer-default-export": 0,
+    "import/order": 0
+  }
+}

@@ -1,4 +1,4 @@
-import ProcessArgument, { ExtractedArguments } from '../constants/ProcessArgument';
+import { ExtractedArguments } from '../constants/ProcessArgument';
 
 const getArgument = <T extends string | undefined>(
     args: Partial<ExtractedArguments>,

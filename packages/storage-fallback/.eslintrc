@@ -1,0 +1,5 @@
+{
+  "rules": {
+    "no-storage/no-browser-storage": "off"
+  }
+}
