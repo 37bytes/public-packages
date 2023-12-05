@@ -86,6 +86,7 @@
         ],
         "no-negated-condition": "error",
         "react/no-array-index-key": "warn",
-        "react/button-has-type": "warn"
+        "react/button-has-type": "warn",
+        "react/hook-use-state": ["error", { "allowDestructuredState": true }]
     }
 }
