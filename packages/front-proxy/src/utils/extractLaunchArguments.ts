@@ -1,4 +1,4 @@
-import ProcessArgument, { allowedArguments, ExtractedArguments, requiredArguments } from '../constans/ProcessArgument';
+import { allowedArguments, ExtractedArguments, requiredArguments } from '../constans/ProcessArgument';
 
 const extractLaunchArguments = (): ExtractedArguments => {
     const scriptArguments = process.argv.reduce((result, argument) => {

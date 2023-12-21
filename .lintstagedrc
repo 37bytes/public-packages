@@ -1,5 +1,8 @@
 {
-  "*.{js,jsx,ts,tsx,cjs,cts,mjs,mts,css}": [
+  "*.{js,jsx,ts,tsx,cjs,cts,mjs,mts,css,json}": [
     "prettier --write"
+  ],
+  "*.{js,ts,jsx,tsx,mjs,mts,cjs,cts}": [
+    "eslint --max-warnings=0 packages"
   ]
 }

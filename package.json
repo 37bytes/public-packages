@@ -1,19 +1,25 @@
 {
-  "name": "public-packages",
-  "version": "1.0.0",
-  "private": true,
-  "prettier": "@37bytes/prettier-config",
-  "workspaces": [
-    "./packages/*"
-  ],
-  "scripts": {
-    "prepare": "husky install",
-    "lint-staged": "lint-staged"
-  },
-  "dependencies": {
-    "@37bytes/prettier-config": "1.0.2",
-    "husky": "8.0.3",
-    "lint-staged": "14.0.1",
-    "prettier": "3.0.2"
-  }
+    "name": "public-packages",
+    "version": "1.0.0",
+    "private": true,
+    "prettier": "@37bytes/prettier-config",
+    "workspaces": [
+        "./packages/*"
+    ],
+    "scripts": {
+        "prepare": "husky install",
+        "lint-staged": "lint-staged",
+        "lint": "eslint --max-warnings=0 packages",
+        "lint:fix": "eslint --max-warnings=0 --fix packages"
+    },
+    "dependencies": {
+        "@37bytes/eslint-config": "1.0.10",
+        "@37bytes/prettier-config": "1.0.2",
+        "husky": "8.0.3",
+        "lint-staged": "14.0.1",
+        "prettier": "3.0.2"
+    },
+    "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "7.21.11"
+    }
 }
