@@ -8,6 +8,7 @@
 
 Библиотеки:
 - [storage-fallback](/packages/storage-fallback)
+- [social-media-sharing](/packages/social-media-sharing)
 
 Конфигурационные файлы (prettier/stylelint/eslint/etc):
 - [prettier-config](/packages/prettier-config)
