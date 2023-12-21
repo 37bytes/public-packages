@@ -1,0 +1,31 @@
+{
+    "name": "@37bytes/social-media-sharing",
+    "version": "1.0.0",
+    "description": "Sharing functions for VK and WhatsApp, with which the 'react-share' package has some problems",
+    "main": "./build/index.js",
+    "module": "./build/index.mjs",
+    "types": "./build/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": "https://github.com/37bytes/public-packages/tree/master/packages/social-media-sharing",
+    "keywords": [
+        "vk",
+        "vkontakte",
+        "whatsApp",
+        "sharing",
+        "social media",
+        "new tab"
+    ],
+    "author": "Arhonist",
+    "license": "MIT",
+    "devDependencies": {
+        "ts-node": "^10.9.2",
+        "tsup": "^8.0.1",
+        "typescript": "^5.3.3"
+    }
+}
