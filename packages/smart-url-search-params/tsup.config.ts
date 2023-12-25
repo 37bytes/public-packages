@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-    entry: ['src/SmartURLSearchParams.ts'],
+    entry: ['src/index.ts'],
     outDir: 'build',
     format: ['cjs', 'esm'],
     dts: true,
