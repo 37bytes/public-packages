@@ -1,0 +1,31 @@
+{
+    "name": "@37bytes/smart-url-search-params",
+    "version": "1.0.0",
+    "description": "Advanced URLSearchParams with array support, null/undefined handling, and custom query string formatting.",
+    "main": "./build/index.js",
+    "module": "./build/index.mjs",
+    "types": "./build/index.d.ts",
+    "files": [
+        "build",
+        "README_RU.md"
+    ],
+    "scripts": {
+        "build": "rimraf build && tsup",
+        "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1",
+        "test": "jest"
+    },
+    "repository": "https://github.com/37bytes/public-packages/tree/master/packages/smart-url-search-params",
+    "keywords": [
+        "urlsearchparams",
+        "query-string",
+        "url-parameters"
+    ],
+    "author": "37bytes",
+    "license": "MIT",
+    "dependencies": {
+        "@jest/globals": "29.7.0",
+        "rimraf": "5.0.5",
+        "tsup": "^8.0.1",
+        "typescript": "^5.3.3"
+    }
+}

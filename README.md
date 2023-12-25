@@ -10,6 +10,7 @@ Libraries:
 - [storage-fallback](/packages/storage-fallback)
 - [logstory](/packages/logstory)
 - [social-media-sharing](/packages/social-media-sharing)
+- [smart-url-search-params](/packages/smart-url-search-params)
 
 Configuration Files (prettier/stylelint/eslint/etc):
 - [prettier-config](/packages/prettier-config)
