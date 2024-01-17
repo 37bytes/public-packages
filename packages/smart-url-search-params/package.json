@@ -1,6 +1,6 @@
 {
     "name": "@37bytes/smart-url-search-params",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Advanced URLSearchParams with array support, null/undefined handling, and custom query string formatting.",
     "main": "./build/index.js",
     "module": "./build/index.mjs",
