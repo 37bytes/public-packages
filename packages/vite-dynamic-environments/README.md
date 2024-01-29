@@ -1,17 +1,17 @@
 [//]: # (todo: уточнить название по конвенции)
 # Vite Dynamic Environments Support Plugin
 
-Этот плагин предоставляет поддержку динамических окружений для проектов, использующих Vite. Он обеспечивает автоматическую генерацию скриптов с переменными окружения в процессе разработки, что упрощает работу с различными конфигурациями окружения.
+This plugin provides support for dynamic environments for projects using Vite. It provides automatic generation of scripts with environment variables during development, making it easy to work with different environment configurations.
 
-## Установка
+## Installation
 
-Установите плагин с помощью npm:
+Install the plugin using npm:
 
 ```bash
 npm install @37bytes/vite-dynamic-environments --save-dev
 ```
 
-## Использование
+## Usage
 ```
 // vite.config.js
 import dynamicEnvironmentsSupport from '@37bytes/vite-dynamic-environments';
@@ -19,26 +19,26 @@ import dynamicEnvironmentsSupport from '@37bytes/vite-dynamic-environments';
 export default {
   plugins: [
     dynamicEnvironmentsSupport({
-      // Параметры плагина (необязательно, указаны значения по умолчанию)
-      scriptLink: '/dynamicEnvironment.js', // Ссылка для подключения скрипта в HTML
-      ignorePrefixes: ['VITE_'], // Префиксы переменных окружения, которые нужно игнорировать
-      dynamicEnvironmentsDir: 'environments/dynamic', // Директория с файлами динамических окружений
-      outputDir: 'build-env' // Директория для вывода сгенерированных скриптов
+      // Plugin parameters (optional, default values are specified)
+      scriptLink: '/dynamicEnvironment.js', // Link to connect the script in HTML
+      ignorePrefixes: ['VITE_'], // Environment variable prefixes to ignore
+      dynamicEnvironmentsDir: 'environments/dynamic', // Directory with dynamic environment files
+      outputDir: 'build-env' // Directory for outputting generated scripts
     })
   ]
 };
 ```
 
-## Опции
+## Options
 
 ### scriptLink
-Ссылка, по которой будет доступен скрипт с переменными окружения во время разработки (по умолчанию: ```'/dynamicEnvironment.js'```)
+The link where the script with environment variables will be accessed during development (by default: ```'/dynamicEnvironment.js'```)
 
 ### ignorePrefixes
-Префиксы переменных окружения, которые нужно игнорировать при генерации скрипта (по умолчанию: ```['VITE_']```)
+Prefixes of environment variables to be ignored during script generation (by default: ```['VITE_']```)
 
 ### dynamicEnvironmentsDir
-Директория с файлами динамических окружений (по умолчанию: ```'environments/dynamic'```)
+The directory with dynamic environment files (by default: ```'environments/dynamic'```)
 
 ### outputDir
-Директория для вывода сгенерированных скриптов (по умолчанию: ```'build-env'```)
+Directory for outputting generated scripts (by default: ```'build-env'```)
