@@ -1,5 +1,4 @@
-[//]: # (todo: уточнить название по конвенции)
-# Vite Dynamic Environments Support Plugin
+# Dynamic Environments Support Rollup Plugin
 
 This plugin provides support for dynamic environments for projects using Vite. It provides automatic generation of scripts with environment variables during development, making it easy to work with different environment configurations.
 
@@ -8,7 +7,7 @@ This plugin provides support for dynamic environments for projects using Vite. I
 Install the plugin using npm:
 
 ```bash
-npm install @37bytes/vite-dynamic-environments --save-dev
+npm install @37bytes/rollup-plugin-dynamic-environments --save-dev
 ```
 
 ## Usage
