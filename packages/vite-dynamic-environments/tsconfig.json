@@ -4,5 +4,7 @@
         "target": "es2022",
         "outDir": "./build",
         "rootDir": "./src"
-    }
+    },
+    "esModuleInterop": true,
+    "exclude": ["__tests__", "__fixtures__"]
 }
