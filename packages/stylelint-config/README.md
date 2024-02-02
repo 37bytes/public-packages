@@ -42,6 +42,9 @@ Add the following command to your `package.json` to run the style check:
 
 ### Version History
 
+1.0.12
+- scale-unlimited/declaration-strict-value: "disableFix": true
+
 1.0.10
 - Update rule for variable
 

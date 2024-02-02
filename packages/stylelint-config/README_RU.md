@@ -42,8 +42,11 @@ npm install --save-dev stylelint @37bytes/stylelint-config
 
 ### История версий
 
+1.0.12
+- scale-unlimited/declaration-strict-value: "disableFix": true
+
 1.0.10
-- Обновление правил для исопльзования переменных
+- Обновление правил для использования переменных
 
 1.0.9
 - Обновление документации.
