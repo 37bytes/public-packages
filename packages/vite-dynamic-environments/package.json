@@ -1,6 +1,6 @@
 {
     "name": "@37bytes/vite-dynamic-environments",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Vite plugin for generating dynamic JavaScript files for each environment, allowing seamless integration and management of environment-specific configurations.",
     "license": "MIT",
     "author": "37bytes",
