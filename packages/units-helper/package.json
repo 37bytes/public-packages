@@ -1,0 +1,44 @@
+{
+    "name": "@37bytes/units-helper",
+    "version": "1.0.0",
+    "description": "A package for easier usage and conversion of different units",
+    "scripts": {
+        "test": "jest",
+        "build": "npm run test && tsup",
+        "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/37bytes/public-packages.git"
+    },
+    "keywords": [
+        "units",
+        "size",
+        "units",
+        "time",
+        "units"
+    ],
+    "author": "Ruslan Ispaev",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/37bytes/public-packages/issues"
+    },
+    "homepage": "https://github.com/37bytes/public-packages/units-helper",
+    "devDependencies": {
+        "jest": "29.7.0"
+    },
+    "files": [
+        "dist",
+        "package.json"
+    ],
+    "exports": {
+        ".": {
+            "require": "./dist/index.js",
+            "import": "./dist/index.mjs",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts"
+}
