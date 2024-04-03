@@ -1,7 +1,4 @@
-export type SmartURLSearchParamsConstructorParams = Record<
-    string,
-    string | string[] | number | number[] | undefined | null
->;
+export type SmartURLSearchParamsConstructorParams = object;
 
 export type ArrayFormat = 'bracket' | 'index' | 'comma' | 'separator' | 'bracket-separator' | 'none';
 
