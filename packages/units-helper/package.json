@@ -23,7 +23,7 @@
     "bugs": {
         "url": "https://github.com/37bytes/public-packages/issues"
     },
-    "homepage": "https://github.com/37bytes/public-packages/units-helper",
+    "homepage": "https://github.com/37bytes/public-packages/tree/master/packages/units-helper",
     "devDependencies": {
         "jest": "29.7.0"
     },

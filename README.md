@@ -11,6 +11,8 @@ Libraries:
 - [logstory](/packages/logstory)
 - [social-media-sharing](/packages/social-media-sharing)
 - [smart-url-search-params](/packages/smart-url-search-params)
+- [units-helper](./packages/units-helper)
+- [configurable-media-context](./packages/configurable-media-context)
 
 Configuration Files (prettier/stylelint/eslint/etc):
 - [prettier-config](/packages/prettier-config)
