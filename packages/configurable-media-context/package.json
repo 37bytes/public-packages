@@ -1,13 +1,13 @@
 {
     "name": "@37bytes/configurable-media-context",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "A React context provider for managing media queries, allowing dynamic updates based on screen size.",
     "scripts": {
         "build": "tsup",
         "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1"
     },
     "dependencies": {
-        "lodash.debounce": "4.0.8"
+        "es-toolkit": "1.25.2"
     },
     "devDependencies": {
         "tsup": "8.2.4",

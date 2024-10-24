@@ -1,4 +1,4 @@
-import debounce from 'lodash.debounce';
+import { throttle } from 'es-toolkit/dist/function/throttle';
 import {
     createContext,
     FunctionComponent,
@@ -19,9 +19,10 @@ export const ConfigurableMediaContext = createContext<ConfigurableMediaContextVa
 
 interface Props extends PropsWithChildren {
     mediaQueriesMap: MediaQueriesMap;
+    resizeThrottleDelay?: number;
 }
 
-export const ConfigurableMediaContextProvider: FunctionComponent<Props> = ({ mediaQueriesMap, children }) => {
+export const ConfigurableMediaContextProvider: FunctionComponent<Props> = ({ mediaQueriesMap, resizeThrottleDelay = 100, children }) => {
     const getMedia = useCallback(
         (): number[] =>
             Object.keys(mediaQueriesMap)
@@ -37,7 +38,8 @@ export const ConfigurableMediaContextProvider: FunctionComponent<Props> = ({ med
     const [contextState, setContextState] = useState<ConfigurableMediaContextValue>(() => ({ media: getMedia() }));
 
     useEffect(() => {
-        const handler = debounce(() => setContextState({ media: getMedia() }), 250);
+        let handler = () => setContextState({ media: getMedia() });
+        handler = resizeThrottleDelay ? throttle(handler, resizeThrottleDelay) : handler;
 
         window.addEventListener('resize', handler);
         return () => window.removeEventListener('resize', handler);

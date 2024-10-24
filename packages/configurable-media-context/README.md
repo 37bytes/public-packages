@@ -80,3 +80,10 @@ const App = () => (
     </MediaContextProvider>
 );
 ```
+
+# Changelog
+## 2.0.0
+- lodash.debounce => throttle from [es-toolkit](https://es-toolkit.slash.page/)
+- 250ms delay => 100ms delay
+- resizeThrottleDelay for custom delay
+- resizeThrottleDelay with 0 disabling delay
