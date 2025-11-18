@@ -1,42 +1,15 @@
-// noinspection HtmlRequiredTitleElement
+import {existsSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync} from 'node:fs';
+import {join, resolve} from 'node:path';
 
-import { readFileSync, readdirSync, statSync, rmSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
-import { resolve, join } from 'node:path';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import dotenv from 'dotenv';
-import { ConfigEnv, createLogger, Plugin } from 'vite';
+import {ConfigEnv, createLogger, Plugin} from 'vite';
+import {randomBytes} from 'crypto';
+import {generateScript} from './utils/generateScript';
+import {getDynamicEnvironment} from './utils/getDynamicEnvironment';
+import {getLast} from './utils/getLast';
 
 const logger = createLogger('info', { prefix: '[dynamicEnvironmentsSupport]' });
 
 const { FORCE_ENVIRONMENT } = process.env;
-
-interface GetDevelopmentDynamicEnvironmentParams {
-    path: string;
-    ignorePrefixes?: string[];
-}
-
-// todo отдельная функция плюс тесты
-const getLast = <T>(array: T[]): T => array[array.length - 1];
-
-// todo отдельная функция плюс тесты
-const getDynamicEnvironment = ({ path, ignorePrefixes = [] }: GetDevelopmentDynamicEnvironmentParams) => {
-    if (!existsSync(path)) {
-        throw new Error(`File does not exist (${path})`);
-    }
-
-    const config = dotenv.parse(readFileSync(path));
-
-    // noinspection UnnecessaryLocalVariableJS
-    const dynamicEnvironment = Object.fromEntries(
-        Object.entries(config).filter(([key]) => !ignorePrefixes.some((prefix) => key.startsWith(prefix)))
-    );
-
-    return dynamicEnvironment;
-};
-
-// todo отдельная функция плюс тесты
-const generateScript = (environment: object) =>
-    `window.dynamicEnvironment = Object.freeze(${JSON.stringify(environment)});`;
 
 const DEFAULT_SCRIPT_LINK = '/dynamicEnvironment.js';
 const DEFAULT_DYNAMIC_ENVIRONMENTS_DIR = resolve(process.cwd(), 'environments/dynamic');
@@ -49,7 +22,6 @@ interface Params {
     envOutputDir?: string;
 }
 
-// todo каждый обработчик в отдельный файл
 const dynamicEnvironmentsSupport = ({
     scriptLink = DEFAULT_SCRIPT_LINK,
     ignorePrefixes = ['VITE_'],
@@ -63,6 +35,8 @@ const dynamicEnvironmentsSupport = ({
     let envConfig: ConfigEnv;
 
     let forceEnvironmentScriptContent: string;
+
+    const hash = randomBytes(4).toString('hex'); // короткий хэш
 
     return {
         name: '@37bytes/vite-dynamic-environments',
@@ -137,7 +111,15 @@ const dynamicEnvironmentsSupport = ({
                 throw new Error("dynamicEnvironmentsPlugin: '<head>' not found in html");
             }
 
-            return html.replace('<head>', `<head><script src='${scriptLink}'></script>`);
+            // для dev режима - DEFAULT_SCRIPT_LINK
+            if (envConfig.command === 'serve') {
+                return html.replace('<head>', `<head><script src='${scriptLink}'></script>`);
+            }
+
+            // для FORCE_ENVIRONMENT - DEFAULT_SCRIPT_LINK
+            const scriptPath = FORCE_ENVIRONMENT ? scriptLink : `${scriptLink}?v=${hash}`;
+
+            return html.replace('<head>', `<head><script src='${scriptPath}'></script>`);
         },
         writeBundle: () => {
             if (forceEnvironmentScriptContent) {

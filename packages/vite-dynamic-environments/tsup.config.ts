@@ -9,6 +9,7 @@ export default defineConfig({
     dts: true,
     sourcemap: false,
     clean: true,
+    external: ['vite'],
     banner: ({ format }) => {
         if (format !== 'esm') {
             return;
