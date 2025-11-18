@@ -1,24 +1,36 @@
 {
-  "name": "@37bytes/logstory",
-  "version": "1.0.2",
-  "description": "Logstory is a flexible and extensible logger for JavaScript that allows easy integration of additional features and sending events to monitoring systems such as Sentry or Graylog.",
-  "repository": "https://github.com/37bytes/public-packages/tree/master/packages/logstory",
-  "main": "build/index.js",
-  "author": "37bytes",
-  "license": "MIT",
-  "scripts": {
-    "build": "rimraf build && tsc --project ./tsconfig.json",
-    "build&watch": "rimraf build && tsc --project ./tsconfig.json --watch",
-    "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1"
-  },
-  "keywords": [
-    "logger",
-    "js-logger",
-    "react logger"
-  ],
-  "devDependencies": {
-    "@types/node": "^20.3.3",
-    "rimraf": "^5.0.1",
-    "typescript": "^5.1.6"
-  }
+    "name": "@37bytes/logstory",
+    "version": "2.0.0",
+    "description": "Logstory is a flexible and extensible logger for JavaScript that allows easy integration of additional features and sending events to monitoring systems such as Sentry or Graylog.",
+    "license": "MIT",
+    "repository": "https://github.com/37bytes/public-packages/tree/master/packages/logstory",
+    "author": "37bytes",
+    "main": "./build/index.js",
+    "module": "./build/index.mjs",
+    "types": "./build/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./build/index.d.ts",
+            "require": "./build/index.js",
+            "import": "./build/index.mjs"
+        }
+    },
+    "files": [
+        "build",
+        "README_RU.md"
+    ],
+    "keywords": [
+        "logger"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "test": "vitest run",
+        "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1"
+    },
+    "devDependencies": {
+        "@swc/core": "1.15.2",
+        "@types/node": "24.10.1",
+        "tsup": "8.5.1",
+        "vitest": "4.0.10"
+    }
 }

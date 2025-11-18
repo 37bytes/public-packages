@@ -1,14 +1,20 @@
-import { applyConsoleProxyMiddleware, MiddlewareFunction } from './utils/applyConsoleProxyMiddleware';
-import { createLogstory } from './createLogStory';
-import { Logger, LogLevel, LogLevelState, CreateLoggerParams, FormatLoggerNameParams } from './LoggerTypes';
+import { applyConsoleProxyMiddleware, type MiddlewareFunction } from './utils';
+import {
+    createLogstory,
+    type Logger,
+    type LogLevel,
+    type LogLevelConfig,
+    type CreateLogstoryParams,
+    type FormatLoggerNameParams
+} from './createLogstory';
 
 export {
     createLogstory,
     applyConsoleProxyMiddleware,
-    MiddlewareFunction,
-    Logger,
-    LogLevel,
-    LogLevelState,
-    CreateLoggerParams,
-    FormatLoggerNameParams
+    type MiddlewareFunction,
+    type Logger,
+    type LogLevel,
+    type LogLevelConfig,
+    type CreateLogstoryParams,
+    type FormatLoggerNameParams
 };
