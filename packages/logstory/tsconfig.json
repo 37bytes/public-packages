@@ -1,3 +1,4 @@
 {
-  "extends": "../../tsconfig.json"
+    "extends": "@37bytes/code-style/typescript/base",
+    "include": ["src", "tsdown.config.ts", "eslint.config.js"]
 }

@@ -1,0 +1,36 @@
+# @37bytes/code-style
+
+> Unified linting and formatting toolkit for 37bytes projects. Provides modular ESLint flat configs (spa, nextjs, nodejs), custom ESLint plugins, Stylelint config for CSS/SCSS modules, Prettier config, TypeScript base configs, EditorConfig, and optional OxLint/Biome mirror configs with hybrid mode support.
+
+This package is an all-in-one code quality toolkit. ESLint is the source of truth; OxLint and Biome are optional mirrors. Three application-type configs (spa, nextjs, nodejs) compose from granular rule sets (javascript, typescript, react, imports, node, quality, regexp, and more). Four custom @37bytes ESLint plugins enforce project-specific conventions: no-browser-storage, no-arrow-props, boolean-naming, and enum-pattern. A whitelist approach is used for all third-party rules (no blind `recommended` presets).
+
+## Docs
+
+- [README](https://raw.githubusercontent.com/37bytes/code-style/master/README.md): installation, usage examples, available rules and configs, custom plugin docs, Prettier/TypeScript/EditorConfig setup
+- [Naming Conventions](https://raw.githubusercontent.com/37bytes/code-style/master/NAMING_CONVENTIONS.md): JavaScript, TypeScript, and React naming standards enforced by the toolkit
+- [Changelog](https://raw.githubusercontent.com/37bytes/code-style/master/CHANGELOG.md): all notable changes, organized by tool (ESLint, OxLint, Biome, Prettier, TypeScript)
+
+## Configuration
+
+- [ESLint Main Config](https://raw.githubusercontent.com/37bytes/code-style/master/eslint/config.js): three app configs (spa, nextjs, nodejs), opt-in layers, perfectionist namespace, backward-compat aliases
+- [ESLint Entry Point](https://raw.githubusercontent.com/37bytes/code-style/master/eslint/index.js): main export re-exporting configs, rules, and plugins
+- [ESLint Rules Index](https://raw.githubusercontent.com/37bytes/code-style/master/eslint/rules/index.js): re-exports all rule sets (javascript, typescript, browser, react, imports, node, quality, regexp, testing, storybook, nextjs, perfectionist)
+- [ESLint Plugins Index](https://raw.githubusercontent.com/37bytes/code-style/master/eslint/plugins/index.js): aggregates custom @37bytes rules
+- [Stylelint Config](https://raw.githubusercontent.com/37bytes/code-style/master/stylelint/config.js): CSS/SCSS modules config (property ordering, lowerCamelCase selectors, CSS variable enforcement)
+- [Prettier Config](https://raw.githubusercontent.com/37bytes/code-style/master/prettier/config.js): shared Prettier settings (120 width, 4-space indent, single quotes, no trailing commas)
+- [TypeScript Base Config](https://raw.githubusercontent.com/37bytes/code-style/master/typescript/base.json): strict base tsconfig (ES2023)
+- [TypeScript React Config](https://raw.githubusercontent.com/37bytes/code-style/master/typescript/react.json): React app tsconfig (DOM types, JSX)
+- [TypeScript Node Config](https://raw.githubusercontent.com/37bytes/code-style/master/typescript/node.json): Node.js tsconfig (NodeNext modules)
+- [OxLint Config](https://raw.githubusercontent.com/37bytes/code-style/master/oxlint/config.json): generated OxLint config (303 base rules + overrides)
+- [Biome Config](https://raw.githubusercontent.com/37bytes/code-style/master/biome/config.json): generated Biome v2 config (~125 rules + overrides)
+
+## Architecture
+
+- [AGENTS.md](https://raw.githubusercontent.com/37bytes/code-style/master/AGENTS.md): full project architecture, directory tree, config structure, testing instructions, code style, key conventions
+
+## Optional
+
+- [Roadmap](https://raw.githubusercontent.com/37bytes/code-style/master/docs/roadmap.md): project phases, completed and planned work
+- [Tech Debt](https://raw.githubusercontent.com/37bytes/code-style/master/docs/tech-debt.md): known issues, test coverage gaps, rejected plugins
+- [Maintenance Guide](https://raw.githubusercontent.com/37bytes/code-style/master/docs/maintenance.md): how to update ESLint plugins, OxLint, and Biome when new versions are released
+- [OxLint Guide](https://raw.githubusercontent.com/37bytes/code-style/master/docs/oxlint.md): OxLint build system, rule management, hybrid mode, tsgolint

@@ -1,26 +1,30 @@
-class MemoryStorage extends Storage {
-    private data: Record<string, string>;
+class MemoryStorage implements Storage {
+    private data: Record<string, string> = {};
 
-    constructor() {
-        super();
-        this.data = {};
+    get length(): number {
+        return Object.keys(this.data).length;
     }
 
-    getItem(key) {
-        return this.data.hasOwnProperty(key) ? this.data[key] : null;
+    key(index: number): string | null {
+        const keys = Object.keys(this.data);
+        return keys[index] ?? null;
     }
 
-    setItem(key, value) {
+    getItem(key: string): string | null {
+        return Object.hasOwn(this.data, key) ? this.data[key]! : null;
+    }
+
+    setItem(key: string, value: string): void {
         this.data[key] = value;
     }
 
-    removeItem(key) {
+    removeItem(key: string): void {
         delete this.data[key];
     }
 
-    clear() {
+    clear(): void {
         this.data = {};
     }
 }
 
-export default MemoryStorage;
+export { MemoryStorage };

@@ -1,7 +1,7 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./build",
-    "rootDir": "./src"
-  }
+    "extends": "@37bytes/code-style/typescript/base",
+    "compilerOptions": {
+        "lib": ["ES2023", "DOM", "DOM.Iterable"]
+    },
+    "include": ["src", "tsdown.config.ts", "eslint.config.js"]
 }

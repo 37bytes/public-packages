@@ -1,0 +1,3 @@
+node_modules/
+*.tgz
+biome/.schema-cache.json

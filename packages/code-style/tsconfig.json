@@ -1,0 +1,10 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "extends": "./typescript/node.json",
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": false
+    },
+    "include": ["eslint/**/*.js", "oxlint/**/*.js", "biome/**/*.js", "prettier/**/*.js"],
+    "exclude": ["node_modules", "__tests__"]
+}

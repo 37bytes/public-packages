@@ -1,8 +1,0 @@
-{
-  "extends": "../../tsconfig.node.json",
-  "compilerOptions": {
-    "outDir": "./build",
-    "rootDir": "./src"
-  },
-  "exclude": ["__tests__", "__fixtures__"]
-}

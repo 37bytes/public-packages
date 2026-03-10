@@ -1,5 +1,5 @@
-import safeLocalStorage from './safeLocalStorage';
-import safeSessionStorage from './safeSessionStorage';
-import isStorageSupported from './utils/isStorageSupported';
+import 'client-only';
 
-export { safeLocalStorage, safeSessionStorage, isStorageSupported };
+export { default as safeLocalStorage } from './safeLocalStorage';
+export { default as safeSessionStorage } from './safeSessionStorage';
+export { default as isStorageSupported } from './utils/isStorageSupported';

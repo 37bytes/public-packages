@@ -1,1 +1,1 @@
-export const getLast = <T>(array: T[]): T => array[array.length - 1];
+export const getLast = <T>(array: T[]): T | undefined => array.at(-1);

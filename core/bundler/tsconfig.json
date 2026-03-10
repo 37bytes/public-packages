@@ -1,0 +1,4 @@
+{
+    "extends": "@37bytes/code-style/typescript/node",
+    "include": ["src"]
+}

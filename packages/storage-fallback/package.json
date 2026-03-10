@@ -1,19 +1,50 @@
 {
-  "name": "@37bytes/storage-fallback",
-  "version": "1.0.1",
-  "description": "Safe fallbacks/wrappers for some storages (localStorage, sessionStorage)",
-  "repository": "https://github.com/37bytes/public-packages/tree/master/packages/storage-fallback",
-  "main": "./build/index.js",
-  "scripts": {
-    "build": "rimraf build && tsc --project ./tsconfig.json",
-    "build&watch": "rimraf build && tsc --project ./tsconfig.json --watch",
-    "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1"
-  },
-  "keywords": [],
-  "author": "tad-nikolaeva",
-  "license": "MIT",
-  "devDependencies": {
-    "rimraf": "3.0.2",
-    "typescript": "^4.6.4"
-  }
+    "name": "@37bytes/storage-fallback",
+    "version": "2.0.0",
+    "description": "Safe fallbacks/wrappers for some storages (localStorage, sessionStorage)",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/37bytes/public-packages.git",
+        "directory": "packages/storage-fallback"
+    },
+    "license": "MIT",
+    "author": "tad-nikolaeva",
+    "type": "module",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./build/index.d.mts",
+                "default": "./build/index.mjs"
+            },
+            "require": {
+                "types": "./build/index.d.cts",
+                "default": "./build/index.cjs"
+            }
+        }
+    },
+    "main": "./build/index.cjs",
+    "module": "./build/index.mjs",
+    "types": "./build/index.d.mts",
+    "files": [
+        "build",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "tsdown",
+        "lint:typescript": "tsc --noEmit",
+        "lint:eslint": "eslint --fix --max-warnings 0 .",
+        "lint": "pnpm lint:typescript && pnpm lint:eslint",
+        "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1"
+    },
+    "dependencies": {
+        "client-only": "0.0.1"
+    },
+    "devDependencies": {
+        "@37bytes/bundler": "workspace:*",
+        "@37bytes/code-style": "workspace:*",
+        "eslint": "catalog:",
+        "tsdown": "catalog:",
+        "typescript": "catalog:"
+    }
 }

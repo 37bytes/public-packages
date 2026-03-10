@@ -1,0 +1,73 @@
+:root {
+  --color-black: #333;
+  --color-white: #fff;
+  --z-index-modal: 10;
+  --font-arial: arial, sans-serif;
+}
+
+.wrapper {
+  position: relative;
+  z-index: var(--z-index-modal);
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: calc(100vh - 136px);
+  max-height: 100%;
+
+  background-color: var(--color-white);
+}
+
+.scrollWrapper {
+  display: flex;
+  flex: 1;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100%;
+  padding-bottom: 60px;
+
+  border: 1px solid white;
+
+  background-color: var(--color-white);
+}
+
+.content {
+  position: relative;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+  max-width: 1246px;
+  min-height: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  padding-top: 43px;
+  padding-bottom: 60px;
+  font-family: var(--font-arial);
+}
+
+.labelField {
+  color: var(--color-black);
+  font-weight: bold;
+  font-style: normal;
+  font-size: 22px;
+  line-height: 27px;
+}
+
+.title {
+  margin-bottom: 43px;
+
+  color: var(--color-black);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 28px;
+}

@@ -1,11 +1,11 @@
-import {existsSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync} from 'node:fs';
-import {join, resolve} from 'node:path';
+import { existsSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { join, resolve } from 'node:path';
 
-import {ConfigEnv, createLogger, Plugin} from 'vite';
-import {randomBytes} from 'crypto';
-import {generateScript} from './utils/generateScript';
-import {getDynamicEnvironment} from './utils/getDynamicEnvironment';
-import {getLast} from './utils/getLast';
+import { randomBytes } from 'crypto';
+import { type ConfigEnv, createLogger, type Plugin } from 'vite';
+import { generateScript } from './utils/generateScript';
+import { getDynamicEnvironment } from './utils/getDynamicEnvironment';
+import { getLast } from './utils/getLast';
 
 const logger = createLogger('info', { prefix: '[dynamicEnvironmentsSupport]' });
 
@@ -29,9 +29,9 @@ const dynamicEnvironmentsSupport = ({
     envOutputDir = DEFAULT_OUTPUT_DIR
 }: Params = {}): Plugin => {
     // директория с собранным проектом
-    let outDir;
+    let outDir: string;
     // директория с .env-файлами
-    let envDir;
+    let envDir: string;
     let envConfig: ConfigEnv;
 
     let forceEnvironmentScriptContent: string;
@@ -51,7 +51,7 @@ const dynamicEnvironmentsSupport = ({
             }
         },
         // режим разработки
-        configureServer(server) {
+        configureServer: (server) => {
             server.middlewares.use(scriptLink, (request, response) => {
                 if (!envDir) {
                     throw new Error('envDir is falsy');

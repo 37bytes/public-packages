@@ -1,0 +1,97 @@
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "extends": ["./config.json"],
+    "jsPlugins": [
+        {
+            "name": "perfectionist",
+            "specifier": "eslint-plugin-perfectionist"
+        }
+    ],
+    "rules": {
+        "import/first": "off",
+        "perfectionist/sort-imports": [
+            "warn",
+            {
+                "type": "natural",
+                "order": "asc",
+                "ignoreCase": true,
+                "internalPattern": ["^@/"],
+                "sortSideEffects": false,
+                "newlinesBetween": 1,
+                "groups": ["builtin", "external", "internal", ["parent", "sibling", "index"], "side-effect", "style"]
+            }
+        ],
+        "perfectionist/sort-named-imports": [
+            "warn",
+            {
+                "type": "natural",
+                "order": "asc",
+                "ignoreCase": true
+            }
+        ],
+        "perfectionist/sort-named-exports": [
+            "warn",
+            {
+                "type": "natural",
+                "order": "asc",
+                "ignoreCase": true
+            }
+        ],
+        "perfectionist/sort-exports": [
+            "warn",
+            {
+                "type": "natural",
+                "order": "asc",
+                "ignoreCase": true
+            }
+        ],
+        "perfectionist/sort-import-attributes": [
+            "warn",
+            {
+                "type": "natural",
+                "order": "asc",
+                "ignoreCase": true
+            }
+        ],
+        "perfectionist/sort-union-types": [
+            "warn",
+            {
+                "type": "natural",
+                "order": "asc",
+                "ignoreCase": true
+            }
+        ],
+        "perfectionist/sort-intersection-types": [
+            "warn",
+            {
+                "type": "natural",
+                "order": "asc",
+                "ignoreCase": true
+            }
+        ],
+        "perfectionist/sort-heritage-clauses": [
+            "warn",
+            {
+                "type": "natural",
+                "order": "asc",
+                "ignoreCase": true
+            }
+        ],
+        "perfectionist/sort-array-includes": [
+            "warn",
+            {
+                "type": "natural",
+                "order": "asc",
+                "ignoreCase": true
+            }
+        ],
+        "perfectionist/sort-variable-declarations": [
+            "warn",
+            {
+                "type": "natural",
+                "order": "asc",
+                "ignoreCase": true
+            }
+        ]
+    }
+}

@@ -1,3 +1,1 @@
-import dynamicEnvironmentsSupport from './dynamicEnvironmentsSupport';
-
-export default dynamicEnvironmentsSupport;
+export { default } from './dynamicEnvironmentsSupport';

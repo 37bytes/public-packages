@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 import { writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { getDynamicEnvironment } from '../getDynamicEnvironment';
 
 const TEST_DIR = resolve(process.cwd(), 'temp-test-env');

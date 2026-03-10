@@ -1,0 +1,161 @@
+{
+    "name": "@37bytes/code-style",
+    "version": "0.0.1",
+    "description": "Unified linting and formatting configs for 37bytes projects",
+    "license": "ISC",
+    "type": "module",
+    "imports": {
+        "#plugins": "./eslint/plugins/index.js",
+        "#plugins/*": "./eslint/plugins/*/index.js",
+        "#rules": "./eslint/rules/index.js",
+        "#rules/*": "./eslint/rules/*.js",
+        "#config": "./eslint/config.js",
+        "#fsd": "./eslint/fsd.js",
+        "#restricted-imports": "./eslint/restricted-imports.js"
+    },
+    "exports": {
+        "./oxlint": "./oxlint/index.js",
+        "./oxlint/config": "./oxlint/config.json",
+        "./oxlint/perfectionist": "./oxlint/perfectionist.json",
+        "./oxlint/type-aware-overrides": "./oxlint/type-aware-overrides.js",
+        "./biome": "./biome/index.js",
+        "./biome/config": "./biome/config.json",
+        "./biome/eslint-overrides": "./biome/eslint-overrides.js",
+        "./eslint": "./eslint/index.js",
+        "./eslint/rules": "./eslint/rules/index.js",
+        "./eslint/rules/*": "./eslint/rules/*.js",
+        "./eslint/plugins": "./eslint/plugins/index.js",
+        "./eslint/fsd": "./eslint/fsd.js",
+        "./eslint/restricted-imports": "./eslint/restricted-imports.js",
+        "./eslint/browser-features": "./eslint/browser-features.js",
+        "./browserslist": "./browserslist/index.cjs",
+        "./prettier": "./prettier/index.js",
+        "./typescript/base": "./typescript/base.json",
+        "./typescript/react": "./typescript/react.json",
+        "./typescript/node": "./typescript/node.json",
+        "./stylelint": "./stylelint/index.js",
+        "./editorconfig": "./editorconfig/.editorconfig"
+    },
+    "files": [
+        "biome/index.js",
+        "biome/config.json",
+        "biome/eslint-overrides.js",
+        "oxlint/index.js",
+        "oxlint/config.json",
+        "oxlint/perfectionist.json",
+        "oxlint/type-aware-overrides.js",
+        "browserslist",
+        "eslint/**/*.js",
+        "!eslint/**/__tests__/**",
+        "prettier",
+        "typescript",
+        "stylelint",
+        "editorconfig",
+        "llms.txt",
+        "LICENSE",
+        "CHANGELOG.md",
+        "NAMING_CONVENTIONS.md",
+        "README.md"
+    ],
+    "keywords": [
+        "eslint",
+        "stylelint",
+        "prettier",
+        "typescript",
+        "config",
+        "37bytes",
+        "linting",
+        "formatting"
+    ],
+    "prettier": "./prettier/config.js",
+    "author": "37bytes",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/37bytes/public-packages.git",
+        "directory": "packages/code-style"
+    },
+    "homepage": "https://github.com/37bytes/public-packages/tree/master/packages/code-style#readme",
+    "bugs": {
+        "url": "https://github.com/37bytes/public-packages/issues"
+    },
+    "engines": {
+        "node": ">=24.0.0"
+    },
+    "peerDependencies": {
+        "@biomejs/biome": "2.4.4",
+        "eslint": "9.39.2",
+        "oxlint": "1.50.0",
+        "prettier": "3.8.1",
+        "stylelint": "17.4.0",
+        "typescript": "5.9.3"
+    },
+    "peerDependenciesMeta": {
+        "prettier": {
+            "optional": true
+        },
+        "stylelint": {
+            "optional": true
+        },
+        "typescript": {
+            "optional": true
+        },
+        "@biomejs/biome": {
+            "optional": true
+        }
+    },
+    "dependencies": {
+        "@eslint/js": "9.39.2",
+        "@next/eslint-plugin-next": "16.1.6",
+        "@typescript-eslint/eslint-plugin": "8.56.0",
+        "@typescript-eslint/parser": "8.56.0",
+        "@typescript-eslint/utils": "8.56.0",
+        "@vitest/eslint-plugin": "1.6.9",
+        "confusing-browser-globals": "1.0.11",
+        "eslint-import-resolver-typescript": "4.4.4",
+        "eslint-plugin-import-x": "4.16.1",
+        "eslint-plugin-jest-dom": "5.5.0",
+        "eslint-plugin-n": "17.24.0",
+        "eslint-plugin-perfectionist": "5.6.0",
+        "eslint-plugin-prefer-arrow-functions": "3.9.1",
+        "eslint-plugin-promise": "7.2.1",
+        "eslint-plugin-react": "7.37.5",
+        "eslint-plugin-react-hooks": "7.0.1",
+        "eslint-plugin-regexp": "3.0.0",
+        "eslint-plugin-security": "4.0.0",
+        "eslint-plugin-sonarjs": "4.0.0",
+        "eslint-plugin-storybook": "10.2.13",
+        "eslint-plugin-testing-library": "7.16.0",
+        "eslint-plugin-compat": "7.0.1",
+        "eslint-plugin-unicorn": "63.0.0",
+        "globals": "17.3.0",
+        "stylelint-config-standard-scss": "17.0.0",
+        "stylelint-declaration-strict-value": "1.11.1",
+        "stylelint-order": "7.0.1"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "2.4.4",
+        "@types/react": "19.2.14",
+        "eslint": "9.39.2",
+        "eslint-config-biome": "2.1.3",
+        "eslint-plugin-oxlint": "1.50.0",
+        "oxlint": "1.50.0",
+        "oxlint-tsgolint": "0.15.0",
+        "prettier": "3.8.1",
+        "stylelint": "17.4.0",
+        "typescript": "5.9.3"
+    },
+    "scripts": {
+        "test": "node --test",
+        "test:plugins": "node --test eslint/plugins/*/__tests__/*.test.js",
+        "test:integration": "node --test __tests__/*.test.js",
+        "lint:typescript": "tsc --noEmit",
+        "lint:eslint": "eslint --fix --max-warnings 0 .",
+        "lint": "pnpm lint:typescript && pnpm lint:eslint",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "build:oxlint": "node oxlint/build.js && prettier --write oxlint/*.json",
+        "build:biome": "node biome/build.js && prettier --write biome/config.json",
+        "prepublishOnly": "pnpm run build:oxlint && pnpm run build:biome && pnpm run lint && pnpm test && echo 'Use npm publish --dry-run first!'",
+        "npm-packlist": "npx -y npm-packlist@6.0.1"
+    }
+}

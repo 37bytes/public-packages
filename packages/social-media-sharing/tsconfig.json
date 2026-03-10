@@ -1,12 +1,7 @@
 {
-    "extends": "../../tsconfig.node.json",
+    "extends": "@37bytes/code-style/typescript/base",
     "compilerOptions": {
-        "target": "es2016",
-        "module": "commonjs",
-        "outDir": "./build",
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
-        "strict": true,
-        "skipLibCheck": true
-    }
+        "lib": ["ES2023", "DOM"]
+    },
+    "include": ["src", "tsdown.config.ts", "eslint.config.js"]
 }

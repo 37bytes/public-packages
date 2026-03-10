@@ -17,4 +17,4 @@ const shareVk = ({ title, image, url }: ShareVkParams): void => {
     window.open(newTabUrl, '_blank', 'noopener noreferrer');
 };
 
-export default shareVk;
+export { shareVk };

@@ -1,12 +1,11 @@
-import { throttle } from 'es-toolkit/dist/function/throttle';
 import {
     createContext,
-    FunctionComponent,
-    PropsWithChildren,
+    type FunctionComponent,
+    type PropsWithChildren,
     useCallback,
     useContext,
-    useEffect,
-    useState
+    useRef,
+    useSyncExternalStore
 } from 'react';
 
 export type MediaQueriesMap<T extends number = number> = Record<T, MediaQueryList>;
@@ -17,35 +16,55 @@ export interface ConfigurableMediaContextValue<T extends number = number> {
 
 export const ConfigurableMediaContext = createContext<ConfigurableMediaContextValue | null>(null);
 
+const getMedia = <T extends number>(mediaQueriesMap: MediaQueriesMap<T>): T[] =>
+    (Object.keys(mediaQueriesMap) as unknown as T[]).filter((key) => mediaQueriesMap[key].matches);
+
+const arraysEqual = (prev: number[], next: number[]): boolean => {
+    if (prev.length !== next.length) {
+        return false;
+    }
+    for (let index = 0; index < prev.length; index++) {
+        if (prev[index] !== next[index]) {
+            return false;
+        }
+    }
+    return true;
+};
+
 interface Props extends PropsWithChildren {
     mediaQueriesMap: MediaQueriesMap;
-    resizeThrottleDelay?: number;
 }
 
-export const ConfigurableMediaContextProvider: FunctionComponent<Props> = ({ mediaQueriesMap, resizeThrottleDelay = 100, children }) => {
-    const getMedia = useCallback(
-        (): number[] =>
-            Object.keys(mediaQueriesMap)
-                .filter((media) => {
-                    const item = mediaQueriesMap[Number(media)] as MediaQueriesMap[number];
+export const ConfigurableMediaContextProvider: FunctionComponent<Props> = ({ mediaQueriesMap, children }) => {
+    const cacheRef = useRef<null | number[]>(null);
 
-                    return item.matches;
-                })
-                .map((item) => Number(item)),
+    const subscribe = useCallback(
+        (callback: () => void) => {
+            const mediaQueryLists = Object.values(mediaQueriesMap) as MediaQueryList[];
+            for (const mql of mediaQueryLists) {
+                mql.addEventListener('change', callback);
+            }
+            return () => {
+                for (const mql of mediaQueryLists) {
+                    mql.removeEventListener('change', callback);
+                }
+            };
+        },
         [mediaQueriesMap]
     );
 
-    const [contextState, setContextState] = useState<ConfigurableMediaContextValue>(() => ({ media: getMedia() }));
+    const getSnapshot = useCallback((): number[] => {
+        const next = getMedia(mediaQueriesMap);
+        if (cacheRef.current && arraysEqual(cacheRef.current, next)) {
+            return cacheRef.current;
+        }
+        cacheRef.current = next;
+        return next;
+    }, [mediaQueriesMap]);
 
-    useEffect(() => {
-        let handler = () => setContextState({ media: getMedia() });
-        handler = resizeThrottleDelay ? throttle(handler, resizeThrottleDelay) : handler;
+    const media = useSyncExternalStore(subscribe, getSnapshot);
 
-        window.addEventListener('resize', handler);
-        return () => window.removeEventListener('resize', handler);
-    }, [getMedia]);
-
-    return <ConfigurableMediaContext.Provider value={contextState}>{children}</ConfigurableMediaContext.Provider>;
+    return <ConfigurableMediaContext.Provider value={{ media }}>{children}</ConfigurableMediaContext.Provider>;
 };
 
 export const useConfigurableMediaContext = (): ConfigurableMediaContextValue => {

@@ -1,0 +1,9 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "@37bytes/configs - Node.js TypeScript Config",
+    "extends": "./base.json",
+    "compilerOptions": {
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext"
+    }
+}

@@ -1,4 +1,4 @@
-import { Plugin } from 'vite';
+import { type Plugin } from 'vite';
 
 interface Aliases {
     VERSION_FIELD_NAME?: string;
@@ -23,7 +23,7 @@ const buildTimeIdentifiersPlugin = ({ packageName, packageVersion, aliases }: Pa
 
     return {
         name: '@37bytes/vite-build-time-environment',
-        config(config) {
+        config: (config) => {
             const version = process.env[aliases?.VERSION_FIELD_NAME ?? 'VERSION'];
             const branch = process.env[aliases?.BRANCH_FIELD_NAME ?? 'BRANCH'] || '[unknown git branch]';
             const commitHash = process.env[aliases?.COMMIT_HASH_FIELD_NAME ?? 'COMMIT_HASH'] || '[unknown commit hash]';

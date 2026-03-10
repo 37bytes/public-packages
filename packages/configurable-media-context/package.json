@@ -1,26 +1,41 @@
 {
     "name": "@37bytes/configurable-media-context",
-    "version": "2.0.0",
+    "version": "3.0.0",
     "description": "A React context provider for managing media queries, allowing dynamic updates based on screen size.",
-    "scripts": {
-        "build": "tsup",
-        "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1"
-    },
-    "dependencies": {
-        "es-toolkit": "1.25.2"
-    },
-    "devDependencies": {
-        "tsup": "8.2.4",
-        "typescript": "5.6.2",
-        "@types/react": "^18.0.0",
-        "@types/lodash.debounce": "4.0.9"
-    },
-    "peerDependencies": {
-        "react": ">=18.0.0"
-    },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/37bytes/public-packages.git"
+        "url": "git+https://github.com/37bytes/public-packages.git",
+        "directory": "packages/configurable-media-context"
+    },
+    "license": "MIT",
+    "author": "37bytes",
+    "type": "module",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./build/index.d.mts",
+                "default": "./build/index.mjs"
+            },
+            "require": {
+                "types": "./build/index.d.cts",
+                "default": "./build/index.cjs"
+            }
+        }
+    },
+    "main": "./build/index.cjs",
+    "module": "./build/index.mjs",
+    "types": "./build/index.d.mts",
+    "files": [
+        "build",
+        "README.md"
+    ],
+    "scripts": {
+        "build": "tsdown",
+        "lint:typescript": "tsc --noEmit",
+        "lint:eslint": "eslint --fix --max-warnings 0 .",
+        "lint": "pnpm lint:typescript && pnpm lint:eslint",
+        "npm-packlist": "pnpm run build && npx -y npm-packlist@6.0.1"
     },
     "keywords": [
         "react",
@@ -32,24 +47,19 @@
         "react-context",
         "responsive-design"
     ],
-    "author": "37bytes",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/37bytes/public-packages/issues"
+    "peerDependencies": {
+        "react": ">=18.0.0"
+    },
+    "devDependencies": {
+        "@37bytes/bundler": "workspace:*",
+        "@37bytes/code-style": "workspace:*",
+        "@types/react": "19.2.14",
+        "eslint": "catalog:",
+        "tsdown": "catalog:",
+        "typescript": "catalog:"
     },
     "homepage": "https://github.com/37bytes/public-packages/tree/master/packages/configurable-media-context",
-    "files": [
-        "dist",
-        "package.json"
-    ],
-    "exports": {
-        ".": {
-            "require": "./dist/index.js",
-            "import": "./dist/index.mjs",
-            "types": "./dist/index.d.ts"
-        }
-    },
-    "main": "./dist/index.js",
-    "module": "./dist/index.mjs",
-    "types": "./dist/index.d.ts"
+    "bugs": {
+        "url": "https://github.com/37bytes/public-packages/issues"
+    }
 }

@@ -1,0 +1,21 @@
+#!/bin/sh
+set -e
+
+GIT_DIR="$(git rev-parse --git-dir)"
+
+if [ -d "$GIT_DIR/rebase-merge" ] || [ -d "$GIT_DIR/rebase-apply" ]; then
+    echo "Rebase in progress, skip pre-commit hook"
+    exit 0
+fi
+
+if [ -f "$GIT_DIR/MERGE_HEAD" ]; then
+    echo "Merge in progress, skip pre-commit hook"
+    exit 0
+fi
+
+echo "Running lint-staged..."
+pnpm run lint-staged
+pnpm run test
+pnpm run lint
+
+echo "All checks passed!"

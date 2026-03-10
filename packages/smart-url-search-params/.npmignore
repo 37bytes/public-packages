@@ -1,8 +1,0 @@
-.git
-.idea
-src
-
-.npmignore
-jest.config.js
-tsconfig.json
-tsup.config.ts

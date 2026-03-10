@@ -82,6 +82,12 @@ const App = () => (
 ```
 
 # Changelog
+## 3.0.0
+- Switched from `window.resize` + throttle to native `MediaQueryList` change events (fires only on breakpoint crossing, no polling)
+- Removed `es-toolkit` dependency
+- Removed `resizeThrottleDelay` prop (no longer needed)
+- Uses `useSyncExternalStore` for concurrent mode safety and automatic re-render deduplication
+
 ## 2.0.0
 - lodash.debounce => throttle from [es-toolkit](https://es-toolkit.slash.page/)
 - 250ms delay => 100ms delay

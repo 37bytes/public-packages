@@ -1,0 +1,10 @@
+packages:
+    - 'packages/*'
+    - 'core/*'
+    - 'legacy/*'
+
+catalog:
+    eslint: 9.39.2
+    tsdown: 0.20.3
+    typescript: 5.8.3
+    vitest: 3.2.3

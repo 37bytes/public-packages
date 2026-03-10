@@ -1,36 +1,52 @@
 {
     "name": "@37bytes/logstory",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "Logstory is a flexible and extensible logger for JavaScript that allows easy integration of additional features and sending events to monitoring systems such as Sentry or Graylog.",
     "license": "MIT",
-    "repository": "https://github.com/37bytes/public-packages/tree/master/packages/logstory",
     "author": "37bytes",
-    "main": "./build/index.js",
-    "module": "./build/index.mjs",
-    "types": "./build/index.d.ts",
-    "exports": {
-        ".": {
-            "types": "./build/index.d.ts",
-            "require": "./build/index.js",
-            "import": "./build/index.mjs"
-        }
+    "type": "module",
+    "sideEffects": false,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/37bytes/public-packages.git",
+        "directory": "packages/logstory"
     },
-    "files": [
-        "build",
-        "README_RU.md"
-    ],
     "keywords": [
         "logger"
     ],
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./build/index.d.mts",
+                "default": "./build/index.mjs"
+            },
+            "require": {
+                "types": "./build/index.d.cts",
+                "default": "./build/index.cjs"
+            }
+        }
+    },
+    "main": "./build/index.cjs",
+    "module": "./build/index.mjs",
+    "types": "./build/index.d.mts",
+    "files": [
+        "build",
+        "README.md",
+        "README_RU.md"
+    ],
     "scripts": {
-        "build": "tsup",
+        "build": "tsdown",
         "test": "vitest run",
-        "npm-packlist": "npm run build && npx -y npm-packlist@6.0.1"
+        "lint:typescript": "tsc --noEmit",
+        "lint:eslint": "eslint --fix --max-warnings 0 .",
+        "lint": "pnpm lint:typescript && pnpm lint:eslint"
     },
     "devDependencies": {
-        "@swc/core": "1.15.2",
-        "@types/node": "24.10.1",
-        "tsup": "8.5.1",
-        "vitest": "4.0.10"
+        "@37bytes/bundler": "workspace:*",
+        "@37bytes/code-style": "workspace:*",
+        "eslint": "catalog:",
+        "tsdown": "catalog:",
+        "typescript": "catalog:",
+        "vitest": "catalog:"
     }
 }

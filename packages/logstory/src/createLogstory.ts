@@ -10,11 +10,11 @@ const defaultLogLevelState: LogLevelConfig = {
 };
 
 export interface FormatLoggerNameParams {
-    loggerName: string;
+    loggerName?: string;
     logLevel: LogLevel;
 }
 
-const format = ({ loggerName }: FormatLoggerNameParams) => `[${loggerName}]: %o`;
+const format = ({ loggerName }: FormatLoggerNameParams) => (loggerName ? `[${loggerName}]: %o` : '%o');
 
 export interface CreateLogstoryParams {
     name?: string;
@@ -23,22 +23,34 @@ export interface CreateLogstoryParams {
     formatLoggerName?: ({ loggerName, logLevel }: FormatLoggerNameParams) => string;
 }
 
-export function createLogstory({
+export const createLogstory = ({
     name,
     logLevelConfig,
     consoleProxy = globalThis.console,
     formatLoggerName = format
-}: CreateLogstoryParams = {}): Logger {
+}: CreateLogstoryParams = {}): Logger => {
     const mergedConfig: LogLevelConfig = {
         ...defaultLogLevelState,
         ...logLevelConfig
     };
 
     const logger: Logger = {
-        debug: consoleProxy.debug.bind(consoleProxy, formatLoggerName({ loggerName: name, logLevel: 'debug' })),
-        log: consoleProxy.log.bind(consoleProxy, formatLoggerName({ loggerName: name, logLevel: 'log' })),
-        warn: consoleProxy.warn.bind(consoleProxy, formatLoggerName({ loggerName: name, logLevel: 'warn' })),
-        error: consoleProxy.error.bind(consoleProxy, formatLoggerName({ loggerName: name, logLevel: 'error' }))
+        debug: consoleProxy.debug.bind(
+            consoleProxy,
+            formatLoggerName({ loggerName: name, logLevel: 'debug' })
+        ) as Logger['debug'],
+        log: consoleProxy.log.bind(
+            consoleProxy,
+            formatLoggerName({ loggerName: name, logLevel: 'log' })
+        ) as Logger['log'],
+        warn: consoleProxy.warn.bind(
+            consoleProxy,
+            formatLoggerName({ loggerName: name, logLevel: 'warn' })
+        ) as Logger['warn'],
+        error: consoleProxy.error.bind(
+            consoleProxy,
+            formatLoggerName({ loggerName: name, logLevel: 'error' })
+        ) as Logger['error']
     };
 
     (Object.keys(logger) as Array<LogLevel>).forEach((key) => {
@@ -48,4 +60,4 @@ export function createLogstory({
     });
 
     return logger;
-}
+};

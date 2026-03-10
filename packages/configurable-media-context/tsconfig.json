@@ -1,14 +1,4 @@
 {
-    "compilerOptions": {
-        "target": "ESNext",
-        "module": "ESNext",
-        "jsx": "react-jsx",
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "moduleResolution": "Node",
-        "declaration": true,
-        "outDir": "dist",
-        "strict": true
-    },
-    "include": ["src"]
+    "extends": "@37bytes/code-style/typescript/react",
+    "include": ["src", "tsdown.config.ts", "eslint.config.js"]
 }

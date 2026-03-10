@@ -1,6 +1,6 @@
 export type SmartURLSearchParamsConstructorParams = object;
 
-export type ArrayFormat = 'bracket' | 'index' | 'comma' | 'separator' | 'bracket-separator' | 'none';
+export type ArrayFormat = 'bracket' | 'bracket-separator' | 'comma' | 'index' | 'none' | 'separator';
 
 export interface ToFormattedStringParams {
     arrayFormat?: ArrayFormat;
@@ -25,17 +25,17 @@ class SmartURLSearchParams extends URLSearchParams {
             return;
         }
 
-        Object.entries(params).forEach(([key, value]) => {
+        Object.entries(params).forEach(([key, value]: [string, unknown]) => {
             if (value === null || value === undefined) {
                 return;
             }
 
             if (Array.isArray(value)) {
-                value.forEach((valueItem: string | number) => this.append(key, valueItem.toString()));
+                value.forEach((valueItem: number | string) => this.append(key, String(valueItem)));
                 return;
             }
 
-            this.append(key, value.toString());
+            this.append(key, String(value));
         });
     }
 
@@ -61,13 +61,13 @@ class SmartURLSearchParams extends URLSearchParams {
         arrayFormatSeparator = ',',
         forceArrayFields = []
     }: ToFormattedStringParams = {}): string {
-        let queryStringParts: string[] = [];
+        const queryStringParts: string[] = [];
 
         new Set(this.keys()).forEach((key) => {
             const values = this.getAll(key);
 
             if (values.length === 1 && !forceArrayFields.includes(key)) {
-                const [value] = values;
+                const value = values[0]!;
                 queryStringParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
                 return;
             }
@@ -84,16 +84,18 @@ class SmartURLSearchParams extends URLSearchParams {
                     });
                     break;
                 case 'comma':
-                    queryStringParts.push(`${encodeURIComponent(key)}=${values.map(encodeURIComponent).join(',')}`);
+                    queryStringParts.push(
+                        `${encodeURIComponent(key)}=${values.map((value) => encodeURIComponent(value)).join(',')}`
+                    );
                     break;
                 case 'separator':
                     queryStringParts.push(
-                        `${encodeURIComponent(key)}=${values.map(encodeURIComponent).join(arrayFormatSeparator)}`
+                        `${encodeURIComponent(key)}=${values.map((value) => encodeURIComponent(value)).join(arrayFormatSeparator)}`
                     );
                     break;
                 case 'bracket-separator':
                     queryStringParts.push(
-                        `${encodeURIComponent(key)}[]=${values.map(encodeURIComponent).join(arrayFormatSeparator)}`
+                        `${encodeURIComponent(key)}[]=${values.map((value) => encodeURIComponent(value)).join(arrayFormatSeparator)}`
                     );
                     break;
                 case 'none':

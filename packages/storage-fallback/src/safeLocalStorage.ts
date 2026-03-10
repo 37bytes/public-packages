@@ -1,14 +1,18 @@
+import { MemoryStorage } from './storage/MemoryStorage';
 import isStorageSupported from './utils/isStorageSupported';
-import memoryStorage from './storage/memoryStorage';
 
-let safeLocalStorage: Storage;
+const resolveStorage = (): Storage => {
+    if (isStorageSupported('localStorage')) {
+        return globalThis.localStorage;
+    }
 
-if (isStorageSupported('localStorage')) {
-    safeLocalStorage = window.localStorage;
-} else if (isStorageSupported('sessionStorage')) {
-    safeLocalStorage = window.sessionStorage;
-} else {
-    safeLocalStorage = new memoryStorage();
-}
+    if (isStorageSupported('sessionStorage')) {
+        return globalThis.sessionStorage;
+    }
+
+    return new MemoryStorage();
+};
+
+const safeLocalStorage: Storage = resolveStorage();
 
 export default safeLocalStorage;

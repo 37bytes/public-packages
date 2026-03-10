@@ -1,12 +1,8 @@
+import { MemoryStorage } from './storage/MemoryStorage';
 import isStorageSupported from './utils/isStorageSupported';
-import memoryStorage from './storage/memoryStorage';
 
-let safeSessionStorage: Storage;
-
-if (isStorageSupported('sessionStorage')) {
-    safeSessionStorage = window.sessionStorage;
-} else {
-    safeSessionStorage = new memoryStorage();
-}
+const safeSessionStorage: Storage = isStorageSupported('sessionStorage')
+    ? globalThis.sessionStorage
+    : new MemoryStorage();
 
 export default safeSessionStorage;

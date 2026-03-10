@@ -1,0 +1,31 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "@37bytes/configs - Base TypeScript Config",
+    "compilerOptions": {
+        // Target — ES2023 includes toSorted, toReversed, toSpliced, with
+        "target": "ES2023",
+        "lib": ["ES2023"],
+
+        // Modules
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "verbatimModuleSyntax": true,
+
+        // Interop
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+
+        // Strict
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+
+        // No emit — bundler handles compilation
+        "noEmit": true,
+        "skipLibCheck": true
+    }
+}

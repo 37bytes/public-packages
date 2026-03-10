@@ -1,20 +1,39 @@
 [English](./README.md) | [[Русский](./README_RU.md)]
 
-Утилиты (CLI):
-- [front-proxy](/packages/front-proxy)
-- [html-content-appender](/packages/html-content-appender)
-- [sentry-release-publisher](/packages/sentry-release-publisher)
-- [prepare-environment](/packages/prepare-environment)
+## Установка
+
+```bash
+pnpm install
+```
+
+## Core (внутренние, не публикуются)
+
+- [bundler](/core/bundler) - общая конфигурация tsdown/сборки для пакетов монорепы
+
+## Пакеты
+
+Конфиги:
+- [code-style](/packages/code-style)
 
 Библиотеки:
-- [storage-fallback](/packages/storage-fallback)
+- [configurable-media-context](/packages/configurable-media-context)
 - [logstory](/packages/logstory)
-- [social-media-sharing](/packages/social-media-sharing)
 - [smart-url-search-params](/packages/smart-url-search-params)
-- [units-helper](./packages/units-helper)
-- [configurable-media-context](./packages/configurable-media-context)
+- [social-media-sharing](/packages/social-media-sharing)
+- [storage-fallback](/packages/storage-fallback)
+- [units-helper](/packages/units-helper)
+- [vite-build-time-environment](/packages/vite-build-time-environment)
+- [vite-dynamic-environments](/packages/vite-dynamic-environments)
 
-Конфигурационные файлы (prettier/stylelint/eslint/etc):
-- [prettier-config](/packages/prettier-config)
-- [stylelint-config](/packages/stylelint-config)
-- [eslint-config](/packages/eslint-config)
+## Legacy (устаревшие)
+
+Вместо конфигурационных из списка нужно использовать [@37bytes/code-style](/packages/code-style):
+- [eslint-config](/legacy/eslint-config)
+- [prettier-config](/legacy/prettier-config)
+- [stylelint-config](/legacy/stylelint-config)
+
+Другие deprecated:
+- [front-proxy](/legacy/front-proxy)
+- [html-content-appender](/legacy/html-content-appender)
+- [prepare-environment](/legacy/prepare-environment)
+- [sentry-release-publisher](/legacy/sentry-release-publisher)

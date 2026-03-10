@@ -1,8 +1,4 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "target": "es2022",
-        "outDir": "./build",
-        "rootDir": "./src"
-    }
+    "extends": "@37bytes/code-style/typescript/base",
+    "include": ["src", "tsdown.config.ts", "eslint.config.js"]
 }

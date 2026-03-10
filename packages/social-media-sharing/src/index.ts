@@ -1,4 +1,2 @@
-import shareVk from './shareVk';
-import shareWhatsApp from './shareWhatsApp';
-
-export { shareVk, shareWhatsApp };
+export { shareVk } from './shareVk';
+export { shareWhatsApp } from './shareWhatsApp';

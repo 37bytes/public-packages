@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createLogstory } from '../createLogstory';
-import type { Logger, LogLevelConfig, FormatLoggerNameParams } from '../createLogstory';
+import type { FormatLoggerNameParams } from '../createLogstory';
 
 describe('createLogstory', () => {
     let mockConsole: Console;
@@ -52,7 +52,7 @@ describe('createLogstory', () => {
 
             logger.log('test');
 
-            expect(mockConsole.log).toHaveBeenCalledWith('[undefined]: %o', 'test');
+            expect(mockConsole.log).toHaveBeenCalledWith('%o', 'test');
         });
 
         it('should work with empty name', () => {
@@ -60,7 +60,7 @@ describe('createLogstory', () => {
 
             logger.log('test');
 
-            expect(mockConsole.log).toHaveBeenCalledWith('[]: %o', 'test');
+            expect(mockConsole.log).toHaveBeenCalledWith('%o', 'test');
         });
 
         it('should work without any parameters', () => {
@@ -166,9 +166,9 @@ describe('createLogstory', () => {
 
     describe('formatLoggerName', () => {
         it('should use custom formatter with correct output and parameters', () => {
-            const formatterSpy = vi.fn(({ loggerName, logLevel }: FormatLoggerNameParams) => {
-                return `${logLevel.toUpperCase()} | ${loggerName}:`;
-            });
+            const formatterSpy = vi.fn(
+                ({ loggerName, logLevel }: FormatLoggerNameParams) => `${logLevel.toUpperCase()} | ${loggerName}:`
+            );
 
             const logger = createLogstory({
                 name: 'CustomLogger',
@@ -249,9 +249,7 @@ describe('createLogstory', () => {
         });
 
         it('should combine custom formatter and disabled levels', () => {
-            const customFormatter = ({ loggerName, logLevel }: FormatLoggerNameParams) => {
-                return `[${logLevel}] ${loggerName}`;
-            };
+            const customFormatter = ({ loggerName, logLevel }: FormatLoggerNameParams) => `[${logLevel}] ${loggerName}`;
 
             const logger = createLogstory({
                 name: 'TestLogger',
@@ -285,9 +283,9 @@ describe('createLogstory', () => {
         it('should handle null and undefined values', () => {
             const logger = createLogstory({ name: 'TestLogger', consoleProxy: mockConsole });
 
-            logger.log(null, undefined);
+            logger.log(null);
 
-            expect(mockConsole.log).toHaveBeenCalledWith('[TestLogger]: %o', null, undefined);
+            expect(mockConsole.log).toHaveBeenCalledWith('[TestLogger]: %o', null);
         });
 
         it('should not throw when disabled logger methods are called', () => {

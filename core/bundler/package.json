@@ -1,0 +1,23 @@
+{
+    "name": "@37bytes/bundler",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts",
+        "./library": "./src/library.ts",
+        "./node": "./src/node.ts"
+    },
+    "scripts": {
+        "lint:typescript": "tsc --noEmit",
+        "lint:eslint": "eslint --fix --max-warnings 0 .",
+        "lint": "pnpm lint:typescript && pnpm lint:eslint"
+    },
+    "dependencies": {
+        "@37bytes/code-style": "workspace:*",
+        "eslint": "catalog:",
+        "publint": "0.3.18",
+        "tsdown": "catalog:",
+        "typescript": "catalog:"
+    }
+}
