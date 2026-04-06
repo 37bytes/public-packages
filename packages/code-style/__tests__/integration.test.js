@@ -32,13 +32,12 @@ describe('@37bytes/configs integration', () => {
         });
 
         test('should export configurations', async () => {
-            const { baseConfig, typescriptConfig, reactConfig, testConfig, recommended } =
-                await import('../eslint/index.js');
-            assert.ok(baseConfig, 'baseConfig should be exported');
+            const { spa, typescriptConfig, reactConfig, testingConfig, tool } = await import('../eslint/index.js');
+            assert.ok(Array.isArray(spa), 'spa should be an array');
             assert.ok(typescriptConfig, 'typescriptConfig should be exported');
             assert.ok(reactConfig, 'reactConfig should be exported');
-            assert.ok(testConfig, 'testConfig should be exported');
-            assert.ok(Array.isArray(recommended), 'recommended should be an array');
+            assert.ok(testingConfig, 'testingConfig should be exported');
+            assert.ok(Array.isArray(tool), 'tool should be an array');
         });
     });
 

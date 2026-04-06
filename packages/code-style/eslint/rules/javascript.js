@@ -26,7 +26,10 @@ export const javascript = {
         }
     ], // https://github.com/JamieMason/eslint-plugin-prefer-arrow-functions
     curly: 'error', // https://eslint.org/docs/latest/rules/curly
-    'id-length': ['warn', { min: 3, properties: 'never', exceptions: ['e', 'id', 'n', 'ts', 'vi', 'x', 'y', '_'] }], // https://eslint.org/docs/latest/rules/id-length
+    'id-length': [
+        'warn',
+        { min: 3, properties: 'never', exceptions: ['e', 'fs', 'id', 'n', 'os', 'ts', 'vi', 'x', 'y', '_'] }
+    ], // https://eslint.org/docs/latest/rules/id-length
     eqeqeq: ['warn', 'smart'], // https://eslint.org/docs/latest/rules/eqeqeq
     'no-console': 'error', // https://eslint.org/docs/latest/rules/no-console
     'no-debugger': 'error', // https://eslint.org/docs/latest/rules/no-debugger
@@ -284,6 +287,5 @@ export const javascript = {
     'unicorn/text-encoding-identifier-case': 'warn',
     'unicorn/throw-new-error': 'warn',
     'unicorn/prefer-class-fields': 'warn',
-    'unicorn/prefer-json-parse-buffer': 'warn',
     'unicorn/prefer-import-meta-properties': 'warn'
 };

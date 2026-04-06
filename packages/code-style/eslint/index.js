@@ -21,7 +21,6 @@ import { typescript } from '#rules/typescript';
 
 // Re-export configurations — new structure
 export {
-    baseConfig,
     browserLibrary,
     library,
     nextjs,
@@ -33,24 +32,17 @@ export {
     // Perfectionist
     perfectionist,
     perfectionistBaseConfig,
-    perfectionistConfig,
     perfectionistReactConfig,
     reactCompilerConfig,
     reactConfig,
     reactLibrary,
-
-    // Backward compatibility (deprecated)
-    recommended,
-    recommendedNextjs,
-    recommendedNode,
-
-    // Three main configs
+    // Main configs
     spa,
     storybookConfig,
-    testConfig,
     // Opt-in
     testingConfig,
     testingReactConfig,
+    tool,
     // Layers
     typescriptConfig
 } from '#config';

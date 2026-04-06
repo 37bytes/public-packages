@@ -2,7 +2,7 @@
  * @fileoverview Main ESLint configuration
  * @author 37bytes
  *
- * Three application-type configs: spa, nextjs, nodejs.
+ * Four application-type configs: spa, nextjs, nodejs, tool.
  * Opt-in layers: testingConfig, testingReactConfig, storybookConfig,
  * reactCompilerConfig, fsdConfig, restrictedImportsConfig.
  * Perfectionist namespace: perfectionist.spa, perfectionist.nextjs, perfectionist.nodejs.
@@ -287,6 +287,23 @@ export const nextjs = [...spa, nextjsConfig, nextjsOverrides, nodeConfig, nodeCj
  */
 export const nodejs = [coreConfig, typescriptConfig, nodeConfig, nodeCjsConfig, nodeEnvOverride];
 
+/**
+ * Tool/CLI overrides — relaxed rules for small CLI utilities.
+ * @type {import('eslint').Linter.Config}
+ */
+const toolOverrides = {
+    rules: {
+        'n/no-process-exit': 'off',
+        'security/detect-non-literal-fs-filename': 'off'
+    }
+};
+
+/**
+ * Tool/CLI config — nodejs with relaxed rules for small CLI utilities.
+ * @type {import('eslint').Linter.Config[]}
+ */
+export const tool = [...nodejs, toolOverrides];
+
 // ── Opt-in configs ───────────────────────────────────────────────────────────
 
 /**
@@ -388,31 +405,6 @@ export const perfectionist = {
     reactLibrary: [...reactLibrary, perfectionistBaseConfig, perfectionistReactConfig],
     spa: [...spa, perfectionistBaseConfig, perfectionistReactConfig],
     nextjs: [...nextjs, perfectionistBaseConfig, perfectionistReactConfig],
-    nodejs: [...nodejs, perfectionistBaseConfig]
+    nodejs: [...nodejs, perfectionistBaseConfig],
+    tool: [...tool, perfectionistBaseConfig]
 };
-
-// ── Backward compatibility (deprecated) ──────────────────────────────────────
-
-/** @deprecated Use `spa` instead */
-export const recommended = spa;
-
-/** @deprecated Use `coreConfig` is internal; use `spa` / `nodejs` / `nextjs` */
-export const baseConfig = coreConfig;
-
-/** @deprecated Use `testingConfig` instead */
-export const testConfig = {
-    files: TEST_FILES,
-    rules: {
-        ...testOverrides,
-        'import-x/no-extraneous-dependencies': ['error', { devDependencies: true }]
-    }
-};
-
-/** @deprecated Use `nextjs` instead */
-export const recommendedNode = [...spa, nodeConfig, nodeCjsConfig, nodeEnvOverride];
-
-/** @deprecated Use `nextjs` instead */
-export const recommendedNextjs = [...spa, nextjsConfig];
-
-/** @deprecated Use `perfectionistBaseConfig` instead */
-export const perfectionistConfig = perfectionistBaseConfig;

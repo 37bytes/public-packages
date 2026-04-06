@@ -1,8 +1,8 @@
 /**
- * @fileoverview Integration tests for ESLint recommended config with fixtures
+ * @fileoverview Integration tests for ESLint spa config with fixtures
  *
  * Lints fixture-valid.tsx (zero violations) and fixture-invalid.tsx (expected violations)
- * using the full recommended config.
+ * using the full spa config.
  */
 
 import assert from 'node:assert';
@@ -11,20 +11,20 @@ import { before, describe, test } from 'node:test';
 
 import { ESLint } from 'eslint';
 
-import { recommended } from '../eslint/config.js';
+import { spa } from '../eslint/config.js';
 
 const __dirname = import.meta.dirname;
 const FIXTURE_DIR = path.join(__dirname, 'fixtures');
 
 /**
- * Creates an ESLint instance configured with the recommended config
+ * Creates an ESLint instance configured with the spa config
  * and a tsconfig for the fixture files.
  */
 const createESLint = () =>
     new ESLint({
         overrideConfigFile: true,
         overrideConfig: [
-            ...recommended,
+            ...spa,
             {
                 files: ['**/*.ts', '**/*.tsx'],
                 languageOptions: {

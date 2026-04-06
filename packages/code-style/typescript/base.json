@@ -20,7 +20,6 @@
 
         // Strict
         "strict": true,
-        "noUncheckedIndexedAccess": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
 

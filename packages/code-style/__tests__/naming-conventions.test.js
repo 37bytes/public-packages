@@ -11,7 +11,7 @@ import { describe, test } from 'node:test';
 
 import { ESLint } from 'eslint';
 
-import { recommended } from '../eslint/config.js';
+import { spa } from '../eslint/config.js';
 
 const __dirname = import.meta.dirname;
 const FIXTURE_DIR = path.join(__dirname, 'fixtures', 'naming-conventions');
@@ -21,7 +21,7 @@ const createESLint = () =>
     new ESLint({
         overrideConfigFile: true,
         overrideConfig: [
-            ...recommended,
+            ...spa,
             {
                 files: ['**/*.ts', '**/*.tsx', '**/naming-conventions/**'],
                 rules: {

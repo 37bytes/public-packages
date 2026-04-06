@@ -25,7 +25,7 @@ import biomeConfig from 'eslint-config-biome';
 import oxlintPlugin from 'eslint-plugin-oxlint';
 
 import { biomeOverrides } from '../biome/eslint-overrides.js';
-import { recommended, testingConfig } from '../eslint/config.js';
+import { spa, testingConfig } from '../eslint/config.js';
 import { typeAwareOverrides } from '../oxlint/type-aware-overrides.js';
 
 const exec = promisify(execFile);
@@ -88,7 +88,7 @@ const fixtureRelaxOverride = {
 const createPureESLint = () =>
     new ESLint({
         overrideConfigFile: true,
-        overrideConfig: [...recommended, testingConfig, fixtureTypeScriptOverride, fixtureRelaxOverride],
+        overrideConfig: [...spa, testingConfig, fixtureTypeScriptOverride, fixtureRelaxOverride],
         cwd: ROOT
     });
 
@@ -97,7 +97,7 @@ const createOxlintHybridESLint = () => {
     return new ESLint({
         overrideConfigFile: true,
         overrideConfig: [
-            ...recommended,
+            ...spa,
             testingConfig,
             fixtureTypeScriptOverride,
             fixtureRelaxOverride,
@@ -112,7 +112,7 @@ const createBiomeHybridESLint = () =>
     new ESLint({
         overrideConfigFile: true,
         overrideConfig: [
-            ...recommended,
+            ...spa,
             testingConfig,
             fixtureTypeScriptOverride,
             fixtureRelaxOverride,
