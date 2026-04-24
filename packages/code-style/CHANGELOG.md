@@ -4,6 +4,70 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 1.0.0 (2026-04-24)
+
+### Added
+
+- ESLint 10 support: peer bumped from `9.39.4` to `^10.0.0`.
+- Migrated React rules to `@eslint-react/eslint-plugin@4.2.3`, replacing `eslint-plugin-react` (which still caps at `eslint@^9`).
+- Vendored 5 rules from `eslint-plugin-promise@7.2.1` into `eslint/plugins/vendored-promise/` (upstream unmaintained, PR #617 open since 2026-02-08 with no maintainer response). Same `promise/*` rule IDs preserved for oxlint/biome parity.
+
+### Changed
+
+- **BREAKING:** React rule IDs changed across the board (`eslint-plugin-react` → `@eslint-react/eslint-plugin`). Downstream `// eslint-disable-next-line react/X` comments must be rewritten. Full mapping below.
+- **BREAKING:** `engines.node` implicitly requires a Node version ESLint 10 supports (`^20.19 || ^22.13 || >=24`). Our `>=24.0.0` is a stricter subset, but consumers on older Node need to upgrade.
+- `eslint-plugin-react-hooks` 7.0.1 → 7.1.1 (for ESLint 10 peer support).
+
+### Removed
+
+- **BREAKING:** `eslint-plugin-jest-dom` removed. 10 `jest-dom/prefer-*` matcher autofix rules lost. Reason: upstream peer caps at `eslint@^9`; ESLint 10 support is merged to main (PR #416) but unreleased due to broken CI (issue #417). Tracked in `docs/tech-debt.md`. Will be restored as a patch release when upstream releases.
+- **BREAKING:** `eslint-plugin-react` no longer a direct dep (replaced by `@eslint-react/eslint-plugin`).
+- **BREAKING:** These `react/*` rules were dropped without a new-plugin replacement (covered by other means or intentionally not ported):
+    - `react/function-component-definition` (covered by `prefer-arrow-functions`)
+    - `react/jsx-no-undef` (covered by `no-undef` + TypeScript)
+    - `react/no-typos` (covered by TypeScript)
+    - `react/jsx-pascal-case` (covered by parser + TypeScript)
+    - `react/no-is-mounted` (legacy createClass, obsolete)
+    - `react/sort-comp` (class components, obsolete)
+    - `react/jsx-handler-names` (stylistic, intentionally dropped)
+    - `react/no-adjacent-inline-elements` (edge a11y, intentionally dropped)
+    - `react/boolean-prop-naming` (covered by local `@37bytes/boolean-naming` — type-aware, stricter)
+    - `react/hook-use-state` (partial overlap with `@eslint-react/use-state`, not enabled)
+    - `react/self-closing-comp` (covered by Prettier)
+    - `react/jsx-curly-newline` (covered by Prettier)
+    - `react/jsx-no-duplicate-props` (covered by TypeScript TS17001)
+    - `react/jsx-boolean-value` (dropped — absent from `@stylistic/eslint-plugin-jsx@4.x`; consider Prettier domain)
+    - `react/jsx-curly-brace-presence` (same rationale)
+    - `react/jsx-fragments` (same rationale)
+
+### Migration Guide
+
+For consumers: replace old rule IDs with new ones in `// eslint-disable` comments and any local overrides. Find-and-replace map (note the **flat kebab-case** in `@eslint-react/<name>` — the plugin documentation site groups rules under `dom/`, `jsx/`, `web-api/` categories but the actual rule IDs use `dom-<name>`, `jsx-<name>`, not `dom/<name>`):
+
+| Old | New |
+| --- | --- |
+| `react/jsx-key` | `@eslint-react/no-missing-key` (also: `@eslint-react/no-duplicate-key`, `@eslint-react/jsx-no-key-after-spread`) |
+| `react/no-array-index-key` | `@eslint-react/no-array-index-key` |
+| `react/jsx-no-leaked-render` | `@eslint-react/no-leaked-conditional-rendering` |
+| `react/jsx-no-comment-textnodes` | `@eslint-react/jsx-no-comment-textnodes` |
+| `react/no-unknown-property` | `@eslint-react/dom-no-unknown-property` |
+| `react/no-direct-mutation-state` | `@eslint-react/no-direct-mutation-state` |
+| `react/no-access-state-in-setstate` | `@eslint-react/no-access-state-in-setstate` |
+| `react/no-unused-state` | `@eslint-react/no-unused-state` |
+| `react/no-danger-with-children` | `@eslint-react/dom-no-dangerously-set-innerhtml-with-children` |
+| `react/no-children-prop` | `@eslint-react/jsx-no-children-prop` |
+| `react/no-unstable-nested-components` | `@eslint-react/no-nested-component-definitions` |
+| `react/no-object-type-as-default-prop` | `@eslint-react/no-unstable-default-props` |
+| `react/style-prop-object` | `@eslint-react/dom-no-string-style-prop` |
+| `react/button-has-type` | `@eslint-react/dom-no-missing-button-type` |
+| `react/no-danger` | `@eslint-react/dom-no-dangerously-set-innerhtml` |
+| `react/jsx-no-script-url` | `@eslint-react/dom-no-script-url` |
+| `react/iframe-missing-sandbox` | `@eslint-react/dom-no-missing-iframe-sandbox` |
+| `react/jsx-no-target-blank` | `@eslint-react/dom-no-unsafe-target-blank` |
+| `react/no-deprecated` | `@eslint-react/no-component-will-mount`, `@eslint-react/no-component-will-receive-props`, `@eslint-react/no-component-will-update`, `@eslint-react/dom-no-hydrate`, `@eslint-react/dom-no-render`, `@eslint-react/no-context-provider`, `@eslint-react/no-forward-ref` |
+
+**oxlint/biome parity note:** oxlint retains the old `react/*` rule IDs from `eslint-plugin-react` (they are built-in). Semantic coverage is the same; only rule IDs differ between the ESLint config and the oxlint/biome configs. This is an intentional trade-off.
+
 ## 0.0.2 (2026-04-05)
 
 ### Added
