@@ -81,7 +81,7 @@ export { regexp } from '#rules/regexp';
 
 export { storybook } from '#rules/storybook';
 
-export { jestDomRules, testing, testingLibraryRules, testingReact, testOverrides, vitestRules } from '#rules/testing';
+export { testing, testingLibraryRules, testingReact, testOverrides, vitestRules } from '#rules/testing';
 
 export { typescript } from '#rules/typescript';
 

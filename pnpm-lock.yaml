@@ -233,9 +233,6 @@ importers:
       eslint-plugin-import-x:
         specifier: 4.16.2
         version: 4.16.2(@typescript-eslint/utils@8.58.0(eslint@9.39.4)(typescript@6.0.2))(eslint-import-resolver-node@0.3.9)(eslint@9.39.4)
-      eslint-plugin-jest-dom:
-        specifier: 5.5.0
-        version: 5.5.0(@testing-library/dom@10.4.1)(eslint@9.39.4)
       eslint-plugin-n:
         specifier: 17.24.0
         version: 17.24.0(eslint@9.39.4)(typescript@6.0.2)
@@ -3909,16 +3906,6 @@ packages:
       '@typescript-eslint/parser':
         optional: true
 
-  eslint-plugin-jest-dom@5.5.0:
-    resolution: {integrity: sha512-CRlXfchTr7EgC3tDI7MGHY6QjdJU5Vv2RPaeeGtkXUHnKZf04kgzMPIJUXt4qKCvYWVVIEo9ut9Oq1vgXAykEA==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0, npm: '>=6', yarn: '>=1'}
-    peerDependencies:
-      '@testing-library/dom': ^8.0.0 || ^9.0.0 || ^10.0.0
-      eslint: ^6.8.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
-    peerDependenciesMeta:
-      '@testing-library/dom':
-        optional: true
-
   eslint-plugin-jest@25.7.0:
     resolution: {integrity: sha512-PWLUEXeeF7C9QGKqvdSbzLOiLTx+bno7/HC9eefePfEb257QFHg7ye3dh80AZVkaa/RQsBB1Q/ORQvg2X7F0NQ==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
@@ -5712,10 +5699,6 @@ packages:
   require-from-string@2.0.2:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
     engines: {node: '>=0.10.0'}
-
-  requireindex@1.2.0:
-    resolution: {integrity: sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==}
-    engines: {node: '>=0.10.5'}
 
   requires-port@1.0.0:
     resolution: {integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==}
@@ -10460,14 +10443,6 @@ snapshots:
       - supports-color
     optional: true
 
-  eslint-plugin-jest-dom@5.5.0(@testing-library/dom@10.4.1)(eslint@9.39.4):
-    dependencies:
-      '@babel/runtime': 7.28.6
-      eslint: 9.39.4
-      requireindex: 1.2.0
-    optionalDependencies:
-      '@testing-library/dom': 10.4.1
-
   eslint-plugin-jest@25.7.0(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@6.0.2))(eslint@8.57.1)(typescript@6.0.2))(eslint@8.57.1)(typescript@6.0.2):
     dependencies:
       '@typescript-eslint/experimental-utils': 5.62.0(eslint@8.57.1)(typescript@6.0.2)
@@ -12703,8 +12678,6 @@ snapshots:
   require-directory@2.1.1: {}
 
   require-from-string@2.0.2: {}
-
-  requireindex@1.2.0: {}
 
   requires-port@1.0.0: {}
 

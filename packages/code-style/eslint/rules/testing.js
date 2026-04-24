@@ -7,13 +7,15 @@
  * Required peer dependencies (install in your project):
  * - @vitest/eslint-plugin
  * - eslint-plugin-testing-library (for React component tests)
- * - eslint-plugin-jest-dom (for DOM matchers)
  *
  * File pattern: __tests__/*.test.[js,ts,jsx,tsx]
  *
  * Severity levels:
  * - warn: Desirable, should be followed in most cases
  * - error: Critical, must be followed (enforced strictly)
+ *
+ * NOTE: eslint-plugin-jest-dom removed during ESLint 10 migration — upstream
+ * still caps peer at eslint@^9. See docs/tech-debt.md for restoration plan.
  */
 
 /**
@@ -63,23 +65,6 @@ export const testingLibraryRules = {
 };
 
 /**
- * jest-dom rules for semantic matchers (with auto-fix!)
- * @type {import('eslint').Linter.RulesRecord}
- */
-export const jestDomRules = {
-    'jest-dom/prefer-checked': 'warn', // .toBeChecked()
-    'jest-dom/prefer-enabled-disabled': 'warn', // .toBeEnabled() / .toBeDisabled()
-    'jest-dom/prefer-focus': 'warn', // .toHaveFocus()
-    'jest-dom/prefer-in-document': 'warn', // .toBeInTheDocument()
-    'jest-dom/prefer-required': 'warn', // .toBeRequired()
-    'jest-dom/prefer-to-have-attribute': 'warn', // .toHaveAttribute()
-    'jest-dom/prefer-to-have-class': 'warn', // .toHaveClass()
-    'jest-dom/prefer-to-have-style': 'warn', // .toHaveStyle()
-    'jest-dom/prefer-to-have-text-content': 'warn', // .toHaveTextContent()
-    'jest-dom/prefer-to-have-value': 'warn' // .toHaveValue()
-};
-
-/**
  * Rules to relax in test files
  * @type {import('eslint').Linter.RulesRecord}
  */
@@ -119,12 +104,11 @@ export const testing = {
 
 /**
  * Combined testing rules for React components
- * Use with Vitest + Testing Library + jest-dom
+ * Use with Vitest + Testing Library
  * @type {import('eslint').Linter.RulesRecord}
  */
 export const testingReact = {
     ...vitestRules,
     ...testingLibraryRules,
-    ...jestDomRules,
     ...testOverrides
 };

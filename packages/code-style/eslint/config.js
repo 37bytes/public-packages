@@ -20,7 +20,7 @@ import { react } from '#rules/react';
 import { reactCompiler } from '#rules/react-compiler';
 import { regexp } from '#rules/regexp';
 import { storybook } from '#rules/storybook';
-import { jestDomRules, testingLibraryRules, testOverrides, vitestRules } from '#rules/testing';
+import { testingLibraryRules, testOverrides, vitestRules } from '#rules/testing';
 import { typescript } from '#rules/typescript';
 
 import nextPlugin from '@next/eslint-plugin-next';
@@ -28,7 +28,6 @@ import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
 import vitestPlugin from '@vitest/eslint-plugin';
 import importPlugin from 'eslint-plugin-import-x';
-import jestDomPlugin from 'eslint-plugin-jest-dom';
 import nodePlugin from 'eslint-plugin-n';
 import perfectionistPlugin from 'eslint-plugin-perfectionist';
 import preferArrowFunctions from 'eslint-plugin-prefer-arrow-functions';
@@ -330,12 +329,10 @@ export const testingConfig = {
 export const testingReactConfig = {
     files: TEST_FILES_TSX,
     plugins: {
-        'testing-library': testingLibraryPlugin,
-        'jest-dom': jestDomPlugin
+        'testing-library': testingLibraryPlugin
     },
     rules: {
-        ...testingLibraryRules,
-        ...jestDomRules
+        ...testingLibraryRules
     }
 };
 
