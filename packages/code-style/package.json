@@ -46,6 +46,8 @@
         "oxlint/type-aware-overrides.js",
         "browserslist",
         "eslint/**/*.js",
+        "eslint/plugins/vendored-promise/LICENSE.md",
+        "eslint/plugins/vendored-promise/NOTICE.md",
         "!eslint/**/__tests__/**",
         "prettier",
         "typescript",
