@@ -318,7 +318,7 @@ export const testingConfig = {
 };
 
 /**
- * Testing React config — Testing Library + jest-dom rules.
+ * Testing React config — Testing Library rules.
  * @type {import('eslint').Linter.Config}
  */
 export const testingReactConfig = {
