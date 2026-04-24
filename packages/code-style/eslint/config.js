@@ -32,7 +32,6 @@ import jestDomPlugin from 'eslint-plugin-jest-dom';
 import nodePlugin from 'eslint-plugin-n';
 import perfectionistPlugin from 'eslint-plugin-perfectionist';
 import preferArrowFunctions from 'eslint-plugin-prefer-arrow-functions';
-import promisePlugin from 'eslint-plugin-promise';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import regexpPlugin from 'eslint-plugin-regexp';
@@ -42,6 +41,8 @@ import storybookPlugin from 'eslint-plugin-storybook';
 import testingLibraryPlugin from 'eslint-plugin-testing-library';
 import unicornPlugin from 'eslint-plugin-unicorn';
 import globals from 'globals';
+
+import promisePlugin from './plugins/vendored-promise/index.js';
 
 // ── Test file patterns ───────────────────────────────────────────────────────
 
