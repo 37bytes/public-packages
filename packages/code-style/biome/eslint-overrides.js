@@ -43,13 +43,14 @@ export const biomeOverrides = {
         '@typescript-eslint/naming-convention': 'off',
         '@typescript-eslint/no-inferrable-types': 'off',
 
-        // React — covered by Biome
-        'react/jsx-boolean-value': 'off',
-        'react/jsx-curly-brace-presence': 'off',
-        'react/jsx-fragments': 'off',
+        // React — covered by Biome (post-@eslint-react migration: rule names
+        // changed from `react/*` to `@eslint-react/*`. `jsx-boolean-value`,
+        // `jsx-curly-brace-presence`, `jsx-fragments` were dropped entirely
+        // because they are not in @eslint-react and are effectively Prettier's
+        // domain in our setup, so nothing to disable there anymore.)
         // RE-ENABLE: eslint-config-biome disables button-has-type thinking Biome
         // a11y covers it, but our config uses recommended:false and skips a11y
-        'react/button-has-type': 'warn',
+        '@eslint-react/dom-no-missing-button-type': 'warn',
 
         // Next.js — covered by Biome 'next' domain
         '@next/next/google-font-display': 'off',
@@ -80,6 +81,6 @@ export const biomeOverrides = {
         'no-useless-return': 'off',
 
         // Nursery React — covered by Biome
-        'react/jsx-no-leaked-render': 'off'
+        '@eslint-react/no-leaked-conditional-rendering': 'off'
     }
 };

@@ -77,9 +77,12 @@ describe('naming-conventions: bad fixtures', () => {
         { file: 'bad/typescript/interface-i-prefix.ts', rule: '@typescript-eslint/naming-convention' },
         { file: 'bad/typescript/type-t-prefix.ts', rule: '@typescript-eslint/naming-convention' },
         { file: 'bad/typescript/generic-t-prefix.ts', rule: '@typescript-eslint/naming-convention' },
-        { file: 'bad/react/function-declaration.tsx', rule: 'react/function-component-definition' },
-        { file: 'bad/react/is-disabled-prop.tsx', rule: 'react/boolean-prop-naming' },
-        { file: 'bad/react/and-without-boolean.tsx', rule: 'react/jsx-no-leaked-render' }
+        // Post-@eslint-react migration: rule IDs changed.
+        // - function-component-definition → prefer-arrow-functions (unchanged plugin, covers same pattern)
+        // - boolean-prop-naming → dropped (not ported; the fixture still trips other rules, but we no longer assert its specific rule here)
+        // - jsx-no-leaked-render → @eslint-react/no-leaked-conditional-rendering
+        { file: 'bad/react/function-declaration.tsx', rule: 'prefer-arrow-functions/prefer-arrow-functions' },
+        { file: 'bad/react/and-without-boolean.tsx', rule: '@eslint-react/no-leaked-conditional-rendering' }
     ];
 
     for (const { file, rule } of badFiles) {

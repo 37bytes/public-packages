@@ -23,6 +23,7 @@ import { storybook } from '#rules/storybook';
 import { testingLibraryRules, testOverrides, vitestRules } from '#rules/testing';
 import { typescript } from '#rules/typescript';
 
+import reactPlugin from '@eslint-react/eslint-plugin';
 import nextPlugin from '@next/eslint-plugin-next';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
@@ -31,7 +32,6 @@ import importPlugin from 'eslint-plugin-import-x';
 import nodePlugin from 'eslint-plugin-n';
 import perfectionistPlugin from 'eslint-plugin-perfectionist';
 import preferArrowFunctions from 'eslint-plugin-prefer-arrow-functions';
-import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import regexpPlugin from 'eslint-plugin-regexp';
 import securityPlugin from 'eslint-plugin-security';
@@ -150,13 +150,8 @@ export const reactConfig = {
         }
     },
     plugins: {
-        react: reactPlugin,
+        '@eslint-react': reactPlugin,
         'react-hooks': reactHooksPlugin
-    },
-    settings: {
-        react: {
-            version: 'detect'
-        }
     },
     rules: {
         ...react,
@@ -389,8 +384,7 @@ export const perfectionistBaseConfig = {
 export const perfectionistReactConfig = {
     files: ['**/*.jsx', '**/*.tsx'],
     rules: {
-        ...perfectionistReact,
-        'react/jsx-sort-props': 'off'
+        ...perfectionistReact
     }
 };
 
