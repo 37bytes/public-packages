@@ -224,7 +224,9 @@ export interface ButtonProps {
 }
 ```
 
-Polymorphic-пропсы (`Element`, `Component`, `Icon` и т.п.) допускаются в `PascalCase`. И тип, и destructured-параметр в FC принимают такие имена.
+Polymorphic-пропсы допускаются в `PascalCase`. Покрыты три формы:
+
+1. Прямое имя `Element`: и в типе, и в destructured FC-параметре.
 
 ```tsx
 import type { ElementType, ReactNode } from 'react';
@@ -234,10 +236,21 @@ interface BoxProps {
     children: ReactNode;
 }
 
-export const Box = ({ Element = 'div', children }: BoxProps) => {
-    return <Element>{children}</Element>;
-};
+export const Box = ({ Element = 'div', children }: BoxProps) => <Element>{children}</Element>;
 ```
+
+2. Переименование от lowercase-prop'а вроде `as` (стандарт в Radix/MUI/Chakra) на whitelisted PascalCase: `Element`, `Component`, `Tag`.
+
+```tsx
+interface AsBoxProps {
+    as?: ElementType;
+    children: ReactNode;
+}
+
+export const AsBox = ({ as: Element = 'div', children }: AsBoxProps) => <Element>{children}</Element>;
+```
+
+Другие имена параметров остаются `camelCase`: `function handle(someArg)` обязательно, `function handle(SomeArg)` ругается.
 
 Boolean-пропсы: HTML-стиль (без `is`/`has`). Внутри компонента деструктурировать с переименованием.
 

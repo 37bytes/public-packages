@@ -83,6 +83,7 @@ describe('naming-conventions: bad fixtures', () => {
         { file: 'bad/typescript/interface-i-prefix.ts', rule: '@typescript-eslint/naming-convention' },
         { file: 'bad/typescript/type-t-prefix.ts', rule: '@typescript-eslint/naming-convention' },
         { file: 'bad/typescript/generic-t-prefix.ts', rule: '@typescript-eslint/naming-convention' },
+        { file: 'bad/typescript/pascal-case-parameter.ts', rule: '@typescript-eslint/naming-convention' },
         // Post-@eslint-react migration: rule IDs changed.
         // - function-component-definition → prefer-arrow-functions (unchanged plugin, covers same pattern)
         // - boolean-prop-naming → dropped (not ported; the fixture still trips other rules, but we no longer assert its specific rule here)

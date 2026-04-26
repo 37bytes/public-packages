@@ -140,6 +140,17 @@ export const typescript = {
             modifiers: ['destructured'],
             format: null
         },
+        // Polymorphic-component placeholders renamed via destructure-with-rename
+        // (e.g. `({ as: Element })`) need PascalCase because they are used as JSX
+        // tags `<Element />`. The rename target is a regular `parameter` binding,
+        // not a `destructured` one, so the previous override does not apply.
+        // Whitelist a small set of conventional placeholder names instead of
+        // loosening `parameter` globally.
+        {
+            selector: 'parameter',
+            filter: { regex: '^(Element|Component|Tag)$', match: true },
+            format: ['PascalCase']
+        },
         // Imports: camelCase or PascalCase (for classes, React components)
         {
             selector: 'import',
