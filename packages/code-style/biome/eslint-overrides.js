@@ -44,10 +44,11 @@ export const biomeOverrides = {
         '@typescript-eslint/no-inferrable-types': 'off',
 
         // React — covered by Biome (post-@eslint-react migration: rule names
-        // changed from `react/*` to `@eslint-react/*`. `jsx-boolean-value`,
-        // `jsx-curly-brace-presence`, `jsx-fragments` were dropped entirely
-        // because they are not in @eslint-react and are effectively Prettier's
-        // domain in our setup, so nothing to disable there anymore.)
+        // changed from `react/*` to `@eslint-react/*`; jsx stylistic rules
+        // are now provided by `@stylistic/*` and our local `@37bytes/jsx-*`).
+        '@stylistic/jsx-curly-brace-presence': 'off',
+        '@37bytes/jsx-boolean-value': 'off',
+        '@37bytes/jsx-fragments': 'off',
         // RE-ENABLE: eslint-config-biome disables button-has-type thinking Biome
         // a11y covers it, but our config uses recommended:false and skips a11y
         '@eslint-react/dom-no-missing-button-type': 'warn',

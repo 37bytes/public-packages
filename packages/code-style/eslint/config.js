@@ -18,6 +18,7 @@ import { perfectionistReact, perfectionist as perfectionistRules } from '#rules/
 import { quality } from '#rules/quality';
 import { react } from '#rules/react';
 import { reactCompiler } from '#rules/react-compiler';
+import { reactStylistic } from '#rules/react-stylistic';
 import { regexp } from '#rules/regexp';
 import { storybook } from '#rules/storybook';
 import { testingLibraryRules, testOverrides, vitestRules } from '#rules/testing';
@@ -25,6 +26,7 @@ import { typescript } from '#rules/typescript';
 
 import reactPlugin from '@eslint-react/eslint-plugin';
 import nextPlugin from '@next/eslint-plugin-next';
+import stylisticPlugin from '@stylistic/eslint-plugin';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
 import vitestPlugin from '@vitest/eslint-plugin';
@@ -151,10 +153,12 @@ export const reactConfig = {
     },
     plugins: {
         '@eslint-react': reactPlugin,
+        '@stylistic': stylisticPlugin,
         'react-hooks': reactHooksPlugin
     },
     rules: {
         ...react,
+        ...reactStylistic,
         '@37bytes/no-arrow-props': [
             'error',
             {

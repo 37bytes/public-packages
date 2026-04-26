@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - ESLint 10 support: peer bumped from `9.39.4` to `^10.0.0`.
 - Migrated React rules to `@eslint-react/eslint-plugin@4.2.3`, replacing `eslint-plugin-react` (which still caps at `eslint@^9`).
 - Vendored 5 rules from `eslint-plugin-promise@7.2.1` into `eslint/plugins/vendored-promise/` (upstream unmaintained, PR #617 open since 2026-02-08 with no maintainer response). Same `promise/*` rule IDs preserved for oxlint/biome parity.
+- Restored three JSX stylistic rules that were lost during the React migration (`@eslint-react` intentionally drops stylistic rules):
+    - `@stylistic/jsx-curly-brace-presence` from new dep `@stylistic/eslint-plugin@5.10.0`. Behaviour identical to old `react/jsx-curly-brace-presence` with option `'never'`.
+    - `@37bytes/jsx-boolean-value` new local plugin. Forbids explicit `={true}` on JSX boolean props. Equivalent to old `react/jsx-boolean-value` with option `'never'`.
+    - `@37bytes/jsx-fragments` new local plugin. Prefers shorthand `<>...</>` over `<React.Fragment>...</React.Fragment>`. Equivalent to old `react/jsx-fragments` with option `'syntax'`.
 
 ### Changed
 
@@ -36,9 +40,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
     - `react/self-closing-comp` (covered by Prettier)
     - `react/jsx-curly-newline` (covered by Prettier)
     - `react/jsx-no-duplicate-props` (covered by TypeScript TS17001)
-    - `react/jsx-boolean-value` (dropped — absent from `@stylistic/eslint-plugin-jsx@4.x`; consider Prettier domain)
-    - `react/jsx-curly-brace-presence` (same rationale)
-    - `react/jsx-fragments` (same rationale)
 
 ### Migration Guide
 
@@ -65,6 +66,9 @@ For consumers: replace old rule IDs with new ones in `// eslint-disable` comment
 | `react/iframe-missing-sandbox` | `@eslint-react/dom-no-missing-iframe-sandbox` |
 | `react/jsx-no-target-blank` | `@eslint-react/dom-no-unsafe-target-blank` |
 | `react/no-deprecated` | `@eslint-react/no-component-will-mount`, `@eslint-react/no-component-will-receive-props`, `@eslint-react/no-component-will-update`, `@eslint-react/dom-no-hydrate`, `@eslint-react/dom-no-render`, `@eslint-react/no-context-provider`, `@eslint-react/no-forward-ref` |
+| `react/jsx-curly-brace-presence` | `@stylistic/jsx-curly-brace-presence` |
+| `react/jsx-boolean-value` | `@37bytes/jsx-boolean-value` |
+| `react/jsx-fragments` | `@37bytes/jsx-fragments` |
 
 **oxlint/biome parity note:** oxlint retains the old `react/*` rule IDs from `eslint-plugin-react` (they are built-in). Semantic coverage is the same; only rule IDs differ between the ESLint config and the oxlint/biome configs. This is an intentional trade-off.
 

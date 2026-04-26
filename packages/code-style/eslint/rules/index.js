@@ -12,6 +12,7 @@ export { perfectionist, perfectionistReact } from '#rules/perfectionist';
 export { quality } from '#rules/quality';
 export { react } from '#rules/react';
 export { reactCompiler } from '#rules/react-compiler';
+export { reactStylistic } from '#rules/react-stylistic';
 export { regexp } from '#rules/regexp';
 export { storybook } from '#rules/storybook';
 export { testing, testingLibraryRules, testingReact, testOverrides, vitestRules } from '#rules/testing';
