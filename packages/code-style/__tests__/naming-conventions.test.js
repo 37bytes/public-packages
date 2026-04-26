@@ -45,7 +45,13 @@ const lintFixture = async (relativePath) => {
 };
 
 describe('naming-conventions: good fixtures', () => {
-    const goodFiles = ['good/hook.ts', 'good/component.tsx', 'good/api.ts', 'good/utils.ts'];
+    const goodFiles = [
+        'good/hook.ts',
+        'good/component.tsx',
+        'good/api.ts',
+        'good/utils.ts',
+        'good/polymorphicComponent.tsx'
+    ];
 
     for (const file of goodFiles) {
         test(`${file} should have zero violations`, async () => {

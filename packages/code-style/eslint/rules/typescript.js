@@ -132,6 +132,14 @@ export const typescript = {
             format: ['camelCase'],
             leadingUnderscore: 'allow'
         },
+        // Destructured parameters: any format. Consumer cannot rename a destructured
+        // binding without `:` syntax, so when the source API exposes a PascalCase prop
+        // (e.g. polymorphic `Element` in UI kits) the local binding has to follow.
+        {
+            selector: 'parameter',
+            modifiers: ['destructured'],
+            format: null
+        },
         // Imports: camelCase or PascalCase (for classes, React components)
         {
             selector: 'import',
@@ -141,6 +149,13 @@ export const typescript = {
         {
             selector: 'objectLiteralProperty',
             format: null
+        },
+        // Type properties: camelCase or PascalCase. The latter is required for
+        // React component props that hold an element type (e.g.
+        // `interface Props { Element: ComponentType }` for polymorphic components).
+        {
+            selector: 'typeProperty',
+            format: ['camelCase', 'PascalCase']
         },
         // Types and Interfaces: PascalCase without prefixes
         {

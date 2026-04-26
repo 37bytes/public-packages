@@ -224,6 +224,21 @@ export interface ButtonProps {
 }
 ```
 
+Polymorphic-пропсы (`Element`, `Component`, `Icon` и т.п.) допускаются в `PascalCase`. И тип, и destructured-параметр в FC принимают такие имена.
+
+```tsx
+import type { ElementType, ReactNode } from 'react';
+
+interface BoxProps {
+    Element?: ElementType;
+    children: ReactNode;
+}
+
+export const Box = ({ Element = 'div', children }: BoxProps) => {
+    return <Element>{children}</Element>;
+};
+```
+
 Boolean-пропсы: HTML-стиль (без `is`/`has`). Внутри компонента деструктурировать с переименованием.
 
 ```tsx
