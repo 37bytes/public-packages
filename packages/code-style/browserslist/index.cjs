@@ -2,11 +2,19 @@
  * @fileoverview Browserslist preset for 37bytes projects
  * @author 37bytes
  *
- * Usage in package.json:
- *   "browserslist": ["extends @37bytes/code-style/browserslist"]
+ * The browserslist `extends` directive only works for packages whose name
+ * matches `browserslist-config-*` or `@scope/browserslist-config-*`. Our
+ * package is `@37bytes/code-style`, which does not match, so consumers
+ * cannot reference this preset via `extends` — they must inline the array.
  *
- * Or in .browserslistrc:
- *   extends @37bytes/code-style/browserslist
+ * Recommended usage in package.json: paste the array contents directly.
+ *   "browserslist": [
+ *       "last 2 Chrome versions",
+ *       ...
+ *   ]
+ *
+ * Programmatic usage from a JS config (e.g. vite.config.ts):
+ *   const browserslistConfig = require('@37bytes/code-style/browserslist');
  *
  * Firefox ESR pin (128) should be updated when the ESR cycle rotates.
  * Run `npx update-browserslist-db@latest` periodically to keep caniuse-lite fresh.

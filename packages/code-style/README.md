@@ -153,6 +153,36 @@ export default config;
 cp node_modules/@37bytes/code-style/editorconfig/.editorconfig .
 ```
 
+## Browserslist
+
+Утилита `browserslist` принимает `extends` только для пакетов с именем `browserslist-config-*` или `@scope/browserslist-config-*`. Имя `@37bytes/code-style` под этот шаблон не подходит, поэтому пресет нельзя подключить через `extends @37bytes/code-style/browserslist` (выдаст `BrowserslistError: Browserslist config needs 'browserslist-config-' prefix`).
+
+Рабочий вариант инлайнить массив правил в `package.json`:
+
+```json
+{
+    "browserslist": [
+        "last 2 Chrome versions",
+        "last 2 Edge versions",
+        "last 2 Opera versions",
+        "last 2 Firefox versions",
+        "Firefox ESR",
+        "Firefox 128",
+        "last 3 Safari major versions",
+        "last 3 ChromeAndroid versions",
+        "last 3 iOS major versions",
+        "last 2 Samsung versions",
+        "last 1 op_mob version"
+    ]
+}
+```
+
+Источник правды массива: [`browserslist/index.cjs`](./browserslist/index.cjs). Если меняется в пресете надо синхронизировать вручную в потребителях. Программный доступ из JS-конфигов:
+
+```js
+const browserslistConfig = require('@37bytes/code-style/browserslist');
+```
+
 ## Naming Conventions
 
 См. [NAMING_CONVENTIONS.md](./NAMING_CONVENTIONS.md).
