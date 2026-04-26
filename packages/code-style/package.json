@@ -88,7 +88,7 @@
         "eslint": "^10.0.0",
         "oxlint": "1.61.0",
         "prettier": "3.8.3",
-        "stylelint": "17.6.0",
+        "stylelint": "17.9.0",
         "typescript": "6.0.3"
     },
     "peerDependenciesMeta": {
@@ -131,7 +131,7 @@
         "globals": "17.5.0",
         "stylelint-config-standard-scss": "17.0.0",
         "stylelint-declaration-strict-value": "1.11.1",
-        "stylelint-order": "7.0.1"
+        "stylelint-order": "8.1.1"
     },
     "devDependencies": {
         "@biomejs/biome": "2.4.13",
@@ -142,7 +142,7 @@
         "oxlint": "1.61.0",
         "oxlint-tsgolint": "0.22.0",
         "prettier": "3.8.3",
-        "stylelint": "17.6.0",
+        "stylelint": "17.9.0",
         "typescript": "6.0.3"
     },
     "scripts": {
