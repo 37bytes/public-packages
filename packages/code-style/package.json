@@ -1,6 +1,6 @@
 {
     "name": "@37bytes/code-style",
-    "version": "1.0.0",
+    "version": "0.0.3",
     "description": "Unified linting and formatting configs for 37bytes projects",
     "license": "ISC",
     "type": "module",

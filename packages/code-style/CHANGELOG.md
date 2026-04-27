@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## 1.0.0 (2026-04-24)
+## 0.0.3 (2026-04-27)
 
 ### Added
 
@@ -21,6 +21,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **BREAKING:** React rule IDs changed across the board (`eslint-plugin-react` → `@eslint-react/eslint-plugin`). Downstream `// eslint-disable-next-line react/X` comments must be rewritten. Full mapping below.
 - **BREAKING:** `engines.node` implicitly requires a Node version ESLint 10 supports (`^20.19 || ^22.13 || >=24`). Our `>=24.0.0` is a stricter subset, but consumers on older Node need to upgrade.
 - `eslint-plugin-react-hooks` 7.0.1 → 7.1.1 (for ESLint 10 peer support).
+- Dependency refresh sweep:
+    - `@biomejs/biome` 2.4.10 → 2.4.13 (peer + dev), `prettier` 3.8.1 → 3.8.3 (peer + dev), `typescript` 6.0.2 → 6.0.3 (peer + dev).
+    - `@typescript-eslint/eslint-plugin`, `parser`, `utils` 8.58.0 → 8.59.0.
+    - `@next/eslint-plugin-next` 16.2.2 → 16.2.4, `@vitest/eslint-plugin` 1.6.14 → 1.6.16, `eslint-plugin-perfectionist` 5.8.0 → 5.9.0, `eslint-plugin-sonarjs` 4.0.2 → 4.0.3, `eslint-plugin-storybook` 10.3.4 → 10.3.5, `globals` 17.4.0 → 17.5.0.
+    - `oxlint` 1.58.0 → 1.61.0 (peer + dev), `eslint-plugin-oxlint` 1.58.0 → 1.61.0, `oxlint-tsgolint` 0.19.0 → 0.22.0.
+    - `stylelint` 17.6.0 → 17.9.0 (peer + dev), `stylelint-order` 7.0.1 → 8.1.1 (additive major: CSS-in-JS interpolation autofix + new `custom-properties-alphabetical-order` rule).
 
 ### Removed
 
