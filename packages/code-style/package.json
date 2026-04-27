@@ -154,7 +154,7 @@
         "lint": "pnpm lint:typescript && pnpm lint:eslint",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
-        "build:oxlint": "node oxlint/build.js && prettier --write oxlint/*.json",
+        "build:oxlint": "node oxlint/build.js && prettier --write oxlint/*.json .oxlintrc.json",
         "build:biome": "node biome/build.js && prettier --write biome/config.json",
         "prepublishOnly": "pnpm run build:oxlint && pnpm run build:biome && pnpm run lint && pnpm test && echo 'Use npm publish --dry-run first!'",
         "npm-packlist": "npx -y npm-packlist@6.0.1"

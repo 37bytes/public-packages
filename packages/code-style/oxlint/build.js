@@ -5,8 +5,8 @@
  * modular rule files in oxlint/rules/ and oxlint/infrastructure.js.
  * Validates all rule names against `oxlint --rules` output.
  *
- * Usage: node oxlint/build.js
- * Then:  prettier --write oxlint/*.json .oxlintrc.json
+ * Usage: pnpm build:oxlint
+ *   (runs `node oxlint/build.js && prettier --write oxlint/*.json .oxlintrc.json`)
  */
 
 import { execSync } from 'node:child_process';
