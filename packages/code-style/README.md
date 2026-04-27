@@ -157,7 +157,7 @@ TypeScript 7.0 это Go-портированный компилятор Microso
 
 | Компонент                                     | Статус | Как                                                            |
 | --------------------------------------------- | ------ | -------------------------------------------------------------- |
-| `tsgo --noEmit` вместо `tsc --noEmit`         | ок     | Drop-in замена для CI/lint-typescript                          |
+| `tsgo --noEmit` для быстрого pre-flight       | ок     | Локальный typecheck в dev-цикле, см. caveat ниже про CI        |
 | `oxlint-tsgolint` (type-aware lint от oxlint) | ок     | Использует Go-based tsgolint, не зависит от JS Compiler API    |
 | Все ESLint правила без type info              | ок     | AST-only, к runtime TS не привязаны                            |
 | Biome, Prettier, Stylelint, oxlint без -tsgo  | ок     | Независимы от TS                                               |
@@ -168,25 +168,29 @@ TypeScript 7.0 это Go-портированный компилятор Microso
 
 #### Side-by-side рецепт
 
+Пока tsgo в preview, **`tsc --noEmit` остаётся authoritative typecheck в CI**. tsgo даёт ~10× ускорение для локального pre-flight, но Microsoft явно маркирует пакет `0-dev.YYYYMMDD` и шипает новую сборку ежедневно — мелкие расхождения между tsc и tsgo возможны и временами случаются. Полагаться на tsgo как на единственный CI-чек преждевременно.
+
 Установить оба:
 
 ```bash
-pnpm add -D typescript@6 @typescript/native-preview@beta
+pnpm add -D typescript@6 @typescript/native-preview@7.0.0-dev.20260427.1
 ```
+
+Версия `@typescript/native-preview` фиксируется датированным dev-релизом, не `@beta` тегом — последний двигается каждый день и сделает рецепт нестабильным. Обновляй pin вручную по мере необходимости, пока не выйдет TS 7.0 stable.
 
 В `package.json` сценариях:
 
 ```json
 {
     "scripts": {
-        "typecheck": "tsgo --noEmit",
-        "typecheck:slow": "tsc --noEmit",
+        "typecheck": "tsc --noEmit",
+        "typecheck:fast": "tsgo --noEmit",
         "lint:eslint": "eslint --max-warnings 0 ."
     }
 }
 ```
 
-ESLint и редактор продолжают использовать `typescript@6` через `@typescript-eslint`, а CI быстро прогоняет `tsgo --noEmit`. Конфликтов между `tsc` и `tsgo` бинарями нет; Microsoft также публикует `@typescript/typescript6` с `tsc6` если нужна полная изоляция.
+`typecheck` остаётся ground truth для CI и pre-commit. `typecheck:fast` для локальных итераций когда нужна скорость, не корректность последней инстанции. ESLint и редактор продолжают использовать `typescript@6` через `@typescript-eslint`. Конфликтов между `tsc` и `tsgo` бинарями нет; Microsoft также публикует `@typescript/typescript6` с `tsc6` если нужна полная изоляция.
 
 ## EditorConfig
 
