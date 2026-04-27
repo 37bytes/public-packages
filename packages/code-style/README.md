@@ -147,6 +147,47 @@ export default config;
 | `typescript/react` | React-приложение (DOM types, JSX) |
 | `typescript/node`  | Node.js (NodeNext modules)        |
 
+### TypeScript 7 (Native Preview)
+
+TypeScript 7.0 это Go-портированный компилятор Microsoft (анонс 2026-04-21), распространяется как `@typescript/native-preview` с бинарём `tsgo`. Семантика проверки типов идентична TS 6.0, скорость в среднем ~10× выше. Стабильный programmatic API ожидается в 7.1.
+
+С нашим preset работает **частично**: tsgo годится для CLI-typecheck, но stable JS Compiler API ещё не выпущен, поэтому `@typescript-eslint` (peer cap `<6.1.0`) и type-aware ESLint правила TS 7 не поддерживают. Microsoft рекомендует side-by-side использование с TS 6.
+
+#### Что работает с tsgo прямо сейчас
+
+| Компонент                                     | Статус | Как                                                            |
+| --------------------------------------------- | ------ | -------------------------------------------------------------- |
+| `tsgo --noEmit` вместо `tsc --noEmit`         | ок     | Drop-in замена для CI/lint-typescript                          |
+| `oxlint-tsgolint` (type-aware lint от oxlint) | ок     | Использует Go-based tsgolint, не зависит от JS Compiler API    |
+| Все ESLint правила без type info              | ок     | AST-only, к runtime TS не привязаны                            |
+| Biome, Prettier, Stylelint, oxlint без -tsgo  | ок     | Независимы от TS                                               |
+
+#### Что **не** работает с tsgo до TS 7.1
+
+- `@typescript-eslint/parser` и type-aware правила (`@typescript-eslint/*`, type-aware часть `@eslint-react`).
+
+#### Side-by-side рецепт
+
+Установить оба:
+
+```bash
+pnpm add -D typescript@6 @typescript/native-preview@beta
+```
+
+В `package.json` сценариях:
+
+```json
+{
+    "scripts": {
+        "typecheck": "tsgo --noEmit",
+        "typecheck:slow": "tsc --noEmit",
+        "lint:eslint": "eslint --max-warnings 0 ."
+    }
+}
+```
+
+ESLint и редактор продолжают использовать `typescript@6` через `@typescript-eslint`, а CI быстро прогоняет `tsgo --noEmit`. Конфликтов между `tsc` и `tsgo` бинарями нет; Microsoft также публикует `@typescript/typescript6` с `tsc6` если нужна полная изоляция.
+
 ## EditorConfig
 
 ```bash
