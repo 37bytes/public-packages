@@ -1,28 +1,28 @@
 /**
- * @fileoverview Tests for restrictedImportsConfig
+ * @fileoverview Tests for createRestrictedImportsConfig
  */
 
 import assert from 'node:assert';
 import { describe, test } from 'node:test';
 
-import { restrictedImportsConfig } from '../restricted-imports.js';
+import { createRestrictedImportsConfig } from '../restricted-imports.js';
 
-describe('restrictedImportsConfig', () => {
+describe('createRestrictedImportsConfig', () => {
     test('should return array of 1 config object when called without arguments', () => {
-        const result = restrictedImportsConfig();
+        const result = createRestrictedImportsConfig();
 
         assert.ok(Array.isArray(result), 'should return an array');
         assert.strictEqual(result.length, 1, 'should contain 1 config object');
     });
 
     test('should have correct files pattern', () => {
-        const [config] = restrictedImportsConfig();
+        const [config] = createRestrictedImportsConfig();
 
         assert.deepStrictEqual(config.files, ['**/*.{ts,tsx}']);
     });
 
     test('should include default FC restriction in paths', () => {
-        const [config] = restrictedImportsConfig();
+        const [config] = createRestrictedImportsConfig();
         const rule = config.rules['@typescript-eslint/no-restricted-imports'];
 
         assert.strictEqual(rule[0], 'error');
@@ -40,7 +40,7 @@ describe('restrictedImportsConfig', () => {
             name: 'clsx',
             message: 'Используйте @/shared/lib/classNames'
         };
-        const [config] = restrictedImportsConfig({ paths: [customPath] });
+        const [config] = createRestrictedImportsConfig({ paths: [customPath] });
         const rule = config.rules['@typescript-eslint/no-restricted-imports'];
 
         assert.strictEqual(rule[1].paths.length, 2, 'should have default + custom paths');
@@ -54,7 +54,7 @@ describe('restrictedImportsConfig', () => {
             message: 'Используйте useI18n',
             allowTypeImports: true
         };
-        const [config] = restrictedImportsConfig({ paths: [customPath] });
+        const [config] = createRestrictedImportsConfig({ paths: [customPath] });
         const rule = config.rules['@typescript-eslint/no-restricted-imports'];
 
         const lingui = rule[1].paths.find((package_) => package_.name === '@lingui/react');
@@ -62,7 +62,7 @@ describe('restrictedImportsConfig', () => {
     });
 
     test('should include default devDependencies patterns', () => {
-        const [config] = restrictedImportsConfig();
+        const [config] = createRestrictedImportsConfig();
         const rule = config.rules['import-x/no-extraneous-dependencies'];
 
         assert.strictEqual(rule[0], 'error');
@@ -72,7 +72,7 @@ describe('restrictedImportsConfig', () => {
     });
 
     test('should merge custom devDependencies with defaults', () => {
-        const [config] = restrictedImportsConfig({ devDependencies: ['**/*.e2e.ts'] });
+        const [config] = createRestrictedImportsConfig({ devDependencies: ['**/*.e2e.ts'] });
         const rule = config.rules['import-x/no-extraneous-dependencies'];
 
         assert.ok(rule[1].devDependencies.includes('**/*.test.ts'), 'should keep defaults');
@@ -80,7 +80,7 @@ describe('restrictedImportsConfig', () => {
     });
 
     test('should have both rules in config', () => {
-        const [config] = restrictedImportsConfig();
+        const [config] = createRestrictedImportsConfig();
 
         assert.ok(config.rules['@typescript-eslint/no-restricted-imports'], 'should have no-restricted-imports');
         assert.ok(config.rules['import-x/no-extraneous-dependencies'], 'should have no-extraneous-dependencies');

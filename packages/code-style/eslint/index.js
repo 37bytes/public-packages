@@ -89,10 +89,10 @@ export { typescript } from '#rules/typescript';
 export { browserFeaturesConfig } from './browser-features.js';
 
 // Re-export FSD config
-export { fsdConfig } from './fsd.js';
+export { createFSDConfig } from './fsd.js';
 
 // Re-export restricted imports config
-export { restrictedImportsConfig } from './restricted-imports.js';
+export { createRestrictedImportsConfig } from './restricted-imports.js';
 
 export const rules = {
     javascript,

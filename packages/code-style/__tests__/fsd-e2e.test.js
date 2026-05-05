@@ -1,7 +1,7 @@
 /**
  * @fileoverview E2E тесты для FSD-архитектуры
  *
- * Проверяют работу fsdConfig() целиком — включая import-x/no-restricted-paths,
+ * Проверяют работу createFSDConfig() целиком — включая import-x/no-restricted-paths,
  * import-x/no-internal-modules и кастомные @37bytes правила — с реальным
  * TypeScript резолвером и fixture FSD-проектом.
  */
@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 import tsparser from '@typescript-eslint/parser';
 import { ESLint } from 'eslint';
 
-import { fsdConfig } from '../eslint/fsd.js';
+import { createFSDConfig } from '../eslint/fsd.js';
 
 const __dirname = import.meta.dirname;
 const FIXTURE_ROOT = path.join(__dirname, 'fixtures', 'fsd-project');
@@ -30,12 +30,12 @@ after(() => process.chdir(originalCwd));
  *
  * @param {string} code — исходный код
  * @param {string} relativePath — путь относительно src/ (например 'entities/user/model/types.ts')
- * @param {object} [fsdOptions] — опции для fsdConfig()
+ * @param {object} [fsdOptions] — опции для createFSDConfig()
  * @returns {Promise<import('eslint').ESLint.LintMessage[]>}
  */
 const lint = async (code, relativePath, fsdOptions) => {
     const filePath = path.join(SRC, relativePath);
-    const fsd = fsdConfig(fsdOptions);
+    const fsd = createFSDConfig(fsdOptions);
 
     const eslint = new ESLint({
         overrideConfigFile: true,
@@ -366,7 +366,7 @@ describe('FSD e2e: порядок импортов (import-x/order)', () => {
 
 // ─── Группа 10: allowPatterns ────────────────────────────────────────────────
 
-describe('FSD e2e: allowPatterns опция fsdConfig()', () => {
+describe('FSD e2e: allowPatterns опция createFSDConfig()', () => {
     test('без allowPatterns глубокий импорт @/shared/config/theme — ERROR', async () => {
         const messages = await lint("import { theme } from '@/shared/config/theme';", 'features/auth/model/store.ts');
         assertHasError(messages, 'import-x/no-internal-modules');

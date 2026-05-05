@@ -4,7 +4,7 @@
  *
  * Four application-type configs: spa, nextjs, nodejs, tool.
  * Opt-in layers: testingConfig, testingReactConfig, storybookConfig,
- * reactCompilerConfig, fsdConfig, restrictedImportsConfig.
+ * reactCompilerConfig, createFSDConfig, createRestrictedImportsConfig.
  * Perfectionist namespace: perfectionist.spa, perfectionist.nextjs, perfectionist.nodejs.
  */
 

@@ -65,7 +65,7 @@ export default [...spa, ...testingConfig, ...testingReactConfig, ...storybookCon
 | `testingReactConfig`  | Testing Library + jest-dom             |
 | `storybookConfig`     | Правила Storybook                      |
 | `reactCompilerConfig` | Правила React Compiler                 |
-| `fsdConfig()`         | Ограничения архитектуры FSD            |
+| `createFSDConfig()`   | Ограничения архитектуры FSD            |
 
 ### Perfectionist (опциональная автосортировка)
 

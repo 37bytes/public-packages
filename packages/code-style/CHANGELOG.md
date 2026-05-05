@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Changed
+
+- **BREAKING:** Factory exports renamed to follow `create*` convention:
+    - `fsdConfig` → `createFSDConfig` (`@37bytes/code-style/eslint/fsd`)
+    - `restrictedImportsConfig` → `createRestrictedImportsConfig` (`@37bytes/code-style/eslint/restricted-imports`)
+
+    Old names removed without alias. Consumers must update imports and call sites:
+
+    ```diff
+    - import { fsdConfig, restrictedImportsConfig } from '@37bytes/code-style/eslint';
+    + import { createFSDConfig, createRestrictedImportsConfig } from '@37bytes/code-style/eslint';
+
+      export default [
+          ...spa,
+    -     ...fsdConfig({ allowPatterns: ['next/*'] }),
+    -     ...restrictedImportsConfig()
+    +     ...createFSDConfig({ allowPatterns: ['next/*'] }),
+    +     ...createRestrictedImportsConfig()
+      ];
+    ```
+
+    Rationale: the previous names looked like ready-made config objects; consumers occasionally spread them without invoking, producing an opaque `TypeError: Unexpected function` from `@eslint/config-array`. The `create*` prefix makes the factory nature explicit.
+
 ## 0.0.3 (2026-04-27)
 
 ### Added

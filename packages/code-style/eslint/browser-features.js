@@ -3,7 +3,7 @@
  * @author 37bytes
  *
  * Uses eslint-plugin-compat to lint browser API usage against the project's
- * browserslist targets. Opt-in config, similar to fsdConfig.
+ * browserslist targets. Opt-in config, similar to createFSDConfig.
  *
  * Intended for browser-facing code (SPA, browserLibrary).
  * NOT for nodejs/library presets (server code).

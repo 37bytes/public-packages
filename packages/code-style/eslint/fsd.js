@@ -11,11 +11,11 @@
  *
  * @example
  * // eslint.config.mjs
- * import { nextjs, fsdConfig } from '@37bytes/code-style/eslint';
+ * import { nextjs, createFSDConfig } from '@37bytes/code-style/eslint';
  *
  * export default [
  *     ...nextjs,
- *     ...fsdConfig({
+ *     ...createFSDConfig({
  *         allowPatterns: ['@lingui/**\/*', 'next/*']
  *     })
  * ];
@@ -147,7 +147,7 @@ const buildImportOrderRule = () => [
  * Создаёт ESLint flat config для enforcement FSD-архитектуры.
  *
  * Возвращает массив flat config объектов, которые нужно spread'ить
- * в основной массив конфигов: `...fsdConfig()`.
+ * в основной массив конфигов: `...createFSDConfig()`.
  *
  * @param {object} [options] — Настройки FSD-конфига. Все параметры опциональны.
  * @param {string[]} [options.allowPatterns] — Дополнительные паттерны для разрешения глубоких импортов
@@ -155,7 +155,7 @@ const buildImportOrderRule = () => [
  *     Объединяются с инфраструктурными паттернами (@37bytes, assets, images).
  * @returns {Array<import('eslint').Linter.Config>} Массив flat config объектов
  */
-export const fsdConfig = (options = {}) => {
+export const createFSDConfig = (options = {}) => {
     const { allowPatterns = [] } = options;
 
     return [
