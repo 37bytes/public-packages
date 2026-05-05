@@ -199,7 +199,8 @@ export const nodeCjsConfig = {
 };
 
 /**
- * Override for env-loader files — allow process.env.
+ * Override for env-loader files — relaxes rules that legitimately fire
+ * during the bootstrap phase, before any logger or service is initialized.
  *
  * Whitelists files named `env.{js,ts,mjs,cjs}` or `environment.{js,ts,mjs,cjs}`
  * anywhere in the project. The naming convention is intentional: if a file
@@ -208,12 +209,28 @@ export const nodeCjsConfig = {
  * not whitelisted — consumers either rename to fit the convention, merge
  * into a single file, or extend the override locally.
  *
+ * Relaxed rules and the bootstrap pattern they support:
+ *   - `n/no-process-env`: env-loader is the single source of truth that
+ *     reads `process.env` and exposes a typed/validated config object.
+ *   - `no-console`: schema validation errors before logger init have
+ *     nowhere to go but `console.error` (stderr is captured by
+ *     systemd/PM2/Docker/k8s).
+ *   - `n/no-process-exit`: `process.exit(1)` on invalid config is a
+ *     standard fast-fail pattern at bootstrap. Throwing also works,
+ *     but exit is equally legitimate and consumers may prefer it.
+ *   - `security/detect-non-literal-fs-filename`: paths like
+ *     `.env.${envName}` are operator-controlled (NODE_ENV, CLI args),
+ *     not user input. Path traversal threat model does not apply.
+ *
  * @type {import('eslint').Linter.Config}
  */
 export const nodeEnvOverride = {
     files: ['**/env.{js,ts,mjs,cjs}', '**/environment.{js,ts,mjs,cjs}'],
     rules: {
-        'n/no-process-env': 'off'
+        'n/no-process-env': 'off',
+        'no-console': 'off',
+        'n/no-process-exit': 'off',
+        'security/detect-non-literal-fs-filename': 'off'
     }
 };
 
