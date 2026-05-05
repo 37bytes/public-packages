@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- **BREAKING:** `nodeEnvOverride.files` whitelist tightened and clarified. Was `['**/env.js', '**/env.ts', '**/env.config.*']`. Now `['**/env.{js,ts,mjs,cjs}', '**/environment.{js,ts,mjs,cjs}']`. The override now follows a strict naming convention: if a file needs to read `process.env`, name it `env.{js,ts,mjs,cjs}` or `environment.{js,ts,mjs,cjs}`. The previous `**/env.config.*` pattern is dropped (use `env.ts`/`environment.ts` instead). Multi-file env-loaders (e.g. `getAppEnvironment.ts`, `getBuildTimeEnvironment.ts`) are not whitelisted by default — consumers either rename to fit the convention, merge into a single file, or extend the override locally in their flat config.
 - **BREAKING:** Factory exports renamed to follow `create*` convention:
     - `fsdConfig` → `createFSDConfig` (`@37bytes/code-style/eslint/fsd`)
     - `restrictedImportsConfig` → `createRestrictedImportsConfig` (`@37bytes/code-style/eslint/restricted-imports`)

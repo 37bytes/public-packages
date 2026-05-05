@@ -199,11 +199,19 @@ export const nodeCjsConfig = {
 };
 
 /**
- * Override for env config files — allow process.env
+ * Override for env-loader files — allow process.env.
+ *
+ * Whitelists files named `env.{js,ts,mjs,cjs}` or `environment.{js,ts,mjs,cjs}`
+ * anywhere in the project. The naming convention is intentional: if a file
+ * needs to read process.env, name it accordingly. Multi-file env-loader
+ * patterns (e.g. `getAppEnvironment.ts`, `getBuildTimeEnvironment.ts`) are
+ * not whitelisted — consumers either rename to fit the convention, merge
+ * into a single file, or extend the override locally.
+ *
  * @type {import('eslint').Linter.Config}
  */
 export const nodeEnvOverride = {
-    files: ['**/env.js', '**/env.ts', '**/env.config.*'],
+    files: ['**/env.{js,ts,mjs,cjs}', '**/environment.{js,ts,mjs,cjs}'],
     rules: {
         'n/no-process-env': 'off'
     }
