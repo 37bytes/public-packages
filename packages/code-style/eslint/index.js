@@ -25,10 +25,12 @@ export {
     library,
     nextjs,
     nextjsConfig,
+    nextjsServerConfig,
     nodeCjsConfig,
     nodeConfig,
-    nodeEnvOverride,
-    nodejs,
+    nodejsConfig,
+    nodejsRuntime,
+    nodejsTool,
     // Perfectionist
     perfectionist,
     perfectionistBaseConfig,
@@ -42,7 +44,6 @@ export {
     // Opt-in
     testingConfig,
     testingReactConfig,
-    tool,
     // Layers
     typescriptConfig
 } from '#config';

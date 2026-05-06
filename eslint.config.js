@@ -1,10 +1,10 @@
-import { nodejs } from '@37bytes/code-style/eslint';
+import { nodejsRuntime } from '@37bytes/code-style/eslint';
 
 export default [
     {
         ignores: ['node_modules/**', 'legacy/**', 'packages/**', 'core/**', '.gitHooks/**']
     },
-    ...nodejs,
+    ...nodejsRuntime,
     {
         // root scripts: no package boundaries, default exports are fine
         rules: {

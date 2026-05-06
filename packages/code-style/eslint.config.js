@@ -1,10 +1,11 @@
 /**
  * @fileoverview ESLint config for this package (dogfooding)
  *
- * Uses our own nodejs consumer config + package-specific overrides.
+ * Uses our own nodejsRuntime baseline + nodejsConfig override for CLI
+ * scripts + package-specific overrides.
  */
 
-import { nodejs, testingConfig } from '#config';
+import { nodejsConfig, nodejsRuntime, testingConfig } from '#config';
 import { perfectionist as perfectionistRules } from '#rules/perfectionist';
 
 import perfectionistPlugin from 'eslint-plugin-perfectionist';
@@ -21,7 +22,7 @@ export default [
             'eslint/plugins/vendored-promise/**'
         ]
     },
-    ...nodejs,
+    ...nodejsRuntime,
     // Perfectionist (opt-in for this package)
     {
         plugins: {
@@ -59,15 +60,10 @@ export default [
             sourceType: 'commonjs'
         }
     },
-    // CLI scripts — console, process.exit, process globals are legitimate
+    // CLI scripts — bootstrap-like phase (console, process.exit, dynamic fs paths)
     {
         files: ['.gitHooks/**', 'oxlint/build.js', 'biome/build.js'],
-        rules: {
-            'no-console': 'off',
-            'n/no-process-exit': 'off',
-            'n/prefer-global/process': 'off',
-            'security/detect-non-literal-fs-filename': 'off'
-        }
+        ...nodejsConfig
     },
     // Rule/config files — rule names like 'no-hardcoded-passwords' trigger false positives
     {
@@ -92,9 +88,7 @@ export default [
         rules: {
             'no-unused-vars': 'off',
             'no-await-in-loop': 'off',
-            'n/no-unsupported-features/node-builtins': 'off',
-            'n/prefer-global/process': 'off',
-            'n/prefer-global/url': 'off'
+            'n/no-unsupported-features/node-builtins': 'off'
         }
     }
 ];

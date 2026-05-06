@@ -26,10 +26,10 @@ npm install @biomejs/biome@2.4.4 --save-dev  # гибридный режим Bio
 
 ## ESLint
 
-Три конфига по типу приложения: `spa`, `nextjs`, `nodejs`.
+Конфиги по типу приложения: `spa`, `nextjs`, `nodejsRuntime`, `nodejsTool`.
 
 ```js
-// eslint.config.js
+// SPA (Vite + React)
 import { spa } from '@37bytes/code-style/eslint';
 
 export default [...spa];
@@ -37,17 +37,45 @@ export default [...spa];
 
 ```js
 // Next.js
-import { nextjs } from '@37bytes/code-style/eslint';
+import { nextjs, nextjsServerConfig } from '@37bytes/code-style/eslint';
 
-export default [...nextjs];
+// nextjsServerConfig — pre-configured glob для App Router server-side файлов
+// (page.tsx, layout.tsx, route.ts, pages/api/**, *.server.{ts,tsx} и т.д.)
+export default [...nextjs, nextjsServerConfig];
 ```
 
 ```js
-// Node.js
-import { nodejs } from '@37bytes/code-style/eslint';
+// Node.js production runtime — strict baseline для HTTP handlers,
+// services, бизнес-логики, библиотечного кода.
+import { nodejsRuntime, nodejsConfig } from '@37bytes/code-style/eslint';
 
-export default [...nodejs];
+export default [
+    ...nodejsRuntime,
+    // bootstrap/config-файлы: env-loader, server entry, scripts, migrations
+    {
+        files: ['src/env.ts', 'src/server.ts', 'src/main.ts'],
+        ...nodejsConfig
+    }
+];
 ```
+
+```js
+// CLI-утилита / one-shot script — весь код bootstrap-like
+import { nodejsTool } from '@37bytes/code-style/eslint';
+
+export default [...nodejsTool];
+```
+
+### Срез по lifecycle
+
+`nodejsConfig` это override-объект который релакс'ит правила для bootstrap-фазы:
+
+- `n/no-process-env` — env-loader как single source of truth
+- `no-console` — логирование до инициализации логгера
+- `n/no-process-exit` — fast-fail на невалидном конфиге
+- `security/detect-non-literal-fs-filename` — динамические `.env.${envName}` пути
+
+Применяется через flat-config `files`-glob к нужному срезу проекта. Не имеет встроенного glob: каждый проект решает сам что у него bootstrap.
 
 ### Дополнительные слои
 
@@ -74,7 +102,7 @@ import { perfectionist } from '@37bytes/code-style/eslint';
 
 export default [
     ...perfectionist.spa
-    // или perfectionist.nextjs, perfectionist.nodejs
+    // или perfectionist.nextjs, perfectionist.nodejsRuntime, perfectionist.nodejsTool
 ];
 ```
 

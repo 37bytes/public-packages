@@ -32,12 +32,24 @@ describe('@37bytes/configs integration', () => {
         });
 
         test('should export configurations', async () => {
-            const { spa, typescriptConfig, reactConfig, testingConfig, tool } = await import('../eslint/index.js');
+            const {
+                spa,
+                typescriptConfig,
+                reactConfig,
+                testingConfig,
+                nodejsRuntime,
+                nodejsTool,
+                nodejsConfig,
+                nextjsServerConfig
+            } = await import('../eslint/index.js');
             assert.ok(Array.isArray(spa), 'spa should be an array');
             assert.ok(typescriptConfig, 'typescriptConfig should be exported');
             assert.ok(reactConfig, 'reactConfig should be exported');
             assert.ok(testingConfig, 'testingConfig should be exported');
-            assert.ok(Array.isArray(tool), 'tool should be an array');
+            assert.ok(Array.isArray(nodejsRuntime), 'nodejsRuntime should be an array');
+            assert.ok(Array.isArray(nodejsTool), 'nodejsTool should be an array');
+            assert.ok(nodejsConfig && nodejsConfig.rules, 'nodejsConfig should be a config object with rules');
+            assert.ok(nextjsServerConfig && nextjsServerConfig.files, 'nextjsServerConfig should have files glob');
         });
     });
 

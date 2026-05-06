@@ -8,8 +8,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
-- **BREAKING:** `nodeEnvOverride.files` whitelist tightened and clarified. Was `['**/env.js', '**/env.ts', '**/env.config.*']`. Now `['**/env.{js,ts,mjs,cjs}', '**/environment.{js,ts,mjs,cjs}']`. The override now follows a strict naming convention: if a file needs to read `process.env`, name it `env.{js,ts,mjs,cjs}` or `environment.{js,ts,mjs,cjs}`. The previous `**/env.config.*` pattern is dropped (use `env.ts`/`environment.ts` instead). Multi-file env-loaders (e.g. `getAppEnvironment.ts`, `getBuildTimeEnvironment.ts`) are not whitelisted by default — consumers either rename to fit the convention, merge into a single file, or extend the override locally in their flat config.
-- `nodeEnvOverride.rules` now relaxes four rules instead of one. Previously only `n/no-process-env` was disabled in env-loader files. Now also disables `no-console`, `n/no-process-exit`, and `security/detect-non-literal-fs-filename`. These cover the standard bootstrap pattern: schema-validate `process.env`, log validation errors to `console.error` (logger not yet initialized), `process.exit(1)` on failure, and read `.env.${envName}` files where `envName` is operator-controlled (NODE_ENV / CLI args, not user input). Not breaking — strictly relaxing.
+- **BREAKING:** Restructured Node.js presets along role-based axis. Three new exports replace the previous two strict-axis presets and the file-glob override:
+    - `nodejsRuntime` (array): strict baseline для production runtime кода — HTTP handlers, services, бизнес-логика, библиотечный код. Замена прежнего `nodejs`.
+    - `nodejsConfig` (object override): релакс-правила для bootstrap-фазы — env-loader, server entry-points, build scripts, migrations, seeds. Применяется через flat-config `files`-glob в consumer'ском конфиге. Замена прежнего `nodeEnvOverride`.
+    - `nodejsTool` (array): полный preset для CLI-утилит и one-shot скриптов где **весь код** bootstrap-like. Идентичен `[...nodejsRuntime, nodejsConfig]`. Замена прежнего `tool`.
+
+    Removed without alias: `nodejs`, `tool`, `nodeEnvOverride`. Consumers must update imports and compose. Migration recipes:
+
+    ```diff
+    // Backend with env-loader + server entry:
+    - import { nodejs, nodeEnvOverride } from '@37bytes/code-style/eslint';
+    + import { nodejsRuntime, nodejsConfig } from '@37bytes/code-style/eslint';
+      export default [
+    -     ...nodejs,
+    -     nodeEnvOverride
+    +     ...nodejsRuntime,
+    +     {
+    +         files: ['src/env.ts', 'src/server.ts', 'src/main.ts'],
+    +         ...nodejsConfig
+    +     }
+      ];
+
+    // CLI utility:
+    - import { tool } from '@37bytes/code-style/eslint';
+    - export default [...tool];
+    + import { nodejsTool } from '@37bytes/code-style/eslint';
+    + export default [...nodejsTool];
+
+    // Pure Node library:
+    - import { nodejs } from '@37bytes/code-style/eslint';
+    - export default [...nodejs];
+    + import { nodejsRuntime } from '@37bytes/code-style/eslint';
+    + export default [...nodejsRuntime];
+    ```
+
+    Rationale: previous `nodeEnvOverride` had a hardcoded glob (`**/env.{js,ts,...}`) which was too narrow for some projects and too wide for others. Role-based slicing lets each consumer decide what counts as bootstrap-phase by file path, without the preset guessing the project layout.
+- **BREAKING:** Added `nextjsServerConfig` — pre-configured override for Next.js server-side files (App Router `page.tsx`/`layout.tsx`/`route.ts`/etc., Pages Router `pages/api/**`, `middleware.ts`, `instrumentation.ts`, `next.config.*`, `**/*.server.{ts,tsx}`). Composes `nodejsConfig` rules with the typical Next.js server-side glob. The `nextjs` preset itself no longer pre-applies this override — consumers explicitly opt in:
+
+    ```diff
+    - import { nextjs } from '@37bytes/code-style/eslint';
+    - export default [...nextjs];
+    + import { nextjs, nextjsServerConfig } from '@37bytes/code-style/eslint';
+    + export default [...nextjs, nextjsServerConfig];
+    ```
+
+    Caveat: `app/**/page.tsx` files marked with `'use client'` will receive the relaxed rules even though they run on the client. Consumers needing precision-by-directive should fork the glob.
+- **BREAKING:** `n/prefer-global/*` family flipped from `'never'` (force `import process from 'node:process'`) to `'always'` (use globals). Affects `process`, `buffer`, `text-decoder`, `text-encoder`, `url`, `url-search-params`, `timers`, `crypto`. `console` was already `'always'`. Rationale: globals are consistent with browser-side code (`console`, `URL` work identically in Node and browsers), modern Node makes everything available globally, importing built-ins for runtime objects is verbose with no DX benefit. Migration: remove `import process from 'node:process'` (and friends) and use globals directly. Existing `import` statements will now lint as errors.
 - **BREAKING:** Factory exports renamed to follow `create*` convention:
     - `fsdConfig` → `createFSDConfig` (`@37bytes/code-style/eslint/fsd`)
     - `restrictedImportsConfig` → `createRestrictedImportsConfig` (`@37bytes/code-style/eslint/restricted-imports`)

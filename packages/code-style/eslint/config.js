@@ -2,10 +2,13 @@
  * @fileoverview Main ESLint configuration
  * @author 37bytes
  *
- * Four application-type configs: spa, nextjs, nodejs, tool.
- * Opt-in layers: testingConfig, testingReactConfig, storybookConfig,
- * reactCompilerConfig, createFSDConfig, createRestrictedImportsConfig.
- * Perfectionist namespace: perfectionist.spa, perfectionist.nextjs, perfectionist.nodejs.
+ * Application-type configs: spa, nextjs, nodejsRuntime (strict),
+ * nodejsTool (lax). Opt-in overrides: nodejsConfig (для bootstrap-файлов),
+ * nextjsServerConfig (для Next.js server-side), testingConfig,
+ * testingReactConfig, storybookConfig, reactCompilerConfig,
+ * createFSDConfig, createRestrictedImportsConfig.
+ * Perfectionist namespace: perfectionist.spa, perfectionist.nextjs,
+ * perfectionist.nodejsRuntime, perfectionist.nodejsTool.
  */
 
 import { plugins } from '#plugins';
@@ -199,33 +202,39 @@ export const nodeCjsConfig = {
 };
 
 /**
- * Override for env-loader files — relaxes rules that legitimately fire
- * during the bootstrap phase, before any logger or service is initialized.
+ * Override-объект с релакс-правилами для bootstrap-фазы кода — env-loader,
+ * server entry-points, build scripts, migrations, seeds, codegen.
  *
- * Whitelists files named `env.{js,ts,mjs,cjs}` or `environment.{js,ts,mjs,cjs}`
- * anywhere in the project. The naming convention is intentional: if a file
- * needs to read process.env, name it accordingly. Multi-file env-loader
- * patterns (e.g. `getAppEnvironment.ts`, `getBuildTimeEnvironment.ts`) are
- * not whitelisted — consumers either rename to fit the convention, merge
- * into a single file, or extend the override locally.
+ * Применяется через flat-config files-glob в consumer'ском
+ * `eslint.config.mjs` к нужному срезу проекта. Не имеет встроенного
+ * `files`: каждый проект решает сам, что у него bootstrap, а что
+ * production runtime.
  *
- * Relaxed rules and the bootstrap pattern they support:
- *   - `n/no-process-env`: env-loader is the single source of truth that
- *     reads `process.env` and exposes a typed/validated config object.
- *   - `no-console`: schema validation errors before logger init have
- *     nowhere to go but `console.error` (stderr is captured by
- *     systemd/PM2/Docker/k8s).
- *   - `n/no-process-exit`: `process.exit(1)` on invalid config is a
- *     standard fast-fail pattern at bootstrap. Throwing also works,
- *     but exit is equally legitimate and consumers may prefer it.
- *   - `security/detect-non-literal-fs-filename`: paths like
- *     `.env.${envName}` are operator-controlled (NODE_ENV, CLI args),
- *     not user input. Path traversal threat model does not apply.
+ * Релакс-правила и bootstrap-паттерны, которые они поддерживают:
+ *   - `n/no-process-env`: env-loader — это единственный source of truth,
+ *     читающий `process.env` и отдающий валидированный конфиг.
+ *   - `no-console`: ошибки валидации схемы до инициализации логгера
+ *     уходят в `console.error` (stderr ловят systemd/PM2/Docker/k8s).
+ *   - `n/no-process-exit`: `process.exit(1)` на невалидном конфиге это
+ *     стандартный fast-fail bootstrap. Throw тоже работает, но exit
+ *     одинаково легитимен.
+ *   - `security/detect-non-literal-fs-filename`: пути вида
+ *     `.env.${envName}` контролируются оператором (NODE_ENV, CLI-args),
+ *     не end-user'ом. Threat model path traversal не применима.
+ *
+ * @example
+ * import { nodejsRuntime, nodejsConfig } from '@37bytes/code-style/eslint';
+ * export default [
+ *     ...nodejsRuntime,
+ *     {
+ *         files: ['src/env.ts', 'src/server.ts', 'src/main.ts'],
+ *         ...nodejsConfig
+ *     }
+ * ];
  *
  * @type {import('eslint').Linter.Config}
  */
-export const nodeEnvOverride = {
-    files: ['**/env.{js,ts,mjs,cjs}', '**/environment.{js,ts,mjs,cjs}'],
+export const nodejsConfig = {
     rules: {
         'n/no-process-env': 'off',
         'no-console': 'off',
@@ -273,6 +282,53 @@ const nextjsOverrides = {
     }
 };
 
+/**
+ * Override для Next.js server-side кода — расширение `nodejsConfig` с
+ * pre-configured glob для типичных server-only файлов App Router и
+ * Pages Router.
+ *
+ * Применяется как готовый flat-config item:
+ *
+ * @example
+ * import { nextjs, nextjsServerConfig } from '@37bytes/code-style/eslint';
+ * export default [...nextjs, nextjsServerConfig];
+ *
+ * Покрывает:
+ *   - App Router server файлы (`page.tsx`, `layout.tsx`, `route.ts`, и т.д.)
+ *   - Pages Router API routes (`pages/api/**`)
+ *   - Bootstrap-файлы Next.js (`middleware.ts`, `instrumentation.ts`, `next.config.*`)
+ *   - Файлы с явным naming `*.server.{ts,tsx}`
+ *
+ * Caveat: App Router page.tsx/layout.tsx могут быть помечены `'use client'`
+ * — тогда релакс правил применится и к client-side коду в этих файлах.
+ * Если нужна точность по директиве, замени pre-configured glob на свой
+ * через копирование `nodejsConfig` напрямую.
+ *
+ * @type {import('eslint').Linter.Config}
+ */
+export const nextjsServerConfig = {
+    files: [
+        // App Router server-side
+        '**/app/**/page.tsx',
+        '**/app/**/layout.tsx',
+        '**/app/**/loading.tsx',
+        '**/app/**/error.tsx',
+        '**/app/**/not-found.tsx',
+        '**/app/**/template.tsx',
+        '**/app/**/default.tsx',
+        '**/app/**/route.ts',
+        // Pages Router API
+        '**/pages/api/**',
+        // Bootstrap entry-points
+        'middleware.ts',
+        'instrumentation.ts',
+        'next.config.*',
+        // Explicit naming
+        '**/*.server.{ts,tsx}'
+    ],
+    ...nodejsConfig
+};
+
 // ── Main configs ─────────────────────────────────────────────────────────────
 
 /**
@@ -300,33 +356,51 @@ export const reactLibrary = [coreConfig, browserConfig, typescriptConfig, reactC
 export const spa = [coreConfig, browserConfig, typescriptConfig, reactConfig];
 
 /**
- * Next.js config (React + App Router + Node.js)
+ * Next.js config (React + App Router + Node.js).
+ *
+ * Strict baseline. Для server-side кода применяй также `nextjsServerConfig`
+ * (pre-configured glob) или вручную композируй `nodejsConfig` со своим glob'ом.
+ *
  * @type {import('eslint').Linter.Config[]}
  */
-export const nextjs = [...spa, nextjsConfig, nextjsOverrides, nodeConfig, nodeCjsConfig, nodeEnvOverride];
+export const nextjs = [...spa, nextjsConfig, nextjsOverrides, nodeConfig, nodeCjsConfig];
 
 /**
- * Node.js config (scripts, utilities, plugins)
+ * Node.js runtime config — strict baseline для production-кода
+ * (HTTP handlers, services, бизнес-логика, библиотечный код).
+ *
+ * Bootstrap-фазе (env-loader, server entry, scripts) применяй
+ * `nodejsConfig` через flat-config files-glob поверх:
+ *
+ * @example
+ * import { nodejsRuntime, nodejsConfig } from '@37bytes/code-style/eslint';
+ * export default [
+ *     ...nodejsRuntime,
+ *     {
+ *         files: ['src/env.ts', 'src/server.ts'],
+ *         ...nodejsConfig
+ *     }
+ * ];
+ *
  * @type {import('eslint').Linter.Config[]}
  */
-export const nodejs = [coreConfig, typescriptConfig, nodeConfig, nodeCjsConfig, nodeEnvOverride];
+export const nodejsRuntime = [coreConfig, typescriptConfig, nodeConfig, nodeCjsConfig];
 
 /**
- * Tool/CLI overrides — relaxed rules for small CLI utilities.
- * @type {import('eslint').Linter.Config}
- */
-const toolOverrides = {
-    rules: {
-        'n/no-process-exit': 'off',
-        'security/detect-non-literal-fs-filename': 'off'
-    }
-};
-
-/**
- * Tool/CLI config — nodejs with relaxed rules for small CLI utilities.
+ * Node.js tool config — для CLI-утилит и one-shot скриптов, где **весь
+ * код** считается bootstrap-like. Эквивалентно `[...nodejsRuntime, nodejsConfig]`
+ * без file-glob.
+ *
+ * Семантически отдельная сущность от `nodejsConfig` (тот — override для
+ * среза, этот — полноценный preset). Состав правил идентичен.
+ *
+ * @example
+ * import { nodejsTool } from '@37bytes/code-style/eslint';
+ * export default [...nodejsTool];
+ *
  * @type {import('eslint').Linter.Config[]}
  */
-export const tool = [...nodejs, toolOverrides];
+export const nodejsTool = [...nodejsRuntime, nodejsConfig];
 
 // ── Opt-in configs ───────────────────────────────────────────────────────────
 
@@ -426,6 +500,6 @@ export const perfectionist = {
     reactLibrary: [...reactLibrary, perfectionistBaseConfig, perfectionistReactConfig],
     spa: [...spa, perfectionistBaseConfig, perfectionistReactConfig],
     nextjs: [...nextjs, perfectionistBaseConfig, perfectionistReactConfig],
-    nodejs: [...nodejs, perfectionistBaseConfig],
-    tool: [...tool, perfectionistBaseConfig]
+    nodejsRuntime: [...nodejsRuntime, perfectionistBaseConfig],
+    nodejsTool: [...nodejsTool, perfectionistBaseConfig]
 };

@@ -45,16 +45,16 @@ export const node = {
     'n/prefer-promises/fs': 'error',
 
     // === Prefer Global ===
-    // "never" = always use explicit import, not global
-    'n/prefer-global/buffer': ['error', 'never'],
-    'n/prefer-global/process': ['error', 'never'],
-    'n/prefer-global/text-decoder': ['error', 'never'],
-    'n/prefer-global/text-encoder': ['error', 'never'],
-    'n/prefer-global/url': ['error', 'never'],
-    'n/prefer-global/url-search-params': ['error', 'never'],
-    'n/prefer-global/timers': ['error', 'never'],
-    'n/prefer-global/crypto': ['error', 'never'],
-    // "always" = use global console (importing from node:console is exotic)
+    // "always" = use globals (process, Buffer, URL, console и т.д. — globals в современном Node).
+    // Симметрично с browser-кодом и снимает шум от forced-import'ов node:* для встроенных рантайм-объектов.
+    'n/prefer-global/buffer': ['error', 'always'],
+    'n/prefer-global/process': ['error', 'always'],
+    'n/prefer-global/text-decoder': ['error', 'always'],
+    'n/prefer-global/text-encoder': ['error', 'always'],
+    'n/prefer-global/url': ['error', 'always'],
+    'n/prefer-global/url-search-params': ['error', 'always'],
+    'n/prefer-global/timers': ['error', 'always'],
+    'n/prefer-global/crypto': ['error', 'always'],
     'n/prefer-global/console': ['error', 'always'],
 
     // === Security (eslint-plugin-security) ===
