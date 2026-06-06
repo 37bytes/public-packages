@@ -18,12 +18,12 @@ import { promisify } from 'node:util';
 
 import { ESLint } from 'eslint';
 
-import { spa, nextjs, nodejsRuntime, nodejsTool, testingConfig } from '../eslint/index.js';
-import { reverseToEslint } from './parity/rule-equivalence.js';
+import { nextjs, nodejsRuntime, nodejsTool, spa, testingConfig } from '../eslint/index.js';
 import { knownGaps } from './parity/known-gaps.js';
+import { reverseToEslint } from './parity/rule-equivalence.js';
 
 const exec = promisify(execFile);
-const PACKAGE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const PACKAGE_ROOT = path.resolve(import.meta.dirname, '..');
 const PARITY_FIXTURES = path.join(PACKAGE_ROOT, '__tests__', 'fixtures', 'parity');
 
 const fixtureTypeScriptOverride = {
@@ -43,7 +43,7 @@ const MINI_PROJECTS = [
     { name: 'nodejs-tool', preset: nodejsTool, directory: 'nodejs-tool' }
 ];
 
-async function runEslint(preset, directory) {
+const runEslint = async (preset, directory) => {
     const eslint = new ESLint({
         overrideConfigFile: true,
         overrideConfig: [...preset, testingConfig, fixtureTypeScriptOverride],
@@ -56,7 +56,7 @@ async function runEslint(preset, directory) {
         rulesByFile.set(relative, new Set(result.messages.map((message) => message.ruleId).filter(Boolean)));
     }
     return rulesByFile;
-}
+};
 
 /**
  * Parse an oxlint diagnostic `code` field into the oxlint-internal rule namespace.
@@ -75,8 +75,15 @@ async function runEslint(preset, directory) {
  * The plan's original `.replace(/^eslint\(|\)$/g, '').replace('eslint-plugin-', '')` was a guess
  * that would have produced "unicorn(prefer-node-protocol)" or "import(first)" — wrong namespace.
  * This function handles all observed formats.
+ *
+ * Any code that matches none of the known shapes is recorded in unknownOxlintCodeFormats
+ * (asserted-empty per mini-project below) instead of silently shrinking coverage: an
+ * unrecognized format would otherwise be returned as-is, fail reverseToEslint, get skipped,
+ * and quietly drop a real drift finding.
  */
-function parseOxlintCode(code) {
+const unknownOxlintCodeFormats = new Set();
+
+const parseOxlintCode = (code) => {
     // @scope/plugin(rule) — e.g. "@37bytes/enum-pattern(enum-pattern)"
     const scopedMatch = code.match(/^(@[^/]+\/[^(]+)\(([^)]+)\)$/);
     if (scopedMatch) {
@@ -85,34 +92,34 @@ function parseOxlintCode(code) {
         const pluginPath = scopedMatch[1]; // "@37bytes/enum-pattern"
         const ruleName = scopedMatch[2]; // "enum-pattern"
         // If plugin already ends with /ruleName, use the plugin path directly
-        if (pluginPath.endsWith('/' + ruleName)) {
+        if (pluginPath.endsWith(`/${ruleName}`)) {
             return pluginPath; // "@37bytes/enum-pattern"
         }
-        return pluginPath + '/' + ruleName;
+        return `${pluginPath}/${ruleName}`;
     }
 
     // eslint-plugin-next(rule) — oxlint uses "nextjs/" namespace internally
     const nextPluginMatch = code.match(/^eslint-plugin-next\((.+)\)$/);
     if (nextPluginMatch) {
-        return 'nextjs/' + nextPluginMatch[1];
+        return `nextjs/${nextPluginMatch[1]}`;
     }
 
     // eslint-plugin-jest(rule) — oxlint uses "jest/" namespace (maps to vitest/ in eslint)
     const jestPluginMatch = code.match(/^eslint-plugin-jest\((.+)\)$/);
     if (jestPluginMatch) {
-        return 'jest/' + jestPluginMatch[1];
+        return `jest/${jestPluginMatch[1]}`;
     }
 
     // eslint-plugin-X(rule) — e.g. "eslint-plugin-unicorn(prefer-node-protocol)"
     const namedPluginMatch = code.match(/^eslint-plugin-([^(]+)\((.+)\)$/);
     if (namedPluginMatch) {
-        return namedPluginMatch[1] + '/' + namedPluginMatch[2];
+        return `${namedPluginMatch[1]}/${namedPluginMatch[2]}`;
     }
 
     // sonarjs(rule), storybook(rule), etc. — bare plugin name without "eslint-plugin-" prefix
     const barePluginMatch = code.match(/^([a-z][a-z0-9-]*)\((.+)\)$/);
     if (barePluginMatch && barePluginMatch[1] !== 'eslint') {
-        return barePluginMatch[1] + '/' + barePluginMatch[2];
+        return `${barePluginMatch[1]}/${barePluginMatch[2]}`;
     }
 
     // eslint(rule) — core eslint rule
@@ -121,11 +128,13 @@ function parseOxlintCode(code) {
         return coreMatch[1];
     }
 
-    // Fallback: return as-is (unexpected format)
+    // Unrecognized format: record it so an auxiliary test fails loudly. Returning it
+    // as-is would let reverseToEslint reject it and silently drop a drift finding.
+    unknownOxlintCodeFormats.add(code);
     return code;
-}
+};
 
-async function runOxlint(directory) {
+const runOxlint = async (directory) => {
     let stdout;
     try {
         ({ stdout } = await exec(
@@ -136,20 +145,31 @@ async function runOxlint(directory) {
     } catch (executionError) {
         stdout = executionError.stdout;
     }
-    const report = JSON.parse(stdout);
+    let report;
+    try {
+        report = JSON.parse(stdout);
+    } catch (parseError) {
+        throw new Error(
+            `oxlint JSON parse failed: ${parseError.message}\nraw stdout (first 500 chars): ${String(stdout).slice(0, 500)}`
+        );
+    }
     const rulesByFile = new Map();
     for (const diagnostic of report.diagnostics ?? []) {
         const relative = path.relative(PARITY_FIXTURES, path.resolve(PACKAGE_ROOT, diagnostic.filename));
         const oxlintRule = parseOxlintCode(diagnostic.code);
         const canonical = reverseToEslint('oxlint', oxlintRule);
-        if (!canonical) continue; // tool-only rule firing — Layer 1 reverse check owns this class
-        if (!rulesByFile.has(relative)) rulesByFile.set(relative, new Set());
+        if (!canonical) {
+            continue;
+        } // tool-only rule firing — Layer 1 reverse check owns this class
+        if (!rulesByFile.has(relative)) {
+            rulesByFile.set(relative, new Set());
+        }
         rulesByFile.get(relative).add(canonical);
     }
     return rulesByFile;
-}
+};
 
-async function runBiome(directory) {
+const runBiome = async (directory) => {
     let stdout;
     try {
         ({ stdout } = await exec(
@@ -167,24 +187,40 @@ async function runBiome(directory) {
     } catch (executionError) {
         stdout = executionError.stdout;
     }
-    const report = JSON.parse(stdout);
+    let report;
+    try {
+        report = JSON.parse(stdout);
+    } catch (parseError) {
+        // biome explicitly warns its JSON reporter shape is unstable between patch releases.
+        throw new Error(
+            `biome JSON parse failed: ${parseError.message}\nraw stdout (first 500 chars): ${String(stdout).slice(0, 500)}`
+        );
+    }
     const rulesByFile = new Map();
     for (const diagnostic of report.diagnostics ?? []) {
         // biome location.path is a plain string (relative to cwd), NOT an object with a .file property
         const locationPath = diagnostic.location?.path;
-        if (!locationPath) continue;
+        if (!locationPath) {
+            continue;
+        }
         const relative = path.relative(PARITY_FIXTURES, path.resolve(PACKAGE_ROOT, locationPath));
         // category format: "lint/suspicious/noConsole"
         const category = diagnostic.category ?? '';
         const match = category.match(/^lint\/(\w+)\/(\w+)$/);
-        if (!match) continue;
+        if (!match) {
+            continue;
+        }
         const canonical = reverseToEslint('biome', `${match[1]}/${match[2]}`);
-        if (!canonical) continue;
-        if (!rulesByFile.has(relative)) rulesByFile.set(relative, new Set());
+        if (!canonical) {
+            continue;
+        }
+        if (!rulesByFile.has(relative)) {
+            rulesByFile.set(relative, new Set());
+        }
         rulesByFile.get(relative).add(canonical);
     }
     return rulesByFile;
-}
+};
 
 /**
  * Diff two sets of canonical eslint rule names, suppressing known gaps.
@@ -192,14 +228,33 @@ async function runBiome(directory) {
  * The `tools` field is a Layer 1 concept (forward-check scoping). In Layer 2, a gap on
  * either side breaks set equality, so we always suppress it.
  */
-function diffSets(leftName, leftSet, rightName, rightSet) {
-    const onlyLeft = [...leftSet].filter((ruleName) => !rightSet.has(ruleName) && !knownGaps[ruleName]);
-    const onlyRight = [...rightSet].filter((ruleName) => !leftSet.has(ruleName) && !knownGaps[ruleName]);
+/**
+ * Await a runner promise, re-throwing any failure tagged with the runner name so a
+ * rejection in the shared before-hook points at which linter crashed (eslint/oxlint/biome).
+ */
+const withRunnerName = async (name, runnerPromise) => {
+    try {
+        return await runnerPromise;
+    } catch (error) {
+        throw new Error(`${name} runner failed: ${error.message}`);
+    }
+};
+
+const diffSets = (leftName, leftSet, rightName, rightSet) => {
+    // Sort both arrays so the failure text is deterministic across runs (Set iteration order
+    // is insertion order, which varies with diagnostic emission order). Stable text lets
+    // fix-phase tooling diff baselines reliably.
+    const onlyLeft = [...leftSet].filter((ruleName) => !rightSet.has(ruleName) && !knownGaps[ruleName]).toSorted();
+    const onlyRight = [...rightSet].filter((ruleName) => !leftSet.has(ruleName) && !knownGaps[ruleName]).toSorted();
     const lines = [];
-    if (onlyLeft.length > 0) lines.push(`only ${leftName}: ${onlyLeft.join(', ')}`);
-    if (onlyRight.length > 0) lines.push(`only ${rightName}: ${onlyRight.join(', ')}`);
+    if (onlyLeft.length > 0) {
+        lines.push(`only ${leftName}: ${onlyLeft.join(', ')}`);
+    }
+    if (onlyRight.length > 0) {
+        lines.push(`only ${rightName}: ${onlyRight.join(', ')}`);
+    }
     return lines;
-}
+};
 
 for (const project of MINI_PROJECTS) {
     describe(`preset parity: ${project.name}`, () => {
@@ -208,13 +263,23 @@ for (const project of MINI_PROJECTS) {
         let biomeByFile;
         before(async () => {
             [eslintByFile, oxlintByFile, biomeByFile] = await Promise.all([
-                runEslint(project.preset, project.directory),
-                runOxlint(project.directory),
-                runBiome(project.directory)
+                withRunnerName('eslint', runEslint(project.preset, project.directory)),
+                withRunnerName('oxlint', runOxlint(project.directory)),
+                withRunnerName('biome', runBiome(project.directory))
             ]);
         });
-        test('eslint produced results for the mini-project', () => {
+        test(`eslint produced results for ${project.name}`, () => {
             assert.ok(eslintByFile.size > 0, `no eslint results for ${project.directory} — glob or cwd problem`);
+        });
+        test(`oxlint code formats all recognized for ${project.name}`, () => {
+            // unknownOxlintCodeFormats is module-scoped and accumulates across all mini-projects'
+            // runOxlint calls (which finished in the shared before-hook). Asserting it empty here
+            // catches any oxlint code shape parseOxlintCode does not yet handle.
+            assert.strictEqual(
+                unknownOxlintCodeFormats.size,
+                0,
+                `unrecognized oxlint code format(s): ${[...unknownOxlintCodeFormats].toSorted().join(', ')} — extend parseOxlintCode`
+            );
         });
         test(`oxlint verdict parity for ${project.name}`, () => {
             const failures = [];
