@@ -75,6 +75,14 @@ describe('reverseToEslint', () => {
             'tool-only rule reverses to null'
         );
     });
+    test('reverses oxlint import/ prefix back to import-x/', () => {
+        assert.strictEqual(reverseToEslint('oxlint', 'import/named'), 'import-x/named');
+    });
+    test('reverses oxlint react/ back to react-hooks/ for the hooks rules', () => {
+        // react/ is ambiguous in oxlint: only the react-hooks reverses (exhaustive-deps,
+        // rules-of-hooks) map back; other react/* names are tool-only legacy rules (-> null).
+        assert.strictEqual(reverseToEslint('oxlint', 'react/rules-of-hooks'), 'react-hooks/rules-of-hooks');
+    });
     test('reverses biome names through the manual table', () => {
         assert.strictEqual(reverseToEslint('biome', 'suspicious/noConsole'), 'no-console');
         assert.strictEqual(
@@ -86,6 +94,15 @@ describe('reverseToEslint', () => {
             reverseToEslint('biome', 'suspicious/noDuplicateTestHooks'),
             null,
             'genuinely tool-only (jest/no-duplicate-hooks, not in our preset) reverses to null'
+        );
+    });
+    test('many-to-one biome reverse is first-wins (order-dependent)', () => {
+        // Three @typescript-eslint rules map to complexity/noBannedTypes; only the FIRST in
+        // BIOME_TABLE order reverses. no-empty-object-type precedes no-unsafe-function-type and
+        // no-wrapper-object-types, so it wins. Reordering the table would change this expectation.
+        assert.strictEqual(
+            reverseToEslint('biome', 'complexity/noBannedTypes'),
+            '@typescript-eslint/no-empty-object-type'
         );
     });
 });

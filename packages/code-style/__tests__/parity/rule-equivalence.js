@@ -72,6 +72,9 @@ export const resolveOxlintEquivalent = (eslintRule) => {
  *   string 'category/ruleName'                     full equivalent
  *   { biome: 'category/ruleName', partial: '...' } equivalent with narrower/inspired scope
  *   null                                           known no-equivalent (must pair with known-gaps entry)
+ *   absent key                                     resolveBiomeEquivalent returns undefined =>
+ *                                                  Layer 1 treats as unmapped (test failure),
+ *                                                  distinct from null (known no-equivalent)
  */
 const BIOME_TABLE = {
     // --- suspicious (biome/rules/javascript.js:11-39) ---
@@ -258,6 +261,12 @@ export const resolveBiomeEquivalent = (eslintRule) => {
     return { biomeRule: entry.biome, partial: entry.partial };
 };
 
+// First-wins for many-to-one mappings: several eslint rules can map to one biome rule
+// (e.g. @typescript-eslint/no-empty-object-type, /no-unsafe-function-type, /no-wrapper-object-types
+// all -> complexity/noBannedTypes). Only the FIRST one in table order reverses; the others yield
+// null. By design — the parity reverse-check only needs ONE enabled eslint source to prove the
+// biome rule has a counterpart, not all of them. Order-dependent: reordering the table changes
+// which eslint rule wins the reverse (see the pinning test in rule-equivalence.check.js).
 const biomeReverse = new Map();
 for (const [eslintRule, entry] of Object.entries(BIOME_TABLE)) {
     if (entry === null) {
