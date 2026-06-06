@@ -149,6 +149,7 @@
         "test": "node --test __tests__/*.test.js eslint/__tests__/*.test.js eslint/plugins/*/__tests__/*.test.js",
         "test:plugins": "node --test eslint/plugins/*/__tests__/*.test.js",
         "test:integration": "node --test __tests__/*.test.js",
+        "test:parity": "node --test __tests__/parity/*.check.js __tests__/*.check.js",
         "lint:typescript": "tsc --noEmit",
         "lint:eslint": "eslint --fix --max-warnings 0 .",
         "lint": "pnpm lint:typescript && pnpm lint:eslint",
