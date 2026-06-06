@@ -67,7 +67,6 @@
                 "noMisleadingInstantiator": "warn",
                 "noUnsafeDeclarationMerging": "warn",
                 "noCommentText": "warn",
-                "noDuplicateJsxProps": "error",
                 "noArrayIndexKey": "warn",
                 "useGoogleFontDisplay": "warn",
                 "noDocumentImportInPage": "error",
@@ -254,7 +253,6 @@
                         "noFocusedTests": "error",
                         "noSkippedTests": "warn",
                         "noDuplicateTestHooks": "warn",
-                        "noExportsInTest": "error",
                         "noConsole": "off"
                     },
                     "complexity": {

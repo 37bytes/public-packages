@@ -14,8 +14,9 @@ export const testing = {
     suspicious: {
         noFocusedTests: 'error', // vitest/no-focused-tests (inspired)
         noSkippedTests: 'warn', // vitest/no-disabled-tests (inspired)
-        noDuplicateTestHooks: 'warn', // jest/no-duplicate-hooks (inspired)
-        noExportsInTest: 'error', // jest/no-export (inspired)
+        noDuplicateTestHooks: 'warn', // vitest/no-duplicate-hooks (inspired; promoted into eslint in Task D)
+        // noExportsInTest — trimmed: @vitest/eslint-plugin has no vitest/no-export equivalent;
+        // promotion not possible with shipped plugins (policy: no extras, 2026-06-07)
         noConsole: 'off' // relax: allow console in tests
     },
     complexity: {

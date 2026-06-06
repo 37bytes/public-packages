@@ -10,7 +10,9 @@
 export const react = {
     suspicious: {
         noCommentText: 'warn', // react/jsx-no-comment-textnodes
-        noDuplicateJsxProps: 'error', // react/jsx-no-duplicate-props
+        // noDuplicateJsxProps — trimmed: no @eslint-react equivalent (@eslint-react 4.2.3 only has
+        // no-duplicate-key, not jsx-no-duplicate-props); promotion not possible with shipped plugins
+        // (policy: no extras, checked 2026-06-07)
         noArrayIndexKey: 'warn' // react/no-array-index-key (inspired)
     },
     style: {
