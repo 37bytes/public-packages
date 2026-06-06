@@ -2,10 +2,10 @@ import assert from 'node:assert';
 import { describe, test } from 'node:test';
 
 import {
-    resolveOxlintEquivalent,
+    OXLINT_PREFIX_RENAMES,
     resolveBiomeEquivalent,
-    reverseToEslint,
-    OXLINT_PREFIX_RENAMES
+    resolveOxlintEquivalent,
+    reverseToEslint
 } from './rule-equivalence.js';
 
 describe('resolveOxlintEquivalent', () => {
@@ -37,7 +37,7 @@ describe('resolveBiomeEquivalent', () => {
         });
         assert.deepStrictEqual(resolveBiomeEquivalent('eqeqeq'), {
             biomeRule: 'suspicious/noDoubleEquals',
-            partial: null
+            partial: 'eslint smart mode allows == null; biome flags it'
         });
         assert.deepStrictEqual(resolveBiomeEquivalent('@typescript-eslint/naming-convention'), {
             biomeRule: 'style/useNamingConvention',
@@ -77,6 +77,15 @@ describe('reverseToEslint', () => {
     });
     test('reverses biome names through the manual table', () => {
         assert.strictEqual(reverseToEslint('biome', 'suspicious/noConsole'), 'no-console');
-        assert.strictEqual(reverseToEslint('biome', 'style/noCommonJs'), null, 'tool-only rule reverses to null');
+        assert.strictEqual(
+            reverseToEslint('biome', 'style/noCommonJs'),
+            'import-x/no-commonjs',
+            'mapped: promotes into eslint in the fix phase, so it reverses to its eslint twin'
+        );
+        assert.strictEqual(
+            reverseToEslint('biome', 'suspicious/noDuplicateTestHooks'),
+            null,
+            'genuinely tool-only (jest/no-duplicate-hooks, not in our preset) reverses to null'
+        );
     });
 });

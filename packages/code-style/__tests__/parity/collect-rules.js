@@ -123,21 +123,44 @@ export const collectOxlintRules = () => {
     return rules;
 };
 
-/** @returns {Map<string, string>} 'category/ruleName' -> severity from the generated biome config */
-export const collectBiomeRules = () => {
-    // eslint-disable-next-line security/detect-non-literal-fs-filename -- PACKAGE_ROOT is a build-time constant, not user input
-    const config = JSON.parse(readFileSync(path.join(PACKAGE_ROOT, 'biome', 'config.json'), 'utf8'));
-    const rules = new Map();
-    for (const [categoryName, categoryRules] of Object.entries(config.linter?.rules ?? {})) {
+/** Read a biome rule value's severity: object form is { level, options }, otherwise the value. */
+const biomeSeverityOf = (value) => (typeof value === 'object' && value !== null ? value.level : value);
+
+/**
+ * Merge one biome linter.rules block ({ category: { rule: value } }) into `rules`.
+ * Skips the `recommended` flag and 'off' entries. When `overwrite` is false, an existing
+ * key is kept (base wins on conflict) — used for override blocks, which only ADD.
+ */
+const mergeBiomeRuleBlock = (rules, ruleBlock, overwrite) => {
+    for (const [categoryName, categoryRules] of Object.entries(ruleBlock ?? {})) {
         if (categoryName === 'recommended') {
             continue;
         }
         for (const [ruleName, value] of Object.entries(categoryRules)) {
-            const severity = typeof value === 'object' && value !== null ? value.level : value;
-            if (!isOff(severity)) {
-                rules.set(`${categoryName}/${ruleName}`, severity);
+            const severity = biomeSeverityOf(value);
+            const ruleKey = `${categoryName}/${ruleName}`;
+            if (!isOff(severity) && (overwrite || !rules.has(ruleKey))) {
+                rules.set(ruleKey, severity);
             }
         }
+    }
+};
+
+/**
+ * Collect biome base rules plus override ADDITIONS. The override blocks
+ * (overrides[].linter.rules, e.g. the test-file glob) ENABLE rules not in the base block,
+ * such as suspicious/noFocusedTests and suspicious/noDuplicateTestHooks; the reverse parity
+ * check must see them. Mirrors collectOxlintRules: skip offs, base wins on conflict
+ * (override re-declaring a base rule does not change it).
+ * @returns {Map<string, string>} 'category/ruleName' -> severity from the generated biome config
+ */
+export const collectBiomeRules = () => {
+    // eslint-disable-next-line security/detect-non-literal-fs-filename -- PACKAGE_ROOT is a build-time constant, not user input
+    const config = JSON.parse(readFileSync(path.join(PACKAGE_ROOT, 'biome', 'config.json'), 'utf8'));
+    const rules = new Map();
+    mergeBiomeRuleBlock(rules, config.linter?.rules, true);
+    for (const override of config.overrides ?? []) {
+        mergeBiomeRuleBlock(rules, override.linter?.rules, false);
     }
     return rules;
 };

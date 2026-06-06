@@ -82,13 +82,18 @@ describe('collectOxlintRules', () => {
 describe('collectBiomeRules', () => {
     test('reads generated config including option-bearing object severities', () => {
         const biomeRules = collectBiomeRules();
-        // Verified 2026-06-07: 117 base explicit rules.
+        // Verified 2026-06-07: 117 base explicit rules + ~4 override additions from overrides[1].
         assert.ok(biomeRules.size >= 110, `biome rule count suspiciously low: ${biomeRules.size}`);
         assert.strictEqual(biomeRules.get('suspicious/noConsole'), 'error');
         assert.strictEqual(
             biomeRules.get('complexity/noExcessiveCognitiveComplexity'),
             'warn',
             'object form {level, options} must resolve to its level'
+        );
+        assert.strictEqual(
+            biomeRules.has('suspicious/noFocusedTests'),
+            true,
+            'override additions are merged: noFocusedTests comes from overrides[1] (test-file glob), not the base block'
         );
     });
 });
