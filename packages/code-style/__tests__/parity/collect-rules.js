@@ -24,7 +24,21 @@ import path from 'node:path';
 
 const PACKAGE_ROOT = path.resolve(import.meta.dirname, '..', '..');
 
-const severityOf = (value) => (Array.isArray(value) ? value[0] : value);
+/**
+ * Read the severity out of an eslint rule value, covering all three shapes:
+ *   tuple  ['warn', { option }]  -> element zero
+ *   object { severity, ... }     -> the severity key (mirrors the biome { level, options } form)
+ *   bare   'warn' | 2            -> the value itself
+ */
+const severityOf = (value) => {
+    if (Array.isArray(value)) {
+        return value[0];
+    }
+    if (typeof value === 'object' && value !== null) {
+        return value.severity;
+    }
+    return value;
+};
 const isOff = (severity) => severity === 'off' || severity === 0;
 
 /** Normalize numeric eslint severity to string. */
@@ -65,7 +79,13 @@ export const collectEnabledEslintRules = (configArray) => {
     return enabled;
 };
 
-/** Union across presets. @returns {Map<string, string>} ruleName -> severity (first preset wins on conflict) */
+/**
+ * Union across presets. On conflict the first-seen severity wins; the union does NOT
+ * escalate to the max severity (a rule that is 'warn' in the first preset stays 'warn'
+ * even if a later preset sets it to 'error'). Deliberate: this set answers "is the rule
+ * enabled anywhere", not "what is its strictest severity".
+ * @returns {Map<string, string>} ruleName -> severity (first preset wins on conflict)
+ */
 export const collectEnabledUnion = (presetArrays) => {
     const union = new Map();
     for (const presetArray of presetArrays) {
@@ -93,6 +113,8 @@ export const collectOxlintRules = () => {
         for (const [ruleName, value] of Object.entries(override.rules ?? {})) {
             const severity = severityOf(value);
             // An override 'off' narrows per-glob only; the rule stays globally enabled.
+            // An override re-declaring a base rule with a different severity is intentionally
+            // ignored (the `!rules.has` guard): base wins, per-glob overrides do not escalate globally.
             if (!isOff(severity) && !rules.has(ruleName)) {
                 rules.set(ruleName, severity);
             }

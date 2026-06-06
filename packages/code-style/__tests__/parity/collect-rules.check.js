@@ -12,9 +12,9 @@ import {
 describe('collectEnabledEslintRules', () => {
     test('spa preset yields the verified count of enabled rules', () => {
         const enabled = collectEnabledEslintRules(spa);
-        // Verified empirically 2026-06-07 (enabled = enabled-for-at-least-one-glob): 354.
-        // Files-scoped offs (typescriptDisables family) no longer drop rules, so this is
-        // higher than the earlier 345 (which over-counted global offs). Tight ±15 window.
+        // Verified empirically 2026-06-07 (enabled = enabled-for-at-least-one-glob): 354;
+        // the earlier 345 under-counted because files-scoped offs were wrongly removing
+        // rules from the union. Tight ±15 window.
         assert.ok(enabled.size >= 339 && enabled.size <= 369, `spa enabled count out of range: ${enabled.size}`);
         assert.strictEqual(enabled.get('no-console'), 'error');
         assert.strictEqual(
@@ -48,6 +48,11 @@ describe('collectEnabledEslintRules', () => {
         const enabled = collectEnabledEslintRules([{ rules: { 'demo-rule': ['warn', { option: true }] } }]);
         assert.strictEqual(enabled.get('demo-rule'), 'warn');
     });
+
+    test('object-form severities are read from the severity key', () => {
+        const enabled = collectEnabledEslintRules([{ rules: { 'demo-rule': { severity: 'warn', option: true } } }]);
+        assert.strictEqual(enabled.get('demo-rule'), 'warn');
+    });
 });
 
 describe('collectEnabledUnion', () => {
@@ -62,8 +67,8 @@ describe('collectEnabledUnion', () => {
 describe('collectOxlintRules', () => {
     test('reads generated config with base rules and override additions', () => {
         const oxlintRules = collectOxlintRules();
-        // Verified 2026-06-07: 303 base rules + override additions.
-        assert.ok(oxlintRules.size >= 300, `oxlint rule count suspiciously low: ${oxlintRules.size}`);
+        // Verified 2026-06-07: 333 (303 base rules + override additions). Tight ±15 window.
+        assert.ok(oxlintRules.size >= 318 && oxlintRules.size <= 348, `oxlint count out of range: ${oxlintRules.size}`);
         assert.strictEqual(oxlintRules.get('no-self-compare'), 'error');
         assert.strictEqual(oxlintRules.get('typescript/no-explicit-any'), 'error');
         assert.strictEqual(
