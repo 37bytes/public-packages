@@ -26,12 +26,13 @@ export const react = {
         noChildrenProp: 'warn', // react/no-children-prop
         useExhaustiveDependencies: 'error', // react-hooks/exhaustive-deps (inspired)
         useHookAtTopLevel: 'error', // react-hooks/rules-of-hooks
-        noVoidElementsWithChildren: 'error' // react/void-dom-elements-no-children
+        noVoidElementsWithChildren: 'error', // react/void-dom-elements-no-children
+        noNestedComponentDefinitions: 'error' // @eslint-react/no-nested-component-definitions
     },
     security: {
         noBlankTarget: 'warn', // react/jsx-no-target-blank
         noDangerouslySetInnerHtml: 'error', // react/no-danger
-        noDangerouslySetInnerHtmlWithChildren: 'error' // react/no-danger-with-children
+        noDangerouslySetInnerHtmlWithChildren: 'warn' // react/no-danger-with-children (@eslint-react/dom-no-dangerously-set-innerhtml-with-children: warn)
     }
 };
 
@@ -56,7 +57,6 @@ export const react = {
  * — react/no-deprecated
  * — react/sort-comp
  * — react/no-adjacent-inline-elements
- * — react/no-unstable-nested-components
  * — react/no-object-type-as-default-prop
  * — react/no-typos
  * — react/style-prop-object

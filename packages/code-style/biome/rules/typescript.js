@@ -23,6 +23,7 @@ export const typescript = {
         useImportType: 'error', // @typescript-eslint/consistent-type-imports (inspired)
         useExportType: 'error', // @typescript-eslint/consistent-type-exports (inspired)
         useConsistentArrayType: 'warn', // @typescript-eslint/array-type
+        useArrayLiterals: 'warn', // @typescript-eslint/no-array-constructor (partial: broader than no-array-constructor)
         noNamespace: 'warn', // @typescript-eslint/no-namespace
         useAsConstAssertion: 'warn', // @typescript-eslint/prefer-as-const
         useNamingConvention: {

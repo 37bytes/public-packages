@@ -215,6 +215,18 @@ const build = async () => {
                 linter: {
                     rules: testing
                 }
+            },
+            {
+                // Next.js App Router conventions require default exports.
+                // Mirror ESLint's nextjsOverrides (eslint/config.js:265-283).
+                includes: overrideFiles.nextjsAppRouter,
+                linter: {
+                    rules: {
+                        style: {
+                            noDefaultExport: 'off'
+                        }
+                    }
+                }
             }
         ]
     };

@@ -21,14 +21,16 @@ export const javascript = {
         noDuplicateParameters: 'error', // no-dupe-args
         noEmptyBlockStatements: 'error', // no-empty
         noFallthroughSwitchClause: 'warn', // no-fallthrough
+        useIterableCallbackReturn: 'error', // array-callback-return
         noFunctionAssign: 'error', // no-func-assign
         noGlobalAssign: 'warn', // no-global-assign
         // noGlobalObjectCalls — moved to correctness
         noLabelVar: 'warn', // no-label-var
+        noConfusingLabels: 'warn', // no-labels (partial: eslint allows loop labels; biome has allowedLabels option)
         noOctalEscape: 'warn', // no-octal-escape (+ no-octal)
         noRedeclare: 'warn', // no-redeclare
         // noSelfAssign — moved to correctness
-        noSelfCompare: 'warn', // no-self-compare
+        noSelfCompare: 'error', // no-self-compare (ESLint severity: error)
         noShadowRestrictedNames: 'warn', // no-shadow-restricted-names
         noSparseArray: 'warn', // no-sparse-arrays
         noTemplateCurlyInString: 'warn', // no-template-curly-in-string
@@ -36,7 +38,9 @@ export const javascript = {
         noVar: 'error', // no-var
         useDefaultSwitchClauseLast: 'error', // default-case-last
         useGetterReturn: 'error', // getter-return
-        noDocumentCookie: 'error' // unicorn/no-document-cookie
+        noDocumentCookie: 'error', // unicorn/no-document-cookie
+        noThenProperty: 'error', // unicorn/no-thenable
+        noWith: 'warn' // no-with
     },
     style: {
         noNestedTernary: 'error', // no-nested-ternary
@@ -59,7 +63,11 @@ export const javascript = {
         noUselessStringConcat: 'warn', // no-useless-concat
         useFlatMap: 'warn', // unicorn/prefer-array-flat-map
         useDateNow: 'warn', // unicorn/prefer-date-now
-        noUselessEscapeInRegex: 'warn' // no-useless-escape
+        noUselessEscapeInRegex: 'warn', // no-useless-escape
+        noAdjacentSpacesInRegex: 'warn', // no-regex-spaces
+        useLiteralKeys: 'warn', // no-useless-computed-key (partial: enforces literal keys over computed)
+        noUselessSwitchCase: 'warn', // unicorn/no-useless-switch-case
+        useIndexOf: 'warn' // unicorn/prefer-array-index-of
     },
     correctness: {
         noConstAssign: 'error', // no-const-assign
@@ -81,7 +89,8 @@ export const javascript = {
         noGlobalEval: 'error' // no-eval
     },
     performance: {
-        noAwaitInLoops: 'warn' // no-await-in-loop
+        noAwaitInLoops: 'warn', // no-await-in-loop
+        noDelete: 'warn' // no-delete-var
     }
 };
 

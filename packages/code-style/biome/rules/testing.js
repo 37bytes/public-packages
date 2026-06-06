@@ -23,6 +23,11 @@ export const testing = {
     },
     correctness: {
         noUndeclaredVariables: 'off' // relax: test globals
+    },
+    nursery: {
+        // ESLint and OxLint both turn off @typescript-eslint/no-floating-promises for test files
+        // (eslint/rules/testing.js:83, oxlint/rules/testing.js:17). Mirror that here.
+        noFloatingPromises: 'off' // @typescript-eslint/no-floating-promises: off for tests
     }
 };
 

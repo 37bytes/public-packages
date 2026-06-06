@@ -113,9 +113,15 @@ const BIOME_TABLE = {
     'no-dupe-args': 'suspicious/noDuplicateParameters',
     'no-empty': 'suspicious/noEmptyBlockStatements',
     'no-fallthrough': 'suspicious/noFallthroughSwitchClause',
+    'array-callback-return': 'suspicious/useIterableCallbackReturn',
     'no-func-assign': 'suspicious/noFunctionAssign',
     'no-global-assign': 'suspicious/noGlobalAssign',
     'no-label-var': 'suspicious/noLabelVar',
+    'no-labels': {
+        biome: 'suspicious/noConfusingLabels',
+        partial:
+            'eslint allows loop labels ({allowLoop:true}); biome flags all confusing labels but has an allowedLabels option'
+    },
     'no-octal-escape': 'suspicious/noOctalEscape',
     // @typescript-eslint/no-redeclare is the active ESLint rule (no-redeclare is disabled in typescript.js).
     // First-wins: @typescript-eslint/no-redeclare must appear before no-redeclare so biome reverse
@@ -131,6 +137,8 @@ const BIOME_TABLE = {
     'default-case-last': 'suspicious/useDefaultSwitchClauseLast',
     'getter-return': 'suspicious/useGetterReturn',
     'unicorn/no-document-cookie': 'suspicious/noDocumentCookie',
+    'unicorn/no-thenable': 'suspicious/noThenProperty',
+    'no-with': 'suspicious/noWith',
     // --- style (javascript.js:41-50) ---
     'no-nested-ternary': 'style/noNestedTernary',
     curly: 'style/useBlockStatements',
@@ -166,6 +174,14 @@ const BIOME_TABLE = {
     'unicorn/prefer-array-flat-map': 'complexity/useFlatMap',
     'unicorn/prefer-date-now': 'complexity/useDateNow',
     'no-useless-escape': 'complexity/noUselessEscapeInRegex',
+    'no-regex-spaces': 'complexity/noAdjacentSpacesInRegex',
+    'no-useless-computed-key': {
+        biome: 'complexity/useLiteralKeys',
+        partial:
+            'useLiteralKeys enforces literal keys over computed; eslint no-useless-computed-key covers same pattern with some edge case differences'
+    },
+    'unicorn/no-useless-switch-case': 'complexity/noUselessSwitchCase',
+    'unicorn/prefer-array-index-of': 'complexity/useIndexOf',
     // --- correctness (javascript.js:64-78) ---
     'no-const-assign': 'correctness/noConstAssign',
     'no-empty-pattern': 'correctness/noEmptyPattern',
@@ -203,6 +219,7 @@ const BIOME_TABLE = {
     // --- security / performance (javascript.js:81-84) ---
     'no-eval': 'security/noGlobalEval',
     'no-await-in-loop': 'performance/noAwaitInLoops',
+    'no-delete-var': 'performance/noDelete',
     // --- nursery (javascript.js:108-116) ---
     'no-proto': 'nursery/noProto',
     'no-script-url': {
@@ -213,8 +230,12 @@ const BIOME_TABLE = {
     'no-useless-return': 'nursery/noUselessReturn',
     'unicorn/prefer-global-this': 'nursery/useGlobalThis',
     // --- typescript (biome/rules/typescript.js) ---
-    // biome has no noArrayConstructor rule yet (checked 2026-06-07, biome 2.4.13). Task C adds it.
-    '@typescript-eslint/no-array-constructor': null,
+    // biome style/useArrayLiterals added in Task C (biome 2.4.13, checked 2026-06-07).
+    '@typescript-eslint/no-array-constructor': {
+        biome: 'style/useArrayLiterals',
+        partial:
+            'useArrayLiterals enforces array literals over new Array() constructor; broader than no-array-constructor'
+    },
     // no-dupe-class-members is enabled in javascript.js:102 (error); @typescript-eslint/no-dupe-class-members
     // is disabled (typescript.js:20 sets it off). First-wins: no-dupe-class-members must be before
     // @typescript-eslint/no-dupe-class-members so biome reverse picks the enabled source.
@@ -278,6 +299,7 @@ const BIOME_TABLE = {
     '@eslint-react/dom-no-dangerously-set-innerhtml': 'security/noDangerouslySetInnerHtml',
     '@eslint-react/dom-no-dangerously-set-innerhtml-with-children': 'security/noDangerouslySetInnerHtmlWithChildren',
     '@eslint-react/no-leaked-conditional-rendering': 'nursery/noLeakedRender',
+    '@eslint-react/no-nested-component-definitions': 'correctness/noNestedComponentDefinitions',
     // --- nextjs (biome/rules/nextjs.js) ---
     '@next/next/google-font-display': 'suspicious/useGoogleFontDisplay',
     '@next/next/no-document-import-in-page': 'suspicious/noDocumentImportInPage',

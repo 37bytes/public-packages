@@ -51,5 +51,19 @@ export const jsFormatter = {
  */
 export const overrideFiles = {
     typescript: ['**/*.ts', '**/*.tsx'],
-    testing: ['**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', '**/*.spec.tsx', '**/test/**', '**/__tests__/**']
+    testing: ['**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', '**/*.spec.tsx', '**/test/**', '**/__tests__/**'],
+    // Next.js App Router conventions require default exports — mirror ESLint's nextjsOverrides
+    nextjsAppRouter: [
+        '**/app/**/page.tsx',
+        '**/app/**/layout.tsx',
+        '**/app/**/loading.tsx',
+        '**/app/**/error.tsx',
+        '**/app/**/not-found.tsx',
+        '**/app/**/template.tsx',
+        '**/app/**/default.tsx',
+        '**/app/**/route.ts',
+        'middleware.ts',
+        'instrumentation.ts',
+        'next.config.*'
+    ]
 };

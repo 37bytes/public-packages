@@ -31,10 +31,6 @@ export const knownGaps = {
     'sonarjs/no-redundant-jump': {
         tools: ['biome'],
         reason: 'sonarjs/no-redundant-jump has no biome equivalent (checked 2026-06-07, biome 2.4.13).'
-    },
-    '@typescript-eslint/no-array-constructor': {
-        tools: ['biome'],
-        reason: 'biome has no noArrayConstructor rule as of 2.4.13 (checked 2026-06-07). Task C adds equivalent via biome config. Remove this entry after Task C lands.'
     }
     // The red-baseline run (Task 7) will surface the remaining genuine engine gaps.
     // Add them HERE with reasons only when they are confirmed engine limitations,

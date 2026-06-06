@@ -43,12 +43,14 @@
                 "noDuplicateParameters": "error",
                 "noEmptyBlockStatements": "error",
                 "noFallthroughSwitchClause": "warn",
+                "useIterableCallbackReturn": "error",
                 "noFunctionAssign": "error",
                 "noGlobalAssign": "warn",
                 "noLabelVar": "warn",
+                "noConfusingLabels": "warn",
                 "noOctalEscape": "warn",
                 "noRedeclare": "warn",
-                "noSelfCompare": "warn",
+                "noSelfCompare": "error",
                 "noShadowRestrictedNames": "warn",
                 "noSparseArray": "warn",
                 "noTemplateCurlyInString": "warn",
@@ -57,6 +59,8 @@
                 "useDefaultSwitchClauseLast": "error",
                 "useGetterReturn": "error",
                 "noDocumentCookie": "error",
+                "noThenProperty": "error",
+                "noWith": "warn",
                 "noDuplicateClassMembers": "error",
                 "noExplicitAny": "error",
                 "noExtraNonNullAssertion": "warn",
@@ -83,6 +87,7 @@
                 "useImportType": "error",
                 "useExportType": "error",
                 "useConsistentArrayType": "warn",
+                "useArrayLiterals": "warn",
                 "noNamespace": "warn",
                 "useAsConstAssertion": "warn",
                 "useNamingConvention": {
@@ -141,6 +146,10 @@
                 "useFlatMap": "warn",
                 "useDateNow": "warn",
                 "noUselessEscapeInRegex": "warn",
+                "noAdjacentSpacesInRegex": "warn",
+                "useLiteralKeys": "warn",
+                "noUselessSwitchCase": "warn",
+                "useIndexOf": "warn",
                 "noBannedTypes": "error",
                 "noUselessTypeConstraint": "warn",
                 "noStaticOnlyClass": "warn",
@@ -173,17 +182,32 @@
                 "useExhaustiveDependencies": "error",
                 "useHookAtTopLevel": "error",
                 "noVoidElementsWithChildren": "error",
+                "noNestedComponentDefinitions": "error",
                 "noNextAsyncClientComponent": "error",
-                "noUndeclaredDependencies": "error"
+                "noUndeclaredDependencies": {
+                    "level": "error",
+                    "options": {
+                        "devDependencies": [
+                            "**/__tests__/**",
+                            "**/*.test.ts",
+                            "**/*.test.tsx",
+                            "**/*.spec.ts",
+                            "**/*.spec.tsx",
+                            "**/*.stories.tsx",
+                            "**/*.stories.ts"
+                        ]
+                    }
+                }
             },
             "security": {
                 "noGlobalEval": "error",
                 "noBlankTarget": "warn",
                 "noDangerouslySetInnerHtml": "error",
-                "noDangerouslySetInnerHtmlWithChildren": "error"
+                "noDangerouslySetInnerHtmlWithChildren": "warn"
             },
             "performance": {
                 "noAwaitInLoops": "warn",
+                "noDelete": "warn",
                 "noImgElement": "warn",
                 "useGoogleFontPreconnect": "warn",
                 "noUnwantedPolyfillio": "warn"
@@ -238,6 +262,31 @@
                     },
                     "correctness": {
                         "noUndeclaredVariables": "off"
+                    },
+                    "nursery": {
+                        "noFloatingPromises": "off"
+                    }
+                }
+            }
+        },
+        {
+            "includes": [
+                "**/app/**/page.tsx",
+                "**/app/**/layout.tsx",
+                "**/app/**/loading.tsx",
+                "**/app/**/error.tsx",
+                "**/app/**/not-found.tsx",
+                "**/app/**/template.tsx",
+                "**/app/**/default.tsx",
+                "**/app/**/route.ts",
+                "middleware.ts",
+                "instrumentation.ts",
+                "next.config.*"
+            ],
+            "linter": {
+                "rules": {
+                    "style": {
+                        "noDefaultExport": "off"
                     }
                 }
             }
