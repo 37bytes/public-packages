@@ -297,6 +297,22 @@ export const reverseToEslint = (tool, toolRule) => {
             return candidate;
         }
     }
+    // oxlint local jsPlugin rules (our own @37bytes plugins) use a TRIPLE-path id:
+    // '@scope/<plugin-name>/<rule-name>' (oxlint injects the registered plugin name as a path
+    // segment). eslint registers the same rules with a DOUBLE-path id '@scope/<rule-name>'
+    // (no plugin segment). Verified keys in oxlint/config.json: @37bytes/no-arrow-props/no-arrow-props,
+    // @37bytes/no-storage/no-browser-storage, @37bytes/enum-pattern/enum-pattern. Collapse the
+    // middle plugin segment by keeping scope + LAST segment. Checked after the prefix-rename loop
+    // so systematically-renamed oxlint ids (typescript/, nextjs/, import/, react/) — all 2-path —
+    // resolve first; the only triple-path oxlint ids are our local jsPlugins.
+    // NOT reliably invertible (the plugin segment cannot be reconstructed from the rule name —
+    // e.g. no-storage vs no-browser-storage), so resolveOxlintEquivalent has no symmetric forward
+    // transform; @37bytes rules never appear in the oxlint bridge off-list, so the Layer-1 forward
+    // check never needs it.
+    const triplePathMatch = toolRule.match(/^(@[^/]+)\/[^/]+\/([^/]+)$/);
+    if (triplePathMatch) {
+        return `${triplePathMatch[1]}/${triplePathMatch[2]}`;
+    }
     for (const prefix of OXLINT_VERBATIM_PREFIXES) {
         if (toolRule.startsWith(prefix) && prefix !== 'react/' && prefix !== 'import/') {
             return toolRule;

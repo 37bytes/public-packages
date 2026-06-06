@@ -25,7 +25,6 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 const PACKAGE_ROOT = path.resolve(import.meta.dirname, '..', '..');
 const OUR_DOMAINS = new Set(['react', 'next', 'test']);
@@ -34,6 +33,16 @@ const OUR_DOMAINS = new Set(['react', 'next', 'test']);
 const schema = JSON.parse(readFileSync(path.join(PACKAGE_ROOT, 'biome', '.schema-cache.json'), 'utf8'));
 const biomeBinary = path.join(PACKAGE_ROOT, 'node_modules', '.bin', 'biome');
 const domainRules = {};
+
+// Derive the biome version up front. Doubles as a loud early failure: if the binary is missing,
+// execFileSync throws ENOENT here instead of silently catch-continuing inside the per-rule loop
+// (which would otherwise produce an empty, misleading domain-rules file).
+const biomeVersionOutput = execFileSync(biomeBinary, ['--version'], { encoding: 'utf8' });
+const biomeVersionMatch = biomeVersionOutput.match(/(\d+\.\d+\.\d+)/);
+if (!biomeVersionMatch) {
+    throw new Error(`could not parse biome version from: ${JSON.stringify(biomeVersionOutput)}`);
+}
+const biomeVersion = biomeVersionMatch[1];
 
 /**
  * Parse domain names from `biome explain <rule>` output.
@@ -73,10 +82,12 @@ const parseDomainsFromExplanation = (explanation) => {
         const line = lines[index];
         const trimmed = line.trim();
 
-        // Section header detection: blank line followed by a capitalized word on its own line
+        // Section header detection: blank line followed by a short capitalized word on its own line
+        // (e.g. "Description", "Examples", "Options"). Bounded {2,20} so a stray capitalized
+        // sentence inside the Domains block does not get mistaken for a section header.
         if (trimmed === '' && index + 1 < lines.length) {
             const nextTrimmed = lines[index + 1].trim();
-            if (/^[A-Z][a-zA-Z\s]+$/.test(nextTrimmed) && nextTrimmed !== 'Domains') {
+            if (/^[A-Z][a-z]{2,20}$/.test(nextTrimmed) && nextTrimmed !== 'Domains') {
                 break; // Next section starts
             }
         }
@@ -92,31 +103,28 @@ const parseDomainsFromExplanation = (explanation) => {
     return domains;
 };
 
-const SCHEMA_CATEGORIES = [
-    'Suspicious',
-    'Style',
-    'Complexity',
-    'Correctness',
-    'Security',
-    'Performance',
-    'Nursery',
-    'A11y'
-];
-
-for (const categoryName of SCHEMA_CATEGORIES) {
-    const categoryDefinition = schema.$defs[categoryName];
-    if (!categoryDefinition) {
+// Iterate ALL $defs keys rather than a hardcoded category whitelist: biome could add a new lint
+// category on a bump and a hardcoded list would silently miss its domain-activated rules. Non-rule
+// $defs (option shapes, enums, etc.) have no `explain`-able rule names; `biome explain` rejects them
+// and the catch-continue below skips them, so a generic sweep is safe.
+for (const [categoryName, categoryDefinition] of Object.entries(schema.$defs)) {
+    if (!categoryDefinition?.properties) {
         continue;
     }
-    for (const ruleName of Object.keys(categoryDefinition.properties ?? {})) {
+    for (const ruleName of Object.keys(categoryDefinition.properties)) {
         if (ruleName === 'recommended' || ruleName === 'all') {
             continue;
         }
         let explanation;
         try {
-            explanation = execFileSync(biomeBinary, ['explain', ruleName], { encoding: 'utf8' });
+            // Pipe stderr (not inherit) so the expected "Unrecognized option" errors from probing
+            // non-rule $def property names stay out of the generator's console output.
+            explanation = execFileSync(biomeBinary, ['explain', ruleName], {
+                encoding: 'utf8',
+                stdio: ['ignore', 'pipe', 'pipe']
+            });
         } catch {
-            continue; // rule name not explainable in this biome version
+            continue; // rule name not explainable in this biome version (or a non-rule $def)
         }
         const ruleDomains = parseDomainsFromExplanation(explanation);
         const intersecting = ruleDomains.filter((domain) => OUR_DOMAINS.has(domain));
@@ -126,11 +134,18 @@ for (const categoryName of SCHEMA_CATEGORIES) {
     }
 }
 
+// Sort rule keys so regeneration produces a stable diff (the $defs iteration order is not
+// guaranteed across biome versions; sorting decouples the committed file from iteration order).
+const sortedRules = {};
+for (const ruleKey of Object.keys(domainRules).toSorted()) {
+    sortedRules[ruleKey] = domainRules[ruleKey];
+}
+
 const output = {
-    biomeVersion: '2.4.13',
+    biomeVersion,
     generatedAt: '2026-06-07',
     note: 'regenerate after biome bumps: node __tests__/parity/generate-biome-domain-rules.js',
-    rules: domainRules
+    rules: sortedRules
 };
 // eslint-disable-next-line security/detect-non-literal-fs-filename -- PACKAGE_ROOT is a build-time constant derived from import.meta.dirname, not user input
 writeFileSync(

@@ -88,6 +88,20 @@ describe('reverseToEslint', () => {
         // rules-of-hooks) map back; other react/* names are tool-only legacy rules (-> null).
         assert.strictEqual(reverseToEslint('oxlint', 'react/rules-of-hooks'), 'react-hooks/rules-of-hooks');
     });
+    test('reverses oxlint local jsPlugin triple-path ids to eslint double-path', () => {
+        // oxlint injects the plugin name as a path segment: '@scope/<plugin>/<rule>'.
+        // eslint omits it: '@scope/<rule>'. The three keys below are the real ones in
+        // oxlint/config.json (verified 2026-06-07). Collapse keeps scope + last segment.
+        assert.strictEqual(
+            reverseToEslint('oxlint', '@37bytes/no-arrow-props/no-arrow-props'),
+            '@37bytes/no-arrow-props'
+        );
+        assert.strictEqual(
+            reverseToEslint('oxlint', '@37bytes/no-storage/no-browser-storage'),
+            '@37bytes/no-browser-storage'
+        );
+        assert.strictEqual(reverseToEslint('oxlint', '@37bytes/enum-pattern/enum-pattern'), '@37bytes/enum-pattern');
+    });
     test('reverses biome names through the manual table', () => {
         assert.strictEqual(reverseToEslint('biome', 'suspicious/noConsole'), 'no-console');
         assert.strictEqual(

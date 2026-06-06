@@ -17,7 +17,6 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { describe, test } from 'node:test';
-import { fileURLToPath } from 'node:url';
 
 import oxlintPlugin from 'eslint-plugin-oxlint';
 
@@ -46,11 +45,13 @@ for (const ruleKey of Object.keys(biomeDomainRules)) {
     }
 }
 
-// oxlint off-list: configs['flat/all'] is an ARRAY of config objects (verified 2026-06-07)
-const oxlintOffList = oxlintPlugin.configs['flat/all'].flatMap((config) =>
-    config.rules ? Object.keys(config.rules) : []
-);
-const biomeOffList = Object.keys(biomeBridge.rules);
+// oxlint off-list: configs['flat/all'] is an ARRAY of config objects (verified 2026-06-07).
+// Deduplicate: the same rule can appear in more than one config object in the array, which would
+// otherwise register duplicate node:test cases with identical names (a future-proofing guard).
+const oxlintOffList = [
+    ...new Set(oxlintPlugin.configs['flat/all'].flatMap((config) => (config.rules ? Object.keys(config.rules) : [])))
+];
+const biomeOffList = [...new Set(Object.keys(biomeBridge.rules))];
 
 // known-gaps entries may carry an optional tools: ['biome'|'oxlint'] scope; unscoped applies to both
 const gapApplies = (eslintRule, tool) => {
@@ -138,6 +139,7 @@ describe('Layer 1 forward: bridge-disabled eslint rules must have enabled tool e
             );
             if (!resolution.partial) {
                 const biomeSeverity = biomeEnabled.get(resolution.biomeRule);
+                // domain-activated rules have no per-rule severity setting; skip severity comparison
                 if (biomeSeverity !== 'domain') {
                     assert.strictEqual(
                         biomeSeverity,

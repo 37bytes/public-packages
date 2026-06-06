@@ -3,39 +3,6 @@
     "generatedAt": "2026-06-07",
     "note": "regenerate after biome bumps: node __tests__/parity/generate-biome-domain-rules.js",
     "rules": {
-        "suspicious/noArrayIndexKey": {
-            "domains": ["react"]
-        },
-        "suspicious/noDocumentImportInPage": {
-            "domains": ["next"]
-        },
-        "suspicious/noDuplicateTestHooks": {
-            "domains": ["test"]
-        },
-        "suspicious/noExportsInTest": {
-            "domains": ["test"]
-        },
-        "suspicious/noFocusedTests": {
-            "domains": ["test"]
-        },
-        "suspicious/noHeadImportInDocument": {
-            "domains": ["next"]
-        },
-        "suspicious/noReactForwardRef": {
-            "domains": ["react"]
-        },
-        "suspicious/noSkippedTests": {
-            "domains": ["test"]
-        },
-        "style/noHeadElement": {
-            "domains": ["next"]
-        },
-        "style/useComponentExportOnlyModules": {
-            "domains": ["react"]
-        },
-        "style/useReactFunctionComponents": {
-            "domains": ["react"]
-        },
         "complexity/noExcessiveNestedTestSuites": {
             "domains": ["test"]
         },
@@ -66,21 +33,6 @@
         "correctness/useUniqueElementIds": {
             "domains": ["react"]
         },
-        "security/noDangerouslySetInnerHtml": {
-            "domains": ["react"]
-        },
-        "security/noDangerouslySetInnerHtmlWithChildren": {
-            "domains": ["react"]
-        },
-        "performance/noImgElement": {
-            "domains": ["next"]
-        },
-        "performance/noUnwantedPolyfillio": {
-            "domains": ["next"]
-        },
-        "performance/useGoogleFontPreconnect": {
-            "domains": ["next"]
-        },
         "nursery/noBeforeInteractiveScriptOutsideDocument": {
             "domains": ["next"]
         },
@@ -107,6 +59,54 @@
         },
         "nursery/useInlineScriptId": {
             "domains": ["next"]
+        },
+        "performance/noImgElement": {
+            "domains": ["next"]
+        },
+        "performance/noUnwantedPolyfillio": {
+            "domains": ["next"]
+        },
+        "performance/useGoogleFontPreconnect": {
+            "domains": ["next"]
+        },
+        "security/noDangerouslySetInnerHtml": {
+            "domains": ["react"]
+        },
+        "security/noDangerouslySetInnerHtmlWithChildren": {
+            "domains": ["react"]
+        },
+        "style/noHeadElement": {
+            "domains": ["next"]
+        },
+        "style/useComponentExportOnlyModules": {
+            "domains": ["react"]
+        },
+        "style/useReactFunctionComponents": {
+            "domains": ["react"]
+        },
+        "suspicious/noArrayIndexKey": {
+            "domains": ["react"]
+        },
+        "suspicious/noDocumentImportInPage": {
+            "domains": ["next"]
+        },
+        "suspicious/noDuplicateTestHooks": {
+            "domains": ["test"]
+        },
+        "suspicious/noExportsInTest": {
+            "domains": ["test"]
+        },
+        "suspicious/noFocusedTests": {
+            "domains": ["test"]
+        },
+        "suspicious/noHeadImportInDocument": {
+            "domains": ["next"]
+        },
+        "suspicious/noReactForwardRef": {
+            "domains": ["react"]
+        },
+        "suspicious/noSkippedTests": {
+            "domains": ["test"]
         }
     }
 }
