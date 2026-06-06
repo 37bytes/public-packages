@@ -1,0 +1,112 @@
+{
+    "biomeVersion": "2.4.13",
+    "generatedAt": "2026-06-07",
+    "note": "regenerate after biome bumps: node __tests__/parity/generate-biome-domain-rules.js",
+    "rules": {
+        "suspicious/noArrayIndexKey": {
+            "domains": ["react"]
+        },
+        "suspicious/noDocumentImportInPage": {
+            "domains": ["next"]
+        },
+        "suspicious/noDuplicateTestHooks": {
+            "domains": ["test"]
+        },
+        "suspicious/noExportsInTest": {
+            "domains": ["test"]
+        },
+        "suspicious/noFocusedTests": {
+            "domains": ["test"]
+        },
+        "suspicious/noHeadImportInDocument": {
+            "domains": ["next"]
+        },
+        "suspicious/noReactForwardRef": {
+            "domains": ["react"]
+        },
+        "suspicious/noSkippedTests": {
+            "domains": ["test"]
+        },
+        "style/noHeadElement": {
+            "domains": ["next"]
+        },
+        "style/useComponentExportOnlyModules": {
+            "domains": ["react"]
+        },
+        "style/useReactFunctionComponents": {
+            "domains": ["react"]
+        },
+        "complexity/noExcessiveNestedTestSuites": {
+            "domains": ["test"]
+        },
+        "correctness/noChildrenProp": {
+            "domains": ["react"]
+        },
+        "correctness/noNestedComponentDefinitions": {
+            "domains": ["react"]
+        },
+        "correctness/noNextAsyncClientComponent": {
+            "domains": ["next"]
+        },
+        "correctness/noReactPropAssignments": {
+            "domains": ["react"]
+        },
+        "correctness/noRenderReturnValue": {
+            "domains": ["react"]
+        },
+        "correctness/useExhaustiveDependencies": {
+            "domains": ["react", "next"]
+        },
+        "correctness/useHookAtTopLevel": {
+            "domains": ["react", "next"]
+        },
+        "correctness/useJsxKeyInIterable": {
+            "domains": ["react"]
+        },
+        "correctness/useUniqueElementIds": {
+            "domains": ["react"]
+        },
+        "security/noDangerouslySetInnerHtml": {
+            "domains": ["react"]
+        },
+        "security/noDangerouslySetInnerHtmlWithChildren": {
+            "domains": ["react"]
+        },
+        "performance/noImgElement": {
+            "domains": ["next"]
+        },
+        "performance/noUnwantedPolyfillio": {
+            "domains": ["next"]
+        },
+        "performance/useGoogleFontPreconnect": {
+            "domains": ["next"]
+        },
+        "nursery/noBeforeInteractiveScriptOutsideDocument": {
+            "domains": ["next"]
+        },
+        "nursery/noConditionalExpect": {
+            "domains": ["test"]
+        },
+        "nursery/noDuplicatedSpreadProps": {
+            "domains": ["react"]
+        },
+        "nursery/noJsxPropsBind": {
+            "domains": ["react"]
+        },
+        "nursery/noLeakedRender": {
+            "domains": ["react"]
+        },
+        "nursery/noSyncScripts": {
+            "domains": ["react", "next"]
+        },
+        "nursery/noUnknownAttribute": {
+            "domains": ["react"]
+        },
+        "nursery/useExpect": {
+            "domains": ["test"]
+        },
+        "nursery/useInlineScriptId": {
+            "domains": ["next"]
+        }
+    }
+}
