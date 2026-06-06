@@ -146,7 +146,7 @@
         "typescript": "6.0.3"
     },
     "scripts": {
-        "test": "node --test",
+        "test": "node --test __tests__/*.test.js eslint/__tests__/*.test.js eslint/plugins/*/__tests__/*.test.js",
         "test:plugins": "node --test eslint/plugins/*/__tests__/*.test.js",
         "test:integration": "node --test __tests__/*.test.js",
         "lint:typescript": "tsc --noEmit",
