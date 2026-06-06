@@ -58,6 +58,9 @@ export default [
         files: ['**/*.cjs'],
         languageOptions: {
             sourceType: 'commonjs'
+        },
+        rules: {
+            'import-x/no-commonjs': 'off'
         }
     },
     // CLI scripts — bootstrap-like phase (console, process.exit, dynamic fs paths)
@@ -88,7 +91,10 @@ export default [
         rules: {
             'no-unused-vars': 'off',
             'no-await-in-loop': 'off',
-            'n/no-unsupported-features/node-builtins': 'off'
+            'n/no-unsupported-features/node-builtins': 'off',
+            // parity-static.check.js uses createRequire(import.meta.url) to load eslint-config-biome
+            // (CJS-only package with no ESM export). createRequire is the correct ESM pattern here.
+            'import-x/no-commonjs': 'off'
         }
     }
 ];

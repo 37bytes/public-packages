@@ -75,5 +75,9 @@ export const react = {
     '@eslint-react/dom-no-dangerously-set-innerhtml': 'error',
     '@eslint-react/dom-no-script-url': 'error',
     '@eslint-react/dom-no-missing-iframe-sandbox': 'error',
-    '@eslint-react/dom-no-unsafe-target-blank': 'warn'
+    '@eslint-react/dom-no-unsafe-target-blank': 'warn',
+
+    // === Fragment and Element Rules (promoted from biome enforcement) ===
+    '@eslint-react/jsx-no-useless-fragment': 'warn', // biome: complexity/noUselessFragments
+    '@eslint-react/dom-no-void-elements-with-children': 'error' // biome: correctness/noVoidElementsWithChildren
 };

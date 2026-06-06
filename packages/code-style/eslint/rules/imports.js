@@ -41,6 +41,7 @@ export const imports = {
 
     // === Module System ===
     'import-x/no-amd': 'error', // https://github.com/un-ts/eslint-plugin-import-x/blob/main/docs/rules/no-amd.md
+    'import-x/no-commonjs': 'error', // https://github.com/un-ts/eslint-plugin-import-x/blob/main/docs/rules/no-commonjs.md
 
     // === Dependencies ===
     'import-x/no-extraneous-dependencies': [

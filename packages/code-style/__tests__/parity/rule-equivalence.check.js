@@ -182,8 +182,8 @@ describe('reverseToEslint', () => {
         );
         assert.strictEqual(
             reverseToEslint('biome', 'suspicious/noDuplicateTestHooks'),
-            null,
-            'genuinely tool-only (jest/no-duplicate-hooks, not in our preset) reverses to null'
+            'vitest/no-duplicate-hooks',
+            'promoted into eslint as vitest/no-duplicate-hooks (Task D, 2026-06-07)'
         );
     });
     test('biome many-to-one first-wins: @typescript-eslint/ ordering ensures enabled source wins', () => {
@@ -231,5 +231,32 @@ describe('reverseToEslint', () => {
             reverseToEslint('biome', 'complexity/noBannedTypes'),
             '@typescript-eslint/no-empty-object-type'
         );
+    });
+    test('reverses oxlint jest/* to vitest/* eslint counterparts (D0 vitest->jest mapping)', () => {
+        // oxlint exposes these 11 rules only under jest/* namespace; ESLint presets use vitest/*.
+        assert.strictEqual(reverseToEslint('oxlint', 'jest/consistent-test-it'), 'vitest/consistent-test-it');
+        assert.strictEqual(reverseToEslint('oxlint', 'jest/no-disabled-tests'), 'vitest/no-disabled-tests');
+        assert.strictEqual(reverseToEslint('oxlint', 'jest/no-duplicate-hooks'), 'vitest/no-duplicate-hooks');
+        assert.strictEqual(reverseToEslint('oxlint', 'jest/no-focused-tests'), 'vitest/no-focused-tests');
+        assert.strictEqual(reverseToEslint('oxlint', 'jest/no-identical-title'), 'vitest/no-identical-title');
+        assert.strictEqual(reverseToEslint('oxlint', 'jest/prefer-equality-matcher'), 'vitest/prefer-equality-matcher');
+        assert.strictEqual(reverseToEslint('oxlint', 'jest/prefer-to-be'), 'vitest/prefer-to-be');
+        assert.strictEqual(reverseToEslint('oxlint', 'jest/prefer-to-contain'), 'vitest/prefer-to-contain');
+        assert.strictEqual(reverseToEslint('oxlint', 'jest/prefer-to-have-length'), 'vitest/prefer-to-have-length');
+        assert.strictEqual(reverseToEslint('oxlint', 'jest/valid-expect'), 'vitest/valid-expect');
+        assert.strictEqual(reverseToEslint('oxlint', 'jest/valid-title'), 'vitest/valid-title');
+    });
+    test('resolves vitest/* eslint rules to jest/* oxlint equivalents (D0 forward mapping)', () => {
+        assert.strictEqual(resolveOxlintEquivalent('vitest/consistent-test-it'), 'jest/consistent-test-it');
+        assert.strictEqual(resolveOxlintEquivalent('vitest/no-disabled-tests'), 'jest/no-disabled-tests');
+        assert.strictEqual(resolveOxlintEquivalent('vitest/no-duplicate-hooks'), 'jest/no-duplicate-hooks');
+        assert.strictEqual(resolveOxlintEquivalent('vitest/no-focused-tests'), 'jest/no-focused-tests');
+        assert.strictEqual(resolveOxlintEquivalent('vitest/no-identical-title'), 'jest/no-identical-title');
+        assert.strictEqual(resolveOxlintEquivalent('vitest/prefer-equality-matcher'), 'jest/prefer-equality-matcher');
+        assert.strictEqual(resolveOxlintEquivalent('vitest/prefer-to-be'), 'jest/prefer-to-be');
+        assert.strictEqual(resolveOxlintEquivalent('vitest/prefer-to-contain'), 'jest/prefer-to-contain');
+        assert.strictEqual(resolveOxlintEquivalent('vitest/prefer-to-have-length'), 'jest/prefer-to-have-length');
+        assert.strictEqual(resolveOxlintEquivalent('vitest/valid-expect'), 'jest/valid-expect');
+        assert.strictEqual(resolveOxlintEquivalent('vitest/valid-title'), 'jest/valid-title');
     });
 });

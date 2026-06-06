@@ -25,6 +25,20 @@ export const typescriptDisables = {
 
 /** TypeScript-specific rules */
 export const typescriptRules = {
+    // === Promoted rules (biome enforces these; oxlint coverage added to match) ===
+    'typescript/no-extra-non-null-assertion': 'warn', // biome: suspicious/noExtraNonNullAssertion
+    'typescript/no-misused-new': 'warn', // biome: suspicious/noMisleadingInstantiator
+    'typescript/no-unsafe-declaration-merging': 'warn', // biome: suspicious/noUnsafeDeclarationMerging
+    'typescript/array-type': 'warn', // biome: style/useConsistentArrayType
+    'typescript/no-namespace': 'warn', // biome: style/noNamespace
+    'typescript/prefer-as-const': 'warn', // biome: style/useAsConstAssertion
+    'typescript/no-inferrable-types': 'warn', // biome: style/noInferrableTypes
+    'typescript/no-unnecessary-type-constraint': 'warn', // biome: complexity/noUselessTypeConstraint
+    'typescript/prefer-optional-chain': 'warn', // biome: complexity/useOptionalChain
+    // typescript/no-unnecessary-condition is type-aware and in oxlint (not Enabled by default)
+    // Omitted from oxlint config: tsgolint handles it in type-aware mode separately
+    'typescript/switch-exhaustiveness-check': 'warn', // biome: nursery/useExhaustiveSwitchCases
+
     'typescript/consistent-type-imports': [
         'error',
         {

@@ -72,7 +72,8 @@ export const biomeOverrides = {
         // Nursery type-aware — covered by Biome (top ESLint bottlenecks)
         '@typescript-eslint/no-floating-promises': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
-        '@typescript-eslint/no-unnecessary-condition': 'off',
+        // @typescript-eslint/no-unnecessary-condition: promoted into eslint in Task D (2026-06-07).
+        // Removed from overrides so ESLint enforces it (policy: eslint is source of truth).
 
         // Nursery ESLint core — covered by Biome
         'no-proto': 'off',

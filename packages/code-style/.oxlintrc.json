@@ -1,6 +1,6 @@
 {
     "$schema": "./node_modules/oxlint/configuration_schema.json",
-    "plugins": ["typescript", "import", "unicorn", "promise", "react", "nextjs", "node", "vitest", "oxc"],
+    "plugins": ["typescript", "import", "unicorn", "promise", "react", "nextjs", "node", "vitest", "jest", "oxc"],
     "jsPlugins": [
         {
             "name": "@37bytes/no-arrow-props",
@@ -130,6 +130,7 @@
             }
         ],
         "no-unused-labels": "warn",
+        "no-class-assign": "warn",
         "no-dupe-class-members": "error",
         "no-dupe-keys": "error",
         "no-duplicate-case": "error",
@@ -284,38 +285,20 @@
         "import/no-self-import": "error",
         "import/no-empty-named-blocks": "warn",
         "import/no-amd": "error",
+        "import/no-commonjs": "error",
         "import/no-webpack-loader-syntax": "error",
         "react/react-in-jsx-scope": "off",
         "react/rules-of-hooks": "error",
         "react/exhaustive-deps": "error",
         "react/jsx-key": "error",
         "react/no-array-index-key": "warn",
-        "react/self-closing-comp": "error",
         "react/jsx-curly-brace-presence": ["warn", "never"],
         "react/jsx-boolean-value": ["warn", "never"],
         "react/jsx-fragments": ["warn", "syntax"],
-        "react/jsx-pascal-case": [
-            "warn",
-            {
-                "allowAllCaps": true
-            }
-        ],
-        "react/jsx-handler-names": [
-            "error",
-            {
-                "eventHandlerPrefix": "handle",
-                "eventHandlerPropPrefix": "on",
-                "checkLocalVariables": true,
-                "checkInlineFunction": true
-            }
-        ],
-        "react/jsx-no-duplicate-props": "error",
         "react/jsx-no-target-blank": "warn",
-        "react/jsx-no-undef": "error",
         "react/jsx-no-comment-textnodes": "warn",
         "react/no-unknown-property": "warn",
         "react/no-direct-mutation-state": "error",
-        "react/no-is-mounted": "error",
         "react/no-danger-with-children": "warn",
         "react/no-children-prop": "warn",
         "react/no-danger": "error",
@@ -326,6 +309,8 @@
         "nextjs/no-async-client-component": "error",
         "nextjs/no-head-element": "error",
         "nextjs/no-assign-module-variable": "error",
+        "nextjs/no-document-import-in-page": "error",
+        "nextjs/no-head-import-in-document": "error",
         "nextjs/inline-script-id": "error",
         "nextjs/no-sync-scripts": "warn",
         "nextjs/next-script-for-ga": "warn",
@@ -438,6 +423,16 @@
                 "no-useless-constructor": "off",
                 "no-loop-func": "off",
                 "no-throw-literal": "off",
+                "typescript/no-extra-non-null-assertion": "warn",
+                "typescript/no-misused-new": "warn",
+                "typescript/no-unsafe-declaration-merging": "warn",
+                "typescript/array-type": "warn",
+                "typescript/no-namespace": "warn",
+                "typescript/prefer-as-const": "warn",
+                "typescript/no-inferrable-types": "warn",
+                "typescript/no-unnecessary-type-constraint": "warn",
+                "typescript/prefer-optional-chain": "warn",
+                "typescript/switch-exhaustiveness-check": "warn",
                 "typescript/consistent-type-imports": [
                     "error",
                     {
@@ -496,7 +491,23 @@
                 "typescript/no-unsafe-assignment": "off",
                 "typescript/no-unsafe-call": "off",
                 "typescript/no-unsafe-member-access": "off",
-                "typescript/no-floating-promises": "off"
+                "typescript/no-floating-promises": "off",
+                "jest/no-duplicate-hooks": "warn",
+                "jest/no-focused-tests": "error",
+                "jest/no-disabled-tests": "warn",
+                "jest/no-identical-title": "error",
+                "jest/valid-expect": "error",
+                "jest/valid-title": "error",
+                "jest/prefer-to-have-length": "warn",
+                "jest/prefer-to-be": "warn",
+                "jest/prefer-to-contain": "warn",
+                "jest/prefer-equality-matcher": "warn",
+                "jest/consistent-test-it": [
+                    "warn",
+                    {
+                        "fn": "test"
+                    }
+                ]
             }
         },
         {

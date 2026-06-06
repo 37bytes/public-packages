@@ -5,10 +5,13 @@
  * Mirrors the pattern from oxlint/infrastructure.js.
  */
 
-import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
-const require = createRequire(import.meta.url);
-const package_ = require('../package.json');
+const package_ = JSON.parse(
+    // eslint-disable-next-line security/detect-non-literal-fs-filename -- path is a build-time constant, not user input
+    readFileSync(join(import.meta.dirname, '../package.json'), 'utf8')
+);
 
 // Biome version from peerDependencies (e.g. ">=2.4.4" → "2.4.4")
 export const biomeVersion = package_.peerDependencies['@biomejs/biome'].replaceAll(/[^0-9.]/g, '');

@@ -21,9 +21,12 @@
  *   - @typescript-eslint/naming-convention — not implemented in tsgolint
  */
 
-import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
-const require = createRequire(import.meta.url);
+const readJson = (filename) =>
+    // eslint-disable-next-line security/detect-non-literal-fs-filename -- path is a build-time constant, not user input
+    JSON.parse(readFileSync(join(import.meta.dirname, filename), 'utf8'));
 
-export const config = require('./config.json');
-export const perfectionistConfig = require('./perfectionist.json');
+export const config = readJson('./config.json');
+export const perfectionistConfig = readJson('./perfectionist.json');

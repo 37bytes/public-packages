@@ -18,5 +18,6 @@ export const imports = {
     'import/no-self-import': 'error',
     'import/no-empty-named-blocks': 'warn',
     'import/no-amd': 'error',
+    'import/no-commonjs': 'error', // import-x/no-commonjs (promoted from biome style/noCommonJs)
     'import/no-webpack-loader-syntax': 'error'
 };

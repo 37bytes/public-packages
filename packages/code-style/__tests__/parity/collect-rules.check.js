@@ -12,10 +12,10 @@ import {
 describe('collectEnabledEslintRules', () => {
     test('spa preset yields the verified count of enabled rules', () => {
         const enabled = collectEnabledEslintRules(spa);
-        // Verified empirically 2026-06-07 (enabled = enabled-for-at-least-one-glob): 354;
-        // the earlier 345 under-counted because files-scoped offs were wrongly removing
-        // rules from the union. Tight ±15 window.
-        assert.ok(enabled.size >= 339 && enabled.size <= 369, `spa enabled count out of range: ${enabled.size}`);
+        // Verified empirically 2026-06-07 (enabled = enabled-for-at-least-one-glob): 371
+        // after D/E promotions (TypeScript, react, imports, nextjs, testing rules added).
+        // Tight ±20 window.
+        assert.ok(enabled.size >= 351 && enabled.size <= 391, `spa enabled count out of range: ${enabled.size}`);
         assert.strictEqual(enabled.get('no-console'), 'error');
         assert.strictEqual(
             enabled.has('no-undef'),
@@ -67,8 +67,9 @@ describe('collectEnabledUnion', () => {
 describe('collectOxlintRules', () => {
     test('reads generated config with base rules and override additions', () => {
         const oxlintRules = collectOxlintRules();
-        // Verified 2026-06-07: 333 (303 base rules + override additions). Tight ±15 window.
-        assert.ok(oxlintRules.size >= 318 && oxlintRules.size <= 348, `oxlint count out of range: ${oxlintRules.size}`);
+        // Verified 2026-06-07: 365 (base rules + override additions, after D0/D/E promotions).
+        // Tight ±20 window.
+        assert.ok(oxlintRules.size >= 345 && oxlintRules.size <= 385, `oxlint count out of range: ${oxlintRules.size}`);
         assert.strictEqual(oxlintRules.get('no-self-compare'), 'error');
         assert.strictEqual(oxlintRules.get('typescript/no-explicit-any'), 'error');
         assert.strictEqual(

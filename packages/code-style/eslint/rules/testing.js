@@ -37,6 +37,9 @@ export const vitestRules = {
     'vitest/prefer-equality-matcher': 'warn', // Correct equality matcher
     'vitest/consistent-test-it': ['warn', { fn: 'test' }], // Use test() not it()
 
+    // === Hooks ===
+    'vitest/no-duplicate-hooks': 'warn', // biome: suspicious/noDuplicateTestHooks (inspired)
+
     // === Off ===
     'vitest/prefer-expect-assertions': 'off', // Too strict
     'vitest/max-expects': 'off' // Sometimes need multiple expects

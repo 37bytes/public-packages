@@ -53,6 +53,7 @@ export const javascript = {
     'no-use-before-define': ['warn', { functions: false, classes: true, variables: true }],
     'no-unused-expressions': ['error', { allowShortCircuit: true, allowTernary: true }],
     'no-unused-labels': 'warn',
+    'no-class-assign': 'warn',
     'no-dupe-class-members': 'error',
     'no-dupe-keys': 'error',
     'no-duplicate-case': 'error',

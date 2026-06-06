@@ -6,7 +6,18 @@
 
 export const schema = './node_modules/oxlint/configuration_schema.json';
 
-export const plugins = ['typescript', 'import', 'unicorn', 'promise', 'react', 'nextjs', 'node', 'vitest', 'oxc'];
+export const plugins = [
+    'typescript',
+    'import',
+    'unicorn',
+    'promise',
+    'react',
+    'nextjs',
+    'node',
+    'vitest',
+    'jest',
+    'oxc'
+];
 
 export const jsPlugins = [
     { name: '@37bytes/no-arrow-props', specifier: './eslint/plugins/no-arrow-props/index.js' },

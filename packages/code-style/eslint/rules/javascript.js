@@ -98,6 +98,7 @@ export const javascript = {
     ], // https://eslint.org/docs/latest/rules/no-mixed-operators
 
     // === Duplicates and Errors ===
+    'no-class-assign': 'warn', // https://eslint.org/docs/latest/rules/no-class-assign
     'no-dupe-args': 'error', // https://eslint.org/docs/latest/rules/no-dupe-args
     'no-dupe-class-members': 'error', // https://eslint.org/docs/latest/rules/no-dupe-class-members
     'no-dupe-keys': 'error', // https://eslint.org/docs/latest/rules/no-dupe-keys
@@ -221,6 +222,7 @@ export const javascript = {
     'unicorn/no-array-callback-reference': 'error',
     'unicorn/no-array-method-this-argument': 'warn',
     'unicorn/no-array-reverse': 'error',
+    'unicorn/no-array-for-each': 'error',
     'unicorn/no-array-sort': 'error',
     'unicorn/no-await-expression-member': 'warn',
     'unicorn/no-await-in-promise-methods': 'error',
@@ -256,6 +258,7 @@ export const javascript = {
     'unicorn/prefer-array-flat': 'warn',
     'unicorn/prefer-array-flat-map': 'warn',
     'unicorn/prefer-array-index-of': 'warn',
+    'unicorn/prefer-number-properties': 'warn',
     'unicorn/prefer-array-some': 'warn',
     'unicorn/prefer-at': 'warn',
     'unicorn/prefer-code-point': 'warn',

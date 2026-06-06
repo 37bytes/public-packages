@@ -66,6 +66,19 @@ export const typescript = {
     ],
     '@typescript-eslint/no-useless-constructor': 'warn',
 
+    // === TypeScript-specific rules (promoted from biome/oxlint enforcement) ===
+    '@typescript-eslint/no-extra-non-null-assertion': 'warn', // biome: suspicious/noExtraNonNullAssertion
+    '@typescript-eslint/no-misused-new': 'warn', // biome: suspicious/noMisleadingInstantiator
+    '@typescript-eslint/no-unsafe-declaration-merging': 'warn', // biome: suspicious/noUnsafeDeclarationMerging
+    '@typescript-eslint/array-type': 'warn', // biome: style/useConsistentArrayType
+    '@typescript-eslint/no-namespace': 'warn', // biome: style/noNamespace
+    '@typescript-eslint/prefer-as-const': 'warn', // biome: style/useAsConstAssertion
+    '@typescript-eslint/no-inferrable-types': 'warn', // biome: style/noInferrableTypes
+    '@typescript-eslint/no-unnecessary-type-constraint': 'warn', // biome: complexity/noUselessTypeConstraint
+    '@typescript-eslint/prefer-optional-chain': 'warn', // biome: complexity/useOptionalChain
+    '@typescript-eslint/no-unnecessary-condition': 'warn', // biome: nursery/noUnnecessaryConditions
+    '@typescript-eslint/switch-exhaustiveness-check': 'warn', // biome: nursery/useExhaustiveSwitchCases
+
     // === Type Imports/Exports ===
     '@typescript-eslint/consistent-type-imports': [
         'error',

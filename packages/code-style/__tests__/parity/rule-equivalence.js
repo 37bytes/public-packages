@@ -48,6 +48,23 @@ const OXLINT_VERBATIM_PREFIXES = [
     'react/'
 ];
 
+// vitest/* rules that oxlint exposes only under the jest/* namespace.
+// oxlint has a vitest plugin but it does not have counterparts for these 10 rules;
+// they are available under jest/* instead (verified 2026-06-07, oxlint 1.61.0).
+const VITEST_TO_JEST_MAP = new Map([
+    ['vitest/consistent-test-it', 'jest/consistent-test-it'],
+    ['vitest/no-disabled-tests', 'jest/no-disabled-tests'],
+    ['vitest/no-duplicate-hooks', 'jest/no-duplicate-hooks'],
+    ['vitest/no-focused-tests', 'jest/no-focused-tests'],
+    ['vitest/no-identical-title', 'jest/no-identical-title'],
+    ['vitest/prefer-equality-matcher', 'jest/prefer-equality-matcher'],
+    ['vitest/prefer-to-be', 'jest/prefer-to-be'],
+    ['vitest/prefer-to-contain', 'jest/prefer-to-contain'],
+    ['vitest/prefer-to-have-length', 'jest/prefer-to-have-length'],
+    ['vitest/valid-expect', 'jest/valid-expect'],
+    ['vitest/valid-title', 'jest/valid-title']
+]);
+
 // eslint rules known to have NO oxlint equivalent (explicit, so absence is intentional not unmapped)
 const OXLINT_NO_EQUIVALENT_PREFIXES = ['@eslint-react/', '@stylistic/', 'security/', 'prefer-arrow-functions/'];
 const OXLINT_NO_EQUIVALENT_RULES = new Set([
@@ -66,6 +83,10 @@ export const resolveOxlintEquivalent = (eslintRule) => {
     // the non-existent typescript/* prefixed form.
     if (OXLINT_TS_BARE_NAME_OVERRIDES.has(eslintRule)) {
         return OXLINT_TS_BARE_NAME_OVERRIDES.get(eslintRule);
+    }
+    // vitest/* rules that oxlint ships only under jest/* namespace.
+    if (VITEST_TO_JEST_MAP.has(eslintRule)) {
+        return VITEST_TO_JEST_MAP.get(eslintRule);
     }
     for (const prefix of OXLINT_NO_EQUIVALENT_PREFIXES) {
         if (eslintRule.startsWith(prefix)) {
@@ -283,9 +304,9 @@ const BIOME_TABLE = {
     // (eslint/rules/react.js) uses @eslint-react/* with jsx-/dom- prefixes. Every @eslint-react
     // key below is verified present in the preset via:
     //   grep -o "'@eslint-react/[a-z-]*'" eslint/rules/react.js | sort -u
-    // biome rules whose eslint twin is NOT enabled in our preset are intentionally absent here so
-    // they reverse to null (red-baseline triage): suspicious/noDuplicateJsxProps,
-    // complexity/noUselessFragments, correctness/noVoidElementsWithChildren.
+    // suspicious/noDuplicateJsxProps: @eslint-react 4.2.3 has no jsx-no-duplicate-props (only no-duplicate-key).
+    // Biome rule trimmed from biome/rules/react.js (policy: no extras without eslint counterpart, checked 2026-06-07).
+    // complexity/noUselessFragments and correctness/noVoidElementsWithChildren: now promoted into eslint (Task D).
     '@eslint-react/jsx-no-comment-textnodes': 'suspicious/noCommentText', // eslint/rules/react.js:45
     '@eslint-react/no-array-index-key': { biome: 'suspicious/noArrayIndexKey', partial: 'inspired' },
     '@37bytes/jsx-boolean-value': { biome: 'style/noImplicitBoolean', partial: 'inspired' },
@@ -300,6 +321,9 @@ const BIOME_TABLE = {
     '@eslint-react/dom-no-dangerously-set-innerhtml-with-children': 'security/noDangerouslySetInnerHtmlWithChildren',
     '@eslint-react/no-leaked-conditional-rendering': 'nursery/noLeakedRender',
     '@eslint-react/no-nested-component-definitions': 'correctness/noNestedComponentDefinitions',
+    // Promoted into eslint in Task D: @eslint-react/jsx-no-useless-fragment and dom-no-void-elements-with-children.
+    '@eslint-react/jsx-no-useless-fragment': 'complexity/noUselessFragments',
+    '@eslint-react/dom-no-void-elements-with-children': 'correctness/noVoidElementsWithChildren',
     // --- nextjs (biome/rules/nextjs.js) ---
     '@next/next/google-font-display': 'suspicious/useGoogleFontDisplay',
     '@next/next/no-document-import-in-page': 'suspicious/noDocumentImportInPage',
@@ -332,6 +356,13 @@ const BIOME_TABLE = {
     // --- testing (biome/rules/testing.js) ---
     'vitest/no-focused-tests': { biome: 'suspicious/noFocusedTests', partial: 'inspired' },
     'vitest/no-disabled-tests': { biome: 'suspicious/noSkippedTests', partial: 'inspired' },
+    // vitest/no-duplicate-hooks promoted into eslint (no-duplicate-hooks exists in @vitest/eslint-plugin).
+    // biome/rules/testing.js:17 has noDuplicateTestHooks (inspired by jest/no-duplicate-hooks).
+    'vitest/no-duplicate-hooks': {
+        biome: 'suspicious/noDuplicateTestHooks',
+        partial:
+            'inspired by jest/no-duplicate-hooks; biome covers beforeEach/afterEach nesting, vitest covers all hook types'
+    },
     // --- quality (biome/rules/quality.js) ---
     'sonarjs/cognitive-complexity': { biome: 'complexity/noExcessiveCognitiveComplexity', partial: 'inspired' },
     // sonarjs/no-redundant-jump has no biome equivalent (checked 2026-06-07, biome 2.4.13)
@@ -368,6 +399,23 @@ for (const [eslintRule, entry] of Object.entries(BIOME_TABLE)) {
         biomeReverse.set(biomeRule, eslintRule);
     }
 }
+
+// Reverse map for oxlint jest/* rules that correspond to vitest/* in ESLint.
+// oxlint only has these rules under jest/* namespace; ESLint presets use vitest/* names.
+// Key: oxlint jest/ rule, Value: eslint vitest/ rule
+const OXLINT_JEST_TO_VITEST_ESLINT = new Map([
+    ['jest/consistent-test-it', 'vitest/consistent-test-it'],
+    ['jest/no-disabled-tests', 'vitest/no-disabled-tests'],
+    ['jest/no-duplicate-hooks', 'vitest/no-duplicate-hooks'],
+    ['jest/no-focused-tests', 'vitest/no-focused-tests'],
+    ['jest/no-identical-title', 'vitest/no-identical-title'],
+    ['jest/prefer-equality-matcher', 'vitest/prefer-equality-matcher'],
+    ['jest/prefer-to-be', 'vitest/prefer-to-be'],
+    ['jest/prefer-to-contain', 'vitest/prefer-to-contain'],
+    ['jest/prefer-to-have-length', 'vitest/prefer-to-have-length'],
+    ['jest/valid-expect', 'vitest/valid-expect'],
+    ['jest/valid-title', 'vitest/valid-title']
+]);
 
 // Reverse map for oxlint typescript/ rules that map to the BASE (bare) ESLint name rather than
 // the @typescript-eslint/* variant. These are rules where oxlint uses the typescript/ prefix but
@@ -440,6 +488,9 @@ const reverseOxlintToEslint = (toolRule) => {
     }
     if (toolRule === 'unicorn/prefer-node-protocol') {
         return 'n/prefer-node-protocol';
+    }
+    if (OXLINT_JEST_TO_VITEST_ESLINT.has(toolRule)) {
+        return OXLINT_JEST_TO_VITEST_ESLINT.get(toolRule);
     }
     if (OXLINT_TYPESCRIPT_TO_BASE_ESLINT.has(toolRule)) {
         return OXLINT_TYPESCRIPT_TO_BASE_ESLINT.get(toolRule);

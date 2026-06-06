@@ -22,6 +22,8 @@ export const nextjs = {
     '@next/next/no-async-client-component': 'error', // async Client Component — runtime error
     '@next/next/no-head-element': 'error', // использовать metadata API, не сырой <head>
     '@next/next/no-assign-module-variable': 'error', // module = ... ломает HMR
+    '@next/next/no-document-import-in-page': 'error', // biome: suspicious/noDocumentImportInPage
+    '@next/next/no-head-import-in-document': 'error', // biome: suspicious/noHeadImportInDocument
 
     // === Scripts ===
     '@next/next/inline-script-id': 'error', // id обязателен для inline Script (дедупликация)

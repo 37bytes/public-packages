@@ -44,8 +44,10 @@
  * Manual overrides may be needed for non-recommended rules.
  */
 
-import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
-const require = createRequire(import.meta.url);
-
-export const config = require('./config.json');
+export const config = JSON.parse(
+    // eslint-disable-next-line security/detect-non-literal-fs-filename -- path is a build-time constant, not user input
+    readFileSync(join(import.meta.dirname, './config.json'), 'utf8')
+);
