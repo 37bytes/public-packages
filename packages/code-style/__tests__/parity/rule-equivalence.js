@@ -37,8 +37,9 @@ const OXLINT_VERBATIM_PREFIXES = [
 // eslint rules known to have NO oxlint equivalent (explicit, so absence is intentional not unmapped)
 const OXLINT_NO_EQUIVALENT_PREFIXES = ['@eslint-react/', '@stylistic/', 'security/', 'prefer-arrow-functions/'];
 const OXLINT_NO_EQUIVALENT_RULES = new Set([
-    'import-x/no-useless-path-segments',
-    'import-x/no-self-import'
+    'import-x/no-useless-path-segments'
+    // NOTE: import-x/no-self-import is NOT here — oxlint covers it natively via import/no-self-import
+    // (verified in oxlint --rules and oxlint/config.json base block). The gap is biome-only.
     // grow this list during the red-baseline triage; every addition needs a known-gaps entry
 ]);
 

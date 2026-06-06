@@ -27,6 +27,11 @@ describe('resolveOxlintEquivalent', () => {
     test('@eslint-react rules have NO oxlint equivalent through prefixes (structural bridge gap)', () => {
         assert.strictEqual(resolveOxlintEquivalent('@eslint-react/no-missing-key'), null);
     });
+    test('import-x/no-self-import resolves to oxlint (covered natively; the gap is biome-only)', () => {
+        // oxlint ships import/no-self-import (verified in `oxlint --rules` and oxlint/config.json
+        // base block), so it resolves via the import-x/ -> import/ prefix rename, NOT null.
+        assert.strictEqual(resolveOxlintEquivalent('import-x/no-self-import'), 'import/no-self-import');
+    });
 });
 
 describe('resolveBiomeEquivalent', () => {
