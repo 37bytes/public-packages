@@ -7,6 +7,13 @@
 
 export const javascript = {
     // === Syntax & Logic ===
+    'arrow-body-style': ['warn', 'as-needed'],
+    'func-style': ['warn', 'expression'],
+    'id-length': [
+        'warn',
+        { min: 3, properties: 'never', exceptions: ['e', 'fs', 'id', 'n', 'os', 'ts', 'vi', 'x', 'y', '_'] }
+    ],
+    'object-shorthand': ['error', 'always'],
     curly: 'error',
     eqeqeq: ['warn', 'smart'],
     'no-console': 'error',
@@ -49,6 +56,12 @@ export const javascript = {
     'no-dupe-class-members': 'error',
     'no-dupe-keys': 'error',
     'no-duplicate-case': 'error',
+    // Base-level enables so the @typescript-eslint/* forward-check resolves:
+    // @typescript-eslint/no-array-constructor -> no-array-constructor (oxlint bare name)
+    // @typescript-eslint/no-redeclare -> no-redeclare (oxlint bare name)
+    // The typescript override turns these off for TS files where TS handles them natively.
+    'no-array-constructor': 'warn',
+    'no-redeclare': 'warn',
 
     // === Security ===
     'no-eval': 'error',
@@ -101,6 +114,7 @@ export const javascript = {
 
     // === Unicorn (non-DOM, non-import) ===
     'unicorn/catch-error-name': 'warn',
+    'unicorn/custom-error-definition': 'error',
     'unicorn/consistent-assert': 'error',
     'unicorn/consistent-date-clone': 'warn',
     'unicorn/consistent-empty-array-spread': 'error',
@@ -119,6 +133,7 @@ export const javascript = {
     'unicorn/no-hex-escape': 'warn',
     'unicorn/no-immediate-mutation': 'error',
     'unicorn/no-instanceof-builtins': 'warn',
+    'unicorn/no-negation-in-equality-check': 'error',
     'unicorn/no-new-array': 'error',
     'unicorn/no-new-buffer': 'error',
     'unicorn/no-single-promise-in-promise-methods': 'warn',
@@ -127,6 +142,10 @@ export const javascript = {
     'unicorn/no-this-assignment': 'warn',
     'unicorn/no-unreadable-array-destructuring': 'warn',
     'unicorn/no-unreadable-iife': 'warn',
+    'unicorn/no-unnecessary-array-flat-depth': 'warn',
+    'unicorn/no-unnecessary-array-splice-count': 'warn',
+    'unicorn/no-unnecessary-await': 'warn',
+    'unicorn/no-unnecessary-slice-end': 'warn',
     'unicorn/no-useless-collection-argument': 'warn',
     'unicorn/no-useless-error-capture-stack-trace': 'warn',
     'unicorn/no-useless-fallback-in-spread': 'warn',
@@ -148,6 +167,7 @@ export const javascript = {
     'unicorn/prefer-date-now': 'warn',
     'unicorn/prefer-default-parameters': 'warn',
     'unicorn/prefer-global-this': 'warn',
+    'unicorn/prefer-import-meta-properties': 'warn',
     'unicorn/prefer-includes': 'warn',
     'unicorn/prefer-logical-operator-over-ternary': 'warn',
     'unicorn/prefer-math-min-max': 'warn',

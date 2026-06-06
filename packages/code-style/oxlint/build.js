@@ -134,6 +134,15 @@ const config = {
         {
             files: overrideFiles.storybook,
             rules: storybook
+        },
+        {
+            // Next.js App Router conventions require default exports.
+            // Mirror ESLint's nextjsOverrides (eslint/config.js:265-283).
+            files: overrideFiles.nextjsAppRouter,
+            rules: {
+                'import/no-default-export': 'off',
+                'import/no-anonymous-default-export': 'off'
+            }
         }
     ]
 };

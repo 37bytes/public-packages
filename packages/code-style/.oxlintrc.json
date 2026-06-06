@@ -34,6 +34,17 @@
         "node": true
     },
     "rules": {
+        "arrow-body-style": ["warn", "as-needed"],
+        "func-style": ["warn", "expression"],
+        "id-length": [
+            "warn",
+            {
+                "min": 3,
+                "properties": "never",
+                "exceptions": ["e", "fs", "id", "n", "os", "ts", "vi", "x", "y", "_"]
+            }
+        ],
+        "object-shorthand": ["error", "always"],
         "curly": "error",
         "eqeqeq": ["warn", "smart"],
         "no-console": "error",
@@ -122,6 +133,8 @@
         "no-dupe-class-members": "error",
         "no-dupe-keys": "error",
         "no-duplicate-case": "error",
+        "no-array-constructor": "warn",
+        "no-redeclare": "warn",
         "no-eval": "error",
         "no-script-url": "warn",
         "no-extend-native": "warn",
@@ -168,6 +181,7 @@
         "promise/no-callback-in-promise": "warn",
         "promise/spec-only": "error",
         "unicorn/catch-error-name": "warn",
+        "unicorn/custom-error-definition": "error",
         "unicorn/consistent-assert": "error",
         "unicorn/consistent-date-clone": "warn",
         "unicorn/consistent-empty-array-spread": "error",
@@ -186,6 +200,7 @@
         "unicorn/no-hex-escape": "warn",
         "unicorn/no-immediate-mutation": "error",
         "unicorn/no-instanceof-builtins": "warn",
+        "unicorn/no-negation-in-equality-check": "error",
         "unicorn/no-new-array": "error",
         "unicorn/no-new-buffer": "error",
         "unicorn/no-single-promise-in-promise-methods": "warn",
@@ -194,6 +209,10 @@
         "unicorn/no-this-assignment": "warn",
         "unicorn/no-unreadable-array-destructuring": "warn",
         "unicorn/no-unreadable-iife": "warn",
+        "unicorn/no-unnecessary-array-flat-depth": "warn",
+        "unicorn/no-unnecessary-array-splice-count": "warn",
+        "unicorn/no-unnecessary-await": "warn",
+        "unicorn/no-unnecessary-slice-end": "warn",
         "unicorn/no-useless-collection-argument": "warn",
         "unicorn/no-useless-error-capture-stack-trace": "warn",
         "unicorn/no-useless-fallback-in-spread": "warn",
@@ -215,6 +234,7 @@
         "unicorn/prefer-date-now": "warn",
         "unicorn/prefer-default-parameters": "warn",
         "unicorn/prefer-global-this": "warn",
+        "unicorn/prefer-import-meta-properties": "warn",
         "unicorn/prefer-includes": "warn",
         "unicorn/prefer-logical-operator-over-ternary": "warn",
         "unicorn/prefer-math-min-max": "warn",
@@ -497,6 +517,25 @@
                 "storybook/story-exports": "error",
                 "storybook/no-redundant-story-name": "warn",
                 "storybook/prefer-pascal-case": "warn"
+            }
+        },
+        {
+            "files": [
+                "**/app/**/page.tsx",
+                "**/app/**/layout.tsx",
+                "**/app/**/loading.tsx",
+                "**/app/**/error.tsx",
+                "**/app/**/not-found.tsx",
+                "**/app/**/template.tsx",
+                "**/app/**/default.tsx",
+                "**/app/**/route.ts",
+                "middleware.ts",
+                "instrumentation.ts",
+                "next.config.*"
+            ],
+            "rules": {
+                "import/no-default-export": "off",
+                "import/no-anonymous-default-export": "off"
             }
         }
     ]
