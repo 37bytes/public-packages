@@ -12,19 +12,36 @@ import {
 describe('collectEnabledEslintRules', () => {
     test('spa preset yields the verified count of enabled rules', () => {
         const enabled = collectEnabledEslintRules(spa);
-        // Verified empirically 2026-06-07 (plan-facts, eslint-config-surface): 345.
-        // Allow small drift window so unrelated rule additions do not break this guard.
-        assert.ok(enabled.size >= 330 && enabled.size <= 360, `spa enabled count out of range: ${enabled.size}`);
+        // Verified empirically 2026-06-07 (enabled = enabled-for-at-least-one-glob): 354.
+        // Files-scoped offs (typescriptDisables family) no longer drop rules, so this is
+        // higher than the earlier 345 (which over-counted global offs). Tight ±15 window.
+        assert.ok(enabled.size >= 339 && enabled.size <= 369, `spa enabled count out of range: ${enabled.size}`);
         assert.strictEqual(enabled.get('no-console'), 'error');
-        assert.strictEqual(enabled.has('no-undef'), false, 'no-undef is turned off by typescript layer');
+        assert.strictEqual(
+            enabled.has('no-undef'),
+            true,
+            'no-undef is enabled globally (error); the typescript layer turns it off only for **/*.ts(x) globs — per-glob narrowing keeps it in the enabled-for-at-least-one-glob set'
+        );
     });
 
-    test('later off entries remove earlier enables (flat-config merge order)', () => {
+    test('global off entries remove earlier enables (flat-config merge order)', () => {
         const enabled = collectEnabledEslintRules([
             { rules: { 'demo-rule': 'error' } },
             { rules: { 'demo-rule': 'off' } }
         ]);
         assert.strictEqual(enabled.has('demo-rule'), false);
+    });
+
+    test('files-scoped off does NOT remove (per-glob narrowing)', () => {
+        const enabled = collectEnabledEslintRules([
+            { rules: { 'demo-rule': 'error' } },
+            { files: ['**/*.ts'], rules: { 'demo-rule': 'off' } }
+        ]);
+        assert.strictEqual(
+            enabled.has('demo-rule'),
+            true,
+            'a files-scoped off narrows per-glob; the rule stays enabled for other globs'
+        );
     });
 
     test('tuple severities are read from element zero', () => {

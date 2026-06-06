@@ -1,7 +1,15 @@
 /**
  * @fileoverview Collectors for "effective enabled rule" sets across the three linters.
  *
- * ESLint side: walks flat-config arrays in merge order; a later 'off' removes the rule.
+ * The enabled set is "enabled for at least one glob": a rule counts as enabled if any
+ * config object turns it on, even when a later files-scoped config turns it off for a
+ * subset of files (per-glob narrowing). Only a GLOBAL 'off' (a config object with no
+ * `files` key) removes the rule from the set. This mirrors the OxLint collector, which
+ * keeps base rules that per-glob overrides disable — keeping the two sides symmetric so
+ * the reverse parity check does not emit false "tool-only rule" reds for the
+ * typescriptDisables family (no-undef, no-redeclare, no-use-before-define, etc.).
+ *
+ * ESLint side: walks flat-config arrays in merge order; only a global 'off' removes a rule.
  * OxLint side: reads the GENERATED oxlint/config.json (categories is empty — every rule explicit).
  *   Override entries only narrow per-glob; for the global enabled set we take base rules
  *   plus override ADDITIONS (rules introduced by an override, e.g. typescript/*).
@@ -13,7 +21,6 @@
  */
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 const PACKAGE_ROOT = path.resolve(import.meta.dirname, '..', '..');
 
@@ -31,17 +38,25 @@ const normalizeEslintSeverity = (severity) => {
     return severity;
 };
 
-/** @returns {Map<string, string>} ruleName -> 'error' | 'warn' (numeric severities normalized) */
+/**
+ * Enabled set = enabled for at least one glob. A files-scoped 'off' is per-glob narrowing
+ * and does NOT remove the rule; only a global 'off' (config object without a `files` key) does.
+ * @returns {Map<string, string>} ruleName -> 'error' | 'warn' (numeric severities normalized)
+ */
 export const collectEnabledEslintRules = (configArray) => {
     const enabled = new Map();
     for (const config of configArray) {
         if (!config.rules) {
             continue;
         }
+        const isGlobalConfig = !config.files;
         for (const [ruleName, value] of Object.entries(config.rules)) {
             const severity = severityOf(value);
             if (isOff(severity)) {
-                enabled.delete(ruleName);
+                // Files-scoped offs narrow per-glob only; keep the rule enabled for other globs.
+                if (isGlobalConfig) {
+                    enabled.delete(ruleName);
+                }
             } else {
                 enabled.set(ruleName, normalizeEslintSeverity(severity));
             }
