@@ -157,6 +157,7 @@
         "format:check": "prettier --check .",
         "build:oxlint": "node oxlint/build.js && prettier --write oxlint/*.json .oxlintrc.json",
         "build:biome": "node biome/build.js && prettier --write biome/config.json",
+        "build:parity-domains": "node __tests__/parity/generate-biome-domain-rules.js && prettier --write __tests__/parity/biome-domain-rules.json",
         "prepublishOnly": "pnpm run build:oxlint && pnpm run build:biome && pnpm run lint && pnpm test && echo 'Use npm publish --dry-run first!'",
         "npm-packlist": "npx -y npm-packlist@6.0.1"
     }

@@ -88,6 +88,19 @@ describe('test-script discovery guard', () => {
         );
     });
 
+    test('no script glob contains ** (globToRegExp only handles single *)', () => {
+        // globToRegExp converts * to [^/]* (no cross-separator matching). A ** in a glob would
+        // be silently converted to two adjacent [^/]* terms — which matches single-level paths
+        // only, not recursive paths. Any glob with ** must be expanded or rewritten.
+        const doubleStarGlobs = scriptGlobs.filter((glob) => glob.includes('**'));
+        assert.deepStrictEqual(
+            doubleStarGlobs,
+            [],
+            `These "test" script globs contain ** which globToRegExp cannot handle:\n  ${doubleStarGlobs.join('\n  ')}\n` +
+                'Expand them into explicit single-level globs or update globToRegExp to support **.'
+        );
+    });
+
     test('every *.test.js file is matched by a "test" script glob', () => {
         assert.ok(testFiles.length > 0, 'no *.test.js files found — collector or exclusion logic is broken');
         const orphans = testFiles.filter((filePath) => !globMatchers.some((matcher) => matcher.test(filePath)));

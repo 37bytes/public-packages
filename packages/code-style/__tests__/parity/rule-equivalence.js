@@ -21,6 +21,20 @@ export const OXLINT_PREFIX_RENAMES = {
     'react-hooks/': 'react/'
 };
 
+// @typescript-eslint/* rules that oxlint exposes only under the plain (bare) name.
+// The systematic prefix rename (@typescript-eslint/ -> typescript/) is wrong for these:
+// oxlint has no `typescript/no-loop-func` etc. — only the bare JS equivalents.
+// Checked against `oxlint --rules` and oxlint/config.json (2026-06-07, oxlint 1.61.0).
+const OXLINT_TS_BARE_NAME_OVERRIDES = new Map([
+    ['@typescript-eslint/no-loop-func', 'no-loop-func'],
+    ['@typescript-eslint/no-unused-expressions', 'no-unused-expressions'],
+    ['@typescript-eslint/no-use-before-define', 'no-use-before-define'],
+    ['@typescript-eslint/no-useless-constructor', 'no-useless-constructor'],
+    ['@typescript-eslint/no-unused-vars', 'no-unused-vars'],
+    ['@typescript-eslint/no-array-constructor', 'no-array-constructor'],
+    ['@typescript-eslint/no-redeclare', 'no-redeclare']
+]);
+
 // eslint plugins whose rules keep their names verbatim in oxlint jsPlugins
 const OXLINT_VERBATIM_PREFIXES = [
     'sonarjs/',
@@ -46,6 +60,12 @@ const OXLINT_NO_EQUIVALENT_RULES = new Set([
 export const resolveOxlintEquivalent = (eslintRule) => {
     if (OXLINT_NO_EQUIVALENT_RULES.has(eslintRule)) {
         return null;
+    }
+    // Check bare-name overrides BEFORE the systematic prefix renames so that
+    // @typescript-eslint/no-loop-func etc. resolve to the plain JS oxlint rule, not
+    // the non-existent typescript/* prefixed form.
+    if (OXLINT_TS_BARE_NAME_OVERRIDES.has(eslintRule)) {
+        return OXLINT_TS_BARE_NAME_OVERRIDES.get(eslintRule);
     }
     for (const prefix of OXLINT_NO_EQUIVALENT_PREFIXES) {
         if (eslintRule.startsWith(prefix)) {
@@ -97,6 +117,10 @@ const BIOME_TABLE = {
     'no-global-assign': 'suspicious/noGlobalAssign',
     'no-label-var': 'suspicious/noLabelVar',
     'no-octal-escape': 'suspicious/noOctalEscape',
+    // @typescript-eslint/no-redeclare is the active ESLint rule (no-redeclare is disabled in typescript.js).
+    // First-wins: @typescript-eslint/no-redeclare must appear before no-redeclare so biome reverse
+    // returns the enabled source.
+    '@typescript-eslint/no-redeclare': 'suspicious/noRedeclare',
     'no-redeclare': 'suspicious/noRedeclare',
     'no-self-compare': 'suspicious/noSelfCompare',
     'no-shadow-restricted-names': 'suspicious/noShadowRestrictedNames',
@@ -113,10 +137,18 @@ const BIOME_TABLE = {
     'prefer-const': 'style/useConst',
     'default-case': 'style/useDefaultSwitchClause',
     'prefer-template': 'style/useTemplate',
+    // @typescript-eslint/only-throw-error is the active ESLint rule (no-throw-literal is disabled in typescript.js).
+    // First-wins: @typescript-eslint/only-throw-error must appear before no-throw-literal so biome
+    // reverse returns the enabled source. no-throw-literal stays as a secondary fallback for non-TS contexts.
+    '@typescript-eslint/only-throw-error': { biome: 'style/useThrowOnlyError', partial: 'inspired' },
     'no-throw-literal': {
         biome: 'style/useThrowOnlyError',
         partial: 'inspired; also covers @typescript-eslint/only-throw-error'
     },
+    // n/prefer-node-protocol is the active ESLint rule (eslint/rules/node.js:43).
+    // First-wins: n/prefer-node-protocol must appear before unicorn/prefer-node-protocol so biome
+    // reverse returns the enabled source.
+    'n/prefer-node-protocol': 'style/useNodejsImportProtocol',
     'unicorn/prefer-node-protocol': 'style/useNodejsImportProtocol',
     'unicorn/throw-new-error': 'style/useThrowNewError',
     'unicorn/prefer-string-trim-start-end': 'style/useTrimStartEnd',
@@ -125,6 +157,9 @@ const BIOME_TABLE = {
     'no-extra-label': 'complexity/noUselessLabel',
     'no-lone-blocks': 'complexity/noUselessLoneBlockStatements',
     'no-sequences': 'complexity/noCommaOperator',
+    // @typescript-eslint/no-useless-constructor is the active ESLint rule (no-useless-constructor is disabled).
+    // First-wins ordering ensures biome reverse returns the enabled @typescript-eslint/* source.
+    '@typescript-eslint/no-useless-constructor': 'complexity/noUselessConstructor',
     'no-useless-constructor': 'complexity/noUselessConstructor',
     'no-useless-rename': 'complexity/noUselessRename',
     'no-useless-concat': 'complexity/noUselessStringConcat',
@@ -139,12 +174,31 @@ const BIOME_TABLE = {
     'no-unreachable': 'correctness/noUnreachable',
     'no-this-before-super': 'correctness/noUnreachableSuper',
     'no-undef': 'correctness/noUndeclaredVariables',
+    // @typescript-eslint/no-unused-vars is the active ESLint rule (no-unused-vars is disabled in typescript.js).
+    // First-wins: @typescript-eslint/no-unused-vars before no-unused-vars so biome reverse picks the enabled source.
+    '@typescript-eslint/no-unused-vars': 'correctness/noUnusedVariables',
     'no-unused-vars': 'correctness/noUnusedVariables',
+    // @typescript-eslint/no-use-before-define is the active ESLint rule (no-use-before-define is disabled).
+    // First-wins: @typescript-eslint/no-use-before-define before no-use-before-define so biome reverse
+    // picks the enabled source. Partial: biome covers fewer cases (no typedefs option).
+    '@typescript-eslint/no-use-before-define': {
+        biome: 'correctness/noInvalidUseBeforeDeclaration',
+        partial:
+            'biome covers fewer cases (no typedefs option); eslint config uses functions:false, classes:true, variables:true, typedefs:false'
+    },
     'no-use-before-define': 'correctness/noInvalidUseBeforeDeclaration',
     'use-isnan': 'correctness/useIsNan',
     'valid-typeof': 'correctness/useValidTypeof',
     'require-yield': 'correctness/useYield',
     'unicorn/new-for-builtins': 'correctness/noInvalidBuiltinInstantiation',
+    // no-new-symbol is Symbol-only; noInvalidBuiltinInstantiation covers all builtins (broader).
+    // Partial annotation suppresses the severity mismatch check (eslint=warn, biome=error driven by unicorn/new-for-builtins).
+    // unicorn/new-for-builtins is the primary canonical for the reverse (first-wins above).
+    'no-new-symbol': {
+        biome: 'correctness/noInvalidBuiltinInstantiation',
+        partial:
+            'noInvalidBuiltinInstantiation covers all builtins (Symbol, Array, Object, etc.); eslint no-new-symbol is Symbol-only; severity differs (eslint=warn, biome=error driven by unicorn/new-for-builtins mapping)'
+    },
     'no-unused-labels': 'correctness/noUnusedLabels',
     // --- security / performance (javascript.js:81-84) ---
     'no-eval': 'security/noGlobalEval',
@@ -159,6 +213,12 @@ const BIOME_TABLE = {
     'no-useless-return': 'nursery/noUselessReturn',
     'unicorn/prefer-global-this': 'nursery/useGlobalThis',
     // --- typescript (biome/rules/typescript.js) ---
+    // biome has no noArrayConstructor rule yet (checked 2026-06-07, biome 2.4.13). Task C adds it.
+    '@typescript-eslint/no-array-constructor': null,
+    // no-dupe-class-members is enabled in javascript.js:102 (error); @typescript-eslint/no-dupe-class-members
+    // is disabled (typescript.js:20 sets it off). First-wins: no-dupe-class-members must be before
+    // @typescript-eslint/no-dupe-class-members so biome reverse picks the enabled source.
+    'no-dupe-class-members': 'suspicious/noDuplicateClassMembers',
     '@typescript-eslint/no-dupe-class-members': 'suspicious/noDuplicateClassMembers',
     '@typescript-eslint/no-explicit-any': 'suspicious/noExplicitAny',
     '@typescript-eslint/no-extra-non-null-assertion': 'suspicious/noExtraNonNullAssertion',
@@ -175,8 +235,11 @@ const BIOME_TABLE = {
     },
     '@typescript-eslint/no-inferrable-types': 'style/noInferrableTypes',
     '@typescript-eslint/no-unnecessary-type-constraint': 'complexity/noUselessTypeConstraint',
-    '@typescript-eslint/no-extraneous-class': 'complexity/noStaticOnlyClass',
+    // unicorn/no-static-only-class is enabled in javascript.js:235 (warn); @typescript-eslint/no-extraneous-class
+    // is not enabled in any ESLint preset. First-wins: unicorn/ must be before @typescript-eslint/ so biome
+    // reverse picks the enabled source.
     'unicorn/no-static-only-class': 'complexity/noStaticOnlyClass',
+    '@typescript-eslint/no-extraneous-class': 'complexity/noStaticOnlyClass',
     '@typescript-eslint/prefer-optional-chain': 'complexity/useOptionalChain',
     '@typescript-eslint/no-empty-object-type': {
         biome: 'complexity/noBannedTypes',
@@ -194,7 +257,6 @@ const BIOME_TABLE = {
     '@typescript-eslint/no-misused-promises': 'nursery/noMisusedPromises',
     '@typescript-eslint/no-unnecessary-condition': 'nursery/noUnnecessaryConditions',
     '@typescript-eslint/switch-exhaustiveness-check': 'nursery/useExhaustiveSwitchCases',
-    '@typescript-eslint/only-throw-error': { biome: 'style/useThrowOnlyError', partial: 'inspired' },
     // --- react (biome/rules/react.js) ---
     // NOTE: biome/rules/react.js comments cite legacy react/* names; the live preset
     // (eslint/rules/react.js) uses @eslint-react/* with jsx-/dom- prefixes. Every @eslint-react
@@ -241,11 +303,17 @@ const BIOME_TABLE = {
     'import-x/no-cycle': 'suspicious/noImportCycles',
     'import-x/no-self-import': null,
     'import-x/no-useless-path-segments': null,
+    // biome has no equivalent for import ordering — import-x/first has no biome counterpart (checked 2026-06-07)
+    'import-x/first': null,
+    // biome has no equivalent for prefer-arrow-functions — eslint-plugin-prefer-arrow-functions is eslint-only
+    'prefer-arrow-functions/prefer-arrow-functions': null,
     // --- testing (biome/rules/testing.js) ---
     'vitest/no-focused-tests': { biome: 'suspicious/noFocusedTests', partial: 'inspired' },
     'vitest/no-disabled-tests': { biome: 'suspicious/noSkippedTests', partial: 'inspired' },
     // --- quality (biome/rules/quality.js) ---
-    'sonarjs/cognitive-complexity': { biome: 'complexity/noExcessiveCognitiveComplexity', partial: 'inspired' }
+    'sonarjs/cognitive-complexity': { biome: 'complexity/noExcessiveCognitiveComplexity', partial: 'inspired' },
+    // sonarjs/no-redundant-jump has no biome equivalent (checked 2026-06-07, biome 2.4.13)
+    'sonarjs/no-redundant-jump': null
 };
 
 export const resolveBiomeEquivalent = (eslintRule) => {
@@ -279,36 +347,88 @@ for (const [eslintRule, entry] of Object.entries(BIOME_TABLE)) {
     }
 }
 
-export const reverseToEslint = (tool, toolRule) => {
-    if (tool === 'biome') {
-        return biomeReverse.get(toolRule) ?? null;
-    }
-    // oxlint: invert prefix renames, then verbatim prefixes, then bare names
+// Reverse map for oxlint typescript/ rules that map to the BASE (bare) ESLint name rather than
+// the @typescript-eslint/* variant. These are rules where oxlint uses the typescript/ prefix but
+// the ESLint preset uses the base JS rule (not the TS override).
+// Key: oxlint rule (e.g. 'typescript/no-implied-eval'), Value: eslint rule (e.g. 'no-implied-eval')
+const OXLINT_TYPESCRIPT_TO_BASE_ESLINT = new Map([['typescript/no-implied-eval', 'no-implied-eval']]);
+
+// Reverse map for oxlint bare names that correspond to @typescript-eslint/* in ESLint.
+// These bare rules are disabled in the ESLint preset (typescript.js turns them off) and
+// re-enabled under the @typescript-eslint/* namespace; oxlint only has the bare name.
+const OXLINT_BARE_TO_TS_ESLINT = new Map([
+    ['no-loop-func', '@typescript-eslint/no-loop-func'],
+    ['no-unused-expressions', '@typescript-eslint/no-unused-expressions'],
+    ['no-use-before-define', '@typescript-eslint/no-use-before-define'],
+    ['no-useless-constructor', '@typescript-eslint/no-useless-constructor'],
+    ['no-unused-vars', '@typescript-eslint/no-unused-vars'],
+    ['no-array-constructor', '@typescript-eslint/no-array-constructor'],
+    ['no-redeclare', '@typescript-eslint/no-redeclare']
+]);
+
+// Reverse map for oxlint react/ rules that have @eslint-react/* counterparts.
+// The systematic prefix-rename loop maps react/* -> @typescript-eslint-like, which is wrong here.
+// These are the legacy react/* oxlint names and the enabled @eslint-react/* eslint counterparts.
+const OXLINT_REACT_TO_ESLINT_REACT = new Map([
+    ['react/jsx-key', '@eslint-react/no-missing-key'],
+    ['react/no-array-index-key', '@eslint-react/no-array-index-key'],
+    ['react/jsx-curly-brace-presence', '@stylistic/jsx-curly-brace-presence'],
+    ['react/jsx-boolean-value', '@37bytes/jsx-boolean-value'],
+    ['react/jsx-fragments', '@37bytes/jsx-fragments'],
+    ['react/jsx-no-target-blank', '@eslint-react/dom-no-unsafe-target-blank'],
+    ['react/jsx-no-comment-textnodes', '@eslint-react/jsx-no-comment-textnodes'],
+    ['react/no-unknown-property', '@eslint-react/dom-no-unknown-property'],
+    ['react/no-direct-mutation-state', '@eslint-react/no-direct-mutation-state'],
+    ['react/no-danger-with-children', '@eslint-react/dom-no-dangerously-set-innerhtml-with-children'],
+    ['react/no-children-prop', '@eslint-react/jsx-no-children-prop'],
+    ['react/no-danger', '@eslint-react/dom-no-dangerously-set-innerhtml'],
+    ['react/jsx-no-script-url', '@eslint-react/dom-no-script-url'],
+    ['react/iframe-missing-sandbox', '@eslint-react/dom-no-missing-iframe-sandbox'],
+    ['react/button-has-type', '@eslint-react/dom-no-missing-button-type'],
+    ['react/style-prop-object', '@eslint-react/dom-no-string-style-prop']
+]);
+
+/** Invert the OXLINT_PREFIX_RENAMES table for one toolRule. Returns the eslint counterpart or
+ * null if the react/ prefix matches a tool-only rule. Returns undefined if no prefix matched. */
+const invertPrefixRename = (toolRule) => {
     for (const [eslintPrefix, oxlintPrefix] of Object.entries(OXLINT_PREFIX_RENAMES)) {
-        if (toolRule.startsWith(oxlintPrefix)) {
-            const candidate = eslintPrefix + toolRule.slice(oxlintPrefix.length);
-            // react/ is ambiguous: react-hooks/exhaustive-deps reverses, react/jsx-handler-names does not
-            if (
-                oxlintPrefix === 'react/' &&
-                !['exhaustive-deps', 'rules-of-hooks'].includes(toolRule.slice(oxlintPrefix.length))
-            ) {
-                continue;
-            }
-            return candidate;
+        if (!toolRule.startsWith(oxlintPrefix)) {
+            continue;
         }
+        // react/ is ambiguous: only react-hooks/* reverses; other react/* are tool-only.
+        if (
+            oxlintPrefix === 'react/' &&
+            !['exhaustive-deps', 'rules-of-hooks'].includes(toolRule.slice(oxlintPrefix.length))
+        ) {
+            return null;
+        }
+        return eslintPrefix + toolRule.slice(oxlintPrefix.length);
     }
-    // oxlint local jsPlugin rules (our own @37bytes plugins) use a TRIPLE-path id:
-    // '@scope/<plugin-name>/<rule-name>' (oxlint injects the registered plugin name as a path
-    // segment). eslint registers the same rules with a DOUBLE-path id '@scope/<rule-name>'
-    // (no plugin segment). Verified keys in oxlint/config.json: @37bytes/no-arrow-props/no-arrow-props,
-    // @37bytes/no-storage/no-browser-storage, @37bytes/enum-pattern/enum-pattern. Collapse the
-    // middle plugin segment by keeping scope + LAST segment. Checked after the prefix-rename loop
-    // so systematically-renamed oxlint ids (typescript/, nextjs/, import/, react/) — all 2-path —
-    // resolve first; the only triple-path oxlint ids are our local jsPlugins.
-    // NOT reliably invertible (the plugin segment cannot be reconstructed from the rule name —
-    // e.g. no-storage vs no-browser-storage), so resolveOxlintEquivalent has no symmetric forward
-    // transform; @37bytes rules never appear in the oxlint bridge off-list, so the Layer-1 forward
-    // check never needs it.
+};
+
+/** Reverse an oxlint rule name to its eslint counterpart. Split out from reverseToEslint to
+ * keep cognitive complexity below the sonarjs limit. */
+const reverseOxlintToEslint = (toolRule) => {
+    // Explicit overrides fire before the systematic loops.
+    if (OXLINT_BARE_TO_TS_ESLINT.has(toolRule)) {
+        return OXLINT_BARE_TO_TS_ESLINT.get(toolRule);
+    }
+    if (OXLINT_REACT_TO_ESLINT_REACT.has(toolRule)) {
+        return OXLINT_REACT_TO_ESLINT_REACT.get(toolRule);
+    }
+    if (toolRule === 'unicorn/prefer-node-protocol') {
+        return 'n/prefer-node-protocol';
+    }
+    if (OXLINT_TYPESCRIPT_TO_BASE_ESLINT.has(toolRule)) {
+        return OXLINT_TYPESCRIPT_TO_BASE_ESLINT.get(toolRule);
+    }
+    const prefixResult = invertPrefixRename(toolRule);
+    if (prefixResult !== undefined) {
+        return prefixResult;
+    }
+    // oxlint local jsPlugin rules use a TRIPLE-path id '@scope/<plugin>/<rule>'; eslint uses '@scope/<rule>'.
+    // Verified keys: @37bytes/no-arrow-props/no-arrow-props, @37bytes/no-storage/no-browser-storage,
+    // @37bytes/enum-pattern/enum-pattern. Collapse by keeping scope + last segment.
     const triplePathMatch = toolRule.match(/^(@[^/]+)\/[^/]+\/([^/]+)$/);
     if (triplePathMatch) {
         return `${triplePathMatch[1]}/${triplePathMatch[2]}`;
@@ -321,8 +441,12 @@ export const reverseToEslint = (tool, toolRule) => {
     if (toolRule.startsWith('import/')) {
         return `import-x/${toolRule.slice('import/'.length)}`;
     }
-    if (!toolRule.includes('/')) {
-        return toolRule;
+    return toolRule.includes('/') ? null : toolRule;
+};
+
+export const reverseToEslint = (tool, toolRule) => {
+    if (tool === 'biome') {
+        return biomeReverse.get(toolRule) ?? null;
     }
-    return null;
+    return reverseOxlintToEslint(toolRule);
 };

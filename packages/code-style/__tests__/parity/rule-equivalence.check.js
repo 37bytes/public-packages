@@ -32,6 +32,31 @@ describe('resolveOxlintEquivalent', () => {
         // base block), so it resolves via the import-x/ -> import/ prefix rename, NOT null.
         assert.strictEqual(resolveOxlintEquivalent('import-x/no-self-import'), 'import/no-self-import');
     });
+    test('@typescript-eslint/* bare-name overrides resolve to plain JS names (not typescript/* prefix)', () => {
+        // These seven @typescript-eslint/* rules have no typescript/* variant in oxlint; they only
+        // exist under the plain (bare) name. The override map fires before the systematic prefix rename.
+        assert.strictEqual(resolveOxlintEquivalent('@typescript-eslint/no-loop-func'), 'no-loop-func');
+        assert.strictEqual(
+            resolveOxlintEquivalent('@typescript-eslint/no-unused-expressions'),
+            'no-unused-expressions'
+        );
+        assert.strictEqual(resolveOxlintEquivalent('@typescript-eslint/no-use-before-define'), 'no-use-before-define');
+        assert.strictEqual(
+            resolveOxlintEquivalent('@typescript-eslint/no-useless-constructor'),
+            'no-useless-constructor'
+        );
+        assert.strictEqual(resolveOxlintEquivalent('@typescript-eslint/no-unused-vars'), 'no-unused-vars');
+        assert.strictEqual(resolveOxlintEquivalent('@typescript-eslint/no-array-constructor'), 'no-array-constructor');
+        assert.strictEqual(resolveOxlintEquivalent('@typescript-eslint/no-redeclare'), 'no-redeclare');
+    });
+    test('systematic prefix rename still works for typescript rules with a real typescript/ variant', () => {
+        // Verify the override only affects the seven bare-name rules; other @typescript-eslint/* still rename.
+        assert.strictEqual(resolveOxlintEquivalent('@typescript-eslint/no-explicit-any'), 'typescript/no-explicit-any');
+        assert.strictEqual(
+            resolveOxlintEquivalent('@typescript-eslint/no-floating-promises'),
+            'typescript/no-floating-promises'
+        );
+    });
 });
 
 describe('resolveBiomeEquivalent', () => {
@@ -88,6 +113,52 @@ describe('reverseToEslint', () => {
         // rules-of-hooks) map back; other react/* names are tool-only legacy rules (-> null).
         assert.strictEqual(reverseToEslint('oxlint', 'react/rules-of-hooks'), 'react-hooks/rules-of-hooks');
     });
+    test('reverses oxlint react/ legacy names to @eslint-react/* counterparts', () => {
+        // 16 legacy react/* oxlint rules map to their @eslint-react/* (or @stylistic//@37bytes/) counterparts.
+        assert.strictEqual(reverseToEslint('oxlint', 'react/jsx-key'), '@eslint-react/no-missing-key');
+        assert.strictEqual(reverseToEslint('oxlint', 'react/no-array-index-key'), '@eslint-react/no-array-index-key');
+        assert.strictEqual(
+            reverseToEslint('oxlint', 'react/jsx-curly-brace-presence'),
+            '@stylistic/jsx-curly-brace-presence'
+        );
+        assert.strictEqual(reverseToEslint('oxlint', 'react/jsx-boolean-value'), '@37bytes/jsx-boolean-value');
+        assert.strictEqual(reverseToEslint('oxlint', 'react/jsx-fragments'), '@37bytes/jsx-fragments');
+        assert.strictEqual(
+            reverseToEslint('oxlint', 'react/jsx-no-target-blank'),
+            '@eslint-react/dom-no-unsafe-target-blank'
+        );
+        assert.strictEqual(
+            reverseToEslint('oxlint', 'react/button-has-type'),
+            '@eslint-react/dom-no-missing-button-type'
+        );
+        assert.strictEqual(
+            reverseToEslint('oxlint', 'react/no-danger'),
+            '@eslint-react/dom-no-dangerously-set-innerhtml'
+        );
+    });
+    test('reverses oxlint unicorn/prefer-node-protocol to n/prefer-node-protocol (active eslint rule)', () => {
+        assert.strictEqual(reverseToEslint('oxlint', 'unicorn/prefer-node-protocol'), 'n/prefer-node-protocol');
+    });
+    test('reverses oxlint typescript/no-implied-eval to base eslint rule (not @typescript-eslint/ variant)', () => {
+        // oxlint uses typescript/no-implied-eval; ESLint preset has the plain no-implied-eval (javascript.js:108).
+        // @typescript-eslint/no-implied-eval is not in the preset.
+        assert.strictEqual(reverseToEslint('oxlint', 'typescript/no-implied-eval'), 'no-implied-eval');
+    });
+    test('reverses oxlint bare names that are @typescript-eslint/* in ESLint', () => {
+        // These bare oxlint names map to @typescript-eslint/* because the bare JS rule is disabled in
+        // typescript.js and the @typescript-eslint/* version is enabled instead.
+        assert.strictEqual(reverseToEslint('oxlint', 'no-loop-func'), '@typescript-eslint/no-loop-func');
+        assert.strictEqual(reverseToEslint('oxlint', 'no-unused-vars'), '@typescript-eslint/no-unused-vars');
+        assert.strictEqual(
+            reverseToEslint('oxlint', 'no-use-before-define'),
+            '@typescript-eslint/no-use-before-define'
+        );
+        assert.strictEqual(
+            reverseToEslint('oxlint', 'no-useless-constructor'),
+            '@typescript-eslint/no-useless-constructor'
+        );
+        assert.strictEqual(reverseToEslint('oxlint', 'no-redeclare'), '@typescript-eslint/no-redeclare');
+    });
     test('reverses oxlint local jsPlugin triple-path ids to eslint double-path', () => {
         // oxlint injects the plugin name as a path segment: '@scope/<plugin>/<rule>'.
         // eslint omits it: '@scope/<rule>'. The three keys below are the real ones in
@@ -113,6 +184,43 @@ describe('reverseToEslint', () => {
             reverseToEslint('biome', 'suspicious/noDuplicateTestHooks'),
             null,
             'genuinely tool-only (jest/no-duplicate-hooks, not in our preset) reverses to null'
+        );
+    });
+    test('biome many-to-one first-wins: @typescript-eslint/ ordering ensures enabled source wins', () => {
+        // suspicious/noRedeclare: @typescript-eslint/no-redeclare is before no-redeclare in BIOME_TABLE.
+        // @typescript-eslint/no-redeclare is enabled (typescript.js:34); no-redeclare is off.
+        assert.strictEqual(reverseToEslint('biome', 'suspicious/noRedeclare'), '@typescript-eslint/no-redeclare');
+
+        // suspicious/noDuplicateClassMembers: no-dupe-class-members is before @typescript-eslint/no-dupe-class-members.
+        // no-dupe-class-members is enabled (javascript.js:102); @typescript-eslint/ variant is off.
+        assert.strictEqual(reverseToEslint('biome', 'suspicious/noDuplicateClassMembers'), 'no-dupe-class-members');
+
+        // style/useNodejsImportProtocol: n/prefer-node-protocol is before unicorn/prefer-node-protocol.
+        // n/prefer-node-protocol is enabled (node.js:43); unicorn/ variant is not in eslint presets.
+        assert.strictEqual(reverseToEslint('biome', 'style/useNodejsImportProtocol'), 'n/prefer-node-protocol');
+
+        // complexity/noStaticOnlyClass: unicorn/no-static-only-class is before @typescript-eslint/no-extraneous-class.
+        assert.strictEqual(reverseToEslint('biome', 'complexity/noStaticOnlyClass'), 'unicorn/no-static-only-class');
+
+        // style/useThrowOnlyError: @typescript-eslint/only-throw-error is before no-throw-literal.
+        assert.strictEqual(reverseToEslint('biome', 'style/useThrowOnlyError'), '@typescript-eslint/only-throw-error');
+
+        // correctness/noUnusedVariables: @typescript-eslint/no-unused-vars is before no-unused-vars.
+        assert.strictEqual(
+            reverseToEslint('biome', 'correctness/noUnusedVariables'),
+            '@typescript-eslint/no-unused-vars'
+        );
+
+        // correctness/noInvalidUseBeforeDeclaration: @typescript-eslint/no-use-before-define is before no-use-before-define.
+        assert.strictEqual(
+            reverseToEslint('biome', 'correctness/noInvalidUseBeforeDeclaration'),
+            '@typescript-eslint/no-use-before-define'
+        );
+
+        // complexity/noUselessConstructor: @typescript-eslint/no-useless-constructor is before no-useless-constructor.
+        assert.strictEqual(
+            reverseToEslint('biome', 'complexity/noUselessConstructor'),
+            '@typescript-eslint/no-useless-constructor'
         );
     });
     test('many-to-one biome reverse is first-wins (order-dependent)', () => {

@@ -3,7 +3,9 @@
  * we enable (react/next/test: 'all') but are NOT listed explicitly in config.json.
  * Method: `biome explain <rule>` prints rule metadata including its domains.
  * Output: biome-domain-rules.json, checked in, regenerated on biome bumps.
- * Run: node __tests__/parity/generate-biome-domain-rules.js
+ * Run: pnpm build:parity-domains
+ *   (runs this generator then prettier-formats the JSON output)
+ * Or directly: node __tests__/parity/generate-biome-domain-rules.js
  *
  * NOTE on actual `biome explain` format (verified 2026-06-07 against biome 2.4.13):
  * The output is NOT a single "Domains: react, next" line. Instead it is a structured

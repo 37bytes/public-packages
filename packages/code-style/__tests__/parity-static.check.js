@@ -20,7 +20,15 @@ import { describe, test } from 'node:test';
 
 import oxlintPlugin from 'eslint-plugin-oxlint';
 
-import { nextjs, nodejsRuntime, nodejsTool, spa } from '../eslint/index.js';
+import {
+    nextjs,
+    nodejsRuntime,
+    nodejsTool,
+    spa,
+    storybookConfig,
+    testingConfig,
+    testingReactConfig
+} from '../eslint/index.js';
 import { collectBiomeRules, collectEnabledUnion, collectOxlintRules } from './parity/collect-rules.js';
 import { knownGaps } from './parity/known-gaps.js';
 import { resolveBiomeEquivalent, resolveOxlintEquivalent, reverseToEslint } from './parity/rule-equivalence.js';
@@ -31,7 +39,19 @@ const biomeBridge = require('eslint-config-biome');
 const PACKAGE_ROOT = path.resolve(import.meta.dirname, '..');
 
 // --- assemble the sets -------------------------------------------------------
-const eslintEnabled = collectEnabledUnion([spa, nextjs, nodejsRuntime, nodejsTool]);
+// Include opt-in configs (storybookConfig, testingConfig, testingReactConfig) so their rules
+// contribute to eslintEnabled. Opt-in configs are part of the shipped surface; tool configs
+// enable their rules via overrides. Each opt-in is wrapped as a single-entry array for
+// collectEnabledUnion. (final-review I.1, backlog A3)
+const eslintEnabled = collectEnabledUnion([
+    spa,
+    nextjs,
+    nodejsRuntime,
+    nodejsTool,
+    [storybookConfig],
+    [testingConfig],
+    [testingReactConfig]
+]);
 const oxlintRules = collectOxlintRules();
 const biomeExplicitRules = collectBiomeRules();
 const biomeDomainRules = JSON.parse(
@@ -57,6 +77,14 @@ const biomeOffList = [...new Set(Object.keys(biomeBridge.rules))];
 const gapApplies = (eslintRule, tool) => {
     const gap = knownGaps[eslintRule];
     return Boolean(gap) && (!gap.tools || gap.tools.includes(tool));
+};
+
+// For the reverse check: biome rules that have NO eslint counterpart (tool-only) can be silenced
+// by keying known-gaps with the biome rule name directly (e.g. 'suspicious/noExportsInTest').
+// These are rules biome enables that were not derived from an eslint policy.
+const reverseGapApplies = (toolRule) => {
+    const gap = knownGaps[toolRule];
+    return Boolean(gap);
 };
 
 describe('guards against vacuous green', () => {
@@ -169,6 +197,9 @@ describe('Layer 1 reverse: every tool-enabled rule must trace back to an enabled
     }
     for (const [biomeRule] of collectBiomeRules()) {
         test(`biome ${biomeRule} has an eslint source`, () => {
+            if (reverseGapApplies(biomeRule)) {
+                return;
+            }
             const eslintRule = reverseToEslint('biome', biomeRule);
             assert.notStrictEqual(
                 eslintRule,
