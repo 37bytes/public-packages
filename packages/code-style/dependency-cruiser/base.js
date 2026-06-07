@@ -11,6 +11,10 @@
 
 import { buildCruiserOptions } from './options.js';
 
+/**
+ * Гигиенические правила графа зависимостей (shipped recommended-strict + проектные расширения).
+ * @returns {Array<object>} правила для поля forbidden конфигурации dependency-cruiser
+ */
 const buildBaseRules = () => [
     {
         name: 'no-circular',
@@ -80,6 +84,7 @@ const buildBaseRules = () => [
         comment: 'Продуктовый код не импортирует devDependencies',
         severity: 'error',
         from: {
+            // Предполагает стандартный корень исходников src/; настрой path при другой структуре
             path: '^src/',
             pathNot: [
                 '\\.(test|spec)\\.(js|mjs|cjs|ts|tsx)$',
