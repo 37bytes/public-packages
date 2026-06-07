@@ -65,6 +65,15 @@ const VITEST_TO_JEST_MAP = new Map([
     ['vitest/valid-title', 'jest/valid-title']
 ]);
 
+// @eslint-react/* rules that have explicit oxlint equivalents (override the blanket @eslint-react/ prefix ban).
+// Most @eslint-react rules have no oxlint counterpart (hence the blanket prefix ban below), but these
+// specific rules are covered by legacy react/* names in oxlint (verified 2026-06-07, oxlint 1.61.0).
+const ESLINT_REACT_OXLINT_OVERRIDES = new Map([
+    // @eslint-react/dom-no-missing-button-type -> react/button-has-type in oxlint
+    // Both enforce that every <button> has an explicit type attribute.
+    ['@eslint-react/dom-no-missing-button-type', 'react/button-has-type']
+]);
+
 // eslint rules known to have NO oxlint equivalent (explicit, so absence is intentional not unmapped)
 const OXLINT_NO_EQUIVALENT_PREFIXES = ['@eslint-react/', '@stylistic/', 'security/', 'prefer-arrow-functions/'];
 const OXLINT_NO_EQUIVALENT_RULES = new Set([
@@ -77,6 +86,10 @@ const OXLINT_NO_EQUIVALENT_RULES = new Set([
 export const resolveOxlintEquivalent = (eslintRule) => {
     if (OXLINT_NO_EQUIVALENT_RULES.has(eslintRule)) {
         return null;
+    }
+    // @eslint-react/* overrides: check specific known-covered rules BEFORE the blanket prefix ban.
+    if (ESLINT_REACT_OXLINT_OVERRIDES.has(eslintRule)) {
+        return ESLINT_REACT_OXLINT_OVERRIDES.get(eslintRule);
     }
     // Check bare-name overrides BEFORE the systematic prefix renames so that
     // @typescript-eslint/no-loop-func etc. resolve to the plain JS oxlint rule, not
@@ -351,6 +364,8 @@ const BIOME_TABLE = {
     'import-x/no-useless-path-segments': null,
     // biome has no equivalent for import ordering — import-x/first has no biome counterpart (checked 2026-06-07)
     'import-x/first': null,
+    // biome has no equivalent for anonymous default export detection (checked 2026-06-07, biome 2.4.13)
+    'import-x/no-anonymous-default-export': null,
     // biome has no equivalent for prefer-arrow-functions — eslint-plugin-prefer-arrow-functions is eslint-only
     'prefer-arrow-functions/prefer-arrow-functions': null,
     // --- testing (biome/rules/testing.js) ---
@@ -366,7 +381,24 @@ const BIOME_TABLE = {
     // --- quality (biome/rules/quality.js) ---
     'sonarjs/cognitive-complexity': { biome: 'complexity/noExcessiveCognitiveComplexity', partial: 'inspired' },
     // sonarjs/no-redundant-jump has no biome equivalent (checked 2026-06-07, biome 2.4.13)
-    'sonarjs/no-redundant-jump': null
+    'sonarjs/no-redundant-jump': null,
+    // --- formatter-domain rules (biome handles these at formatter level, not as lint rules) ---
+    // dot-location: biome formatter enforces dot position; no lint rule (checked 2026-06-07, biome 2.4.13)
+    'dot-location': null,
+    // new-parens: biome formatter enforces new expression parens; no lint rule (checked 2026-06-07, biome 2.4.13)
+    'new-parens': null,
+    // no-mixed-operators: no biome lint equivalent; biome formatter handles precedence via parentheses
+    'no-mixed-operators': null,
+    // no-whitespace-before-property: biome formatter eliminates whitespace before property access
+    'no-whitespace-before-property': null,
+    // rest-spread-spacing: biome formatter normalizes rest/spread spacing; no lint rule
+    'rest-spread-spacing': null,
+    // unicorn/number-literal-case: biome formatter normalizes number literal casing; no lint rule
+    'unicorn/number-literal-case': null,
+    // --- react (biome does not have a lint rule for missing button type; only a11y covers it) ---
+    // @eslint-react/dom-no-missing-button-type has no biome lint equivalent (a11y domain only,
+    // our config uses recommended:false and skips a11y). Checked 2026-06-07, biome 2.4.13.
+    '@eslint-react/dom-no-missing-button-type': null
 };
 
 export const resolveBiomeEquivalent = (eslintRule) => {
