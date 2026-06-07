@@ -1,6 +1,6 @@
 # @37bytes/code-style — agent guide
 
-Shareable lint/format config. **eslint flat presets are the source of truth**; biome and oxlint configs are parallel hand-written trees that must mirror it. The parity test suite (884 tests) enforces this; if your change turns it red, the red names the exact rule and direction.
+Shareable lint/format config. **eslint flat presets are the source of truth**; biome and oxlint configs are parallel hand-written trees that must mirror it. The parity test suite (892 tests) enforces this; if your change turns it red, the red names the exact rule and direction.
 
 ## Which file to touch
 
@@ -45,7 +45,7 @@ Shareable lint/format config. **eslint flat presets are the source of truth**; b
 
 | Command | What |
 |---|---|
-| `pnpm test:parity` | the 884-test parity suite (Layers 1+2 + unit checks) |
+| `pnpm test:parity` | the 892-test parity suite (Layers 1+2 + unit checks) |
 | `pnpm build:oxlint` / `pnpm build:biome` | regenerate tool configs from rule trees |
 | `pnpm build:parity-domains` | regenerate biome domain-activated rules JSON (after biome bumps) |
 | `pnpm test` | full package suite incl. parity |

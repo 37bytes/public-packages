@@ -209,11 +209,14 @@ npx depcruise --config .dependency-cruiser.mjs src
 Первый запуск на живом проекте обычно даёт нарушения. Рабочий подход: зафиксировать текущее состояние как baseline и запускать с `--ignore-known`.
 
 ```bash
-# Сохранить текущие нарушения как baseline
-npx depcruise --config .dependency-cruiser.mjs --output-type json src > .dependency-cruiser-known-violations.json
+# Сохранить текущие нарушения как baseline (output-type baseline даёт плоский массив,
+# который и ожидает --ignore-known; output-type json вернёт другой формат-конверт {modules:[...]})
+npx depcruise --config .dependency-cruiser.mjs --output-type baseline src > .dependency-cruiser-known-violations.json
 
 # Запускать в CI, игнорируя baseline (срабатывает только на новых нарушениях)
-npx depcruise --config .dependency-cruiser.mjs --ignore-known src
+# src идёт ДО --ignore-known: у флага опциональный аргумент, и позиционный src после него
+# будет проглочен как имя baseline-файла, после чего depcruise выведет usage-хелп
+npx depcruise --config .dependency-cruiser.mjs src --ignore-known
 ```
 
 Файл `.dependency-cruiser-known-violations.json` добавить в репозиторий. По мере устранения legacy-нарушений файл уменьшается.
