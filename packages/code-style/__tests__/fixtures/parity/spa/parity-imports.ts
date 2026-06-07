@@ -17,10 +17,12 @@ const something = require('node:path'); // parity: noCommonJs — Biome error, E
 
 // parity: no-useless-return severity: error in ESLint/OxLint, warn in Biome nursery
 // biome/eslint-overrides.js:82 disables ESLint no-useless-return — Biome nursery=warn replaces error
-function redundantReturn(value: string): string {
-    if (!value) return '';
-    return value;
+// The trailing return; in a void function is truly useless (not unreachable like after `return value;`).
+// All three tools fire on this pattern; the severity divergence is the parity finding.
+function logValue(value: string): void {
+    if (!value) return;
+    console.log(value);
     return; // parity: no-useless-return — ESLint/OxLint=error; Biome nursery=warn (downgraded)
 }
 
-export { something, redundantReturn, describe };
+export { something, logValue, describe };

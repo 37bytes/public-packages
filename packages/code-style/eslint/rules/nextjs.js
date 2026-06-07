@@ -28,6 +28,7 @@ export const nextjs = {
     // === Scripts ===
     '@next/next/inline-script-id': 'error', // id обязателен для inline Script (дедупликация)
     '@next/next/no-sync-scripts': 'warn', // синхронные скрипты блокируют рендеринг
+    '@next/next/no-before-interactive-script-outside-document': 'warn', // beforeInteractive только в _document
     '@next/next/next-script-for-ga': 'warn', // @next/third-parties для GA/GTM
 
     // === Fonts ===

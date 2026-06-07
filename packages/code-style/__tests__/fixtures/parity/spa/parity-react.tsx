@@ -1,7 +1,5 @@
 'use client'; // not required for spa but harmless; marks client boundary
 
-import { useState } from 'react';
-
 // parity: Stale 'no equivalent' comment + missing Biome rule: noNestedComponentDefinitions
 // biome/rules/react.js:59 stale comment claims no equivalent, but noNestedComponentDefinitions exists in schema.
 // ESLint: @eslint-react/no-nested-component-definitions = error
@@ -29,7 +27,9 @@ const Danger = ({ html }: { html: string }) => (
 // parity: OxLint enforces react/jsx-handler-names: error with no ESLint or Biome equivalent
 // OxLint requires eventHandlerProps to be prefixed 'on', handlers to be prefixed 'handle'.
 // ESLint @eslint-react has no equivalent rule. Biome has no equivalent.
-const doSomething = () => {};
+const doSomething = () => {
+    /* handler body intentionally empty */
+};
 const Component = () => (
     <button onClick={doSomething}>click</button> // parity: jsx-handler-names — OxLint=error (handler not prefixed 'handle'); ESLint/Biome=absent
 );
@@ -49,7 +49,8 @@ const leaky = <div>{count && <span>text</span>}</div>; // parity: no-leaked-cond
 // OxLint react/jsx-no-undef=error; ESLint uses no-undef (core, off in TS files) or TS type-checking
 const Undefined = () => <UndefinedComponent />; // parity: jsx-no-undef — OxLint=error; ESLint=absent
 
-export { Outer, Danger, Component, list, leaky, Undefined };
-
-const _used = { doSomething };
-export { _used };
+// parity: biome useNamingConvention does not allow underscore-prefix variables (no leadingUnderscore exception).
+// ESLint @typescript-eslint/naming-convention has leadingUnderscore:'allow'; biome has no such option.
+// Suppressed here by using a valid camelCase name to avoid fixture noise.
+const handlers = { doSomething };
+export { Outer, Danger, Component, list, leaky, Undefined, handlers };

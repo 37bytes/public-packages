@@ -313,6 +313,7 @@
         "nextjs/no-head-import-in-document": "error",
         "nextjs/inline-script-id": "error",
         "nextjs/no-sync-scripts": "warn",
+        "nextjs/no-before-interactive-script-outside-document": "warn",
         "nextjs/next-script-for-ga": "warn",
         "nextjs/google-font-display": "warn",
         "nextjs/google-font-preconnect": "warn",

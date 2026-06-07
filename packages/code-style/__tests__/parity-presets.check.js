@@ -116,6 +116,14 @@ const parseOxlintCode = (code) => {
         return `${namedPluginMatch[1]}/${namedPluginMatch[2]}`;
     }
 
+    // typescript-eslint(rule) — oxlint 1.61+ emits this format for TypeScript rules;
+    // maps to the same "typescript/" prefix used by other oxlint TypeScript rule codes.
+    // e.g. "typescript-eslint(array-type)" -> "typescript/array-type"
+    const typescriptEslintMatch = code.match(/^typescript-eslint\((.+)\)$/);
+    if (typescriptEslintMatch) {
+        return `typescript/${typescriptEslintMatch[1]}`;
+    }
+
     // sonarjs(rule), storybook(rule), etc. — bare plugin name without "eslint-plugin-" prefix
     const barePluginMatch = code.match(/^([a-z][a-z0-9-]*)\((.+)\)$/);
     if (barePluginMatch && barePluginMatch[1] !== 'eslint') {

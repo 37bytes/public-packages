@@ -27,6 +27,9 @@ function riskyThrow(value: unknown) {
 // parity: no-loop-func disabled in oxlint TS override but no typescript/ equivalent added
 // oxlint/rules/typescript.js:21 disables no-loop-func in TS files.
 // No typescript/no-loop-func OxLint rule exists. Gap: no-loop-func has zero coverage in OxLint for TS.
+// parity: @typescript-eslint/array-type — all three fire on Array<string>; Array<() => number> is complex type
+// biome useConsistentArrayType only fires on simple types; ESLint/OxLint fire on complex too.
+const simpleArr: Array<string> = []; // parity: array-type — ESLint=warn; Biome=warn; OxLint=warn (all agree)
 const funcs: Array<() => number> = [];
 for (let i = 0; i < 3; i++) {
     funcs.push(() => i); // parity: no-loop-func — ESLint=warn (@typescript-eslint/no-loop-func); OxLint=no coverage
@@ -40,9 +43,11 @@ interface IUserData {
     name: string;
 }
 
-// parity: prefer-node-protocol severity mismatch across all three linters
-// ESLint n/prefer-node-protocol = error; Biome useNodejsImportProtocol = warn; OxLint unicorn/prefer-node-protocol = warn
-import path from 'path'; // parity: prefer-node-protocol — ESLint=error; Biome/OxLint=warn
+// parity: prefer-node-protocol is in ESLint ONLY for nodejs presets (n/prefer-node-protocol = error).
+// For spa preset, ESLint has no equivalent; Biome useNodejsImportProtocol = warn; OxLint unicorn/prefer-node-protocol = warn.
+// The severity mismatch test lives in parity-node.ts (nodejs-runtime preset).
+// Import uses the correct 'node:path' protocol here to avoid spurious tool-only firing in spa context.
+import path from 'node:path'; // correct protocol; biome/oxlint do NOT fire (no violation)
 
-export { Direction, riskyThrow, funcs, path };
+export { Direction, riskyThrow, funcs, simpleArr, path };
 export type { IUserData };
