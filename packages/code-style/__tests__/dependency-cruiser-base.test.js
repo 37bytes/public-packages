@@ -92,3 +92,11 @@ describe('createBaseCruiserConfig: поведение на фикстуре', ()
         ]);
     });
 });
+
+describe('package exports', () => {
+    test('@37bytes/code-style/dependency-cruiser резолвится (self-reference)', async () => {
+        const moduleExports = await import('@37bytes/code-style/dependency-cruiser');
+        assert.strictEqual(typeof moduleExports.createBaseCruiserConfig, 'function');
+        assert.strictEqual(typeof moduleExports.createFsdCruiserConfig, 'function');
+    });
+});

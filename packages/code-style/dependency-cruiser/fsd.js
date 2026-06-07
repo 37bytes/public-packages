@@ -87,7 +87,7 @@ export const createFsdCruiserConfig = (options = {}) => {
         // from-группы: $1 = слой (SLICED_LAYERS), $2 = слайс ([^/]+); в no-cross-segment добавляется $3 = сегмент
         {
             name: 'no-cross-slice',
-            // Намеренное двойное покрытие с no-deep-into-slice-from-slice на глубоких кросс-слайс рёбрах: это правило ловит любой кросс-импорт чужого слайса, second правило конкретизирует "только через public API"
+            // Намеренное двойное покрытие с no-deep-into-slice-from-slice на глубоких кросс-слайс рёбрах: это правило ловит любой кросс-импорт чужого слайса, второе правило конкретизирует "только через public API"
             comment: 'Слайсы одного слоя изолированы (кросс-импорт только через @x)',
             severity: 'error',
             from: { path: `${root}${SLICED_LAYERS}/([^/]+)/` },
