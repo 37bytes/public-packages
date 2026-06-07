@@ -146,7 +146,7 @@
         "typescript": "6.0.3"
     },
     "scripts": {
-        "test": "node --test __tests__/*.test.js eslint/__tests__/*.test.js eslint/plugins/*/__tests__/*.test.js",
+        "test": "node --test __tests__/*.test.js eslint/__tests__/*.test.js eslint/plugins/*/__tests__/*.test.js __tests__/parity/*.check.js __tests__/*.check.js",
         "test:plugins": "node --test eslint/plugins/*/__tests__/*.test.js",
         "test:integration": "node --test __tests__/*.test.js",
         "test:parity": "node --test __tests__/parity/*.check.js __tests__/*.check.js",
