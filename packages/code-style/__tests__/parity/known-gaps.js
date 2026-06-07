@@ -29,7 +29,7 @@ export const knownGaps = {
         reason: 'no biome equivalent; also not fixture-expressible (self-import breaks resolution before linting). Checked 2026-06-07. Oxlint covers it natively (import/no-self-import), so the gap is biome-only.'
     },
     'import-x/no-useless-path-segments': {
-        reason: 'absent from oxlint 1.61.0 and biome 2.4.13; audit finding (imports domain). Re-check after oxlint 1.68 bump.'
+        reason: 'absent from oxlint 1.68.0 and biome 2.4.16; audit finding (imports domain). Re-checked 2026-06-07 after the oxlint 1.68 bump (configuration_schema.json) and against the fresh biome 2.4.16 schema: still no equivalent in either tool.'
     },
     'import-x/first': {
         tools: ['biome'],
@@ -184,9 +184,8 @@ export const knownGaps = {
     '@next/next/no-html-link-for-pages': {
         tools: ['oxlint'],
         reason: 'ESLint @next/next/no-html-link-for-pages requires a pages directory to determine which links are for internal pages; in the parity fixture tree no pages dir exists so ESLint does not fire. Oxlint fires unconditionally. Structural fixture limitation. Checked 2026-06-07, oxlint 1.61.0.'
-    },
-    '@next/next/no-before-interactive-script-outside-document': {
-        tools: ['biome'],
-        reason: '@next/next/no-before-interactive-script-outside-document has no biome equivalent (checked 2026-06-07, biome 2.4.13). ESLint and oxlint both enforce it; biome next domain does not include this rule.'
     }
+    // @next/next/no-before-interactive-script-outside-document: gap removed 2026-06-07. biome 2.4.16
+    // gained nursery/noBeforeInteractiveScriptOutsideDocument; promoted into biome/rules/nextjs.js and
+    // mapped in rule-equivalence.js, so all three tools now enforce it (no remaining gap).
 };

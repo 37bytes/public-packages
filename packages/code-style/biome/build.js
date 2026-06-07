@@ -7,10 +7,10 @@
  * Usage: node biome/build.js
  */
 
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { domains, formatter, jsFormatter, overrideFiles, schema } from './infrastructure.js';
+import { biomeVersion, domains, formatter, jsFormatter, overrideFiles, schema } from './infrastructure.js';
 import {
     imports,
     javascript,
@@ -25,7 +25,25 @@ import {
     typescriptOverrides
 } from './rules/index.js';
 
-const SCHEMA_CACHE_PATH = join(import.meta.dirname, '.schema-cache.json');
+// Version-keyed cache filename. A bare `.schema-cache.json` (no version) would be
+// reused across biome bumps via existsSync alone, silently validating new rule names
+// against a stale schema. Keying the filename on biomeVersion forces a re-fetch on bump.
+const SCHEMA_CACHE_PATH = join(import.meta.dirname, `.schema-cache-${biomeVersion}.json`);
+
+/**
+ * Remove stale schema caches (any .schema-cache*.json that is not the current version's).
+ * Keeps the working tree clean when the biome peer version changes.
+ */
+const pruneStaleSchemaCaches = () => {
+    const currentFileName = `.schema-cache-${biomeVersion}.json`;
+    const cacheFiles = readdirSync(import.meta.dirname).filter(
+        (fileName) => fileName.startsWith('.schema-cache') && fileName.endsWith('.json') && fileName !== currentFileName
+    );
+    for (const fileName of cacheFiles) {
+        unlinkSync(join(import.meta.dirname, fileName));
+        console.log('Pruned stale schema cache:', fileName);
+    }
+};
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
@@ -174,7 +192,8 @@ const build = async () => {
         quality
     );
 
-    // 2. Validate against schema
+    // 2. Validate against schema (prune stale-version caches first)
+    pruneStaleSchemaCaches();
     const schemaData = await fetchSchema();
     if (schemaData) {
         const validRules = extractValidRules(schemaData);

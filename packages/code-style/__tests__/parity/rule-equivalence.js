@@ -358,6 +358,7 @@ const BIOME_TABLE = {
     '@next/next/no-unwanted-polyfillio': 'performance/noUnwantedPolyfillio',
     '@next/next/no-sync-scripts': 'nursery/noSyncScripts',
     '@next/next/inline-script-id': 'nursery/useInlineScriptId',
+    '@next/next/no-before-interactive-script-outside-document': 'nursery/noBeforeInteractiveScriptOutsideDocument',
     '@next/next/no-async-client-component': 'correctness/noNextAsyncClientComponent',
     // --- imports (biome/rules/imports.js) ---
     'import-x/no-default-export': 'style/noDefaultExport',

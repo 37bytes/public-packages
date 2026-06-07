@@ -223,7 +223,8 @@
                 "useExhaustiveSwitchCases": "warn",
                 "noLeakedRender": "error",
                 "noSyncScripts": "warn",
-                "useInlineScriptId": "error"
+                "useInlineScriptId": "error",
+                "noBeforeInteractiveScriptOutsideDocument": "warn"
             }
         }
     },

@@ -23,7 +23,8 @@ export const nextjs = {
     },
     nursery: {
         noSyncScripts: 'warn', // @next/next/no-sync-scripts
-        useInlineScriptId: 'error' // @next/next/inline-script-id
+        useInlineScriptId: 'error', // @next/next/inline-script-id
+        noBeforeInteractiveScriptOutsideDocument: 'warn' // @next/next/no-before-interactive-script-outside-document (gained in biome 2.4.16)
     },
     correctness: {
         noNextAsyncClientComponent: 'error' // @next/next/no-async-client-component

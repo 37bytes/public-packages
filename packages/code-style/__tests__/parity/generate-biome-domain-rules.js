@@ -7,7 +7,7 @@
  *   (runs this generator then prettier-formats the JSON output)
  * Or directly: node __tests__/parity/generate-biome-domain-rules.js
  *
- * NOTE on actual `biome explain` format (verified 2026-06-07 against biome 2.4.13):
+ * NOTE on actual `biome explain` format (verified 2026-06-07 against biome 2.4.16):
  * The output is NOT a single "Domains: react, next" line. Instead it is a structured
  * multi-line section:
  *
@@ -31,8 +31,6 @@ import path from 'node:path';
 const PACKAGE_ROOT = path.resolve(import.meta.dirname, '..', '..');
 const OUR_DOMAINS = new Set(['react', 'next', 'test']);
 
-// eslint-disable-next-line security/detect-non-literal-fs-filename -- PACKAGE_ROOT is a build-time constant derived from import.meta.dirname, not user input
-const schema = JSON.parse(readFileSync(path.join(PACKAGE_ROOT, 'biome', '.schema-cache.json'), 'utf8'));
 const biomeBinary = path.join(PACKAGE_ROOT, 'node_modules', '.bin', 'biome');
 const domainRules = {};
 
@@ -46,11 +44,16 @@ if (!biomeVersionMatch) {
 }
 const biomeVersion = biomeVersionMatch[1];
 
+// Read the version-keyed schema cache written by biome/build.js (.schema-cache-<version>.json).
+// Keying on the binary's reported version guarantees we never validate against a stale-version cache.
+// eslint-disable-next-line security/detect-non-literal-fs-filename -- PACKAGE_ROOT and biomeVersion are build-time constants (dir + biome --version output), not user input
+const schema = JSON.parse(readFileSync(path.join(PACKAGE_ROOT, 'biome', `.schema-cache-${biomeVersion}.json`), 'utf8'));
+
 /**
  * Parse domain names from `biome explain <rule>` output.
  * Returns an array of lowercase domain strings (may be empty if no Domains section).
  *
- * Actual format (biome 2.4.13):
+ * Actual format (biome 2.4.16):
  *   ...
  *   Domains
  *
