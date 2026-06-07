@@ -53,11 +53,11 @@ export const createLogstory = ({
         ) as Logger['error']
     };
 
-    (Object.keys(logger) as Array<LogLevel>).forEach((key) => {
+    for (const key of Object.keys(logger) as LogLevel[]) {
         if (!mergedConfig[key]) {
             logger[key] = () => {};
         }
-    });
+    }
 
     return logger;
 };
