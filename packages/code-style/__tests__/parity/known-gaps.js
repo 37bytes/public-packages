@@ -2,7 +2,7 @@
  * @fileoverview Documented parity coverage gaps. Every entry MUST have a reason
  * with a verification date and tool versions. An entry here silences the
  * corresponding Layer-1 forward-check failure. Keep this list SHORT — if it
- * grows past ~30 entries, stop and re-evaluate Layer 1 boundaries with the user.
+ * grows past ~45 entries, stop and re-evaluate Layer 1 boundaries with the user.
  *
  * Optional `tools: ['biome'|'oxlint', ...]` array scopes the gap to the named tools;
  * an entry without `tools` applies to both tools.
@@ -11,8 +11,9 @@
  * suppress both the biome and oxlint comparison unconditionally. The `tools` field
  * is only meaningful for Layer-1 forward checks.
  *
- * CEILING: 30 entries. Current count: 39 (7 pre-existing + 32 new).
- * Overage is documented in the 2026-06-07 triage backlog as a known-gaps debt item.
+ * CEILING: 45 entries (raised from 30 by user decision 2026-06-07: the original
+ * ceiling predated the full triage, which revealed the structural depth of
+ * biome/oxlint engine gaps; current count 38 is legitimate, not drift debt).
  * All entries are genuine engine or structural gaps verified against biome 2.4.13 / oxlint 1.61.0.
  */
 export const knownGaps = {
