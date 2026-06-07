@@ -83,6 +83,13 @@ const OXLINT_NO_EQUIVALENT_RULES = new Set([
     // grow this list during the red-baseline triage; every addition needs a known-gaps entry
 ]);
 
+// Forward map: ESLint bare JS rule name → oxlint typescript/ rule name.
+// Used when oxlint implements the type-aware (typescript/) variant of a plain JS rule.
+// eslint-plugin-oxlint 1.68.0 added no-implied-eval to the bridge off-list (new in oxlint 1.68.0);
+// oxlint enforces it via the type-aware typescript/no-implied-eval rather than the bare form.
+// Key: eslint rule (e.g. 'no-implied-eval'), Value: oxlint rule (e.g. 'typescript/no-implied-eval')
+const ESLINT_BARE_TO_OXLINT_TYPESCRIPT = new Map([['no-implied-eval', 'typescript/no-implied-eval']]);
+
 export const resolveOxlintEquivalent = (eslintRule) => {
     if (OXLINT_NO_EQUIVALENT_RULES.has(eslintRule)) {
         return null;
@@ -115,6 +122,10 @@ export const resolveOxlintEquivalent = (eslintRule) => {
         if (eslintRule.startsWith(prefix)) {
             return eslintRule;
         }
+    }
+    // ESLint bare rule that oxlint implements under the typescript/ (type-aware) namespace.
+    if (ESLINT_BARE_TO_OXLINT_TYPESCRIPT.has(eslintRule)) {
+        return ESLINT_BARE_TO_OXLINT_TYPESCRIPT.get(eslintRule);
     }
     if (!eslintRule.includes('/')) {
         return eslintRule;

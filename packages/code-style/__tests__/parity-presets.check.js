@@ -98,8 +98,10 @@ const parseOxlintCode = (code) => {
         return `${pluginPath}/${ruleName}`;
     }
 
-    // eslint-plugin-next(rule) — oxlint uses "nextjs/" namespace internally
-    const nextPluginMatch = code.match(/^eslint-plugin-next\((.+)\)$/);
+    // eslint-plugin-next(rule) — oxlint <= 1.67 used this format
+    // next(rule) — oxlint >= 1.68.0 uses this shorter format (code prefix change)
+    // Both map to the "nextjs/" namespace used in our oxlint config.
+    const nextPluginMatch = code.match(/^(?:eslint-plugin-next|next)\((.+)\)$/);
     if (nextPluginMatch) {
         return `nextjs/${nextPluginMatch[1]}`;
     }

@@ -1,5 +1,5 @@
 {
-    "biomeVersion": "2.4.13",
+    "biomeVersion": "2.4.16",
     "generatedAt": "2026-06-07",
     "note": "regenerate after biome bumps: node __tests__/parity/generate-biome-domain-rules.js",
     "rules": {
@@ -36,10 +36,22 @@
         "nursery/noBeforeInteractiveScriptOutsideDocument": {
             "domains": ["next"]
         },
+        "nursery/noComponentHookFactories": {
+            "domains": ["react"]
+        },
         "nursery/noConditionalExpect": {
             "domains": ["test"]
         },
         "nursery/noDuplicatedSpreadProps": {
+            "domains": ["react"]
+        },
+        "nursery/noIdenticalTestTitle": {
+            "domains": ["test"]
+        },
+        "nursery/noJsxLeakedDollar": {
+            "domains": ["react"]
+        },
+        "nursery/noJsxNamespace": {
             "domains": ["react"]
         },
         "nursery/noJsxPropsBind": {
@@ -48,17 +60,32 @@
         "nursery/noLeakedRender": {
             "domains": ["react"]
         },
+        "nursery/noReactStringRefs": {
+            "domains": ["react"]
+        },
         "nursery/noSyncScripts": {
             "domains": ["react", "next"]
         },
         "nursery/noUnknownAttribute": {
             "domains": ["react"]
         },
+        "nursery/useConsistentTestIt": {
+            "domains": ["test"]
+        },
         "nursery/useExpect": {
             "domains": ["test"]
         },
         "nursery/useInlineScriptId": {
             "domains": ["next"]
+        },
+        "nursery/useReactAsyncServerFunction": {
+            "domains": ["react"]
+        },
+        "nursery/useTestHooksInOrder": {
+            "domains": ["test"]
+        },
+        "nursery/useTestHooksOnTop": {
+            "domains": ["test"]
         },
         "performance/noImgElement": {
             "domains": ["next"]

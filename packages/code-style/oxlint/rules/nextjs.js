@@ -20,5 +20,6 @@ export const nextjs = {
     'nextjs/no-html-link-for-pages': 'warn',
     'nextjs/no-img-element': 'warn',
     'nextjs/no-css-tags': 'warn',
-    'nextjs/no-unwanted-polyfillio': 'warn'
+    'nextjs/no-unwanted-polyfillio': 'warn',
+    'nextjs/no-before-interactive-script-outside-document': 'warn' // available since oxlint 1.68.0; eslint: @next/next/no-before-interactive-script-outside-document
 };

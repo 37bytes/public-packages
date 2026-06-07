@@ -84,11 +84,11 @@
         "node": ">=24.0.0"
     },
     "peerDependencies": {
-        "@biomejs/biome": "2.4.13",
+        "@biomejs/biome": "2.4.16",
         "eslint": "^10.0.0",
-        "oxlint": "1.61.0",
+        "oxlint": "1.68.0",
         "prettier": "3.8.3",
-        "stylelint": "17.9.0",
+        "stylelint": "17.13.0",
         "typescript": "6.0.3"
     },
     "peerDependenciesMeta": {
@@ -134,15 +134,15 @@
         "stylelint-order": "8.1.1"
     },
     "devDependencies": {
-        "@biomejs/biome": "2.4.13",
+        "@biomejs/biome": "2.4.16",
         "@types/react": "19.2.17",
         "eslint": "10.4.1",
         "eslint-config-biome": "2.1.3",
-        "eslint-plugin-oxlint": "1.61.0",
-        "oxlint": "1.61.0",
-        "oxlint-tsgolint": "0.22.0",
+        "eslint-plugin-oxlint": "1.68.0",
+        "oxlint": "1.68.0",
+        "oxlint-tsgolint": "0.23.0",
         "prettier": "3.8.3",
-        "stylelint": "17.9.0",
+        "stylelint": "17.13.0",
         "typescript": "6.0.3"
     },
     "scripts": {

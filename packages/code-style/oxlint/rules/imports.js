@@ -8,7 +8,7 @@
 
 export const imports = {
     'import/first': 'error',
-    // import/newline-after-import — not available in OxLint, stays ESLint-only
+    'import/newline-after-import': 'error', // available since OxLint 1.66; ESLint uses {count:1} — OxLint schema exposes severity only (count option not in DummyRule schema)
     // import/order — not available in OxLint, stays ESLint-only
     'import/no-mutable-exports': 'error',
     'import/no-anonymous-default-export': 'error',

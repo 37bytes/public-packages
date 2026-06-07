@@ -7,6 +7,7 @@
  */
 
 export const node = {
+    'node/callback-return': 'warn', // available since oxlint 1.68.0; eslint: n/callback-return
     'node/global-require': 'error',
     'node/no-exports-assign': 'error',
     'node/no-new-require': 'error',
