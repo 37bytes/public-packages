@@ -150,6 +150,74 @@ export default config;
 
 Основано на `stylelint-config-standard-scss`. Включает плагины `stylelint-order` и `stylelint-declaration-strict-value`.
 
+## Dependency Cruiser (опционально)
+
+Граф-уровневые правила: циркулярные зависимости, ненужные пакеты, неразрешимые импорты, dev-зависимости в production-коде, а для FSD-проектов — матрица слоёв, изоляция слайсов с @x cross-imports, обязательное публичное API, изоляция сегментов, маркеры server-only/client-only.
+
+Дополняет ESLint-пресеты, не заменяет их: правила уровня спецификатора (порядок импортов, server-only первой строкой, запрет legacy-папок, alias vs relative) остаются в `@37bytes/code-style/eslint`.
+
+### Установка
+
+```bash
+npm install dependency-cruiser typescript --save-dev
+```
+
+TypeScript нужен dependency-cruiser для разбора `.ts`-файлов. Без него файлы молча пропускаются. Проверить: `npx depcruise --info`.
+
+### Использование
+
+```js
+// .dependency-cruiser.mjs (.mjs обязателен: пакет ESM, а дефолтный .js в большинстве проектов будет CommonJS)
+import { createFsdCruiserConfig } from '@37bytes/code-style/dependency-cruiser';
+
+export default createFsdCruiserConfig();
+```
+
+Для проектов без FSD:
+
+```js
+import { createBaseCruiserConfig } from '@37bytes/code-style/dependency-cruiser';
+
+export default createBaseCruiserConfig();
+```
+
+Запуск:
+
+```bash
+npx depcruise --config .dependency-cruiser.mjs src
+```
+
+### Опции фабрик
+
+`createFsdCruiserConfig(options?)`:
+
+| Опция | По умолчанию | Описание |
+| --- | --- | --- |
+| `sourceRoot` | `'src'` | Корневая папка исходников |
+| `tsConfigFileName` | `'tsconfig.json'` | Путь к tsconfig |
+| `includeBaseRules` | `true` | Включить базовые правила гигиены зависимостей |
+| `extraPublicApiPatterns` | `[]` | Дополнительные паттерны файлов, считающихся публичным API |
+
+`createBaseCruiserConfig(options?)`:
+
+| Опция | По умолчанию | Описание |
+| --- | --- | --- |
+| `tsConfigFileName` | `'tsconfig.json'` | Путь к tsconfig |
+
+### Принятие на существующем проекте
+
+Первый запуск на живом проекте обычно даёт нарушения. Рабочий подход: зафиксировать текущее состояние как baseline и запускать с `--ignore-known`.
+
+```bash
+# Сохранить текущие нарушения как baseline
+npx depcruise --config .dependency-cruiser.mjs --output-type json src > .dependency-cruiser-known-violations.json
+
+# Запускать в CI, игнорируя baseline (срабатывает только на новых нарушениях)
+npx depcruise --config .dependency-cruiser.mjs --ignore-known src
+```
+
+Файл `.dependency-cruiser-known-violations.json` добавить в репозиторий. По мере устранения legacy-нарушений файл уменьшается.
+
 ## Prettier
 
 ```js

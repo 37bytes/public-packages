@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+
+- `@37bytes/code-style/dependency-cruiser`: graph-level lint presets. `createBaseCruiserConfig()` (full dependency-cruiser init set: circulars, orphans, unresolvable, dev-deps-in-prod, etc.) and `createFsdCruiserConfig()` (FSD 2.1 boundaries, 37bytes adaptation: layer matrix, slice isolation with @x cross-imports, public API enforcement, segment isolation, required server-only/client-only markers). Additive to the eslint FSD preset; specifier-level rules stay in eslint. `dependency-cruiser` becomes an optional peerDependency for consumers of this entry point.
+
 ### Changed
 
 - Dependency refresh sweep:

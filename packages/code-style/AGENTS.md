@@ -11,6 +11,7 @@ Shareable lint/format config. **eslint flat presets are the source of truth**; b
 | Map a new rule pair | `__tests__/parity/rule-equivalence.js` | add a unit test in `rule-equivalence.check.js`; biome side is a full manual table (kebab vs camelCase, no automatic transform exists) |
 | Accept a genuine engine gap | `__tests__/parity/known-gaps.js` | entry needs `reason` with date + tool versions, optional `tools: ['biome'\|'oxlint']` scoping. Drift is never allowlisted, only true engine absences |
 | Change preset composition/globs | `eslint/config.js` | add a fixture file under `__tests__/fixtures/parity/<preset>/` exercising the new glob (Layer 2 only sees represented files) |
+| Change graph rules (dependency-cruiser) | `dependency-cruiser/{base,fsd}.js` | OUTSIDE the parity domain: biome/oxlint have no graph-rule analogues, promotion-first does not apply. Behavioural fixtures: `__tests__/fixtures/{cruise-base-project,fsd-cruise-project}` |
 
 ## Sync workflow (any rule change)
 
@@ -26,6 +27,7 @@ Shareable lint/format config. **eslint flat presets are the source of truth**; b
 2. biome: regenerate via `pnpm build:biome` (schema cache is version-keyed) and `pnpm build:parity-domains` (re-stamps `__tests__/parity/biome-domain-rules.json`).
 3. oxlint: `pnpm build:oxlint`. Rule-name validation reads `node_modules/oxlint/configuration_schema.json` (NOT `oxlint --rules`; that stopped emitting a parseable table in 1.68).
 4. Expect parity reds: that is the bump-diff, the suite's payoff. Resolve each per promotion-first (newly available tool rule whose eslint twin is enabled: enable + map; genuinely absent: dated known-gaps entry). Known traps: oxlint diagnostic code prefixes change between versions (`eslint-plugin-next(...)` became `next(...)` in 1.68; `parseOxlintCode` in `parity-presets.check.js` is the tripwire and fails loudly via the `unknownOxlintCodeFormats` guard).
+5. dependency-cruiser: rerun `node --test __tests__/dependency-cruiser-*.test.js`. The behavioural fixtures pin exact violation sets; a bump that changes them is the diff to triage. Known engine guards: safe-regex rejects nested quantifiers; tsPreCompilationDeps=true is load-bearing (TS elides unused imports otherwise); never add includeOnly to preset options (breaks required-rules and not-to-unresolvable).
 
 ## Test layout (load-bearing, do not "simplify")
 
