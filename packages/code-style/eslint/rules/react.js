@@ -4,7 +4,7 @@
  *
  * Rules for React components, hooks, and JSX.
  *
- * Uses @eslint-react/eslint-plugin@4.x (replaces eslint-plugin-react which
+ * Uses @eslint-react/eslint-plugin@5.x (replaces eslint-plugin-react which
  * blocked ESLint 10 upgrade) and eslint-plugin-react-hooks.
  *
  * Rule ID naming: @eslint-react uses flat kebab-case names under a single
