@@ -16,7 +16,10 @@
 import { buildBaseRules } from './base.js';
 import { buildCruiserOptions } from './options.js';
 
-/** Слои со слайсами (исключая app и shared) */
+/**
+ * Слои со слайсами (исключая app и shared).
+ * Скобки намеренны: эта группа становится $1 в to-side backreferences правил.
+ */
 const SLICED_LAYERS = '(pages|widgets|features|entities)';
 
 /**
@@ -81,8 +84,10 @@ export const createFsdCruiserConfig = (options = {}) => {
             from: { path: `${root}pages/` },
             to: { path: `${root}app/` }
         },
+        // from-группы: $1 = слой (SLICED_LAYERS), $2 = слайс ([^/]+); в no-cross-segment добавляется $3 = сегмент
         {
             name: 'no-cross-slice',
+            // Намеренное двойное покрытие с no-deep-into-slice-from-slice на глубоких кросс-слайс рёбрах: это правило ловит любой кросс-импорт чужого слайса, second правило конкретизирует "только через public API"
             comment: 'Слайсы одного слоя изолированы (кросс-импорт только через @x)',
             severity: 'error',
             from: { path: `${root}${SLICED_LAYERS}/([^/]+)/` },

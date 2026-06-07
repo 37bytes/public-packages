@@ -1,2 +1,2 @@
 export {};
-import { home } from '@/pages/home';
+import { home } from '@/pages/home'; // fsd: layers-widgets-up

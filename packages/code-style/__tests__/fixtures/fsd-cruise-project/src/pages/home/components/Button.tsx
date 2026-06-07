@@ -1,2 +1,2 @@
 export {};
-import Icon from '@/pages/home/components/icon/Icon';
+import Icon from '@/pages/home/components/icon/Icon'; // fsd: clean

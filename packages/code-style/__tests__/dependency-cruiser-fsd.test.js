@@ -46,6 +46,7 @@ describe('createFsdCruiserConfig: поведение на фикстуре (grou
                 'no-cross-slice: src/entities/user/model/types.ts -> src/entities/session/index.ts',
                 'no-cross-slice: src/features/auth/model/store.ts -> src/features/search/index.ts',
                 'no-deep-into-shared: src/features/auth/model/store.ts -> src/shared/config/theme.ts',
+                'no-deep-into-slice-from-flat: src/app/index.ts -> src/features/auth/model/store.ts',
                 'no-deep-into-shared: src/features/auth/model/store.ts -> src/shared/lib/classNames/utils.ts',
                 'no-deep-into-shared: src/features/auth/model/store.ts -> src/shared/ui/Button.ts',
                 'no-deep-into-slice-from-slice: src/features/auth/model/store.ts -> src/entities/user/model/types.ts',
@@ -89,6 +90,13 @@ describe('createFsdCruiserConfig: shape', () => {
         });
         const deepIntoShared = config.forbidden.find((rule) => rule.name === 'no-deep-into-shared');
         assert.ok(deepIntoShared.to.pathNot.includes('^src/shared/config/'));
+
+        // паттерн просачивается и в slice-deep-правила через общий slicePublicApi
+        const deepFromSlice = config.forbidden.find((rule) => rule.name === 'no-deep-into-slice-from-slice');
+        assert.ok(deepFromSlice.to.pathNot.includes('^src/shared/config/'));
+
+        const deepFromFlat = config.forbidden.find((rule) => rule.name === 'no-deep-into-slice-from-flat');
+        assert.ok(deepFromFlat.to.pathNot.includes('^src/shared/config/'));
     });
 
     test('no-cross-segment включён с severity error (решение Д.)', () => {

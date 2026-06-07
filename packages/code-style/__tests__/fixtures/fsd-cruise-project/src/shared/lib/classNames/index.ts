@@ -1,2 +1,2 @@
 export {};
-import { User } from '@/entities/user';
+import { User } from '@/entities/user'; // fsd: layers-shared-up
