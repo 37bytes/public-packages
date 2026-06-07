@@ -46,7 +46,7 @@
         "oxlint/perfectionist.json",
         "oxlint/type-aware-overrides.js",
         "browserslist",
-        "dependency-cruiser/*.js",
+        "dependency-cruiser/**/*.js",
         "eslint/**/*.js",
         "eslint/plugins/vendored-promise/LICENSE.md",
         "eslint/plugins/vendored-promise/NOTICE.md",
