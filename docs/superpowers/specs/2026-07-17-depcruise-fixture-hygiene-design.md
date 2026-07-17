@@ -61,7 +61,7 @@ Baseline включает:
     - `@typescript-eslint/naming-convention` из `eslint/rules/typescript.js`;
     - `@37bytes/boolean-naming`;
     - `@37bytes/enum-pattern`.
-4. Проверку неиспользуемых imports и variables. Graph import должен быть настоящей частью валидной программы, а не мёртвым AST-текстом.
+4. Проверку неиспользуемых imports и variables. Чистые graph edges выражаются side-effect imports без фиктивных bindings.
 
 Baseline не включает:
 
@@ -95,10 +95,9 @@ TypeScript проверяется через Compiler API, а не через п
 
 Для этого:
 
-- каждый импортируемый symbol действительно экспортируется;
-- каждый import используется;
+- каждый graph edge выражается side-effect import существующего модуля;
 - `server-only` и `client-only` получают локальные ambient declarations в `src/markers.d.ts`;
-- default и named exports соответствуют import declarations;
+- fixture не содержит фиктивных named/default exports и значений, созданных только ради линтера;
 - deprecated `baseUrl` удаляется; существующий relative target `"@/*": ["./src/*"]` продолжает резолвиться относительно директории `tsconfig.json`, без `ignoreDeprecations`.
 
 ### Base fixture
@@ -118,9 +117,9 @@ TypeScript проверяется через Compiler API, а не через п
 
 Обязательные изменения:
 
-1. Добавить реальные named exports в target modules.
-2. Использовать импортированные значения или типы без добавления новых imports.
-3. Удалить шумовые aliases `UT2`, `UT3`, `u2`, `st2`, `H2` и аналогичные сокращения.
+1. Преобразовать named/default graph imports в side-effect imports, сохранив module specifiers и комментарии ожидаемых правил.
+2. Удалить шумовые aliases `UT2`, `UT3`, `u2`, `st2`, `H2` и аналогичные сокращения вместе с ненужными bindings.
+3. Не добавлять фиктивные exports, dependency arrays или другие значения только для удовлетворения линтера.
 4. Добавить ambient module declarations для marker packages.
 5. Исправить naming policy и базовые correctness violations.
 6. Обновить deprecated TypeScript config.
