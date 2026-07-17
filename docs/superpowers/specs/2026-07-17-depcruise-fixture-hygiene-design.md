@@ -102,12 +102,12 @@ TypeScript проверяется через Compiler API, а не через п
 
 ### Base fixture
 
-`cruise-base-project` обязан выдавать ровно одну ожидаемую diagnostic:
+`cruise-base-project` выражает unresolved edge через side-effect import и обязан выдавать ровно одну ожидаемую diagnostic:
 
-- code `TS2307`;
+- code `TS2882`;
 - file `src/unresolvable.ts`;
-- line 1;
-- message относится к module specifier `./missing`.
+- line 1, column 8;
+- message `Cannot find module or type declarations for side-effect import of './missing'.`
 
 Эта ошибка является частью сценария `not-to-unresolvable`. Исчезновение ошибки, изменение её расположения или появление любой дополнительной diagnostic валит тест.
 
@@ -152,7 +152,7 @@ TypeScript проверяется через Compiler API, а не через п
 
 ### TypeScript, base fixture
 
-- нормализованный массив diagnostics точно равен одному ожидаемому `TS2307`;
+- нормализованный массив diagnostics точно равен одному ожидаемому `TS2882`;
 - TypeScript program содержит все fixture source-файлы, включая `unresolvable.ts`.
 
 ## Защита от ложнозелёного результата
@@ -175,11 +175,11 @@ TypeScript проверяется через Compiler API, а не через п
 2. `fsd-cruise-project` имеет ноль ESLint diagnostics.
 3. `fsd-cruise-project` имеет ноль TypeScript diagnostics.
 4. `cruise-base-project` имеет ноль ESLint diagnostics.
-5. `cruise-base-project` имеет ровно один ожидаемый TypeScript diagnostic `TS2307`.
+5. `cruise-base-project` имеет ровно один ожидаемый TypeScript diagnostic `TS2882`.
 6. Существующий FSD depcruise test сохраняет матрицу из 16 violations.
 7. Base depcruise test проходит с актуальными именами cycle-файлов.
 8. Focused fixture-backed ESLint и FSD tests остаются зелёными.
-9. Не добавлены public exports, inline lint disables или подавление TypeScript deprecations.
+9. Не добавлены public exports, inline lint disables в fixture-файлах или подавление TypeScript deprecations.
 
 ## Не входит в scope
 
