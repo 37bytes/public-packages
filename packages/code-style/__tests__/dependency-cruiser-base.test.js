@@ -84,9 +84,9 @@ describe('createBaseCruiserConfig: поведение на фикстуре', ()
     test('ловит цикл, orphan и unresolvable; ничего лишнего', async () => {
         const result = await runDepcruise(FIXTURE_ROOT);
         // depcruise reports circular cycles once per cycle entry-point, not once per edge;
-        // the cycle a->b->a appears as a single violation with from=src/a.ts, to=src/b.ts
+        // the first->second->first cycle appears as one violation from first.ts to second.ts
         assert.deepStrictEqual(violationSet(result), [
-            'no-circular: src/a.ts -> src/b.ts',
+            'no-circular: src/first.ts -> src/second.ts',
             'no-orphans: src/orphan.ts -> src/orphan.ts',
             'not-to-unresolvable: src/unresolvable.ts -> ./missing'
         ]);
