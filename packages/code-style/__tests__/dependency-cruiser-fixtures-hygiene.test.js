@@ -23,8 +23,8 @@ describe('dependency-cruiser fixture hygiene: reusable config', () => {
             (entry) => entry.name === '@37bytes/fixture-hygiene/typescript-naming'
         );
 
-        assert.deepStrictEqual(identifierLengthConfig.rules['id-length'], javascript['id-length']);
-        assert.deepStrictEqual(
+        assert.strictEqual(identifierLengthConfig.rules['id-length'], javascript['id-length']);
+        assert.strictEqual(
             typeScriptNamingConfig.rules['@typescript-eslint/naming-convention'],
             typescript['@typescript-eslint/naming-convention']
         );

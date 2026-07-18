@@ -113,7 +113,7 @@ Expected: the commit contains only the base test and cycle fixture rename. Norma
 - Produces: `inspectTypeScriptFixture(fixtureRoot): { rootFiles: string[], diagnostics: NormalizedDiagnostic[] }`.
 - `NormalizedDiagnostic`: `{ code: number, filePath: string | null, line: number | null, column: number | null, message: string }`.
 
-- [ ] **Step 1: Plan the base tests with `test.todo`**
+- [ ] **Step 1: Plan the seven base and reusable tests with `test.todo`**
 
 Create `dependency-cruiser-fixtures-hygiene.test.js` with imports, roots, and these exact todo cases:
 
@@ -131,6 +131,8 @@ const loadHygiene = () => import('./fixture-hygiene.js');
 
 describe('dependency-cruiser fixture hygiene: reusable config', () => {
     test.todo('should reuse the complete package naming policy when TypeScript files are linted: catches a silently weakened fixture preset');
+    test.todo('should enforce JavaScript recommended rules when JavaScript probe text is linted: catches omitted @eslint/js recommended config');
+    test.todo('should enforce type-checked recommended rules when TypeScript probe text is linted: catches omitted @typescript-eslint type-aware config');
 });
 
 describe('dependency-cruiser fixture hygiene: base fixture', () => {
@@ -149,15 +151,15 @@ Run:
 pnpm exec node --test __tests__/dependency-cruiser-fixtures-hygiene.test.js
 ```
 
-Expected: five todo tests, no failures.
+Expected: seven todo tests, no failures.
 
 - [ ] **Step 3: QA-review the todo plan**
 
-Dispatch a fresh test-review subagent. Its prompt must require `skill=unit-test`, instruct it to review only the five `test.todo` names against the unit-test Never list, and return `line N: <rule> - <quote>` violations only. Fix every reported naming or scope problem before proceeding.
+Dispatch a fresh test-review subagent. Its prompt must require `skill=unit-test`, instruct it to review only the seven `test.todo` names against the unit-test Never list, and return `line N: <rule> - <quote>` violations only. Fix every reported naming or scope problem before proceeding.
 
-- [ ] **Step 4: Implement the naming-policy contract first**
+- [ ] **Step 4: Implement the naming-policy identity contract first**
 
-Replace the reusable-config todo with:
+Replace the naming-policy todo with:
 
 ```js
 test('should reuse the complete package naming policy when TypeScript files are linted: catches a silently weakened fixture preset', async () => {
@@ -170,8 +172,8 @@ test('should reuse the complete package naming policy when TypeScript files are 
         (entry) => entry.name === '@37bytes/fixture-hygiene/typescript-naming'
     );
 
-    assert.deepStrictEqual(identifierLengthConfig.rules['id-length'], javascript['id-length']);
-    assert.deepStrictEqual(
+    assert.strictEqual(identifierLengthConfig.rules['id-length'], javascript['id-length']);
+    assert.strictEqual(
         typeScriptNamingConfig.rules['@typescript-eslint/naming-convention'],
         typescript['@typescript-eslint/naming-convention']
     );
@@ -188,15 +190,12 @@ pnpm exec node --test __tests__/dependency-cruiser-fixtures-hygiene.test.js
 
 Expected: FAIL inside the test with `ERR_MODULE_NOT_FOUND` for `fixture-hygiene.js`.
 
-- [ ] **Step 5: Implement only the config required by the naming test**
+- [ ] **Step 5: Implement only the config required by the naming identity test**
 
 Create `fixture-hygiene.js`:
 
 ```js
 import path from 'node:path';
-
-import eslintJavaScript from '@eslint/js';
-import typeScriptEslintPlugin from '@typescript-eslint/eslint-plugin';
 
 import { plugins } from '../eslint/plugins/index.js';
 import { javascript } from '../eslint/rules/javascript.js';
@@ -205,70 +204,127 @@ import { typescript } from '../eslint/rules/typescript.js';
 const SOURCE_FILE_PATTERNS = ['**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx'];
 const TYPESCRIPT_FILE_PATTERNS = ['**/*.ts', '**/*.tsx'];
 
-export const createFixtureHygieneConfig = (fixtureRoot) => {
-    const typeCheckedConfigs = typeScriptEslintPlugin.configs['flat/recommended-type-checked'].map((config) => ({
-        ...config,
-        files: TYPESCRIPT_FILE_PATTERNS
-    }));
-
-    return [
-        {
-            ...eslintJavaScript.configs.recommended,
-            name: '@37bytes/fixture-hygiene/javascript-recommended'
-        },
-        {
-            name: '@37bytes/fixture-hygiene/javascript-jsx',
-            files: ['**/*.jsx'],
-            languageOptions: {
-                parserOptions: {
-                    ecmaFeatures: { jsx: true }
-                }
-            }
-        },
-        ...typeCheckedConfigs,
-        {
-            name: '@37bytes/fixture-hygiene/typescript-project',
-            files: TYPESCRIPT_FILE_PATTERNS,
-            languageOptions: {
-                parserOptions: {
-                    project: path.join(fixtureRoot, 'tsconfig.json'),
-                    tsconfigRootDir: fixtureRoot
-                }
-            }
-        },
-        {
-            name: '@37bytes/fixture-hygiene/identifier-length',
-            files: SOURCE_FILE_PATTERNS,
-            rules: {
-                'id-length': javascript['id-length']
-            }
-        },
-        {
-            name: '@37bytes/fixture-hygiene/typescript-naming',
-            files: TYPESCRIPT_FILE_PATTERNS,
-            plugins: {
-                '@37bytes': plugins
-            },
-            rules: {
-                '@typescript-eslint/naming-convention': typescript['@typescript-eslint/naming-convention'],
-                '@37bytes/boolean-naming': 'error',
-                '@37bytes/enum-pattern': 'error'
-            }
-        },
-        {
-            name: '@37bytes/fixture-hygiene/no-inline-overrides',
-            linterOptions: {
-                noInlineConfig: true,
-                reportUnusedDisableDirectives: 'error'
+export const createFixtureHygieneConfig = (fixtureRoot) => [
+    {
+        name: '@37bytes/fixture-hygiene/javascript-jsx',
+        files: ['**/*.jsx'],
+        languageOptions: {
+            parserOptions: {
+                ecmaFeatures: { jsx: true }
             }
         }
-    ];
-};
+    },
+    {
+        name: '@37bytes/fixture-hygiene/typescript-project',
+        files: TYPESCRIPT_FILE_PATTERNS,
+        languageOptions: {
+            parserOptions: {
+                project: path.join(fixtureRoot, 'tsconfig.json'),
+                tsconfigRootDir: fixtureRoot
+            }
+        }
+    },
+    {
+        name: '@37bytes/fixture-hygiene/identifier-length',
+        files: SOURCE_FILE_PATTERNS,
+        rules: {
+            'id-length': javascript['id-length']
+        }
+    },
+    {
+        name: '@37bytes/fixture-hygiene/typescript-naming',
+        files: TYPESCRIPT_FILE_PATTERNS,
+        plugins: {
+            '@37bytes': plugins
+        },
+        rules: {
+            '@typescript-eslint/naming-convention': typescript['@typescript-eslint/naming-convention'],
+            '@37bytes/boolean-naming': 'error',
+            '@37bytes/enum-pattern': 'error'
+        }
+    },
+    {
+        name: '@37bytes/fixture-hygiene/no-inline-overrides',
+        linterOptions: {
+            noInlineConfig: true,
+            reportUnusedDisableDirectives: 'error'
+        }
+    }
+];
 ```
 
-Run the single test file. Expected: the naming-policy test passes and four base tests remain todo.
+Run the single test file. Expected: the naming-policy identity test passes and six tests remain todo.
 
-- [ ] **Step 6: Implement the base ESLint diagnostic test and verify RED**
+- [ ] **Step 6: Implement the JavaScript recommended probe and verify RED**
+
+Add `import { ESLint } from 'eslint';` to the external import group. Replace the JavaScript recommended todo with:
+
+```js
+test('should enforce JavaScript recommended rules when JavaScript probe text is linted: catches omitted @eslint/js recommended config', async () => {
+    const { createFixtureHygieneConfig } = await loadHygiene();
+    const eslint = new ESLint({
+        cwd: BASE_FIXTURE_ROOT,
+        overrideConfigFile: true,
+        overrideConfig: createFixtureHygieneConfig(BASE_FIXTURE_ROOT)
+    });
+    const [result] = await eslint.lintText('unresolvedIdentifier;', {
+        filePath: path.join(BASE_FIXTURE_ROOT, 'src', 'recommended-probe.js')
+    });
+
+    assert.ok(result.messages.some((message) => message.ruleId === 'no-undef'));
+});
+```
+
+Run the single test file. Expected: FAIL at the observable `no-undef` assertion because the JavaScript recommended preset is omitted.
+
+- [ ] **Step 7: Restore the JavaScript recommended preset and verify GREEN**
+
+Add `import eslintJavaScript from '@eslint/js';` to `fixture-hygiene.js`. Insert this as the first entry returned by `createFixtureHygieneConfig`:
+
+```js
+{
+    ...eslintJavaScript.configs.recommended,
+    name: '@37bytes/fixture-hygiene/javascript-recommended'
+}
+```
+
+Re-run the single test file. Expected: the JavaScript probe reports `no-undef` and passes; five tests remain todo.
+
+- [ ] **Step 8: Implement the type-checked recommended probe and verify RED**
+
+Replace the type-checked recommended todo with:
+
+```js
+test('should enforce type-checked recommended rules when TypeScript probe text is linted: catches omitted @typescript-eslint type-aware config', async () => {
+    const { createFixtureHygieneConfig } = await loadHygiene();
+    const eslint = new ESLint({
+        cwd: BASE_FIXTURE_ROOT,
+        overrideConfigFile: true,
+        overrideConfig: createFixtureHygieneConfig(BASE_FIXTURE_ROOT)
+    });
+    const [result] = await eslint.lintText('Promise.resolve(1);', {
+        filePath: path.join(BASE_FIXTURE_ROOT, 'src', 'first.ts')
+    });
+
+    assert.ok(result.messages.some((message) => message.ruleId === '@typescript-eslint/no-floating-promises'));
+});
+```
+
+Run the single test file. Expected: FAIL at the observable `@typescript-eslint/no-floating-promises` assertion because the type-checked recommended preset is omitted.
+
+- [ ] **Step 9: Restore the type-checked recommended preset and verify GREEN**
+
+Add `import typeScriptEslintPlugin from '@typescript-eslint/eslint-plugin';` to `fixture-hygiene.js`. Before the returned array, create:
+
+```js
+const typeCheckedConfigs = typeScriptEslintPlugin.configs['flat/recommended-type-checked'].map((config) => ({
+    ...config,
+    files: TYPESCRIPT_FILE_PATTERNS
+}));
+```
+
+Insert `...typeCheckedConfigs` after the JSX entry and before the TypeScript project entry. Re-run the single test file. Expected: the TypeScript probe reports `@typescript-eslint/no-floating-promises` and passes; the three reusable contracts are green and four base tests remain todo.
+- [ ] **Step 10: Implement the base ESLint diagnostic test and verify RED**
 
 Replace its todo with:
 
@@ -283,7 +339,7 @@ test('should report zero ESLint diagnostics when the base fixture is checked: ca
 
 Run the single test file. Expected: FAIL because `lintFixtureProject` is not exported.
 
-- [ ] **Step 7: Add the minimal ESLint runner**
+- [ ] **Step 11: Add the minimal ESLint runner**
 
 Add these imports to `fixture-hygiene.js`:
 
@@ -357,7 +413,7 @@ export const lintFixtureProject = async (fixtureRoot) => {
 
 Run the single test file. Expected: FAIL with `@typescript-eslint/no-unsafe-assignment` in `src/unresolvable.ts`; the unresolved named import produces an error-typed value.
 
-- [ ] **Step 8: Convert the base unresolved edge to a side-effect import**
+- [ ] **Step 12: Convert the base unresolved edge to a side-effect import**
 
 Replace `src/unresolvable.ts` with:
 
@@ -369,7 +425,7 @@ export {};
 
 Run the single test file. Expected: the base ESLint diagnostic test passes. The depcruise edge remains `src/unresolvable.ts -> ./missing`.
 
-- [ ] **Step 9: Implement the base ESLint inventory test and verify RED**
+- [ ] **Step 13: Implement the base ESLint inventory test and verify RED**
 
 Replace its todo with:
 
@@ -387,7 +443,7 @@ test('should lint every discovered source file when the base fixture is checked:
 
 Run the single test file. Expected: FAIL because the result does not yet expose `lintedFiles` and `discoveredFiles`.
 
-- [ ] **Step 10: Expose discovered and linted file sets**
+- [ ] **Step 14: Expose discovered and linted file sets**
 
 Add:
 
@@ -419,7 +475,7 @@ return {
 
 Run the single test file. Expected: both base ESLint tests pass.
 
-- [ ] **Step 11: Implement the exact base TypeScript diagnostic test and verify RED**
+- [ ] **Step 15: Implement the exact base TypeScript diagnostic test and verify RED**
 
 Replace its todo with:
 
@@ -442,7 +498,7 @@ test('should report only the intentional unresolved import when the base TypeScr
 
 Run the single test file. Expected: FAIL because `inspectTypeScriptFixture` is not exported.
 
-- [ ] **Step 12: Add TypeScript diagnostic collection**
+- [ ] **Step 16: Add TypeScript diagnostic collection**
 
 Add `import typeScript from 'typescript';` to the external import group. Add:
 
@@ -504,7 +560,7 @@ export const inspectTypeScriptFixture = (fixtureRoot) => {
 
 Run the single test file. Expected: the exact base `TS2882` test passes.
 
-- [ ] **Step 13: Implement the base TypeScript inventory test and verify RED**
+- [ ] **Step 17: Implement the base TypeScript inventory test and verify RED**
 
 Replace its todo with:
 
@@ -520,7 +576,7 @@ test('should include every discovered source file when the base TypeScript progr
 
 Run the single test file. Expected: FAIL because `inspectTypeScriptFixture` does not yet expose `rootFiles`.
 
-- [ ] **Step 14: Expose TypeScript root files**
+- [ ] **Step 18: Expose TypeScript root files**
 
 Update both branches of `inspectTypeScriptFixture`:
 
@@ -555,9 +611,9 @@ Run:
 pnpm exec node --test __tests__/dependency-cruiser-fixtures-hygiene.test.js
 ```
 
-Expected: five tests pass, no failures and no remaining base todos.
+Expected: all seven reusable and base tests pass, with no failures and no remaining base todos.
 
-- [ ] **Step 15: Commit the reusable helper and base contracts**
+- [ ] **Step 19: Commit the reusable helper, base contracts, and recommended-preset probes**
 
 ```bash
 git add \
@@ -567,7 +623,7 @@ git add \
 git commit -m "test(code-style): add reusable fixture hygiene"
 ```
 
-Expected: normal hooks pass. If a hook reports unrelated user work, inspect the exact failure and staged paths before deciding how to proceed.
+Expected: the commit contains only the helper, base fixture side-effect import, and all seven reusable and base hygiene contracts, including the strict source-object identity assertions and the `no-undef` and `@typescript-eslint/no-floating-promises` probes. Normal hooks pass. If a hook reports unrelated user work, inspect the exact failure and staged paths before deciding how to proceed.
 
 ---
 
@@ -810,7 +866,7 @@ test('should include every discovered source file when the FSD TypeScript progra
 });
 ```
 
-Run the single test file. Expected: all 11 hygiene tests pass with zero todos.
+Run the single test file. Expected: all 11 hygiene tests pass with zero todos, comprising seven reusable and base contracts plus four FSD contracts.
 
 - [ ] **Step 11: Verify graph behavior is unchanged**
 
@@ -852,7 +908,7 @@ cd packages/code-style
 pnpm exec node --test __tests__/dependency-cruiser-fixtures-hygiene.test.js
 ```
 
-Expected: 11 tests pass, 0 fail, 0 todo.
+Expected: 11 tests pass, 0 fail, 0 todo, comprising seven reusable and base contracts plus four FSD contracts.
 
 - [ ] **Step 2: Run both depcruise behavior suites together**
 
