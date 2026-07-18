@@ -8,6 +8,7 @@ import { javascript } from '../eslint/rules/javascript.js';
 import { typescript } from '../eslint/rules/typescript.js';
 
 const BASE_FIXTURE_ROOT = path.join(import.meta.dirname, 'fixtures', 'cruise-base-project');
+const FSD_FIXTURE_ROOT = path.join(import.meta.dirname, 'fixtures', 'fsd-cruise-project');
 
 const loadHygiene = () => import('./fixture-hygiene.js');
 
@@ -94,5 +95,36 @@ describe('dependency-cruiser fixture hygiene: base fixture', () => {
                 message: "Cannot find module or type declarations for side-effect import of './missing'."
             }
         ]);
+    });
+});
+
+describe('dependency-cruiser fixture hygiene: FSD fixture', () => {
+    test('should lint every discovered source file when the FSD fixture is checked: catches files silently omitted from ESLint', async () => {
+        const { lintFixtureProject } = await loadHygiene();
+        const result = await lintFixtureProject(FSD_FIXTURE_ROOT);
+
+        assert.ok(Array.isArray(result.discoveredFiles));
+        assert.ok(Array.isArray(result.lintedFiles));
+        assert.ok(result.discoveredFiles.length > 0);
+        assert.deepStrictEqual(result.lintedFiles, result.discoveredFiles);
+    });
+    test('should report zero ESLint diagnostics when the FSD fixture is checked: catches accidental JavaScript or TypeScript lint defects', async () => {
+        const { lintFixtureProject } = await loadHygiene();
+        const result = await lintFixtureProject(FSD_FIXTURE_ROOT);
+
+        assert.deepStrictEqual(result.diagnostics, []);
+    });
+    test('should include every discovered source file when the FSD TypeScript program is built: catches files silently omitted by tsconfig', async () => {
+        const { collectFixtureSourceFiles, inspectTypeScriptFixture } = await loadHygiene();
+        const discoveredFiles = await collectFixtureSourceFiles(FSD_FIXTURE_ROOT);
+        const result = inspectTypeScriptFixture(FSD_FIXTURE_ROOT);
+
+        assert.deepStrictEqual(result.rootFiles, discoveredFiles);
+    });
+    test('should report zero TypeScript diagnostics when the FSD fixture is checked: catches missing modules, missing exports, and deprecated options', async () => {
+        const { inspectTypeScriptFixture } = await loadHygiene();
+        const result = inspectTypeScriptFixture(FSD_FIXTURE_ROOT);
+
+        assert.deepStrictEqual(result.diagnostics, []);
     });
 });

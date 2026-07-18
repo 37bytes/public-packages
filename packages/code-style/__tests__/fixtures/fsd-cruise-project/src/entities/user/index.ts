@@ -1,2 +1,3 @@
+import './model/types'; // fsd: clean
+
 export {};
-import { UserType as UT2 } from './model/types'; // fsd: clean
