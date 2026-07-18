@@ -378,6 +378,9 @@ test('should lint every discovered source file when the base fixture is checked:
     const { lintFixtureProject } = await loadHygiene();
     const result = await lintFixtureProject(BASE_FIXTURE_ROOT);
 
+    assert.ok(Array.isArray(result.discoveredFiles));
+    assert.ok(Array.isArray(result.lintedFiles));
+    assert.ok(result.discoveredFiles.length > 0);
     assert.deepStrictEqual(result.lintedFiles, result.discoveredFiles);
 });
 ```
@@ -786,6 +789,9 @@ test('should lint every discovered source file when the FSD fixture is checked: 
     const { lintFixtureProject } = await loadHygiene();
     const result = await lintFixtureProject(FSD_FIXTURE_ROOT);
 
+    assert.ok(Array.isArray(result.discoveredFiles));
+    assert.ok(Array.isArray(result.lintedFiles));
+    assert.ok(result.discoveredFiles.length > 0);
     assert.deepStrictEqual(result.lintedFiles, result.discoveredFiles);
 });
 ```
@@ -804,7 +810,7 @@ test('should include every discovered source file when the FSD TypeScript progra
 });
 ```
 
-Run the single test file. Expected: all 9 hygiene tests pass with zero todos.
+Run the single test file. Expected: all 11 hygiene tests pass with zero todos.
 
 - [ ] **Step 11: Verify graph behavior is unchanged**
 
@@ -846,7 +852,7 @@ cd packages/code-style
 pnpm exec node --test __tests__/dependency-cruiser-fixtures-hygiene.test.js
 ```
 
-Expected: 9 tests pass, 0 fail, 0 todo.
+Expected: 11 tests pass, 0 fail, 0 todo.
 
 - [ ] **Step 2: Run both depcruise behavior suites together**
 
