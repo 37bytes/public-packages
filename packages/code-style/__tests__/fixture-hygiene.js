@@ -45,10 +45,11 @@ const collectAbsoluteFixtureSourceFiles = async (fixtureRoot) => {
     return sourceFiles.toSorted();
 };
 
-export const collectFixtureSourceFiles = async (fixtureRoot) =>
-    (await collectAbsoluteFixtureSourceFiles(fixtureRoot))
-        .map((filePath) => toRelativePath(fixtureRoot, filePath))
-        .toSorted();
+export const collectFixtureSourceFiles = async (fixtureRoot) => {
+    const absoluteFiles = await collectAbsoluteFixtureSourceFiles(fixtureRoot);
+
+    return absoluteFiles.map((filePath) => toRelativePath(fixtureRoot, filePath)).toSorted();
+};
 
 export const createFixtureHygieneConfig = (fixtureRoot) => {
     const typeCheckedConfigs = typeScriptEslintPlugin.configs['flat/recommended-type-checked'].map((config) => ({
