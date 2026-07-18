@@ -2,6 +2,8 @@ import assert from 'node:assert';
 import path from 'node:path';
 import { describe, test } from 'node:test';
 
+import { ESLint } from 'eslint';
+
 import { javascript } from '../eslint/rules/javascript.js';
 import { typescript } from '../eslint/rules/typescript.js';
 
@@ -27,6 +29,32 @@ describe('dependency-cruiser fixture hygiene: reusable config', () => {
         );
         assert.strictEqual(typeScriptNamingConfig.rules['@37bytes/boolean-naming'], 'error');
         assert.strictEqual(typeScriptNamingConfig.rules['@37bytes/enum-pattern'], 'error');
+    });
+    test('should enforce JavaScript recommended rules when JavaScript probe text is linted: catches omitted @eslint/js recommended config', async () => {
+        const { createFixtureHygieneConfig } = await loadHygiene();
+        const eslint = new ESLint({
+            cwd: BASE_FIXTURE_ROOT,
+            overrideConfigFile: true,
+            overrideConfig: createFixtureHygieneConfig(BASE_FIXTURE_ROOT)
+        });
+        const [result] = await eslint.lintText('unresolvedIdentifier;', {
+            filePath: path.join(BASE_FIXTURE_ROOT, 'src', 'recommended-probe.js')
+        });
+
+        assert.ok(result.messages.some((message) => message.ruleId === 'no-undef'));
+    });
+    test('should enforce type-checked recommended rules when TypeScript probe text is linted: catches omitted @typescript-eslint type-aware config', async () => {
+        const { createFixtureHygieneConfig } = await loadHygiene();
+        const eslint = new ESLint({
+            cwd: BASE_FIXTURE_ROOT,
+            overrideConfigFile: true,
+            overrideConfig: createFixtureHygieneConfig(BASE_FIXTURE_ROOT)
+        });
+        const [result] = await eslint.lintText('Promise.resolve(1);', {
+            filePath: path.join(BASE_FIXTURE_ROOT, 'src', 'first.ts')
+        });
+
+        assert.ok(result.messages.some((message) => message.ruleId === '@typescript-eslint/no-floating-promises'));
     });
 });
 
