@@ -28,6 +28,7 @@ export const javascript = {
         noLabelVar: 'warn', // no-label-var
         noConfusingLabels: 'warn', // no-labels (partial: eslint allows loop labels; biome has allowedLabels option)
         noOctalEscape: 'warn', // no-octal-escape (+ no-octal)
+        noProto: 'warn', // no-proto
         noRedeclare: 'warn', // no-redeclare
         // noSelfAssign — moved to correctness
         noSelfCompare: 'error', // no-self-compare (ESLint severity: error)
@@ -44,6 +45,8 @@ export const javascript = {
     },
     style: {
         noNestedTernary: 'error', // no-nested-ternary
+        noMultilineString: 'warn', // no-multi-str
+        useGlobalThis: 'warn', // unicorn/prefer-global-this
         useBlockStatements: 'error', // curly
         useConst: 'warn', // prefer-const
         useDefaultSwitchClause: 'error', // default-case
@@ -60,6 +63,7 @@ export const javascript = {
         noCommaOperator: 'warn', // no-sequences
         noUselessConstructor: 'warn', // no-useless-constructor
         noUselessRename: 'warn', // no-useless-rename
+        noUselessReturn: 'warn', // no-useless-return
         noUselessStringConcat: 'warn', // no-useless-concat
         useFlatMap: 'warn', // unicorn/prefer-array-flat-map
         useDateNow: 'warn', // unicorn/prefer-date-now
@@ -86,7 +90,8 @@ export const javascript = {
         noUnusedLabels: 'warn' // no-unused-labels
     },
     security: {
-        noGlobalEval: 'error' // no-eval
+        noGlobalEval: 'error', // no-eval
+        noScriptUrl: 'warn' // no-script-url (partial: Biome checks JSX href only)
     },
     performance: {
         noAwaitInLoops: 'warn', // no-await-in-loop
@@ -98,28 +103,14 @@ export const javascript = {
  * ESLint rules that have NO Biome equivalent (stay ESLint-only):
  *
  * — no-alert, no-caller, no-new-func, no-new-object, no-new-symbol
- * — no-extend-native, no-iterator, no-with, no-proto
+ * — no-extend-native, no-iterator
  * — no-loop-func, no-labels, no-mixed-operators
- * — no-whitespace-before-property, no-multi-str
- * — no-useless-computed-key, no-useless-return, no-useless-assignment
+ * — no-whitespace-before-property
+ * — no-useless-computed-key, no-useless-assignment
  * — dot-location, new-parens, rest-spread-spacing, strict, unicode-bom
- * — no-implied-eval, no-script-url, no-extra-bind
+ * — no-implied-eval, no-extra-bind
  * — no-promise-executor-return, require-atomic-updates
  * — promise/* (prefer-await-to-then, no-return-in-finally, no-multiple-resolved, etc.)
  * — security/detect-bidi-characters
  * — Most unicorn/* rules (consistent-*, prefer-*, no-array-*, etc.)
  */
-
-/**
- * Nursery rules from ESLint core/unicorn that are available in Biome nursery.
- * When they graduate, move to javascript above.
- */
-export const javascriptNursery = {
-    nursery: {
-        noProto: 'warn', // no-proto
-        noScriptUrl: 'warn', // no-script-url
-        noMultiStr: 'warn', // no-multi-str
-        noUselessReturn: 'warn', // no-useless-return
-        useGlobalThis: 'warn' // unicorn/prefer-global-this
-    }
-};

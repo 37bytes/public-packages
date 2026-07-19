@@ -1,5 +1,5 @@
 {
-    "$schema": "https://biomejs.dev/schemas/2.4.16/schema.json",
+    "$schema": "https://biomejs.dev/schemas/2.5.4/schema.json",
     "vcs": {
         "enabled": true,
         "clientKind": "git",
@@ -49,6 +49,7 @@
                 "noLabelVar": "warn",
                 "noConfusingLabels": "warn",
                 "noOctalEscape": "warn",
+                "noProto": "warn",
                 "noRedeclare": "warn",
                 "noSelfCompare": "error",
                 "noShadowRestrictedNames": "warn",
@@ -66,8 +67,10 @@
                 "noExtraNonNullAssertion": "warn",
                 "noMisleadingInstantiator": "warn",
                 "noUnsafeDeclarationMerging": "warn",
+                "noUnnecessaryConditions": "warn",
                 "noCommentText": "warn",
                 "noArrayIndexKey": "warn",
+                "noLeakedRender": "error",
                 "useGoogleFontDisplay": "warn",
                 "noDocumentImportInPage": "error",
                 "noHeadImportInDocument": "error",
@@ -75,6 +78,8 @@
             },
             "style": {
                 "noNestedTernary": "error",
+                "noMultilineString": "warn",
+                "useGlobalThis": "warn",
                 "useBlockStatements": "error",
                 "useConst": "warn",
                 "useDefaultSwitchClause": "error",
@@ -141,6 +146,7 @@
                 "noCommaOperator": "warn",
                 "noUselessConstructor": "warn",
                 "noUselessRename": "warn",
+                "noUselessReturn": "warn",
                 "noUselessStringConcat": "warn",
                 "useFlatMap": "warn",
                 "useDateNow": "warn",
@@ -183,6 +189,8 @@
                 "noVoidElementsWithChildren": "error",
                 "noNestedComponentDefinitions": "error",
                 "noNextAsyncClientComponent": "error",
+                "useInlineScriptId": "error",
+                "noBeforeInteractiveScriptOutsideDocument": "warn",
                 "noUndeclaredDependencies": {
                     "level": "error",
                     "options": {
@@ -200,6 +208,7 @@
             },
             "security": {
                 "noGlobalEval": "error",
+                "noScriptUrl": "warn",
                 "noBlankTarget": "warn",
                 "noDangerouslySetInnerHtml": "error",
                 "noDangerouslySetInnerHtmlWithChildren": "warn"
@@ -209,22 +218,13 @@
                 "noDelete": "warn",
                 "noImgElement": "warn",
                 "useGoogleFontPreconnect": "warn",
-                "noUnwantedPolyfillio": "warn"
+                "noUnwantedPolyfillio": "warn",
+                "noSyncScripts": "warn"
             },
             "nursery": {
-                "noProto": "warn",
-                "noScriptUrl": "warn",
-                "noMultiStr": "warn",
-                "noUselessReturn": "warn",
-                "useGlobalThis": "warn",
                 "noFloatingPromises": "error",
                 "noMisusedPromises": "error",
-                "noUnnecessaryConditions": "warn",
-                "useExhaustiveSwitchCases": "warn",
-                "noLeakedRender": "error",
-                "noSyncScripts": "warn",
-                "useInlineScriptId": "error",
-                "noBeforeInteractiveScriptOutsideDocument": "warn"
+                "useExhaustiveSwitchCases": "warn"
             }
         }
     },

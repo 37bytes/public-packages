@@ -47,7 +47,4 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-export const config = JSON.parse(
-    // eslint-disable-next-line security/detect-non-literal-fs-filename -- path is a build-time constant, not user input
-    readFileSync(join(import.meta.dirname, './config.json'), 'utf8')
-);
+export const config = JSON.parse(readFileSync(join(import.meta.dirname, './config.json'), 'utf8'));

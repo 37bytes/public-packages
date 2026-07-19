@@ -24,6 +24,15 @@ describe('resolveOxlintEquivalent', () => {
         assert.strictEqual(resolveOxlintEquivalent('regexp/no-empty-group'), 'regexp/no-empty-group');
         assert.strictEqual(resolveOxlintEquivalent('@37bytes/no-arrow-props'), '@37bytes/no-arrow-props');
     });
+    test('renamed Unicorn rules resolve to Oxlint legacy names', () => {
+        assert.strictEqual(resolveOxlintEquivalent('unicorn/no-for-each'), 'unicorn/no-array-for-each');
+        assert.strictEqual(
+            resolveOxlintEquivalent('unicorn/prefer-unicode-code-point-escapes'),
+            'unicorn/no-hex-escape'
+        );
+        assert.strictEqual(resolveOxlintEquivalent('unicorn/dom-node-dataset'), 'unicorn/prefer-dom-node-dataset');
+        assert.strictEqual(resolveOxlintEquivalent('unicorn/name-replacements'), null);
+    });
     test('@eslint-react rules have NO oxlint equivalent through prefixes (structural bridge gap)', () => {
         assert.strictEqual(resolveOxlintEquivalent('@eslint-react/no-missing-key'), null);
     });
@@ -73,14 +82,37 @@ describe('resolveBiomeEquivalent', () => {
             biomeRule: 'style/useNamingConvention',
             partial: 'biome covers fewer selectors than the eslint config'
         });
+        assert.deepStrictEqual(resolveBiomeEquivalent('no-multi-str'), {
+            biomeRule: 'style/noMultilineString',
+            partial: null
+        });
     });
     test('partial equivalence is annotated, not silently equal', () => {
         const resolution = resolveBiomeEquivalent('no-script-url');
-        assert.strictEqual(resolution.biomeRule, 'nursery/noScriptUrl');
+        assert.strictEqual(resolution.biomeRule, 'security/noScriptUrl');
         assert.ok(
             resolution.partial,
             'no-script-url must carry a partial-equivalence note (biome checks JSX href only)'
         );
+    });
+    test('Biome 2.5 promoted nursery rules resolve to stable categories', () => {
+        const promotedRules = new Map([
+            ['no-proto', 'suspicious/noProto'],
+            ['no-useless-return', 'complexity/noUselessReturn'],
+            ['unicorn/prefer-global-this', 'style/useGlobalThis'],
+            ['@typescript-eslint/no-unnecessary-condition', 'suspicious/noUnnecessaryConditions'],
+            ['@eslint-react/no-leaked-conditional-rendering', 'suspicious/noLeakedRender'],
+            ['@next/next/no-sync-scripts', 'performance/noSyncScripts'],
+            ['@next/next/inline-script-id', 'correctness/useInlineScriptId'],
+            [
+                '@next/next/no-before-interactive-script-outside-document',
+                'correctness/noBeforeInteractiveScriptOutsideDocument'
+            ]
+        ]);
+
+        for (const [eslintRule, biomeRule] of promotedRules) {
+            assert.strictEqual(resolveBiomeEquivalent(eslintRule).biomeRule, biomeRule);
+        }
     });
     test('unknown rule returns undefined so callers distinguish unmapped from no-equivalent', () => {
         assert.strictEqual(resolveBiomeEquivalent('totally-unknown-rule'), undefined);
@@ -138,6 +170,14 @@ describe('reverseToEslint', () => {
     });
     test('reverses oxlint unicorn/prefer-node-protocol to n/prefer-node-protocol (active eslint rule)', () => {
         assert.strictEqual(reverseToEslint('oxlint', 'unicorn/prefer-node-protocol'), 'n/prefer-node-protocol');
+    });
+    test('reverses Oxlint legacy Unicorn names to current ESLint names', () => {
+        assert.strictEqual(reverseToEslint('oxlint', 'unicorn/no-array-for-each'), 'unicorn/no-for-each');
+        assert.strictEqual(
+            reverseToEslint('oxlint', 'unicorn/no-hex-escape'),
+            'unicorn/prefer-unicode-code-point-escapes'
+        );
+        assert.strictEqual(reverseToEslint('oxlint', 'unicorn/prefer-dom-node-dataset'), 'unicorn/dom-node-dataset');
     });
     test('reverses oxlint typescript/no-implied-eval to base eslint rule (not @typescript-eslint/ variant)', () => {
         // oxlint uses typescript/no-implied-eval; ESLint preset has the plain no-implied-eval (javascript.js:108).

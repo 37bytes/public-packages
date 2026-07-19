@@ -177,10 +177,10 @@ copyFileSync(configPath, join(rootDir, '.oxlintrc.json'));
 
 const configRuleCount = Object.keys(config.rules).length;
 const overrideRuleCounts = config.overrides.map((override) => Object.keys(override.rules).length);
-const perfRuleCount = Object.keys(perfectionistConfig.rules).length;
+const performanceRuleCount = Object.keys(perfectionistConfig.rules).length;
 
 console.log(
     `config.json: ${configRuleCount} base rules, ` +
         `${config.overrides.length} overrides (${overrideRuleCounts.join(', ')} rules) | ` +
-        `perfectionist.json: ${perfRuleCount} rules | .oxlintrc.json synced`
+        `perfectionist.json: ${performanceRuleCount} rules | .oxlintrc.json synced`
 );

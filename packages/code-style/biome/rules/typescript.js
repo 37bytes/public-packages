@@ -17,7 +17,8 @@ export const typescript = {
         noExplicitAny: 'error', // @typescript-eslint/no-explicit-any
         noExtraNonNullAssertion: 'warn', // @typescript-eslint/no-extra-non-null-assertion
         noMisleadingInstantiator: 'warn', // @typescript-eslint/no-misused-new
-        noUnsafeDeclarationMerging: 'warn' // @typescript-eslint/no-unsafe-declaration-merging
+        noUnsafeDeclarationMerging: 'warn', // @typescript-eslint/no-unsafe-declaration-merging
+        noUnnecessaryConditions: 'warn' // @typescript-eslint/no-unnecessary-condition
     },
     style: {
         useImportType: 'error', // @typescript-eslint/consistent-type-imports (inspired)
@@ -82,7 +83,6 @@ export const typescriptNursery = {
     nursery: {
         noFloatingPromises: 'error', // @typescript-eslint/no-floating-promises — #1 ESLint bottleneck
         noMisusedPromises: 'error', // @typescript-eslint/no-misused-promises — #2 ESLint bottleneck
-        noUnnecessaryConditions: 'warn', // @typescript-eslint/no-unnecessary-condition
         useExhaustiveSwitchCases: 'warn' // @typescript-eslint/switch-exhaustiveness-check
     }
 };

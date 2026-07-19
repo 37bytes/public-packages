@@ -1,10 +1,12 @@
 {
-    "biomeVersion": "2.4.16",
-    "generatedAt": "2026-06-07",
+    "biomeVersion": "2.5.4",
     "note": "regenerate after biome bumps: node __tests__/parity/generate-biome-domain-rules.js",
     "rules": {
         "complexity/noExcessiveNestedTestSuites": {
             "domains": ["test"]
+        },
+        "correctness/noBeforeInteractiveScriptOutsideDocument": {
+            "domains": ["next"]
         },
         "correctness/noChildrenProp": {
             "domains": ["react"]
@@ -27,23 +29,20 @@
         "correctness/useHookAtTopLevel": {
             "domains": ["react", "next"]
         },
+        "correctness/useInlineScriptId": {
+            "domains": ["next"]
+        },
         "correctness/useJsxKeyInIterable": {
             "domains": ["react"]
         },
         "correctness/useUniqueElementIds": {
             "domains": ["react"]
         },
-        "nursery/noBeforeInteractiveScriptOutsideDocument": {
-            "domains": ["next"]
-        },
         "nursery/noComponentHookFactories": {
             "domains": ["react"]
         },
         "nursery/noConditionalExpect": {
             "domains": ["test"]
-        },
-        "nursery/noDuplicatedSpreadProps": {
-            "domains": ["react"]
         },
         "nursery/noIdenticalTestTitle": {
             "domains": ["test"]
@@ -54,19 +53,7 @@
         "nursery/noJsxNamespace": {
             "domains": ["react"]
         },
-        "nursery/noJsxPropsBind": {
-            "domains": ["react"]
-        },
-        "nursery/noLeakedRender": {
-            "domains": ["react"]
-        },
         "nursery/noReactStringRefs": {
-            "domains": ["react"]
-        },
-        "nursery/noSyncScripts": {
-            "domains": ["react", "next"]
-        },
-        "nursery/noUnknownAttribute": {
             "domains": ["react"]
         },
         "nursery/useConsistentTestIt": {
@@ -75,10 +62,10 @@
         "nursery/useExpect": {
             "domains": ["test"]
         },
-        "nursery/useInlineScriptId": {
-            "domains": ["next"]
-        },
         "nursery/useReactAsyncServerFunction": {
+            "domains": ["react"]
+        },
+        "nursery/useReactFunctionComponentDefinition": {
             "domains": ["react"]
         },
         "nursery/useTestHooksInOrder": {
@@ -89,6 +76,12 @@
         },
         "performance/noImgElement": {
             "domains": ["next"]
+        },
+        "performance/noJsxPropsBind": {
+            "domains": ["react"]
+        },
+        "performance/noSyncScripts": {
+            "domains": ["react", "next"]
         },
         "performance/noUnwantedPolyfillio": {
             "domains": ["next"]
@@ -120,6 +113,9 @@
         "suspicious/noDuplicateTestHooks": {
             "domains": ["test"]
         },
+        "suspicious/noDuplicatedSpreadProps": {
+            "domains": ["react"]
+        },
         "suspicious/noExportsInTest": {
             "domains": ["test"]
         },
@@ -129,11 +125,17 @@
         "suspicious/noHeadImportInDocument": {
             "domains": ["next"]
         },
+        "suspicious/noLeakedRender": {
+            "domains": ["react"]
+        },
         "suspicious/noReactForwardRef": {
             "domains": ["react"]
         },
         "suspicious/noSkippedTests": {
             "domains": ["test"]
+        },
+        "suspicious/noUnknownAttribute": {
+            "domains": ["react"]
         }
     }
 }

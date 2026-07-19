@@ -5,10 +5,10 @@
 
 export { imports } from './imports.js';
 // Base rules (merged into main config by category)
-export { javascript, javascriptNursery } from './javascript.js';
+export { javascript } from './javascript.js';
 export { nextjs } from './nextjs.js';
 export { quality } from './quality.js';
-export { react, reactNursery } from './react.js';
+export { react } from './react.js';
 // Override rules (applied to specific file patterns)
 export { testing } from './testing.js';
 

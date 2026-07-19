@@ -11,7 +11,7 @@ sql`SELECT * FROM users`; // parity: @typescript-eslint/no-unused-expressions �
 // parity: Three unicorn rules covered by Biome but NOT disabled in biome/eslint-overrides.js (double-fire)
 // 1. prefer-string-trim-start-end → Biome useTrimStartEnd (style)
 // 2. throw-new-error → Biome useThrowNewError (style)
-// 3. prefer-global-this → Biome useGlobalThis (nursery)
+// 3. prefer-global-this → Biome useGlobalThis (style)
 // eslint-plugin-oxlint bridge (eslint-config-biome 2.1.3) has no entries for these 3 unicorn rules.
 // biome/eslint-overrides.js does NOT turn them off manually.
 // Both ESLint warn AND Biome warn fire simultaneously in hybrid.
@@ -23,16 +23,16 @@ function throwBadError() {
     throw Error('no new'); // parity: throw-new-error / useThrowNewError — ESLint=warn AND Biome=warn in hybrid (double-fire)
 }
 
-// parity: no-useless-return (infrastructure): biome/eslint-overrides.js:82 disables ESLint error; Biome nursery=warn
+// parity: no-useless-return (infrastructure): biome/eslint-overrides.js:83 disables ESLint error; Biome complexity=warn
 function withUselessReturn(value: string): void {
     console.log(value);
-    return; // parity: no-useless-return — ESLint disabled in hybrid (biome/eslint-overrides.js:82); Biome nursery=warn replaces error
+    return; // parity: no-useless-return — ESLint disabled in hybrid; Biome complexity=warn replaces error
 }
 
-// parity: unicorn/prefer-single-call absent from OxLint and Biome (unported, not documented as engine limitation)
+// parity: unicorn/prefer-single-call is covered by Oxlint but has no Biome equivalent
 // ESLint browser.js:32: unicorn/prefer-single-call=warn
-// OxLint: rule absent (not in configuration_schema.json)
+// Oxlint: unicorn/prefer-single-call=warn
 // Biome: no equivalent
-const el = document.querySelectorAll('.item')[0]; // single call preferred over querySelector — parity: prefer-single-call — ESLint=warn; OxLint/Biome=absent
+const el = document.querySelectorAll('.item')[0]; // parity: prefer-single-call — ESLint=warn; Oxlint=warn; Biome=absent
 
 export { readFileSync, throwBadError, withUselessReturn, el };

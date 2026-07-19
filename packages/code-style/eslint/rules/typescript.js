@@ -76,7 +76,7 @@ export const typescript = {
     '@typescript-eslint/no-inferrable-types': 'warn', // biome: style/noInferrableTypes
     '@typescript-eslint/no-unnecessary-type-constraint': 'warn', // biome: complexity/noUselessTypeConstraint
     '@typescript-eslint/prefer-optional-chain': 'warn', // biome: complexity/useOptionalChain
-    '@typescript-eslint/no-unnecessary-condition': 'warn', // biome: nursery/noUnnecessaryConditions
+    '@typescript-eslint/no-unnecessary-condition': 'warn', // biome: suspicious/noUnnecessaryConditions
     '@typescript-eslint/switch-exhaustiveness-check': 'warn', // biome: nursery/useExhaustiveSwitchCases
 
     // === Type Imports/Exports ===

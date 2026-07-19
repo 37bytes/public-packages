@@ -3,7 +3,7 @@
  *
  * Maps to eslint/rules/imports.js.
  * Note: OxLint uses 'import/' prefix (ESLint uses 'import-x/').
- * Also includes unicorn/prefer-node-protocol (import-related).
+ * Also includes Unicorn rules related to imports.
  */
 
 export const imports = {
@@ -19,5 +19,6 @@ export const imports = {
     'import/no-empty-named-blocks': 'warn',
     'import/no-amd': 'error',
     'import/no-commonjs': 'error', // import-x/no-commonjs (promoted from biome style/noCommonJs)
-    'import/no-webpack-loader-syntax': 'error'
+    'import/no-webpack-loader-syntax': 'error',
+    'unicorn/prefer-export-from': 'warn'
 };

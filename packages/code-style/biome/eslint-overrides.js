@@ -75,14 +75,14 @@ export const biomeOverrides = {
         // @typescript-eslint/no-unnecessary-condition: promoted into eslint in Task D (2026-06-07).
         // Removed from overrides so ESLint enforces it (policy: eslint is source of truth).
 
-        // Nursery ESLint core — covered by Biome
+        // Stable ESLint core rules — covered by Biome
         'no-proto': 'off',
         // NOT disabling no-script-url: Biome's noScriptUrl only checks JSX href,
         // ESLint also catches string literals like 'javascript:void(0)'
         'no-multi-str': 'off',
         'no-useless-return': 'off',
 
-        // Nursery React — covered by Biome
+        // Stable React rules — covered by Biome
         '@eslint-react/no-leaked-conditional-rendering': 'off'
     }
 };

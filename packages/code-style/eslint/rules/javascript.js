@@ -182,7 +182,7 @@ export const javascript = {
 
     // === Unicorn ===
     'unicorn/catch-error-name': 'warn',
-    'unicorn/prevent-abbreviations': [
+    'unicorn/name-replacements': [
         'warn',
         {
             ignore: [/e2e/i],
@@ -222,11 +222,11 @@ export const javascript = {
     'unicorn/no-array-callback-reference': 'error',
     'unicorn/no-array-method-this-argument': 'warn',
     'unicorn/no-array-reverse': 'error',
-    'unicorn/no-array-for-each': 'error',
+    'unicorn/no-for-each': 'error',
     'unicorn/no-array-sort': 'error',
     'unicorn/no-await-expression-member': 'warn',
     'unicorn/no-await-in-promise-methods': 'error',
-    'unicorn/no-hex-escape': 'warn',
+    'unicorn/prefer-unicode-code-point-escapes': 'warn',
     'unicorn/no-immediate-mutation': 'error',
     'unicorn/no-instanceof-builtins': 'warn',
     'unicorn/no-named-default': 'warn',

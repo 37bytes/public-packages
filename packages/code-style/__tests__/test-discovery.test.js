@@ -67,7 +67,6 @@ const globToRegExp = (glob) => {
 
 /** Extract the glob arguments from the package.json "test" script (everything after `node --test`). */
 const extractTestScriptGlobs = () => {
-    // eslint-disable-next-line security/detect-non-literal-fs-filename -- PACKAGE_ROOT is a build-time constant, not user input
     const packageJson = JSON.parse(readFileSync(path.join(PACKAGE_ROOT, 'package.json'), 'utf8'));
     const testScript = packageJson.scripts?.test ?? '';
     const tokens = testScript.split(/\s+/).filter(Boolean);

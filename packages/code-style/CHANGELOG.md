@@ -13,14 +13,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 
 - Dependency refresh sweep:
-    - `eslint` 10.0.1 → 10.4.1 (dev), peer relaxed to `^10.3.0`.
-    - `@typescript-eslint/eslint-plugin`, `parser`, `utils` 8.59.0 → 8.60.1.
-    - `@eslint-react/eslint-plugin` 4.2.3 → 5.8.13 (major; rule names unchanged since the 4.2.1 consolidation; `no-unused-state` now also catches unused `useState()` in function components).
-    - `eslint-plugin-n` 17.x → 18.0.1 (major; new `n/no-unsupported-features/*` rules, no rule renames affecting our config).
-    - `@next/eslint-plugin-next` 16.2.4 → 16.2.7, `@vitest/eslint-plugin` 1.6.16 → 1.6.19, `eslint-import-resolver-typescript` 4.4.2 → 4.4.5, `eslint-plugin-storybook` 10.3.5 → 10.4.2, `eslint-plugin-compat` 6.x → 7.0.2, `globals` 17.5.0 → 17.6.0.
-    - `@biomejs/biome` 2.4.13 → 2.4.16 (peer + dev); biome config regenerated.
-    - `oxlint` 1.61.0 → 1.68.0 (peer + dev), `eslint-plugin-oxlint` 1.61.0 → 1.68.0, `oxlint-tsgolint` 0.22.0 → 0.23.0. Build toolchain migrated from `oxlint --rules` CLI to `configuration_schema.json` (native-bindings restructure in 1.68.0 dropped parseable table output). Three rules promoted from the 1.68.0 bridge expansion: `import/newline-after-import`, `nextjs/no-before-interactive-script-outside-document`, `node/callback-return`.
-    - `stylelint` 17.9.0 → 17.13.0 (peer + dev).
+    - `eslint` 10.0.1 → 10.7.0 (dev), peer floor raised to `^10.4.0` for `eslint-plugin-unicorn@72`.
+    - `@typescript-eslint/eslint-plugin`, `parser`, `utils` 8.59.0 → 8.64.0. TypeScript remains pinned to 6.0.3 within the supported `<6.1.0` range.
+    - `@eslint-react/eslint-plugin` 4.2.3 → 5.16.1 and `eslint-plugin-n` 17.x → 18.2.2.
+    - Updated `@next/eslint-plugin-next` to 16.2.10, `@vitest/eslint-plugin` to 1.6.23, `eslint-plugin-import-x` to 4.17.1, `eslint-plugin-perfectionist` to 5.10.0, `eslint-plugin-prefer-arrow-functions` to 3.10.1, `eslint-plugin-regexp` to 3.1.1, `eslint-plugin-security` to 4.0.1, `eslint-plugin-sonarjs` to 4.2.0, `eslint-plugin-storybook` to 10.5.2, `eslint-plugin-unicorn` to 72.0.0, `globals` to 17.7.0, and `prettier` to 3.9.5.
+    - Replaced the vendored Promise rules with upstream `eslint-plugin-promise@7.3.0`; the five configured `promise/*` rule IDs remain unchanged.
+    - `@biomejs/biome` 2.4.13 → 2.5.4 (peer + dev). Migrated promoted nursery rules to their stable categories, including `style/noMultilineString`, and regenerated the config and parity domains.
+    - `oxlint` and `eslint-plugin-oxlint` 1.61.0 → 1.73.0, `oxlint-tsgolint` 0.22.0 → 0.25.0. Added explicit parity mappings for Unicorn 72 rule renames and promoted `node/no-mixed-requires`, `unicorn/prefer-export-from`, and `unicorn/prefer-single-call` from the expanded bridge. Oxlint 1.74 is deferred until the matching plugin release.
+    - `stylelint` 17.9.0 → 17.14.0 (peer + dev).
     - `@types/react` 19.2.8 → 19.2.17 (dev).
 
 - **BREAKING:** Restructured Node.js presets along role-based axis. Three new exports replace the previous two strict-axis presets and the file-glob override:

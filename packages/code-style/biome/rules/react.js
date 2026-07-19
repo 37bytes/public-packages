@@ -13,7 +13,8 @@ export const react = {
         // noDuplicateJsxProps — trimmed: no @eslint-react equivalent (@eslint-react 4.2.3 only has
         // no-duplicate-key, not jsx-no-duplicate-props); promotion not possible with shipped plugins
         // (policy: no extras, checked 2026-06-07)
-        noArrayIndexKey: 'warn' // react/no-array-index-key (inspired)
+        noArrayIndexKey: 'warn', // react/no-array-index-key (inspired)
+        noLeakedRender: 'error' // @eslint-react/no-leaked-conditional-rendering
     },
     style: {
         noImplicitBoolean: 'warn', // react/jsx-boolean-value (inspired)
@@ -49,7 +50,6 @@ export const react = {
  * — react/boolean-prop-naming
  * — react/jsx-handler-names
  * — react/hook-use-state
- * — react/jsx-no-leaked-render
  * — react/jsx-no-undef
  * — react/no-unknown-property
  * — react/no-direct-mutation-state
@@ -67,12 +67,3 @@ export const react = {
  * — react/iframe-missing-sandbox
  * — react-hooks/react-compiler rules (15 rules, no biome equivalent)
  */
-
-/**
- * Nursery rules from React that are available in Biome nursery.
- */
-export const reactNursery = {
-    nursery: {
-        noLeakedRender: 'error' // react/jsx-no-leaked-render
-    }
-};

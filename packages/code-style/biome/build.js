@@ -14,11 +14,9 @@ import { biomeVersion, domains, formatter, jsFormatter, overrideFiles, schema } 
 import {
     imports,
     javascript,
-    javascriptNursery,
     nextjs,
     quality,
     react,
-    reactNursery,
     testing,
     typescript,
     typescriptNursery,
@@ -180,17 +178,7 @@ const build = async () => {
     console.log('Building Biome config...\n');
 
     // 1. Merge base rules by category
-    const baseRules = deepMergeByCategory(
-        javascript,
-        javascriptNursery,
-        typescript,
-        typescriptNursery,
-        react,
-        reactNursery,
-        nextjs,
-        imports,
-        quality
-    );
+    const baseRules = deepMergeByCategory(javascript, typescript, typescriptNursery, react, nextjs, imports, quality);
 
     // 2. Validate against schema (prune stale-version caches first)
     pruneStaleSchemaCaches();

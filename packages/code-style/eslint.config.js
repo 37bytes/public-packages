@@ -12,15 +12,7 @@ import perfectionistPlugin from 'eslint-plugin-perfectionist';
 
 export default [
     {
-        ignores: [
-            'node_modules/**',
-            'coverage/**',
-            '__tests__/fixtures/**',
-            // Vendored code: kept byte-identical to upstream (modulo ESM conversion)
-            // to simplify future re-sync with eslint-plugin-promise. Linting it under
-            // our own rules would drift from upstream and risk correctness regressions.
-            'eslint/plugins/vendored-promise/**'
-        ]
+        ignores: ['node_modules/**', 'coverage/**', '__tests__/fixtures/**']
     },
     ...nodejsRuntime,
     // Perfectionist (opt-in for this package)

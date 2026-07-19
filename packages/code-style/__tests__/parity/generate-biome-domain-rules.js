@@ -7,7 +7,7 @@
  *   (runs this generator then prettier-formats the JSON output)
  * Or directly: node __tests__/parity/generate-biome-domain-rules.js
  *
- * NOTE on actual `biome explain` format (verified 2026-06-07 against biome 2.4.16):
+ * NOTE on actual `biome explain` format (verified 2026-07-16 against biome 2.5.4):
  * The output is NOT a single "Domains: react, next" line. Instead it is a structured
  * multi-line section:
  *
@@ -53,7 +53,7 @@ const schema = JSON.parse(readFileSync(path.join(PACKAGE_ROOT, 'biome', `.schema
  * Parse domain names from `biome explain <rule>` output.
  * Returns an array of lowercase domain strings (may be empty if no Domains section).
  *
- * Actual format (biome 2.4.16):
+ * Actual format (biome 2.5.4):
  *   ...
  *   Domains
  *
@@ -148,11 +148,10 @@ for (const ruleKey of Object.keys(domainRules).toSorted()) {
 
 const output = {
     biomeVersion,
-    generatedAt: '2026-06-07',
     note: 'regenerate after biome bumps: node __tests__/parity/generate-biome-domain-rules.js',
     rules: sortedRules
 };
-// eslint-disable-next-line security/detect-non-literal-fs-filename -- PACKAGE_ROOT is a build-time constant derived from import.meta.dirname, not user input
+
 writeFileSync(
     path.join(PACKAGE_ROOT, '__tests__', 'parity', 'biome-domain-rules.json'),
     `${JSON.stringify(output, null, 4)}\n`

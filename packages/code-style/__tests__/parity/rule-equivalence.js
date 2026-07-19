@@ -35,6 +35,16 @@ const OXLINT_TS_BARE_NAME_OVERRIDES = new Map([
     ['@typescript-eslint/no-redeclare', 'no-redeclare']
 ]);
 
+const ESLINT_UNICORN_OXLINT_OVERRIDES = new Map([
+    ['unicorn/no-for-each', 'unicorn/no-array-for-each'],
+    ['unicorn/prefer-unicode-code-point-escapes', 'unicorn/no-hex-escape'],
+    ['unicorn/dom-node-dataset', 'unicorn/prefer-dom-node-dataset']
+]);
+
+const OXLINT_UNICORN_TO_ESLINT = new Map(
+    [...ESLINT_UNICORN_OXLINT_OVERRIDES].map(([eslintRule, oxlintRule]) => [oxlintRule, eslintRule])
+);
+
 // eslint plugins whose rules keep their names verbatim in oxlint jsPlugins
 const OXLINT_VERBATIM_PREFIXES = [
     'sonarjs/',
@@ -77,7 +87,8 @@ const ESLINT_REACT_OXLINT_OVERRIDES = new Map([
 // eslint rules known to have NO oxlint equivalent (explicit, so absence is intentional not unmapped)
 const OXLINT_NO_EQUIVALENT_PREFIXES = ['@eslint-react/', '@stylistic/', 'security/', 'prefer-arrow-functions/'];
 const OXLINT_NO_EQUIVALENT_RULES = new Set([
-    'import-x/no-useless-path-segments'
+    'import-x/no-useless-path-segments',
+    'unicorn/name-replacements'
     // NOTE: import-x/no-self-import is NOT here — oxlint covers it natively via import/no-self-import
     // (verified in oxlint --rules and oxlint/config.json base block). The gap is biome-only.
     // grow this list during the red-baseline triage; every addition needs a known-gaps entry
@@ -90,23 +101,19 @@ const OXLINT_NO_EQUIVALENT_RULES = new Set([
 // Key: eslint rule (e.g. 'no-implied-eval'), Value: oxlint rule (e.g. 'typescript/no-implied-eval')
 const ESLINT_BARE_TO_OXLINT_TYPESCRIPT = new Map([['no-implied-eval', 'typescript/no-implied-eval']]);
 
+const resolveExplicitOxlintOverride = (eslintRule) =>
+    ESLINT_REACT_OXLINT_OVERRIDES.get(eslintRule) ??
+    OXLINT_TS_BARE_NAME_OVERRIDES.get(eslintRule) ??
+    VITEST_TO_JEST_MAP.get(eslintRule) ??
+    ESLINT_UNICORN_OXLINT_OVERRIDES.get(eslintRule);
+
 export const resolveOxlintEquivalent = (eslintRule) => {
     if (OXLINT_NO_EQUIVALENT_RULES.has(eslintRule)) {
         return null;
     }
-    // @eslint-react/* overrides: check specific known-covered rules BEFORE the blanket prefix ban.
-    if (ESLINT_REACT_OXLINT_OVERRIDES.has(eslintRule)) {
-        return ESLINT_REACT_OXLINT_OVERRIDES.get(eslintRule);
-    }
-    // Check bare-name overrides BEFORE the systematic prefix renames so that
-    // @typescript-eslint/no-loop-func etc. resolve to the plain JS oxlint rule, not
-    // the non-existent typescript/* prefixed form.
-    if (OXLINT_TS_BARE_NAME_OVERRIDES.has(eslintRule)) {
-        return OXLINT_TS_BARE_NAME_OVERRIDES.get(eslintRule);
-    }
-    // vitest/* rules that oxlint ships only under jest/* namespace.
-    if (VITEST_TO_JEST_MAP.has(eslintRule)) {
-        return VITEST_TO_JEST_MAP.get(eslintRule);
+    const explicitOverride = resolveExplicitOxlintOverride(eslintRule);
+    if (explicitOverride !== undefined) {
+        return explicitOverride;
     }
     for (const prefix of OXLINT_NO_EQUIVALENT_PREFIXES) {
         if (eslintRule.startsWith(prefix)) {
@@ -265,15 +272,15 @@ const BIOME_TABLE = {
     'no-eval': 'security/noGlobalEval',
     'no-await-in-loop': 'performance/noAwaitInLoops',
     'no-delete-var': 'performance/noDelete',
-    // --- nursery (javascript.js:108-116) ---
-    'no-proto': 'nursery/noProto',
+    // --- Biome 2.5 stable promotions ---
+    'no-proto': 'suspicious/noProto',
     'no-script-url': {
-        biome: 'nursery/noScriptUrl',
+        biome: 'security/noScriptUrl',
         partial: 'biome checks JSX href only; eslint also catches string literals (biome/eslint-overrides.js:79-80)'
     },
-    'no-multi-str': 'nursery/noMultiStr',
-    'no-useless-return': 'nursery/noUselessReturn',
-    'unicorn/prefer-global-this': 'nursery/useGlobalThis',
+    'no-multi-str': 'style/noMultilineString',
+    'no-useless-return': 'complexity/noUselessReturn',
+    'unicorn/prefer-global-this': 'style/useGlobalThis',
     // --- typescript (biome/rules/typescript.js) ---
     // biome style/useArrayLiterals added in Task C (biome 2.4.13, checked 2026-06-07).
     '@typescript-eslint/no-array-constructor': {
@@ -321,7 +328,7 @@ const BIOME_TABLE = {
     },
     '@typescript-eslint/no-floating-promises': 'nursery/noFloatingPromises',
     '@typescript-eslint/no-misused-promises': 'nursery/noMisusedPromises',
-    '@typescript-eslint/no-unnecessary-condition': 'nursery/noUnnecessaryConditions',
+    '@typescript-eslint/no-unnecessary-condition': 'suspicious/noUnnecessaryConditions',
     '@typescript-eslint/switch-exhaustiveness-check': 'nursery/useExhaustiveSwitchCases',
     // --- react (biome/rules/react.js) ---
     // NOTE: biome/rules/react.js comments cite legacy react/* names; the live preset
@@ -343,7 +350,7 @@ const BIOME_TABLE = {
     '@eslint-react/dom-no-unsafe-target-blank': 'security/noBlankTarget',
     '@eslint-react/dom-no-dangerously-set-innerhtml': 'security/noDangerouslySetInnerHtml',
     '@eslint-react/dom-no-dangerously-set-innerhtml-with-children': 'security/noDangerouslySetInnerHtmlWithChildren',
-    '@eslint-react/no-leaked-conditional-rendering': 'nursery/noLeakedRender',
+    '@eslint-react/no-leaked-conditional-rendering': 'suspicious/noLeakedRender',
     '@eslint-react/no-nested-component-definitions': 'correctness/noNestedComponentDefinitions',
     // Promoted into eslint in Task D: @eslint-react/jsx-no-useless-fragment and dom-no-void-elements-with-children.
     '@eslint-react/jsx-no-useless-fragment': 'complexity/noUselessFragments',
@@ -356,9 +363,9 @@ const BIOME_TABLE = {
     '@next/next/no-img-element': 'performance/noImgElement',
     '@next/next/google-font-preconnect': 'performance/useGoogleFontPreconnect',
     '@next/next/no-unwanted-polyfillio': 'performance/noUnwantedPolyfillio',
-    '@next/next/no-sync-scripts': 'nursery/noSyncScripts',
-    '@next/next/inline-script-id': 'nursery/useInlineScriptId',
-    '@next/next/no-before-interactive-script-outside-document': 'nursery/noBeforeInteractiveScriptOutsideDocument',
+    '@next/next/no-sync-scripts': 'performance/noSyncScripts',
+    '@next/next/inline-script-id': 'correctness/useInlineScriptId',
+    '@next/next/no-before-interactive-script-outside-document': 'correctness/noBeforeInteractiveScriptOutsideDocument',
     '@next/next/no-async-client-component': 'correctness/noNextAsyncClientComponent',
     // --- imports (biome/rules/imports.js) ---
     'import-x/no-default-export': 'style/noDefaultExport',
@@ -529,6 +536,9 @@ const reverseOxlintToEslint = (toolRule) => {
     }
     if (OXLINT_REACT_TO_ESLINT_REACT.has(toolRule)) {
         return OXLINT_REACT_TO_ESLINT_REACT.get(toolRule);
+    }
+    if (OXLINT_UNICORN_TO_ESLINT.has(toolRule)) {
+        return OXLINT_UNICORN_TO_ESLINT.get(toolRule);
     }
     if (toolRule === 'unicorn/prefer-node-protocol') {
         return 'n/prefer-node-protocol';

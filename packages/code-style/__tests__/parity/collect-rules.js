@@ -100,7 +100,6 @@ export const collectEnabledUnion = (presetArrays) => {
 
 /** @returns {Map<string, string>} oxlint ruleName -> severity, base rules + override additions */
 export const collectOxlintRules = () => {
-    // eslint-disable-next-line security/detect-non-literal-fs-filename -- PACKAGE_ROOT is a build-time constant, not user input
     const config = JSON.parse(readFileSync(path.join(PACKAGE_ROOT, 'oxlint', 'config.json'), 'utf8'));
     const rules = new Map();
     for (const [ruleName, value] of Object.entries(config.rules ?? {})) {
@@ -155,7 +154,6 @@ const mergeBiomeRuleBlock = (rules, ruleBlock, overwrite) => {
  * @returns {Map<string, string>} 'category/ruleName' -> severity from the generated biome config
  */
 export const collectBiomeRules = () => {
-    // eslint-disable-next-line security/detect-non-literal-fs-filename -- PACKAGE_ROOT is a build-time constant, not user input
     const config = JSON.parse(readFileSync(path.join(PACKAGE_ROOT, 'biome', 'config.json'), 'utf8'));
     const rules = new Map();
     mergeBiomeRuleBlock(rules, config.linter?.rules, true);

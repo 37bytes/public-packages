@@ -57,7 +57,6 @@ const eslintEnabled = collectEnabledUnion([
 const oxlintRules = collectOxlintRules();
 const biomeExplicitRules = collectBiomeRules();
 const biomeDomainRules = JSON.parse(
-    // eslint-disable-next-line security/detect-non-literal-fs-filename -- PACKAGE_ROOT is a build-time constant derived from import.meta.dirname, not user input
     readFileSync(path.join(PACKAGE_ROOT, '__tests__', 'parity', 'biome-domain-rules.json'), 'utf8')
 ).rules;
 const biomeEnabled = new Map(biomeExplicitRules);

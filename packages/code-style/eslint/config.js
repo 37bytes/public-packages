@@ -37,6 +37,7 @@ import importPlugin from 'eslint-plugin-import-x';
 import nodePlugin from 'eslint-plugin-n';
 import perfectionistPlugin from 'eslint-plugin-perfectionist';
 import preferArrowFunctions from 'eslint-plugin-prefer-arrow-functions';
+import promisePlugin from 'eslint-plugin-promise';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import regexpPlugin from 'eslint-plugin-regexp';
 import securityPlugin from 'eslint-plugin-security';
@@ -45,8 +46,6 @@ import storybookPlugin from 'eslint-plugin-storybook';
 import testingLibraryPlugin from 'eslint-plugin-testing-library';
 import unicornPlugin from 'eslint-plugin-unicorn';
 import globals from 'globals';
-
-import promisePlugin from './plugins/vendored-promise/index.js';
 
 // ── Test file patterns ───────────────────────────────────────────────────────
 

@@ -3,6 +3,14 @@ packages:
     - 'core/*'
     - 'legacy/*'
 
+packageExtensions:
+    dependency-cruiser@17.4.3:
+        peerDependencies:
+            typescript: '>=2.0.0 <7.0.0'
+        peerDependenciesMeta:
+            typescript:
+                optional: true
+
 catalog:
     eslint: 9.39.4
     tsdown: 0.20.3

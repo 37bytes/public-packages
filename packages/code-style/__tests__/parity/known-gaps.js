@@ -81,8 +81,8 @@ export const knownGaps = {
         tools: ['biome'],
         reason: 'unicorn/prefer-export-from has no biome equivalent (checked 2026-06-07, biome 2.4.13). Oxlint covers it natively via verbatim unicorn/ namespace.'
     },
-    'unicorn/prevent-abbreviations': {
-        reason: 'unicorn/prevent-abbreviations has no biome or oxlint equivalent (checked 2026-06-07). Custom dictionary-based identifier rename rule.'
+    'unicorn/name-replacements': {
+        reason: 'unicorn/name-replacements has no biome or oxlint equivalent for custom replacement dictionaries (checked 2026-07-16, biome 2.5.4 / oxlint 1.73.0).'
     },
     'unicorn/prefer-top-level-await': {
         reason: 'unicorn/prefer-top-level-await has no biome or oxlint equivalent (checked 2026-06-07, biome 2.4.13 / oxlint 1.61.0).'
@@ -152,7 +152,7 @@ export const knownGaps = {
     // --- @eslint-react rules with no oxlint equivalent ---
     '@eslint-react/no-leaked-conditional-rendering': {
         tools: ['oxlint'],
-        reason: 'oxlint has no react equivalent for no-leaked-conditional-rendering (checked 2026-06-07, oxlint 1.61.0). Biome nursery/noLeakedRender covers it. Oxlint gap only.'
+        reason: 'oxlint has no react equivalent for no-leaked-conditional-rendering (checked 2026-07-16, oxlint 1.73.0). Biome suspicious/noLeakedRender covers it. Oxlint gap only.'
     },
     '@eslint-react/no-nested-component-definitions': {
         tools: ['oxlint'],
@@ -186,7 +186,7 @@ export const knownGaps = {
         tools: ['oxlint'],
         reason: 'ESLint @next/next/no-html-link-for-pages requires a pages directory to determine which links are for internal pages; in the parity fixture tree no pages dir exists so ESLint does not fire. Oxlint fires unconditionally. Structural fixture limitation. Checked 2026-06-07, oxlint 1.61.0.'
     }
-    // @next/next/no-before-interactive-script-outside-document: gap removed 2026-06-07. biome 2.4.16
-    // gained nursery/noBeforeInteractiveScriptOutsideDocument; promoted into biome/rules/nextjs.js and
-    // mapped in rule-equivalence.js, so all three tools now enforce it (no remaining gap).
+    // @next/next/no-before-interactive-script-outside-document: gap removed 2026-07-16. Biome 2.5.4
+    // provides correctness/noBeforeInteractiveScriptOutsideDocument; rule-equivalence.js maps it,
+    // so all three tools now enforce it.
 };
