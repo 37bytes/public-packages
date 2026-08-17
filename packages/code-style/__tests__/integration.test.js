@@ -10,7 +10,7 @@ import { describe, test } from 'node:test';
 describe('@37bytes/configs integration', () => {
     describe('ESLint exports', () => {
         test('should export rules', async () => {
-            const { rules } = await import('../eslint/index.js');
+            const { rules } = await import('@37bytes/code-style/eslint');
             assert.ok(rules.javascript, 'javascript rules should be exported');
             assert.ok(rules.typescript, 'typescript rules should be exported');
             assert.ok(rules.browser, 'browser rules should be exported');
@@ -23,7 +23,7 @@ describe('@37bytes/configs integration', () => {
 
         test('should export plugins', async () => {
             const { plugins, RULE_NO_STORAGE, RULE_NO_ARROW_PROPS, RULE_BOOLEAN_NAMING } =
-                await import('../eslint/index.js');
+                await import('@37bytes/code-style/eslint');
             assert.ok(plugins, 'plugins should be exported');
             assert.ok(plugins.rules, 'plugins.rules should exist');
             assert.ok(plugins.rules[RULE_NO_STORAGE], 'no-browser-storage rule should exist');
@@ -32,18 +32,30 @@ describe('@37bytes/configs integration', () => {
         });
 
         test('should export configurations', async () => {
-            const { spa, typescriptConfig, reactConfig, testingConfig, tool } = await import('../eslint/index.js');
+            const {
+                spa,
+                typescriptConfig,
+                reactConfig,
+                testingConfig,
+                nodejsRuntime,
+                nodejsTool,
+                nodejsConfig,
+                nextjsServerConfig
+            } = await import('@37bytes/code-style/eslint');
             assert.ok(Array.isArray(spa), 'spa should be an array');
             assert.ok(typescriptConfig, 'typescriptConfig should be exported');
             assert.ok(reactConfig, 'reactConfig should be exported');
             assert.ok(testingConfig, 'testingConfig should be exported');
-            assert.ok(Array.isArray(tool), 'tool should be an array');
+            assert.ok(Array.isArray(nodejsRuntime), 'nodejsRuntime should be an array');
+            assert.ok(Array.isArray(nodejsTool), 'nodejsTool should be an array');
+            assert.ok(nodejsConfig && nodejsConfig.rules, 'nodejsConfig should be a config object with rules');
+            assert.ok(nextjsServerConfig && nextjsServerConfig.files, 'nextjsServerConfig should have files glob');
         });
     });
 
     describe('Prettier exports', () => {
         test('should export config', async () => {
-            const { config } = await import('../prettier/index.js');
+            const { config } = await import('@37bytes/code-style/prettier');
             assert.ok(config, 'config should be exported');
             assert.strictEqual(config.printWidth, 120);
             assert.strictEqual(config.tabWidth, 4);
@@ -52,7 +64,7 @@ describe('@37bytes/configs integration', () => {
         });
 
         test('should export default config', async () => {
-            const prettierConfig = await import('../prettier/index.js');
+            const prettierConfig = await import('@37bytes/code-style/prettier');
             assert.ok(prettierConfig.default, 'default export should exist');
             assert.strictEqual(prettierConfig.default.printWidth, 120);
         });
@@ -60,21 +72,21 @@ describe('@37bytes/configs integration', () => {
 
     describe('Individual rule exports', () => {
         test('javascript rules should be valid', async () => {
-            const { javascript } = await import('../eslint/rules/javascript.js');
+            const { javascript } = await import('@37bytes/code-style/eslint/rules/javascript');
             assert.ok(javascript.curly, 'curly rule should exist');
             assert.ok(javascript['no-console'], 'no-console rule should exist');
             assert.ok(javascript['no-var'], 'no-var rule should exist');
         });
 
         test('typescript rules should disable conflicting JS rules', async () => {
-            const { typescript } = await import('../eslint/rules/typescript.js');
+            const { typescript } = await import('@37bytes/code-style/eslint/rules/typescript');
             assert.strictEqual(typescript['no-unused-vars'], 'off');
             assert.strictEqual(typescript['no-undef'], 'off');
             assert.ok(typescript['@typescript-eslint/no-unused-vars']);
         });
 
         test('react rules should include hooks rules', async () => {
-            const { react } = await import('../eslint/rules/react.js');
+            const { react } = await import('@37bytes/code-style/eslint/rules/react');
             assert.ok(react['react-hooks/rules-of-hooks']);
             assert.ok(react['react-hooks/exhaustive-deps']);
         });
@@ -82,19 +94,19 @@ describe('@37bytes/configs integration', () => {
 
     describe('Plugin structure', () => {
         test('no-storage plugin should have correct structure', async () => {
-            const plugin = await import('../eslint/plugins/no-storage/index.js');
+            const plugin = await import('#plugins/no-storage');
             assert.ok(plugin.default.rules['no-browser-storage']);
             assert.strictEqual(plugin.default.rules['no-browser-storage'].meta.type, 'problem');
         });
 
         test('no-arrow-props plugin should have correct structure', async () => {
-            const plugin = await import('../eslint/plugins/no-arrow-props/index.js');
+            const plugin = await import('#plugins/no-arrow-props');
             assert.ok(plugin.default.rules['no-arrow-props']);
             assert.strictEqual(plugin.default.rules['no-arrow-props'].meta.type, 'suggestion');
         });
 
         test('boolean-naming plugin should have correct structure', async () => {
-            const plugin = await import('../eslint/plugins/boolean-naming/index.js');
+            const plugin = await import('#plugins/boolean-naming');
             assert.ok(plugin.default.rules['boolean-naming']);
             assert.strictEqual(plugin.default.rules['boolean-naming'].meta.docs.requiresTypeChecking, true);
         });

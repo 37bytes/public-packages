@@ -3,13 +3,13 @@
  * Used by build.js to assemble config.json.
  */
 
-export { imports } from './imports.js';
+export { imports } from '#biome/rules/imports';
 // Base rules (merged into main config by category)
-export { javascript, javascriptNursery } from './javascript.js';
-export { nextjs } from './nextjs.js';
-export { quality } from './quality.js';
-export { react, reactNursery } from './react.js';
+export { javascript } from '#biome/rules/javascript';
+export { nextjs } from '#biome/rules/nextjs';
+export { quality } from '#biome/rules/quality';
+export { react } from '#biome/rules/react';
 // Override rules (applied to specific file patterns)
-export { testing } from './testing.js';
+export { testing } from '#biome/rules/testing';
 
-export { typescript, typescriptNursery, typescriptOverrides } from './typescript.js';
+export { typescript, typescriptNursery, typescriptOverrides } from '#biome/rules/typescript';

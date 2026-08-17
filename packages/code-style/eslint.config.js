@@ -1,10 +1,11 @@
 /**
  * @fileoverview ESLint config for this package (dogfooding)
  *
- * Uses our own nodejs consumer config + package-specific overrides.
+ * Uses our own nodejsRuntime baseline + nodejsConfig override for CLI
+ * scripts + package-specific overrides.
  */
 
-import { nodejs, testingConfig } from '#config';
+import { nodejsConfig, nodejsRuntime, testingConfig } from '#config';
 import { perfectionist as perfectionistRules } from '#rules/perfectionist';
 
 import perfectionistPlugin from 'eslint-plugin-perfectionist';
@@ -13,7 +14,7 @@ export default [
     {
         ignores: ['node_modules/**', 'coverage/**', '__tests__/fixtures/**']
     },
-    ...nodejs,
+    ...nodejsRuntime,
     // Perfectionist (opt-in for this package)
     {
         plugins: {
@@ -40,6 +41,29 @@ export default [
     // --- Overrides for config package ---
     {
         rules: {
+            'no-restricted-imports': [
+                'error',
+                {
+                    patterns: [
+                        {
+                            regex: '^\\.{1,2}(?:/|$)',
+                            message: 'Use package.json imports aliases or the @37bytes/code-style self-reference.'
+                        }
+                    ]
+                }
+            ],
+            'no-restricted-syntax': [
+                'error',
+                {
+                    selector: 'ImportExpression[source.value=/^\\.{1,2}(?:\\/|$)/]',
+                    message: 'Use package.json imports aliases or the @37bytes/code-style self-reference.'
+                },
+                {
+                    selector:
+                        "ImportExpression[source.type='TemplateLiteral'][source.quasis.0.value.raw=/^\\.{1,2}(?:\\/|$)/]",
+                    message: 'Use package.json imports aliases or the @37bytes/code-style self-reference.'
+                }
+            ],
             'import-x/no-default-export': 'off',
             'import-x/no-anonymous-default-export': 'off'
         }
@@ -49,17 +73,15 @@ export default [
         files: ['**/*.cjs'],
         languageOptions: {
             sourceType: 'commonjs'
+        },
+        rules: {
+            'import-x/no-commonjs': 'off'
         }
     },
-    // CLI scripts — console, process.exit, process globals are legitimate
+    // CLI scripts — bootstrap-like phase (console, process.exit, dynamic fs paths)
     {
         files: ['.gitHooks/**', 'oxlint/build.js', 'biome/build.js'],
-        rules: {
-            'no-console': 'off',
-            'n/no-process-exit': 'off',
-            'n/prefer-global/process': 'off',
-            'security/detect-non-literal-fs-filename': 'off'
-        }
+        ...nodejsConfig
     },
     // Rule/config files — rule names like 'no-hardcoded-passwords' trigger false positives
     {
@@ -85,8 +107,9 @@ export default [
             'no-unused-vars': 'off',
             'no-await-in-loop': 'off',
             'n/no-unsupported-features/node-builtins': 'off',
-            'n/prefer-global/process': 'off',
-            'n/prefer-global/url': 'off'
+            // parity-static.check.js uses createRequire(import.meta.url) to load eslint-config-biome
+            // (CJS-only package with no ESM export). createRequire is the correct ESM pattern here.
+            'import-x/no-commonjs': 'off'
         }
     }
 ];

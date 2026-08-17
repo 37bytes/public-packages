@@ -1,0 +1,8 @@
+{
+    "name": "fsd-cruise-fixture",
+    "version": "0.0.0",
+    "private": true,
+    "devDependencies": {
+        "@37bytes/code-style": "workspace:*"
+    }
+}

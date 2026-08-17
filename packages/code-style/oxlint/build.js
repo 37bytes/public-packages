@@ -3,17 +3,20 @@
  *
  * Assembles oxlint/config.json and oxlint/perfectionist.json from
  * modular rule files in oxlint/rules/ and oxlint/infrastructure.js.
- * Validates all rule names against `oxlint --rules` output.
+ * Validates all rule names against oxlint's configuration_schema.json.
  *
- * Usage: node oxlint/build.js
- * Then:  prettier --write oxlint/*.json .oxlintrc.json
+ * Note: oxlint 1.68.0 restructured the package to use native bindings and
+ * the `oxlint --rules` CLI flag no longer outputs a parseable table.
+ * Rule validation now reads from `configuration_schema.json` (bundled with
+ * every oxlint release and containing all ~800+ valid rule names).
+ * See: bump-shield — update this comment if oxlint provides a new
+ * machine-readable rule list format in a future version.
+ *
+ * Usage: pnpm build:oxlint
+ *   (runs `node oxlint/build.js && prettier --write oxlint/*.json .oxlintrc.json`)
  */
 
-import { execSync } from 'node:child_process';
-import { copyFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
-
-import { categories, env, jsPlugins, overrideFiles, plugins, schema } from './infrastructure.js';
+import { categories, env, jsPlugins, overrideFiles, plugins, schema } from '#oxlint/infrastructure';
 import {
     browser,
     custom,
@@ -31,7 +34,10 @@ import {
     testing,
     typescriptDisables,
     typescriptRules
-} from './rules/index.js';
+} from '#oxlint/rules';
+
+import { copyFileSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 const oxlintDir = import.meta.dirname;
 const rootDir = join(oxlintDir, '..');
@@ -39,36 +45,26 @@ const rootDir = join(oxlintDir, '..');
 // ── Schema Validation ────────────────────────────────────────────────
 
 /**
- * Extract valid rule names from `oxlint --rules` output.
+ * Extract valid rule names from oxlint's configuration_schema.json.
  * Returns Set of rule names in OxLint config format:
  *   - ESLint core: 'eqeqeq', 'no-console' (no prefix)
  *   - Plugins: 'typescript/no-explicit-any', 'react/jsx-key'
+ *
+ * The schema's DummyRuleMap.properties lists all valid rule names.
+ * This replaces the former `oxlint --rules` table parse (which no longer
+ * produces output in oxlint >= 1.68.0 due to the native-bindings migration).
  */
 const extractValidRules = () => {
-    const output = execSync('npx oxlint --rules', { encoding: 'utf8' });
-    const validRules = new Set();
-
-    for (const line of output.split('\n')) {
-        if (!line.startsWith('|')) {
-            continue;
-        }
-
-        const match = line.match(/^\|\s+(\S+)\s+\|\s+(\S+)/);
-        if (!match) {
-            continue;
-        }
-
-        const [, ruleName, source] = match;
-        if (ruleName === 'Rule' || ruleName === '---') {
-            continue;
-        }
-
-        // ESLint core rules have no prefix in OxLint config
-        // Plugin rules use source as prefix: typescript/rule-name
-        validRules.add(source === 'eslint' ? ruleName : `${source}/${ruleName}`);
+    const schemaPath = join(import.meta.dirname, '../node_modules/oxlint/configuration_schema.json');
+    const schema = JSON.parse(readFileSync(schemaPath, 'utf8'));
+    const definitions = schema['$defs'] ?? schema.definitions ?? {};
+    const ruleMap = definitions['DummyRuleMap'];
+    if (!ruleMap?.properties) {
+        console.warn('Warning: could not read rule list from configuration_schema.json, skipping validation');
+        return new Set();
     }
 
-    return validRules;
+    return new Set(Object.keys(ruleMap.properties));
 };
 
 /**
@@ -134,6 +130,15 @@ const config = {
         {
             files: overrideFiles.storybook,
             rules: storybook
+        },
+        {
+            // Next.js App Router conventions require default exports.
+            // Mirror ESLint's nextjsOverrides (eslint/config.js:265-283).
+            files: overrideFiles.nextjsAppRouter,
+            rules: {
+                'import/no-default-export': 'off',
+                'import/no-anonymous-default-export': 'off'
+            }
         }
     ]
 };
@@ -172,10 +177,10 @@ copyFileSync(configPath, join(rootDir, '.oxlintrc.json'));
 
 const configRuleCount = Object.keys(config.rules).length;
 const overrideRuleCounts = config.overrides.map((override) => Object.keys(override.rules).length);
-const perfRuleCount = Object.keys(perfectionistConfig.rules).length;
+const performanceRuleCount = Object.keys(perfectionistConfig.rules).length;
 
 console.log(
     `config.json: ${configRuleCount} base rules, ` +
         `${config.overrides.length} overrides (${overrideRuleCounts.join(', ')} rules) | ` +
-        `perfectionist.json: ${perfRuleCount} rules | .oxlintrc.json synced`
+        `perfectionist.json: ${performanceRuleCount} rules | .oxlintrc.json synced`
 );

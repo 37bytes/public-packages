@@ -7,13 +7,15 @@
  * Required peer dependencies (install in your project):
  * - @vitest/eslint-plugin
  * - eslint-plugin-testing-library (for React component tests)
- * - eslint-plugin-jest-dom (for DOM matchers)
  *
  * File pattern: __tests__/*.test.[js,ts,jsx,tsx]
  *
  * Severity levels:
  * - warn: Desirable, should be followed in most cases
  * - error: Critical, must be followed (enforced strictly)
+ *
+ * NOTE: eslint-plugin-jest-dom removed during ESLint 10 migration — upstream
+ * still caps peer at eslint@^9. See docs/tech-debt.md for restoration plan.
  */
 
 /**
@@ -35,6 +37,9 @@ export const vitestRules = {
     'vitest/prefer-equality-matcher': 'warn', // Correct equality matcher
     'vitest/consistent-test-it': ['warn', { fn: 'test' }], // Use test() not it()
 
+    // === Hooks ===
+    'vitest/no-duplicate-hooks': 'warn', // biome: suspicious/noDuplicateTestHooks (inspired)
+
     // === Off ===
     'vitest/prefer-expect-assertions': 'off', // Too strict
     'vitest/max-expects': 'off' // Sometimes need multiple expects
@@ -48,7 +53,9 @@ export const testingLibraryRules = {
     // === Critical ===
     'testing-library/await-async-queries': 'error', // Must await findBy*
     'testing-library/await-async-utils': 'error', // Must await waitFor
-    'testing-library/no-wait-for-empty-callback': 'error', // waitFor must have assertions
+    // no-wait-for-empty-callback: удалено из eslint-plugin-testing-library@7 (без
+    // переименования и замены). Ссылка на него роняла линт консюмера с
+    // "Could not find rule". Не возвращать, пока правило не воскреснет в плагине.
 
     // === Best Practices ===
     'testing-library/prefer-screen-queries': 'warn', // screen.getBy* instead of destructure
@@ -60,23 +67,6 @@ export const testingLibraryRules = {
 
     // === Off ===
     'testing-library/render-result-naming-convention': 'off' // Flexible naming
-};
-
-/**
- * jest-dom rules for semantic matchers (with auto-fix!)
- * @type {import('eslint').Linter.RulesRecord}
- */
-export const jestDomRules = {
-    'jest-dom/prefer-checked': 'warn', // .toBeChecked()
-    'jest-dom/prefer-enabled-disabled': 'warn', // .toBeEnabled() / .toBeDisabled()
-    'jest-dom/prefer-focus': 'warn', // .toHaveFocus()
-    'jest-dom/prefer-in-document': 'warn', // .toBeInTheDocument()
-    'jest-dom/prefer-required': 'warn', // .toBeRequired()
-    'jest-dom/prefer-to-have-attribute': 'warn', // .toHaveAttribute()
-    'jest-dom/prefer-to-have-class': 'warn', // .toHaveClass()
-    'jest-dom/prefer-to-have-style': 'warn', // .toHaveStyle()
-    'jest-dom/prefer-to-have-text-content': 'warn', // .toHaveTextContent()
-    'jest-dom/prefer-to-have-value': 'warn' // .toHaveValue()
 };
 
 /**
@@ -119,12 +109,11 @@ export const testing = {
 
 /**
  * Combined testing rules for React components
- * Use with Vitest + Testing Library + jest-dom
+ * Use with Vitest + Testing Library
  * @type {import('eslint').Linter.RulesRecord}
  */
 export const testingReact = {
     ...vitestRules,
     ...testingLibraryRules,
-    ...jestDomRules,
     ...testOverrides
 };

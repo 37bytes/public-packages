@@ -1,5 +1,10 @@
 .idea
+.DS_Store
 node_modules
 packages/*/build
 legacy/*/build
 pnpm-debug.log*
+docs/superpowers/handoffs/
+docs/superpowers/plans/
+docs/superpowers/research/*.json
+docs/superpowers/research/*.md

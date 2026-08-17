@@ -2,12 +2,12 @@
  * @fileoverview Tests for enum-pattern rule
  */
 
+import { rule } from '#eslint/plugins/enum-pattern/rule';
+
 import { test } from 'node:test';
 
 import tsParser from '@typescript-eslint/parser';
 import { RuleTester } from 'eslint';
-
-import { rule } from '../rule.js';
 
 test('enum-pattern rule', async (ctx) => {
     const tester = new RuleTester({

@@ -2,11 +2,11 @@
  * @fileoverview Tests for require-server-only rule
  */
 
+import { rule } from '#eslint/plugins/require-server-only/rule';
+
 import { test } from 'node:test';
 
 import { RuleTester } from 'eslint';
-
-import { rule } from '../rule.js';
 
 const tester = new RuleTester({
     languageOptions: {

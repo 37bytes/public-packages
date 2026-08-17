@@ -1,0 +1,6 @@
+# Mirror eslint.config.js ignores: fixtures hold intentional, unformatted
+# content (real-world samples and deliberately-violating parity inputs) and
+# must not be reformatted by the package's own prettier config.
+node_modules
+coverage
+__tests__/fixtures

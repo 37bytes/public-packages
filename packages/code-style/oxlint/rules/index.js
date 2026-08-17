@@ -4,21 +4,21 @@
  * Re-exports all rule sets for the build script and programmatic use.
  */
 
-export { browser } from './browser.js';
-export { custom } from './custom.js';
-export { imports } from './imports.js';
+export { browser } from '#oxlint/rules/browser';
+export { custom } from '#oxlint/rules/custom';
+export { imports } from '#oxlint/rules/imports';
 // Base rules (merged into top-level 'rules')
-export { javascript } from './javascript.js';
-export { nextjs } from './nextjs.js';
-export { node } from './node.js';
+export { javascript } from '#oxlint/rules/javascript';
+export { nextjs } from '#oxlint/rules/nextjs';
+export { node } from '#oxlint/rules/node';
 // Perfectionist (separate config)
-export { perfectionist, perfectionistImportOverrides, perfectionistJsPlugin } from './perfectionist.js';
-export { quality } from './quality.js';
-export { react } from './react.js';
+export { perfectionist, perfectionistImportOverrides, perfectionistJsPlugin } from '#oxlint/rules/perfectionist';
+export { quality } from '#oxlint/rules/quality';
+export { react } from '#oxlint/rules/react';
 
-export { regexp } from './regexp.js';
-export { storybook } from './storybook.js';
-export { testing } from './testing.js';
+export { regexp } from '#oxlint/rules/regexp';
+export { storybook } from '#oxlint/rules/storybook';
+export { testing } from '#oxlint/rules/testing';
 
 // Override rules
-export { typescriptDisables, typescriptRules } from './typescript.js';
+export { typescriptDisables, typescriptRules } from '#oxlint/rules/typescript';

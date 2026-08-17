@@ -5,13 +5,13 @@
  * using the full spa config.
  */
 
+import { spa } from '#config';
+
 import assert from 'node:assert';
 import path from 'node:path';
 import { before, describe, test } from 'node:test';
 
 import { ESLint } from 'eslint';
-
-import { spa } from '../eslint/config.js';
 
 const __dirname = import.meta.dirname;
 const FIXTURE_DIR = path.join(__dirname, 'fixtures');
@@ -174,22 +174,15 @@ describe('fixtures: fixture-invalid.tsx', () => {
         assertRule(messages, '@typescript-eslint/no-unused-vars');
     });
 
-    // ─── react.js rules ────────────────────────────────────────────────────
+    // ─── react.js rules (@eslint-react) ────────────────────────────────────
+    // Post-migration to @eslint-react/eslint-plugin:
+    // - react/function-component-definition → covered by prefer-arrow-functions (dropped from react set)
+    // - react/boolean-prop-naming → covered by @37bytes/boolean-naming (local, type-aware)
+    // - react/self-closing-comp → covered by Prettier (dropped)
+    // - react/button-has-type → @eslint-react/dom-no-missing-button-type
 
-    test('should report react/function-component-definition', () => {
-        assertRule(messages, 'react/function-component-definition');
-    });
-
-    test('should report react/boolean-prop-naming', () => {
-        assertRule(messages, 'react/boolean-prop-naming');
-    });
-
-    test('should report react/self-closing-comp', () => {
-        assertRule(messages, 'react/self-closing-comp');
-    });
-
-    test('should report react/button-has-type', () => {
-        assertRule(messages, 'react/button-has-type');
+    test('should report @eslint-react/dom-no-missing-button-type', () => {
+        assertRule(messages, '@eslint-react/dom-no-missing-button-type');
     });
 
     // ─── imports.js rules ──────────────────────────────────────────────────

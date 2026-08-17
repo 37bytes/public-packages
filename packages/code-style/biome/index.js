@@ -44,8 +44,7 @@
  * Manual overrides may be needed for non-recommended rules.
  */
 
-import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
-const require = createRequire(import.meta.url);
-
-export const config = require('./config.json');
+export const config = JSON.parse(readFileSync(join(import.meta.dirname, './config.json'), 'utf8'));

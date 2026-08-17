@@ -3,7 +3,7 @@
  * @author 37bytes
  */
 
-import { rule } from './rule.js';
+import { rule } from '#eslint/plugins/require-client-only/rule';
 
 export const RULE_NAME = 'require-client-only';
 

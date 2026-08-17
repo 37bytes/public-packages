@@ -1,10 +1,12 @@
 /**
  * @fileoverview E2E тесты для FSD-архитектуры
  *
- * Проверяют работу fsdConfig() целиком — включая import-x/no-restricted-paths,
+ * Проверяют работу createFSDConfig() целиком — включая import-x/no-restricted-paths,
  * import-x/no-internal-modules и кастомные @37bytes правила — с реальным
  * TypeScript резолвером и fixture FSD-проектом.
  */
+
+import { createFSDConfig } from '#fsd';
 
 import assert from 'node:assert';
 import path from 'node:path';
@@ -13,8 +15,6 @@ import { fileURLToPath } from 'node:url';
 
 import tsparser from '@typescript-eslint/parser';
 import { ESLint } from 'eslint';
-
-import { fsdConfig } from '../eslint/fsd.js';
 
 const __dirname = import.meta.dirname;
 const FIXTURE_ROOT = path.join(__dirname, 'fixtures', 'fsd-project');
@@ -30,12 +30,12 @@ after(() => process.chdir(originalCwd));
  *
  * @param {string} code — исходный код
  * @param {string} relativePath — путь относительно src/ (например 'entities/user/model/types.ts')
- * @param {object} [fsdOptions] — опции для fsdConfig()
+ * @param {object} [fsdOptions] — опции для createFSDConfig()
  * @returns {Promise<import('eslint').ESLint.LintMessage[]>}
  */
 const lint = async (code, relativePath, fsdOptions) => {
     const filePath = path.join(SRC, relativePath);
-    const fsd = fsdConfig(fsdOptions);
+    const fsd = createFSDConfig(fsdOptions);
 
     const eslint = new ESLint({
         overrideConfigFile: true,
@@ -47,6 +47,8 @@ const lint = async (code, relativePath, fsdOptions) => {
                     ecmaVersion: 2022,
                     sourceType: 'module',
                     parserOptions: {
+                        // Programmatic lintText calls reuse file paths with different source text.
+                        disallowAutomaticSingleRunInference: true,
                         project: path.join(FIXTURE_ROOT, 'tsconfig.json'),
                         tsconfigRootDir: FIXTURE_ROOT
                     }
@@ -366,7 +368,7 @@ describe('FSD e2e: порядок импортов (import-x/order)', () => {
 
 // ─── Группа 10: allowPatterns ────────────────────────────────────────────────
 
-describe('FSD e2e: allowPatterns опция fsdConfig()', () => {
+describe('FSD e2e: allowPatterns опция createFSDConfig()', () => {
     test('без allowPatterns глубокий импорт @/shared/config/theme — ERROR', async () => {
         const messages = await lint("import { theme } from '@/shared/config/theme';", 'features/auth/model/store.ts');
         assertHasError(messages, 'import-x/no-internal-modules');
@@ -377,5 +379,73 @@ describe('FSD e2e: allowPatterns опция fsdConfig()', () => {
             allowPatterns: ['@/shared/config/*']
         });
         assertNoError(messages, 'import-x/no-internal-modules');
+    });
+});
+
+// ─── Группа 11: флаг dependencyCruiser (частичный дедуп) ─────────────────────
+
+describe('FSD e2e: флаг dependencyCruiser убирает только полные граф-дубли', () => {
+    // catches: флаг не читается / инверсия условия — layer-правило осталось включённым
+    test('с флагом no-restricted-paths молчит на нарушении слоёв', async () => {
+        const messages = await lint("import { User } from '@/entities/user';", 'shared/lib/classNames/index.ts', {
+            dependencyCruiser: true
+        });
+        assertNoError(messages, 'import-x/no-restricted-paths');
+    });
+
+    // catches: флаг не гасит self-import
+    test('с флагом no-slice-self-import молчит на само-импорте', async () => {
+        const messages = await lint("import { User } from '@/entities/user';", 'entities/user/model/types.ts', {
+            dependencyCruiser: true
+        });
+        assertNoError(messages, '@37bytes/no-slice-self-import');
+    });
+
+    // catches: no-internal-modules ошибочно снесли флагом. dep-cruiser покрывает только его
+    // FSD-половину (public API слайсов), поэтому правило обязано остаться и с флагом.
+    test('с флагом no-internal-modules всё ещё ловит глубокий импорт в слайс', async () => {
+        const messages = await lint(
+            "import { UserType } from '@/entities/user/model/types';",
+            'features/auth/model/store.ts',
+            { dependencyCruiser: true }
+        );
+        assertHasError(messages, 'import-x/no-internal-modules');
+    });
+
+    // catches: главный смысл варианта X — снос no-internal-modules унёс бы запрет deep-import
+    // в резолвящиеся внешние пакеты, который dep-cruiser не покрывает НИКАК. prettier/doc —
+    // стабильный публичный subpath; если dep-bump сломает его резолюцию, заменить на другой
+    // резолвящийся deep external (см. probe в истории ветки).
+    test('с флагом no-internal-modules всё ещё ловит deep-import во внешний пакет', async () => {
+        const messages = await lint("import { doc } from 'prettier/doc';", 'features/auth/model/store.ts', {
+            dependencyCruiser: true
+        });
+        assertHasError(messages, 'import-x/no-internal-modules');
+    });
+
+    // catches: over-strip — import-x/order снесли вместе с граф-дублями
+    test('с флагом import-x/order всё ещё ловит неправильный порядок', async () => {
+        const messages = await lint(
+            "import { cn } from '@/shared/lib/classNames';\nimport { User } from '@/entities/user';",
+            'pages/home/ui/HomePage.tsx',
+            { dependencyCruiser: true }
+        );
+        assertHasError(messages, 'import-x/order');
+    });
+
+    // catches: over-strip — блок server.ts (require-server-only) снесли
+    test('с флагом require-server-only всё ещё ловит server.ts без импорта', async () => {
+        const messages = await lint("import { store } from './model/store';", 'features/auth/server.ts', {
+            dependencyCruiser: true
+        });
+        assertHasError(messages, '@37bytes/require-server-only');
+    });
+
+    // catches: over-strip — no-legacy-folders снесли (отдельный мутант от order)
+    test('с флагом no-legacy-folders всё ещё ловит папку-свалку', async () => {
+        const messages = await lint('export const FOO = 1;', 'entities/user/constants/foo.ts', {
+            dependencyCruiser: true
+        });
+        assertHasError(messages, '@37bytes/no-legacy-folders');
     });
 });

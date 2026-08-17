@@ -3,7 +3,7 @@
  * @author 37bytes
  */
 
-import { rule } from './rule.js';
+import { rule } from '#eslint/plugins/enum-pattern/rule';
 
 export const RULE_NAME = 'enum-pattern';
 

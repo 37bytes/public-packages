@@ -5,10 +5,10 @@
  * Mirrors the pattern from oxlint/infrastructure.js.
  */
 
-import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
-const require = createRequire(import.meta.url);
-const package_ = require('../package.json');
+const package_ = JSON.parse(readFileSync(join(import.meta.dirname, '../package.json'), 'utf8'));
 
 // Biome version from peerDependencies (e.g. ">=2.4.4" → "2.4.4")
 export const biomeVersion = package_.peerDependencies['@biomejs/biome'].replaceAll(/[^0-9.]/g, '');
@@ -51,5 +51,19 @@ export const jsFormatter = {
  */
 export const overrideFiles = {
     typescript: ['**/*.ts', '**/*.tsx'],
-    testing: ['**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', '**/*.spec.tsx', '**/test/**', '**/__tests__/**']
+    testing: ['**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', '**/*.spec.tsx', '**/test/**', '**/__tests__/**'],
+    // Next.js App Router conventions require default exports — mirror ESLint's nextjsOverrides
+    nextjsAppRouter: [
+        '**/app/**/page.tsx',
+        '**/app/**/layout.tsx',
+        '**/app/**/loading.tsx',
+        '**/app/**/error.tsx',
+        '**/app/**/not-found.tsx',
+        '**/app/**/template.tsx',
+        '**/app/**/default.tsx',
+        '**/app/**/route.ts',
+        'middleware.ts',
+        'instrumentation.ts',
+        'next.config.*'
+    ]
 };

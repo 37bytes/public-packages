@@ -25,10 +25,12 @@ export {
     library,
     nextjs,
     nextjsConfig,
+    nextjsServerConfig,
     nodeCjsConfig,
     nodeConfig,
-    nodeEnvOverride,
-    nodejs,
+    nodejsConfig,
+    nodejsRuntime,
+    nodejsTool,
     // Perfectionist
     perfectionist,
     perfectionistBaseConfig,
@@ -39,13 +41,19 @@ export {
     // Main configs
     spa,
     storybookConfig,
+    storybookMainConfig,
     // Opt-in
     testingConfig,
     testingReactConfig,
-    tool,
     // Layers
     typescriptConfig
 } from '#config';
+// Re-export browser features compatibility config
+export { browserFeaturesConfig } from '#eslint/browser-features';
+// Re-export FSD config
+export { createFSDConfig } from '#eslint/fsd';
+// Re-export restricted imports config
+export { createRestrictedImportsConfig } from '#eslint/restricted-imports';
 // Re-export plugins
 export {
     plugins,
@@ -73,26 +81,20 @@ export { imports } from '#rules/imports';
 export { javascript } from '#rules/javascript';
 export { nextjs as nextjsRules } from '#rules/nextjs';
 export { node, nodeCjs, nodeStrict } from '#rules/node';
-export { perfectionistReact, perfectionist as perfectionistRules } from '#rules/perfectionist';
+export { perfectionistReact, perfectionist as perfectionistRules, withServerBoundaryFirst } from '#rules/perfectionist';
 export { quality } from '#rules/quality';
+
 export { react } from '#rules/react';
+
 export { reactCompiler } from '#rules/react-compiler';
+
 export { regexp } from '#rules/regexp';
 
 export { storybook } from '#rules/storybook';
 
-export { jestDomRules, testing, testingLibraryRules, testingReact, testOverrides, vitestRules } from '#rules/testing';
+export { testing, testingLibraryRules, testingReact, testOverrides, vitestRules } from '#rules/testing';
 
 export { typescript } from '#rules/typescript';
-
-// Re-export browser features compatibility config
-export { browserFeaturesConfig } from './browser-features.js';
-
-// Re-export FSD config
-export { fsdConfig } from './fsd.js';
-
-// Re-export restricted imports config
-export { restrictedImportsConfig } from './restricted-imports.js';
 
 export const rules = {
     javascript,

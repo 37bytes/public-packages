@@ -11,13 +11,22 @@
  *
  * @example
  * // eslint.config.mjs
- * import { nextjs, fsdConfig } from '@37bytes/code-style/eslint';
+ * import { nextjs, createFSDConfig } from '@37bytes/code-style/eslint';
  *
  * export default [
  *     ...nextjs,
- *     ...fsdConfig({
+ *     ...createFSDConfig({
  *         allowPatterns: ['@lingui/**\/*', 'next/*']
  *     })
+ * ];
+ *
+ * @example
+ * // Проект уже гоняет dependency-cruiser (createFsdCruiserConfig) в CI:
+ * // eslint отдаёт графу направление слоёв и само-импорт (полные дубли), оставляя себе
+ * // public API + запрет deep-import во внешние пакеты, порядок, папки-свалки, server/client-only.
+ * export default [
+ *     ...nextjs,
+ *     ...createFSDConfig({ dependencyCruiser: true, allowPatterns: ['next/*'] })
  * ];
  */
 
@@ -147,19 +156,50 @@ const buildImportOrderRule = () => [
  * Создаёт ESLint flat config для enforcement FSD-архитектуры.
  *
  * Возвращает массив flat config объектов, которые нужно spread'ить
- * в основной массив конфигов: `...fsdConfig()`.
+ * в основной массив конфигов: `...createFSDConfig()`.
  *
  * @param {object} [options] — Настройки FSD-конфига. Все параметры опциональны.
  * @param {string[]} [options.allowPatterns] — Дополнительные паттерны для разрешения глубоких импортов
  *     из внешних пакетов. Например: `['@lingui/**\/*', 'next/*', '@sample/**\/*']`.
  *     Объединяются с инфраструктурными паттернами (@37bytes, assets, images).
+ * @param {boolean} [options.dependencyCruiser=false] — Проект дополнительно гоняет
+ *     `createFsdCruiserConfig` (dependency-cruiser). Когда `true`, из пресета убираются
+ *     ДВА правила, которые dependency-cruiser заменяет ПОЛНОСТЬЮ: `import-x/no-restricted-paths`
+ *     (направление слоёв) и `@37bytes/no-slice-self-import`. `import-x/no-internal-modules`
+ *     НЕ убирается намеренно: dependency-cruiser покрывает лишь его FSD-половину (public API
+ *     слайсов), а вторую половину — запрет deep-import в резолвящиеся внешние пакеты
+ *     (`пакет/lib/внутренний/файл`) — не покрывает никто в графе. Побочный эффект: FSD-нарушения
+ *     public API остаются под двойным контролем (eslint в редакторе + dependency-cruiser в CI),
+ *     но это редундантный сигнал на реальном нарушении, а не шум на чистом коде.
+ *     ВНИМАНИЕ: передавай флаг, только если реально запускаешь dependency-cruiser в CI,
+ *     иначе направление слоёв не проверяет никто.
  * @returns {Array<import('eslint').Linter.Config>} Массив flat config объектов
  */
-export const fsdConfig = (options = {}) => {
-    const { allowPatterns = [] } = options;
+export const createFSDConfig = (options = {}) => {
+    const { allowPatterns = [], dependencyCruiser = false } = options;
+
+    // Правила, которые dependency-cruiser заменяет ПОЛНОСТЬЮ (направление слоёв +
+    // само-импорт). При dependencyCruiser: true убираем их из eslint во избежание двойного
+    // репорта. no-internal-modules сюда НЕ входит намеренно: dependency-cruiser покрывает
+    // только его FSD-половину (public API слайсов), а запрет deep-import в резолвящиеся внешние
+    // пакеты не покрывает никто в графе — поэтому оно остаётся включённым всегда (блок 1).
+    const graphReplaceableRules = dependencyCruiser
+        ? {}
+        : {
+              // Запрет импортов вверх по иерархии слоёв
+              'import-x/no-restricted-paths': [
+                  'error',
+                  {
+                      zones: [...buildLayerRestrictionZones(), ...buildCrossImportZones()]
+                  }
+              ],
+
+              // Запрет само-импорта слайса через public API
+              '@37bytes/no-slice-self-import': 'error'
+          };
 
     return [
-        // Блок 1: Основные правила FSD — слои, public API, порядок импортов
+        // Блок 1: основные правила FSD
         {
             files: ['**/*.{js,jsx,ts,tsx}'],
             plugins: {
@@ -167,15 +207,11 @@ export const fsdConfig = (options = {}) => {
                 'import-x': importPlugin
             },
             rules: {
-                // Запрет импортов вверх по иерархии слоёв
-                'import-x/no-restricted-paths': [
-                    'error',
-                    {
-                        zones: [...buildLayerRestrictionZones(), ...buildCrossImportZones()]
-                    }
-                ],
+                ...graphReplaceableRules,
 
-                // Enforcement public API — запрет глубоких импортов в слайсы
+                // Enforcement public API (запрет глубоких импортов в слайсы) И запрет deep-import
+                // в потроха внешних пакетов. Двойная роль: dependency-cruiser заменяет только
+                // первую, поэтому правило остаётся даже при dependencyCruiser: true.
                 'import-x/no-internal-modules': [
                     'error',
                     {
@@ -183,13 +219,10 @@ export const fsdConfig = (options = {}) => {
                     }
                 ],
 
-                // Порядок импортов по иерархии FSD
+                // Порядок импортов по иерархии FSD — граф-аналога нет
                 'import-x/order': buildImportOrderRule(),
 
-                // Запрет само-импорта слайса через public API
-                '@37bytes/no-slice-self-import': 'error',
-
-                // Запрет устаревших папок-свалок (constants/, enums/, utils/)
+                // Запрет устаревших папок-свалок (constants/, enums/, utils/) — граф-аналога нет
                 '@37bytes/no-legacy-folders': 'error'
             }
         },

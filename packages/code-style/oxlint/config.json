@@ -1,6 +1,6 @@
 {
     "$schema": "./node_modules/oxlint/configuration_schema.json",
-    "plugins": ["typescript", "import", "unicorn", "promise", "react", "nextjs", "node", "vitest", "oxc"],
+    "plugins": ["typescript", "import", "unicorn", "promise", "react", "nextjs", "node", "vitest", "jest", "oxc"],
     "jsPlugins": [
         {
             "name": "@37bytes/no-arrow-props",
@@ -34,6 +34,17 @@
         "node": true
     },
     "rules": {
+        "arrow-body-style": ["warn", "as-needed"],
+        "func-style": ["warn", "expression"],
+        "id-length": [
+            "warn",
+            {
+                "min": 3,
+                "properties": "never",
+                "exceptions": ["e", "fs", "id", "n", "os", "ts", "vi", "x", "y", "_"]
+            }
+        ],
+        "object-shorthand": ["error", "always"],
         "curly": "error",
         "eqeqeq": ["warn", "smart"],
         "no-console": "error",
@@ -119,9 +130,12 @@
             }
         ],
         "no-unused-labels": "warn",
+        "no-class-assign": "warn",
         "no-dupe-class-members": "error",
         "no-dupe-keys": "error",
         "no-duplicate-case": "error",
+        "no-array-constructor": "warn",
+        "no-redeclare": "warn",
         "no-eval": "error",
         "no-script-url": "warn",
         "no-extend-native": "warn",
@@ -168,6 +182,7 @@
         "promise/no-callback-in-promise": "warn",
         "promise/spec-only": "error",
         "unicorn/catch-error-name": "warn",
+        "unicorn/custom-error-definition": "error",
         "unicorn/consistent-assert": "error",
         "unicorn/consistent-date-clone": "warn",
         "unicorn/consistent-empty-array-spread": "error",
@@ -186,6 +201,7 @@
         "unicorn/no-hex-escape": "warn",
         "unicorn/no-immediate-mutation": "error",
         "unicorn/no-instanceof-builtins": "warn",
+        "unicorn/no-negation-in-equality-check": "error",
         "unicorn/no-new-array": "error",
         "unicorn/no-new-buffer": "error",
         "unicorn/no-single-promise-in-promise-methods": "warn",
@@ -194,6 +210,10 @@
         "unicorn/no-this-assignment": "warn",
         "unicorn/no-unreadable-array-destructuring": "warn",
         "unicorn/no-unreadable-iife": "warn",
+        "unicorn/no-unnecessary-array-flat-depth": "warn",
+        "unicorn/no-unnecessary-array-splice-count": "warn",
+        "unicorn/no-unnecessary-await": "warn",
+        "unicorn/no-unnecessary-slice-end": "warn",
         "unicorn/no-useless-collection-argument": "warn",
         "unicorn/no-useless-error-capture-stack-trace": "warn",
         "unicorn/no-useless-fallback-in-spread": "warn",
@@ -215,6 +235,7 @@
         "unicorn/prefer-date-now": "warn",
         "unicorn/prefer-default-parameters": "warn",
         "unicorn/prefer-global-this": "warn",
+        "unicorn/prefer-import-meta-properties": "warn",
         "unicorn/prefer-includes": "warn",
         "unicorn/prefer-logical-operator-over-ternary": "warn",
         "unicorn/prefer-math-min-max": "warn",
@@ -254,8 +275,10 @@
         "unicorn/prefer-query-selector": "warn",
         "unicorn/prefer-classlist-toggle": "warn",
         "unicorn/require-post-message-target-origin": "warn",
+        "unicorn/prefer-single-call": "warn",
         "unicorn/prefer-node-protocol": "warn",
         "import/first": "error",
+        "import/newline-after-import": "error",
         "import/no-mutable-exports": "error",
         "import/no-anonymous-default-export": "error",
         "import/no-default-export": "error",
@@ -264,38 +287,21 @@
         "import/no-self-import": "error",
         "import/no-empty-named-blocks": "warn",
         "import/no-amd": "error",
+        "import/no-commonjs": "error",
         "import/no-webpack-loader-syntax": "error",
+        "unicorn/prefer-export-from": "warn",
         "react/react-in-jsx-scope": "off",
         "react/rules-of-hooks": "error",
         "react/exhaustive-deps": "error",
         "react/jsx-key": "error",
         "react/no-array-index-key": "warn",
-        "react/self-closing-comp": "error",
         "react/jsx-curly-brace-presence": ["warn", "never"],
         "react/jsx-boolean-value": ["warn", "never"],
         "react/jsx-fragments": ["warn", "syntax"],
-        "react/jsx-pascal-case": [
-            "warn",
-            {
-                "allowAllCaps": true
-            }
-        ],
-        "react/jsx-handler-names": [
-            "error",
-            {
-                "eventHandlerPrefix": "handle",
-                "eventHandlerPropPrefix": "on",
-                "checkLocalVariables": true,
-                "checkInlineFunction": true
-            }
-        ],
-        "react/jsx-no-duplicate-props": "error",
         "react/jsx-no-target-blank": "warn",
-        "react/jsx-no-undef": "error",
         "react/jsx-no-comment-textnodes": "warn",
         "react/no-unknown-property": "warn",
         "react/no-direct-mutation-state": "error",
-        "react/no-is-mounted": "error",
         "react/no-danger-with-children": "warn",
         "react/no-children-prop": "warn",
         "react/no-danger": "error",
@@ -306,6 +312,8 @@
         "nextjs/no-async-client-component": "error",
         "nextjs/no-head-element": "error",
         "nextjs/no-assign-module-variable": "error",
+        "nextjs/no-document-import-in-page": "error",
+        "nextjs/no-head-import-in-document": "error",
         "nextjs/inline-script-id": "error",
         "nextjs/no-sync-scripts": "warn",
         "nextjs/next-script-for-ga": "warn",
@@ -316,8 +324,11 @@
         "nextjs/no-img-element": "warn",
         "nextjs/no-css-tags": "warn",
         "nextjs/no-unwanted-polyfillio": "warn",
+        "nextjs/no-before-interactive-script-outside-document": "warn",
+        "node/callback-return": "warn",
         "node/global-require": "error",
         "node/no-exports-assign": "error",
+        "node/no-mixed-requires": "error",
         "node/no-new-require": "error",
         "node/no-path-concat": "error",
         "node/no-process-env": "warn",
@@ -418,6 +429,16 @@
                 "no-useless-constructor": "off",
                 "no-loop-func": "off",
                 "no-throw-literal": "off",
+                "typescript/no-extra-non-null-assertion": "warn",
+                "typescript/no-misused-new": "warn",
+                "typescript/no-unsafe-declaration-merging": "warn",
+                "typescript/array-type": "warn",
+                "typescript/no-namespace": "warn",
+                "typescript/prefer-as-const": "warn",
+                "typescript/no-inferrable-types": "warn",
+                "typescript/no-unnecessary-type-constraint": "warn",
+                "typescript/prefer-optional-chain": "warn",
+                "typescript/switch-exhaustiveness-check": "warn",
                 "typescript/consistent-type-imports": [
                     "error",
                     {
@@ -476,7 +497,23 @@
                 "typescript/no-unsafe-assignment": "off",
                 "typescript/no-unsafe-call": "off",
                 "typescript/no-unsafe-member-access": "off",
-                "typescript/no-floating-promises": "off"
+                "typescript/no-floating-promises": "off",
+                "jest/no-duplicate-hooks": "warn",
+                "jest/no-focused-tests": "error",
+                "jest/no-disabled-tests": "warn",
+                "jest/no-identical-title": "error",
+                "jest/valid-expect": "error",
+                "jest/valid-title": "error",
+                "jest/prefer-to-have-length": "warn",
+                "jest/prefer-to-be": "warn",
+                "jest/prefer-to-contain": "warn",
+                "jest/prefer-equality-matcher": "warn",
+                "jest/consistent-test-it": [
+                    "warn",
+                    {
+                        "fn": "test"
+                    }
+                ]
             }
         },
         {
@@ -497,6 +534,25 @@
                 "storybook/story-exports": "error",
                 "storybook/no-redundant-story-name": "warn",
                 "storybook/prefer-pascal-case": "warn"
+            }
+        },
+        {
+            "files": [
+                "**/app/**/page.tsx",
+                "**/app/**/layout.tsx",
+                "**/app/**/loading.tsx",
+                "**/app/**/error.tsx",
+                "**/app/**/not-found.tsx",
+                "**/app/**/template.tsx",
+                "**/app/**/default.tsx",
+                "**/app/**/route.ts",
+                "middleware.ts",
+                "instrumentation.ts",
+                "next.config.*"
+            ],
+            "rules": {
+                "import/no-default-export": "off",
+                "import/no-anonymous-default-export": "off"
             }
         }
     ]

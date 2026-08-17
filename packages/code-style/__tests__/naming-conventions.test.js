@@ -5,13 +5,13 @@
  * Bad fixtures should have at least one violation each.
  */
 
+import { spa } from '#config';
+
 import assert from 'node:assert';
 import path from 'node:path';
 import { describe, test } from 'node:test';
 
 import { ESLint } from 'eslint';
-
-import { spa } from '../eslint/config.js';
 
 const __dirname = import.meta.dirname;
 const FIXTURE_DIR = path.join(__dirname, 'fixtures', 'naming-conventions');
@@ -45,7 +45,13 @@ const lintFixture = async (relativePath) => {
 };
 
 describe('naming-conventions: good fixtures', () => {
-    const goodFiles = ['good/hook.ts', 'good/component.tsx', 'good/api.ts', 'good/utils.ts'];
+    const goodFiles = [
+        'good/hook.ts',
+        'good/component.tsx',
+        'good/api.ts',
+        'good/utils.ts',
+        'good/polymorphicComponent.tsx'
+    ];
 
     for (const file of goodFiles) {
         test(`${file} should have zero violations`, async () => {
@@ -77,9 +83,13 @@ describe('naming-conventions: bad fixtures', () => {
         { file: 'bad/typescript/interface-i-prefix.ts', rule: '@typescript-eslint/naming-convention' },
         { file: 'bad/typescript/type-t-prefix.ts', rule: '@typescript-eslint/naming-convention' },
         { file: 'bad/typescript/generic-t-prefix.ts', rule: '@typescript-eslint/naming-convention' },
-        { file: 'bad/react/function-declaration.tsx', rule: 'react/function-component-definition' },
-        { file: 'bad/react/is-disabled-prop.tsx', rule: 'react/boolean-prop-naming' },
-        { file: 'bad/react/and-without-boolean.tsx', rule: 'react/jsx-no-leaked-render' }
+        { file: 'bad/typescript/pascal-case-parameter.ts', rule: '@typescript-eslint/naming-convention' },
+        // Post-@eslint-react migration: rule IDs changed.
+        // - function-component-definition → prefer-arrow-functions (unchanged plugin, covers same pattern)
+        // - boolean-prop-naming → dropped (not ported; the fixture still trips other rules, but we no longer assert its specific rule here)
+        // - jsx-no-leaked-render → @eslint-react/no-leaked-conditional-rendering
+        { file: 'bad/react/function-declaration.tsx', rule: 'prefer-arrow-functions/prefer-arrow-functions' },
+        { file: 'bad/react/and-without-boolean.tsx', rule: '@eslint-react/no-leaked-conditional-rendering' }
     ];
 
     for (const { file, rule } of badFiles) {

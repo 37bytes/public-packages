@@ -119,18 +119,18 @@ export const rule = {
                     return;
                 }
 
-                for (const decl of node.declarations) {
+                for (const declaration of node.declarations) {
                     if (
-                        decl.id &&
-                        decl.id.type === 'Identifier' &&
-                        isAsConstObject(decl.init) &&
-                        !isScreamingSnakeCase(decl.id.name)
+                        declaration.id &&
+                        declaration.id.type === 'Identifier' &&
+                        isAsConstObject(declaration.init) &&
+                        !isScreamingSnakeCase(declaration.id.name)
                     ) {
                         context.report({
-                            node: decl.id,
+                            node: declaration.id,
                             messageId: 'notScreamingCase',
                             data: {
-                                suggestion: toScreamingSnakeCase(decl.id.name)
+                                suggestion: toScreamingSnakeCase(declaration.id.name)
                             }
                         });
                     }

@@ -23,4 +23,4 @@
 
 - 221 tests passing (fixtures, hybrid idempotency, FSD e2e, naming-conventions, plugin unit tests)
 - Missing bad fixtures: `@ts-ignore` vs `@ts-expect-error`, enum naming, event handlers, props destructuring with boolean rename
-- Missing: config composition tests, rule conflict detection between plugins
+- Partial: the `perfectionist` vs `@37bytes/require-server-only` conflict now has a regression test (`__tests__/rule-fixes.test.js`, behavioural + shape). A general config-composition / cross-plugin conflict harness is still missing.

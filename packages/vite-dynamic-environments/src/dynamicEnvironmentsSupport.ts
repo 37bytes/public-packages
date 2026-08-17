@@ -74,14 +74,14 @@ const dynamicEnvironmentsSupport = ({
         // генерация .js для каждого динамического окружения
         buildEnd: () => {
             const fullPathToDynamicEnvironments = resolve(process.cwd(), dynamicEnvironmentsDir);
-            readdirSync(fullPathToDynamicEnvironments).forEach((fileName) => {
+            for (const fileName of readdirSync(fullPathToDynamicEnvironments)) {
                 if (!fileName.startsWith('.env.')) {
-                    return;
+                    continue;
                 }
 
                 const fullPathToFile = join(fullPathToDynamicEnvironments, fileName);
                 if (statSync(fullPathToFile).isDirectory()) {
-                    return;
+                    continue;
                 }
 
                 const environmentName = getLast(fileName.split('.'));
@@ -103,7 +103,7 @@ const dynamicEnvironmentsSupport = ({
                     );
                     forceEnvironmentScriptContent = scriptContent;
                 }
-            });
+            }
         },
         // автоматическое добавление скрипта в html
         transformIndexHtml: (html) => {
