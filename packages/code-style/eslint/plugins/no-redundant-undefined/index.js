@@ -1,4 +1,4 @@
-import { rule } from './rule.js';
+import { rule } from '#eslint/plugins/no-redundant-undefined/rule';
 
 export const RULE_NAME = 'no-redundant-undefined';
 

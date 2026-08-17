@@ -98,6 +98,7 @@ export const javascript = {
     ], // https://eslint.org/docs/latest/rules/no-mixed-operators
 
     // === Duplicates and Errors ===
+    'no-class-assign': 'warn', // https://eslint.org/docs/latest/rules/no-class-assign
     'no-dupe-args': 'error', // https://eslint.org/docs/latest/rules/no-dupe-args
     'no-dupe-class-members': 'error', // https://eslint.org/docs/latest/rules/no-dupe-class-members
     'no-dupe-keys': 'error', // https://eslint.org/docs/latest/rules/no-dupe-keys
@@ -181,7 +182,7 @@ export const javascript = {
 
     // === Unicorn ===
     'unicorn/catch-error-name': 'warn',
-    'unicorn/prevent-abbreviations': [
+    'unicorn/name-replacements': [
         'warn',
         {
             ignore: [/e2e/i],
@@ -221,10 +222,11 @@ export const javascript = {
     'unicorn/no-array-callback-reference': 'error',
     'unicorn/no-array-method-this-argument': 'warn',
     'unicorn/no-array-reverse': 'error',
+    'unicorn/no-for-each': 'error',
     'unicorn/no-array-sort': 'error',
     'unicorn/no-await-expression-member': 'warn',
     'unicorn/no-await-in-promise-methods': 'error',
-    'unicorn/no-hex-escape': 'warn',
+    'unicorn/prefer-unicode-code-point-escapes': 'warn',
     'unicorn/no-immediate-mutation': 'error',
     'unicorn/no-instanceof-builtins': 'warn',
     'unicorn/no-named-default': 'warn',
@@ -256,6 +258,7 @@ export const javascript = {
     'unicorn/prefer-array-flat': 'warn',
     'unicorn/prefer-array-flat-map': 'warn',
     'unicorn/prefer-array-index-of': 'warn',
+    'unicorn/prefer-number-properties': 'warn',
     'unicorn/prefer-array-some': 'warn',
     'unicorn/prefer-at': 'warn',
     'unicorn/prefer-code-point': 'warn',

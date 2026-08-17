@@ -2,11 +2,11 @@
  * @fileoverview Tests for no-browser-storage rule
  */
 
+import { rule } from '#eslint/plugins/no-storage/rule';
+
 import { test } from 'node:test';
 
 import { RuleTester } from 'eslint';
-
-import { rule } from '../rule.js';
 
 const tester = new RuleTester({
     languageOptions: {

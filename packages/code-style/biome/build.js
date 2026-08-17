@@ -7,25 +7,41 @@
  * Usage: node biome/build.js
  */
 
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
-
-import { domains, formatter, jsFormatter, overrideFiles, schema } from './infrastructure.js';
+import { biomeVersion, domains, formatter, jsFormatter, overrideFiles, schema } from '#biome/infrastructure';
 import {
     imports,
     javascript,
-    javascriptNursery,
     nextjs,
     quality,
     react,
-    reactNursery,
     testing,
     typescript,
     typescriptNursery,
     typescriptOverrides
-} from './rules/index.js';
+} from '#biome/rules';
 
-const SCHEMA_CACHE_PATH = join(import.meta.dirname, '.schema-cache.json');
+import { existsSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+// Version-keyed cache filename. A bare `.schema-cache.json` (no version) would be
+// reused across biome bumps via existsSync alone, silently validating new rule names
+// against a stale schema. Keying the filename on biomeVersion forces a re-fetch on bump.
+const SCHEMA_CACHE_PATH = join(import.meta.dirname, `.schema-cache-${biomeVersion}.json`);
+
+/**
+ * Remove stale schema caches (any .schema-cache*.json that is not the current version's).
+ * Keeps the working tree clean when the biome peer version changes.
+ */
+const pruneStaleSchemaCaches = () => {
+    const currentFileName = `.schema-cache-${biomeVersion}.json`;
+    const cacheFiles = readdirSync(import.meta.dirname).filter(
+        (fileName) => fileName.startsWith('.schema-cache') && fileName.endsWith('.json') && fileName !== currentFileName
+    );
+    for (const fileName of cacheFiles) {
+        unlinkSync(join(import.meta.dirname, fileName));
+        console.log('Pruned stale schema cache:', fileName);
+    }
+};
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
@@ -162,19 +178,10 @@ const build = async () => {
     console.log('Building Biome config...\n');
 
     // 1. Merge base rules by category
-    const baseRules = deepMergeByCategory(
-        javascript,
-        javascriptNursery,
-        typescript,
-        typescriptNursery,
-        react,
-        reactNursery,
-        nextjs,
-        imports,
-        quality
-    );
+    const baseRules = deepMergeByCategory(javascript, typescript, typescriptNursery, react, nextjs, imports, quality);
 
-    // 2. Validate against schema
+    // 2. Validate against schema (prune stale-version caches first)
+    pruneStaleSchemaCaches();
     const schemaData = await fetchSchema();
     if (schemaData) {
         const validRules = extractValidRules(schemaData);
@@ -214,6 +221,18 @@ const build = async () => {
                 includes: overrideFiles.testing,
                 linter: {
                     rules: testing
+                }
+            },
+            {
+                // Next.js App Router conventions require default exports.
+                // Mirror ESLint's nextjsOverrides (eslint/config.js:265-283).
+                includes: overrideFiles.nextjsAppRouter,
+                linter: {
+                    rules: {
+                        style: {
+                            noDefaultExport: 'off'
+                        }
+                    }
                 }
             }
         ]

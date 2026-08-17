@@ -3,5 +3,5 @@
  * @author 37bytes
  */
 
-export { config } from './config.js';
-export { config as default } from './config.js';
+export { config } from '#prettier/config';
+export { config as default } from '#prettier/config';

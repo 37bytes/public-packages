@@ -1,9 +1,9 @@
+import { rule } from '#eslint/plugins/no-redundant-undefined/rule';
+
 import { test } from 'node:test';
 
 import tsParser from '@typescript-eslint/parser';
 import { RuleTester } from 'eslint';
-
-import { rule } from '../rule.js';
 
 test('no-redundant-undefined rule', async (ctx) => {
     const tester = new RuleTester({

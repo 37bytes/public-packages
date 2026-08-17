@@ -1,8 +1,8 @@
 # @37bytes/code-style
 
-> Unified linting and formatting toolkit for 37bytes projects. Provides modular ESLint flat configs (spa, nextjs, nodejs), custom ESLint plugins, Stylelint config for CSS/SCSS modules, Prettier config, TypeScript base configs, EditorConfig, and optional OxLint/Biome mirror configs with hybrid mode support.
+> Unified linting and formatting toolkit for 37bytes projects. Provides modular ESLint flat configs (spa, nextjs, nodejsRuntime, nodejsTool), custom ESLint plugins, Stylelint config for CSS/SCSS modules, Prettier config, TypeScript base configs, EditorConfig, and optional OxLint/Biome mirror configs with hybrid mode support.
 
-This package is an all-in-one code quality toolkit. ESLint is the source of truth; OxLint and Biome are optional mirrors. Three application-type configs (spa, nextjs, nodejs) compose from granular rule sets (javascript, typescript, react, imports, node, quality, regexp, and more). Four custom @37bytes ESLint plugins enforce project-specific conventions: no-browser-storage, no-arrow-props, boolean-naming, and enum-pattern. A whitelist approach is used for all third-party rules (no blind `recommended` presets).
+This package is an all-in-one code quality toolkit. ESLint is the source of truth; OxLint and Biome are optional mirrors. Application-type configs (spa, nextjs, nodejsRuntime, nodejsTool) compose from granular rule sets (javascript, typescript, react, imports, node, quality, regexp, and more). Bootstrap-phase code is handled via the `nodejsConfig` override-object which consumers apply through flat-config files-glob to env-loaders, server entry-points, build scripts, etc. Custom @37bytes ESLint plugins enforce project-specific conventions: no-browser-storage, no-arrow-props, boolean-naming, and enum-pattern. A whitelist approach is used for all third-party rules (no blind `recommended` presets).
 
 ## Docs
 
@@ -12,7 +12,7 @@ This package is an all-in-one code quality toolkit. ESLint is the source of trut
 
 ## Configuration
 
-- [ESLint Main Config](https://raw.githubusercontent.com/37bytes/code-style/master/eslint/config.js): three app configs (spa, nextjs, nodejs), opt-in layers, perfectionist namespace, backward-compat aliases
+- [ESLint Main Config](https://raw.githubusercontent.com/37bytes/code-style/master/eslint/config.js): app configs (spa, nextjs, nodejsRuntime, nodejsTool), bootstrap-override (nodejsConfig), Next.js server-side override (nextjsServerConfig), opt-in layers, perfectionist namespace
 - [ESLint Entry Point](https://raw.githubusercontent.com/37bytes/code-style/master/eslint/index.js): main export re-exporting configs, rules, and plugins
 - [ESLint Rules Index](https://raw.githubusercontent.com/37bytes/code-style/master/eslint/rules/index.js): re-exports all rule sets (javascript, typescript, browser, react, imports, node, quality, regexp, testing, storybook, nextjs, perfectionist)
 - [ESLint Plugins Index](https://raw.githubusercontent.com/37bytes/code-style/master/eslint/plugins/index.js): aggregates custom @37bytes rules

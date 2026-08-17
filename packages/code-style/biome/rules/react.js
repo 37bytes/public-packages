@@ -10,8 +10,11 @@
 export const react = {
     suspicious: {
         noCommentText: 'warn', // react/jsx-no-comment-textnodes
-        noDuplicateJsxProps: 'error', // react/jsx-no-duplicate-props
-        noArrayIndexKey: 'warn' // react/no-array-index-key (inspired)
+        // noDuplicateJsxProps — trimmed: no @eslint-react equivalent (@eslint-react 4.2.3 only has
+        // no-duplicate-key, not jsx-no-duplicate-props); promotion not possible with shipped plugins
+        // (policy: no extras, checked 2026-06-07)
+        noArrayIndexKey: 'warn', // react/no-array-index-key (inspired)
+        noLeakedRender: 'error' // @eslint-react/no-leaked-conditional-rendering
     },
     style: {
         noImplicitBoolean: 'warn', // react/jsx-boolean-value (inspired)
@@ -26,12 +29,13 @@ export const react = {
         noChildrenProp: 'warn', // react/no-children-prop
         useExhaustiveDependencies: 'error', // react-hooks/exhaustive-deps (inspired)
         useHookAtTopLevel: 'error', // react-hooks/rules-of-hooks
-        noVoidElementsWithChildren: 'error' // react/void-dom-elements-no-children
+        noVoidElementsWithChildren: 'error', // react/void-dom-elements-no-children
+        noNestedComponentDefinitions: 'error' // @eslint-react/no-nested-component-definitions
     },
     security: {
         noBlankTarget: 'warn', // react/jsx-no-target-blank
         noDangerouslySetInnerHtml: 'error', // react/no-danger
-        noDangerouslySetInnerHtmlWithChildren: 'error' // react/no-danger-with-children
+        noDangerouslySetInnerHtmlWithChildren: 'warn' // react/no-danger-with-children (@eslint-react/dom-no-dangerously-set-innerhtml-with-children: warn)
     }
 };
 
@@ -46,7 +50,6 @@ export const react = {
  * — react/boolean-prop-naming
  * — react/jsx-handler-names
  * — react/hook-use-state
- * — react/jsx-no-leaked-render
  * — react/jsx-no-undef
  * — react/no-unknown-property
  * — react/no-direct-mutation-state
@@ -56,7 +59,6 @@ export const react = {
  * — react/no-deprecated
  * — react/sort-comp
  * — react/no-adjacent-inline-elements
- * — react/no-unstable-nested-components
  * — react/no-object-type-as-default-prop
  * — react/no-typos
  * — react/style-prop-object
@@ -65,12 +67,3 @@ export const react = {
  * — react/iframe-missing-sandbox
  * — react-hooks/react-compiler rules (15 rules, no biome equivalent)
  */
-
-/**
- * Nursery rules from React that are available in Biome nursery.
- */
-export const reactNursery = {
-    nursery: {
-        noLeakedRender: 'error' // react/jsx-no-leaked-render
-    }
-};

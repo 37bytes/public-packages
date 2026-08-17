@@ -11,27 +11,19 @@ export const react = {
     'react/exhaustive-deps': 'error',
     'react/jsx-key': 'error',
     'react/no-array-index-key': 'warn',
-    'react/self-closing-comp': 'error',
+    // react/self-closing-comp — trimmed: no @eslint-react equivalent (policy: promotion-first, 2026-06-07)
     'react/jsx-curly-brace-presence': ['warn', 'never'],
     'react/jsx-boolean-value': ['warn', 'never'],
     'react/jsx-fragments': ['warn', 'syntax'],
-    'react/jsx-pascal-case': ['warn', { allowAllCaps: true }],
-    'react/jsx-handler-names': [
-        'error',
-        {
-            eventHandlerPrefix: 'handle',
-            eventHandlerPropPrefix: 'on',
-            checkLocalVariables: true,
-            checkInlineFunction: true
-        }
-    ],
-    'react/jsx-no-duplicate-props': 'error',
+    // react/jsx-pascal-case — trimmed: no @eslint-react equivalent (policy: promotion-first, 2026-06-07)
+    // react/jsx-handler-names — trimmed: no @eslint-react equivalent (policy: promotion-first, 2026-06-07)
+    // react/jsx-no-duplicate-props — trimmed: no @eslint-react equivalent; @eslint-react only has no-duplicate-key (2026-06-07)
     'react/jsx-no-target-blank': 'warn',
-    'react/jsx-no-undef': 'error',
+    // react/jsx-no-undef — trimmed: no @eslint-react equivalent (policy: promotion-first, 2026-06-07)
     'react/jsx-no-comment-textnodes': 'warn',
     'react/no-unknown-property': 'warn',
     'react/no-direct-mutation-state': 'error',
-    'react/no-is-mounted': 'error',
+    // react/no-is-mounted — trimmed: no @eslint-react equivalent (policy: promotion-first, 2026-06-07)
     'react/no-danger-with-children': 'warn',
     'react/no-children-prop': 'warn',
     'react/no-danger': 'error',

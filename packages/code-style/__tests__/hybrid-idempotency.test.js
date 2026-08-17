@@ -14,21 +14,18 @@
  * patterns (`**\/__tests__/**\/*`) — same as in a real project.
  */
 
+import { biomeOverrides } from '#biome/eslint-overrides';
+import { spa, testingConfig } from '#config';
+import { typeAwareOverrides } from '#oxlint/type-aware-overrides';
+import { executePackageBinary } from '#tests/package-binary';
+
 import assert from 'node:assert';
-import { execFile } from 'node:child_process';
 import path from 'node:path';
 import { before, describe, test } from 'node:test';
-import { promisify } from 'node:util';
 
 import { ESLint } from 'eslint';
 import biomeConfig from 'eslint-config-biome';
 import oxlintPlugin from 'eslint-plugin-oxlint';
-
-import { biomeOverrides } from '../biome/eslint-overrides.js';
-import { spa, testingConfig } from '../eslint/config.js';
-import { typeAwareOverrides } from '../oxlint/type-aware-overrides.js';
-
-const exec = promisify(execFile);
 
 // ── Formatting helpers ──────────────────────────────────────────────────────
 
@@ -148,11 +145,9 @@ const extractRuleIds = (messages) => new Set(messages.map((message) => message.r
  */
 const runOxlintCli = async (filePath) => {
     try {
-        const { stdout } = await exec(
-            path.join(ROOT, 'node_modules', '.bin', 'oxlint'),
-            ['--format', 'json', filePath],
-            { cwd: ROOT }
-        );
+        const { stdout } = await executePackageBinary('oxlint', 'oxlint', ['--format', 'json', filePath], {
+            cwd: ROOT
+        });
         return JSON.parse(stdout);
     } catch (error) {
         // OxLint exits non-zero when it finds violations
@@ -168,8 +163,9 @@ const runOxlintCli = async (filePath) => {
  */
 const runBiomeCli = async (filePath) => {
     try {
-        const { stdout } = await exec(
-            path.join(ROOT, 'node_modules', '.bin', 'biome'),
+        const { stdout } = await executePackageBinary(
+            '@biomejs/biome',
+            'biome',
             ['lint', '--config-path', path.join(ROOT, 'biome', 'config.json'), '--reporter', 'json', filePath],
             { cwd: ROOT }
         );

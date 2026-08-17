@@ -2,11 +2,11 @@
  * @fileoverview Tests for no-legacy-folders rule
  */
 
+import { rule } from '#eslint/plugins/no-legacy-folders/rule';
+
 import { describe, test } from 'node:test';
 
 import { RuleTester } from 'eslint';
-
-import { rule } from '../rule.js';
 
 const tester = new RuleTester({
     languageOptions: {

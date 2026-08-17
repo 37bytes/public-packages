@@ -38,7 +38,7 @@ const DEFAULT_DEV_DEPENDENCIES = [
  *       Например: `['**\/*.e2e.ts']`. Объединяются с дефолтными (тесты, stories).
  * @returns {Array<import('eslint').Linter.Config>}
  */
-export const restrictedImportsConfig = (options = {}) => {
+export const createRestrictedImportsConfig = (options = {}) => {
     const { paths = [], devDependencies = [] } = options;
 
     return [

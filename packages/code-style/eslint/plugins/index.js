@@ -8,6 +8,8 @@
 
 import booleanNamingPlugin from '#plugins/boolean-naming';
 import enumPatternPlugin from '#plugins/enum-pattern';
+import jsxBooleanValuePlugin from '#plugins/jsx-boolean-value';
+import jsxFragmentsPlugin from '#plugins/jsx-fragments';
 import noArrowPropsPlugin from '#plugins/no-arrow-props';
 import noLegacyFoldersPlugin from '#plugins/no-legacy-folders';
 import noRedundantUndefinedPlugin from '#plugins/no-redundant-undefined';
@@ -26,6 +28,8 @@ export const RULE_REQUIRE_SERVER_ONLY = 'require-server-only';
 export const RULE_REQUIRE_CLIENT_ONLY = 'require-client-only';
 export const RULE_NO_LEGACY_FOLDERS = 'no-legacy-folders';
 export const RULE_NO_REDUNDANT_UNDEFINED = 'no-redundant-undefined';
+export const RULE_JSX_BOOLEAN_VALUE = 'jsx-boolean-value';
+export const RULE_JSX_FRAGMENTS = 'jsx-fragments';
 
 /**
  * Combined plugin with all @37bytes rules
@@ -41,12 +45,16 @@ export const plugins = {
         ...requireServerOnlyPlugin.rules,
         ...requireClientOnlyPlugin.rules,
         ...noLegacyFoldersPlugin.rules,
-        ...noRedundantUndefinedPlugin.rules
+        ...noRedundantUndefinedPlugin.rules,
+        ...jsxBooleanValuePlugin.rules,
+        ...jsxFragmentsPlugin.rules
     }
 };
 
 export { default as booleanNamingPlugin } from '#plugins/boolean-naming';
 export { default as enumPatternPlugin } from '#plugins/enum-pattern';
+export { default as jsxBooleanValuePlugin } from '#plugins/jsx-boolean-value';
+export { default as jsxFragmentsPlugin } from '#plugins/jsx-fragments';
 export { default as noArrowPropsPlugin } from '#plugins/no-arrow-props';
 export { default as noLegacyFoldersPlugin } from '#plugins/no-legacy-folders';
 export { default as noRedundantUndefinedPlugin } from '#plugins/no-redundant-undefined';

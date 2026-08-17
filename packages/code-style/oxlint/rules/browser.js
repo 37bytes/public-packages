@@ -18,6 +18,7 @@ export const browser = {
     'unicorn/prefer-query-selector': 'warn',
     'unicorn/prefer-classlist-toggle': 'warn',
     'unicorn/require-post-message-target-origin': 'warn',
+    'unicorn/prefer-single-call': 'warn',
 
     'unicorn/prefer-node-protocol': 'warn'
 };

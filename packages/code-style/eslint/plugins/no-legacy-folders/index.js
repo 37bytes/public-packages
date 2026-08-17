@@ -3,7 +3,7 @@
  * @author 37bytes
  */
 
-import { rule } from './rule.js';
+import { rule } from '#eslint/plugins/no-legacy-folders/rule';
 
 export const RULE_NAME = 'no-legacy-folders';
 

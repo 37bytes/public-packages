@@ -5,6 +5,8 @@
  * for type-checked linting. The rule requires TypeScript type information.
  */
 
+// Import the rule to verify it exports correctly
+import { rule } from '#eslint/plugins/boolean-naming/rule';
 import plugin from '#plugins/boolean-naming';
 
 import assert from 'node:assert';
@@ -13,9 +15,6 @@ import { describe, test } from 'node:test';
 
 import tsParser from '@typescript-eslint/parser';
 import { ESLint } from 'eslint';
-
-// Import the rule to verify it exports correctly
-import { rule } from '../rule.js';
 
 // ---------------------------------------------------------------------------
 // Metadata tests
@@ -56,7 +55,7 @@ describe('boolean-naming rule', () => {
 // Helper: lint TypeScript code with type checking enabled
 // ---------------------------------------------------------------------------
 
-const TEST_DIR = path.dirname(new URL(import.meta.url).pathname);
+const TEST_DIR = import.meta.dirname;
 
 const booleanNamingPlugin = {
     rules: {

@@ -1,7 +1,7 @@
-import { nodejs } from '@37bytes/code-style/eslint';
+import { nodejsRuntime } from '@37bytes/code-style/eslint';
 
 const config = [
-    ...nodejs,
+    ...nodejsRuntime,
     {
         // config files use default exports by convention
         files: ['eslint.config.js'],

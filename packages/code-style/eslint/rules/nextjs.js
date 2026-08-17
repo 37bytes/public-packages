@@ -22,10 +22,13 @@ export const nextjs = {
     '@next/next/no-async-client-component': 'error', // async Client Component — runtime error
     '@next/next/no-head-element': 'error', // использовать metadata API, не сырой <head>
     '@next/next/no-assign-module-variable': 'error', // module = ... ломает HMR
+    '@next/next/no-document-import-in-page': 'error', // biome: suspicious/noDocumentImportInPage
+    '@next/next/no-head-import-in-document': 'error', // biome: suspicious/noHeadImportInDocument
 
     // === Scripts ===
     '@next/next/inline-script-id': 'error', // id обязателен для inline Script (дедупликация)
     '@next/next/no-sync-scripts': 'warn', // синхронные скрипты блокируют рендеринг
+    '@next/next/no-before-interactive-script-outside-document': 'warn', // beforeInteractive только в _document
     '@next/next/next-script-for-ga': 'warn', // @next/third-parties для GA/GTM
 
     // === Fonts ===

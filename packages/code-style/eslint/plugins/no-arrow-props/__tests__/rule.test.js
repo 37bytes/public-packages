@@ -2,11 +2,11 @@
  * @fileoverview Tests for no-arrow-props rule
  */
 
+import { rule } from '#eslint/plugins/no-arrow-props/rule';
+
 import { test } from 'node:test';
 
 import { RuleTester } from 'eslint';
-
-import { rule } from '../rule.js';
 
 const tester = new RuleTester({
     languageOptions: {

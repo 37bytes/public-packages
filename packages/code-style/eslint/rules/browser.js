@@ -20,7 +20,7 @@ export const browser = {
     'unicorn/no-document-cookie': 'error',
     'unicorn/no-invalid-remove-event-listener': 'error',
     'unicorn/prefer-dom-node-append': 'warn',
-    'unicorn/prefer-dom-node-dataset': 'warn',
+    'unicorn/dom-node-dataset': 'warn',
     'unicorn/prefer-dom-node-remove': 'warn',
     'unicorn/prefer-dom-node-text-content': 'warn',
     'unicorn/prefer-keyboard-event-key': 'warn',

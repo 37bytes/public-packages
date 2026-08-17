@@ -6,7 +6,7 @@
  * It must be used with @typescript-eslint/parser and parserOptions.project configured.
  */
 
-import { rule } from './rule.js';
+import { rule } from '#eslint/plugins/boolean-naming/rule';
 
 export const RULE_NAME = 'boolean-naming';
 

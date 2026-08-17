@@ -13,6 +13,42 @@
  */
 
 /**
+ * Группа-маркер: пакеты server-only / client-only обязаны быть первым
+ * side-effect импортом, иначе RSC-гард не срабатывает. Держим их первой
+ * группой в sort-imports, иначе perfectionist конфликтует с
+ * @37bytes/require-server-only (тот требует import 'server-only' первой строкой
+ * в **\/*server.ts и автофиксит наверх, а sort-imports гнал бы side-effect вниз).
+ *
+ * @see eslint/plugins/require-server-only/rule.js
+ */
+const SERVER_BOUNDARY_GROUP = {
+    groupName: 'server-boundary',
+    selector: 'side-effect',
+    elementNamePattern: '^(server-only|client-only)$'
+};
+
+/**
+ * Накладывает инвариант «server-only / client-only первыми» на любой
+ * perfectionist/sort-imports options-объект. Идемпотентна: повторное
+ * применение не дублирует группу.
+ *
+ * Экспортируется для консюмеров, которые переопределяют sort-imports своими
+ * группами: flat config не мержит опции правила (поздний конфиг заменяет ранний
+ * целиком), поэтому инвариант надо переналожить на собственные опции.
+ *
+ * @param {object} sortImportsOptions — options-объект perfectionist/sort-imports
+ * @returns {object} новый options-объект с server-boundary первой группой
+ */
+export const withServerBoundaryFirst = (sortImportsOptions) => ({
+    ...sortImportsOptions,
+    customGroups: [
+        SERVER_BOUNDARY_GROUP,
+        ...(sortImportsOptions.customGroups ?? []).filter((group) => group.groupName !== 'server-boundary')
+    ],
+    groups: ['server-boundary', ...sortImportsOptions.groups.filter((group) => group !== 'server-boundary')]
+});
+
+/**
  * Базовые правила сортировки (без React/JSX).
  *
  * Входит в `perfectionistConfig`.
@@ -25,7 +61,7 @@ export const perfectionist = {
     // === Imports ===
     'perfectionist/sort-imports': [
         'warn',
-        {
+        withServerBoundaryFirst({
             type: 'natural',
             order: 'asc',
             ignoreCase: true,
@@ -33,7 +69,7 @@ export const perfectionist = {
             sortSideEffects: false,
             newlinesBetween: 1,
             groups: ['builtin', 'external', 'internal', ['parent', 'sibling', 'index'], 'side-effect', 'style']
-        }
+        })
     ],
     'perfectionist/sort-named-imports': ['warn', { type: 'natural', order: 'asc', ignoreCase: true }],
     'perfectionist/sort-named-exports': ['warn', { type: 'natural', order: 'asc', ignoreCase: true }],
@@ -82,7 +118,7 @@ export const perfectionistReact = {
     // === Imports: react и next выделены в отдельные группы ===
     'perfectionist/sort-imports': [
         'warn',
-        {
+        withServerBoundaryFirst({
             type: 'natural',
             order: 'asc',
             ignoreCase: true,
@@ -103,6 +139,6 @@ export const perfectionistReact = {
                 'side-effect',
                 'style'
             ]
-        }
+        })
     ]
 };

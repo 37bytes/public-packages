@@ -66,6 +66,19 @@ export const typescript = {
     ],
     '@typescript-eslint/no-useless-constructor': 'warn',
 
+    // === TypeScript-specific rules (promoted from biome/oxlint enforcement) ===
+    '@typescript-eslint/no-extra-non-null-assertion': 'warn', // biome: suspicious/noExtraNonNullAssertion
+    '@typescript-eslint/no-misused-new': 'warn', // biome: suspicious/noMisleadingInstantiator
+    '@typescript-eslint/no-unsafe-declaration-merging': 'warn', // biome: suspicious/noUnsafeDeclarationMerging
+    '@typescript-eslint/array-type': 'warn', // biome: style/useConsistentArrayType
+    '@typescript-eslint/no-namespace': 'warn', // biome: style/noNamespace
+    '@typescript-eslint/prefer-as-const': 'warn', // biome: style/useAsConstAssertion
+    '@typescript-eslint/no-inferrable-types': 'warn', // biome: style/noInferrableTypes
+    '@typescript-eslint/no-unnecessary-type-constraint': 'warn', // biome: complexity/noUselessTypeConstraint
+    '@typescript-eslint/prefer-optional-chain': 'warn', // biome: complexity/useOptionalChain
+    '@typescript-eslint/no-unnecessary-condition': 'warn', // biome: suspicious/noUnnecessaryConditions
+    '@typescript-eslint/switch-exhaustiveness-check': 'warn', // biome: nursery/useExhaustiveSwitchCases
+
     // === Type Imports/Exports ===
     '@typescript-eslint/consistent-type-imports': [
         'error',
@@ -132,6 +145,25 @@ export const typescript = {
             format: ['camelCase'],
             leadingUnderscore: 'allow'
         },
+        // Destructured parameters: any format. Consumer cannot rename a destructured
+        // binding without `:` syntax, so when the source API exposes a PascalCase prop
+        // (e.g. polymorphic `Element` in UI kits) the local binding has to follow.
+        {
+            selector: 'parameter',
+            modifiers: ['destructured'],
+            format: null
+        },
+        // Polymorphic-component placeholders renamed via destructure-with-rename
+        // (e.g. `({ as: Element })`) need PascalCase because they are used as JSX
+        // tags `<Element />`. The rename target is a regular `parameter` binding,
+        // not a `destructured` one, so the previous override does not apply.
+        // Whitelist a small set of conventional placeholder names instead of
+        // loosening `parameter` globally.
+        {
+            selector: 'parameter',
+            filter: { regex: '^(Element|Component|Tag)$', match: true },
+            format: ['PascalCase']
+        },
         // Imports: camelCase or PascalCase (for classes, React components)
         {
             selector: 'import',
@@ -141,6 +173,13 @@ export const typescript = {
         {
             selector: 'objectLiteralProperty',
             format: null
+        },
+        // Type properties: camelCase or PascalCase. The latter is required for
+        // React component props that hold an element type (e.g.
+        // `interface Props { Element: ComponentType }` for polymorphic components).
+        {
+            selector: 'typeProperty',
+            format: ['camelCase', 'PascalCase']
         },
         // Types and Interfaces: PascalCase without prefixes
         {

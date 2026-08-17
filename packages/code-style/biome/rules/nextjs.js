@@ -19,14 +19,13 @@ export const nextjs = {
     performance: {
         noImgElement: 'warn', // @next/next/no-img-element
         useGoogleFontPreconnect: 'warn', // @next/next/google-font-preconnect
-        noUnwantedPolyfillio: 'warn' // @next/next/no-unwanted-polyfillio
-    },
-    nursery: {
-        noSyncScripts: 'warn', // @next/next/no-sync-scripts
-        useInlineScriptId: 'error' // @next/next/inline-script-id
+        noUnwantedPolyfillio: 'warn', // @next/next/no-unwanted-polyfillio
+        noSyncScripts: 'warn' // @next/next/no-sync-scripts
     },
     correctness: {
-        noNextAsyncClientComponent: 'error' // @next/next/no-async-client-component
+        noNextAsyncClientComponent: 'error', // @next/next/no-async-client-component
+        useInlineScriptId: 'error', // @next/next/inline-script-id
+        noBeforeInteractiveScriptOutsideDocument: 'warn' // @next/next/no-before-interactive-script-outside-document
     }
 };
 

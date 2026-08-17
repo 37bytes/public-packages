@@ -25,18 +25,20 @@ class SmartURLSearchParams extends URLSearchParams {
             return;
         }
 
-        Object.entries(params).forEach(([key, value]: [string, unknown]) => {
+        for (const [key, value] of Object.entries(params) as [string, unknown][]) {
             if (value === null || value === undefined) {
-                return;
+                continue;
             }
 
             if (Array.isArray(value)) {
-                value.forEach((valueItem: number | string) => this.append(key, String(valueItem)));
-                return;
+                for (const valueItem of value as (number | string)[]) {
+                    this.append(key, String(valueItem));
+                }
+                continue;
             }
 
             this.append(key, String(value));
-        });
+        }
     }
 
     /**
@@ -63,25 +65,25 @@ class SmartURLSearchParams extends URLSearchParams {
     }: ToFormattedStringParams = {}): string {
         const queryStringParts: string[] = [];
 
-        new Set(this.keys()).forEach((key) => {
+        for (const key of new Set(this.keys())) {
             const values = this.getAll(key);
 
             if (values.length === 1 && !forceArrayFields.includes(key)) {
                 const value = values[0]!;
                 queryStringParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
-                return;
+                continue;
             }
 
             switch (arrayFormat) {
                 case 'bracket':
-                    values.forEach((value) => {
+                    for (const value of values) {
                         queryStringParts.push(`${encodeURIComponent(key)}[]=${encodeURIComponent(value)}`);
-                    });
+                    }
                     break;
                 case 'index':
-                    values.forEach((value, index) => {
+                    for (const [index, value] of values.entries()) {
                         queryStringParts.push(`${encodeURIComponent(key)}[${index}]=${encodeURIComponent(value)}`);
-                    });
+                    }
                     break;
                 case 'comma':
                     queryStringParts.push(
@@ -106,7 +108,7 @@ class SmartURLSearchParams extends URLSearchParams {
                 default:
                     throw new Error(`unknown arrayFormat(${arrayFormat})`);
             }
-        });
+        }
 
         return queryStringParts.join('&');
     }

@@ -64,7 +64,7 @@ export const ConfigurableMediaContextProvider: FunctionComponent<Props> = ({ med
 
     const media = useSyncExternalStore(subscribe, getSnapshot);
 
-    return <ConfigurableMediaContext.Provider value={{ media }}>{children}</ConfigurableMediaContext.Provider>;
+    return <ConfigurableMediaContext value={{ media }}>{children}</ConfigurableMediaContext>;
 };
 
 export const useConfigurableMediaContext = (): ConfigurableMediaContextValue => {

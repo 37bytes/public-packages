@@ -13,7 +13,22 @@ export const imports = {
         noCommonJs: 'error' // import-x/no-commonjs (inspired)
     },
     correctness: {
-        noUndeclaredDependencies: 'error' // import-x/no-extraneous-dependencies
+        // import-x/no-extraneous-dependencies (partial: biome has no devDependencies glob allowlist option)
+        // Mirror ESLint's devDependencies glob restriction: devDeps allowed in test files and stories only.
+        noUndeclaredDependencies: {
+            level: 'error',
+            options: {
+                devDependencies: [
+                    '**/__tests__/**',
+                    '**/*.test.ts',
+                    '**/*.test.tsx',
+                    '**/*.spec.ts',
+                    '**/*.spec.tsx',
+                    '**/*.stories.tsx',
+                    '**/*.stories.ts'
+                ]
+            }
+        }
     },
     // Note: noImportCycles was in nursery in v2.0.0, moved to suspicious in v2.4.4
     suspicious: {

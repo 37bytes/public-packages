@@ -1,5 +1,5 @@
 {
-    "$schema": "https://biomejs.dev/schemas/2.4.10/schema.json",
+    "$schema": "https://biomejs.dev/schemas/2.5.4/schema.json",
     "vcs": {
         "enabled": true,
         "clientKind": "git",
@@ -43,12 +43,15 @@
                 "noDuplicateParameters": "error",
                 "noEmptyBlockStatements": "error",
                 "noFallthroughSwitchClause": "warn",
+                "useIterableCallbackReturn": "error",
                 "noFunctionAssign": "error",
                 "noGlobalAssign": "warn",
                 "noLabelVar": "warn",
+                "noConfusingLabels": "warn",
                 "noOctalEscape": "warn",
+                "noProto": "warn",
                 "noRedeclare": "warn",
-                "noSelfCompare": "warn",
+                "noSelfCompare": "error",
                 "noShadowRestrictedNames": "warn",
                 "noSparseArray": "warn",
                 "noTemplateCurlyInString": "warn",
@@ -57,14 +60,17 @@
                 "useDefaultSwitchClauseLast": "error",
                 "useGetterReturn": "error",
                 "noDocumentCookie": "error",
+                "noThenProperty": "error",
+                "noWith": "warn",
                 "noDuplicateClassMembers": "error",
                 "noExplicitAny": "error",
                 "noExtraNonNullAssertion": "warn",
                 "noMisleadingInstantiator": "warn",
                 "noUnsafeDeclarationMerging": "warn",
+                "noUnnecessaryConditions": "warn",
                 "noCommentText": "warn",
-                "noDuplicateJsxProps": "error",
                 "noArrayIndexKey": "warn",
+                "noLeakedRender": "error",
                 "useGoogleFontDisplay": "warn",
                 "noDocumentImportInPage": "error",
                 "noHeadImportInDocument": "error",
@@ -72,6 +78,8 @@
             },
             "style": {
                 "noNestedTernary": "error",
+                "noMultilineString": "warn",
+                "useGlobalThis": "warn",
                 "useBlockStatements": "error",
                 "useConst": "warn",
                 "useDefaultSwitchClause": "error",
@@ -83,6 +91,7 @@
                 "useImportType": "error",
                 "useExportType": "error",
                 "useConsistentArrayType": "warn",
+                "useArrayLiterals": "warn",
                 "noNamespace": "warn",
                 "useAsConstAssertion": "warn",
                 "useNamingConvention": {
@@ -137,10 +146,15 @@
                 "noCommaOperator": "warn",
                 "noUselessConstructor": "warn",
                 "noUselessRename": "warn",
+                "noUselessReturn": "warn",
                 "noUselessStringConcat": "warn",
                 "useFlatMap": "warn",
                 "useDateNow": "warn",
                 "noUselessEscapeInRegex": "warn",
+                "noAdjacentSpacesInRegex": "warn",
+                "useLiteralKeys": "warn",
+                "noUselessSwitchCase": "warn",
+                "useIndexOf": "warn",
                 "noBannedTypes": "error",
                 "noUselessTypeConstraint": "warn",
                 "noStaticOnlyClass": "warn",
@@ -173,34 +187,44 @@
                 "useExhaustiveDependencies": "error",
                 "useHookAtTopLevel": "error",
                 "noVoidElementsWithChildren": "error",
+                "noNestedComponentDefinitions": "error",
                 "noNextAsyncClientComponent": "error",
-                "noUndeclaredDependencies": "error"
+                "useInlineScriptId": "error",
+                "noBeforeInteractiveScriptOutsideDocument": "warn",
+                "noUndeclaredDependencies": {
+                    "level": "error",
+                    "options": {
+                        "devDependencies": [
+                            "**/__tests__/**",
+                            "**/*.test.ts",
+                            "**/*.test.tsx",
+                            "**/*.spec.ts",
+                            "**/*.spec.tsx",
+                            "**/*.stories.tsx",
+                            "**/*.stories.ts"
+                        ]
+                    }
+                }
             },
             "security": {
                 "noGlobalEval": "error",
+                "noScriptUrl": "warn",
                 "noBlankTarget": "warn",
                 "noDangerouslySetInnerHtml": "error",
-                "noDangerouslySetInnerHtmlWithChildren": "error"
+                "noDangerouslySetInnerHtmlWithChildren": "warn"
             },
             "performance": {
                 "noAwaitInLoops": "warn",
+                "noDelete": "warn",
                 "noImgElement": "warn",
                 "useGoogleFontPreconnect": "warn",
-                "noUnwantedPolyfillio": "warn"
+                "noUnwantedPolyfillio": "warn",
+                "noSyncScripts": "warn"
             },
             "nursery": {
-                "noProto": "warn",
-                "noScriptUrl": "warn",
-                "noMultiStr": "warn",
-                "noUselessReturn": "warn",
-                "useGlobalThis": "warn",
                 "noFloatingPromises": "error",
                 "noMisusedPromises": "error",
-                "noUnnecessaryConditions": "warn",
-                "useExhaustiveSwitchCases": "warn",
-                "noLeakedRender": "error",
-                "noSyncScripts": "warn",
-                "useInlineScriptId": "error"
+                "useExhaustiveSwitchCases": "warn"
             }
         }
     },
@@ -230,7 +254,6 @@
                         "noFocusedTests": "error",
                         "noSkippedTests": "warn",
                         "noDuplicateTestHooks": "warn",
-                        "noExportsInTest": "error",
                         "noConsole": "off"
                     },
                     "complexity": {
@@ -238,6 +261,31 @@
                     },
                     "correctness": {
                         "noUndeclaredVariables": "off"
+                    },
+                    "nursery": {
+                        "noFloatingPromises": "off"
+                    }
+                }
+            }
+        },
+        {
+            "includes": [
+                "**/app/**/page.tsx",
+                "**/app/**/layout.tsx",
+                "**/app/**/loading.tsx",
+                "**/app/**/error.tsx",
+                "**/app/**/not-found.tsx",
+                "**/app/**/template.tsx",
+                "**/app/**/default.tsx",
+                "**/app/**/route.ts",
+                "middleware.ts",
+                "instrumentation.ts",
+                "next.config.*"
+            ],
+            "linter": {
+                "rules": {
+                    "style": {
+                        "noDefaultExport": "off"
                     }
                 }
             }

@@ -1,0 +1,2264 @@
+ WARN  Issue while reading "/Users/hal/.npmrc". EPERM: operation not permitted, open '/Users/hal/.npmrc'
+
+> @37bytes/code-style@0.0.3 test:parity /Users/hal/Projects/public-packages/packages/code-style
+> node --test __tests__/parity/*.check.js __tests__/*.check.js
+
+▶ preset parity: spa
+  ✔ eslint produced results for spa (0.273334ms)
+  ✔ oxlint code formats all recognized for spa (0.050208ms)
+  ✖ oxlint verdict parity for spa (0.419ms)
+  ✖ biome verdict parity for spa (0.120292ms)
+✖ preset parity: spa (1453.691292ms)
+Pages directory cannot be found at /Users/hal/Projects/public-packages/packages/code-style/pages or /Users/hal/Projects/public-packages/packages/code-style/src/pages. If using a custom path, please configure with the `no-html-link-for-pages` rule in your eslint config file.
+▶ preset parity: nextjs
+  ✔ eslint produced results for nextjs (0.119583ms)
+  ✔ oxlint code formats all recognized for nextjs (0.049125ms)
+  ✖ oxlint verdict parity for nextjs (0.11575ms)
+  ✖ biome verdict parity for nextjs (0.068292ms)
+✖ preset parity: nextjs (1374.799625ms)
+▶ preset parity: nodejs-runtime
+  ✔ eslint produced results for nodejs-runtime (0.109708ms)
+  ✔ oxlint code formats all recognized for nodejs-runtime (0.045583ms)
+  ✖ oxlint verdict parity for nodejs-runtime (0.107209ms)
+  ✖ biome verdict parity for nodejs-runtime (0.060417ms)
+✖ preset parity: nodejs-runtime (1364.931458ms)
+▶ preset parity: nodejs-tool
+  ✔ eslint produced results for nodejs-tool (0.10275ms)
+  ✔ oxlint code formats all recognized for nodejs-tool (0.0235ms)
+  ✖ oxlint verdict parity for nodejs-tool (0.107584ms)
+  ✖ biome verdict parity for nodejs-tool (0.074084ms)
+✖ preset parity: nodejs-tool (1382.787417ms)
+▶ guards against vacuous green
+  ✔ oxlint off-list extracted non-empty (0.263916ms)
+  ✔ biome off-list extracted non-empty (0.043541ms)
+  ✔ eslint enabled union is plausible (0.040875ms)
+  ✔ biome domain rules file is non-empty (0.038667ms)
+✔ guards against vacuous green (0.755209ms)
+▶ Layer 1 forward: bridge-disabled eslint rules must have enabled tool equivalents
+  ✔ oxlint candidate set is the intersection, not the whole off-list (0.716625ms)
+  ✔ oxlint covers array-callback-return (0.113208ms)
+  ✖ oxlint covers arrow-body-style (0.230375ms)
+  ✔ oxlint covers curly (0.047917ms)
+  ✔ oxlint covers default-case (0.044167ms)
+  ✔ oxlint covers default-case-last (0.051041ms)
+  ✔ oxlint covers eqeqeq (0.03025ms)
+  ✖ oxlint covers func-style (0.040667ms)
+  ✖ oxlint covers id-length (0.031792ms)
+  ✔ oxlint covers no-alert (0.019375ms)
+  ✔ oxlint covers no-async-promise-executor (0.018ms)
+  ✔ oxlint covers no-await-in-loop (0.026708ms)
+  ✔ oxlint covers no-caller (0.026375ms)
+  ✔ oxlint covers no-cond-assign (0.040542ms)
+  ✔ oxlint covers no-console (0.017708ms)
+  ✔ oxlint covers no-const-assign (0.016166ms)
+  ✔ oxlint covers no-debugger (0.0155ms)
+  ✔ oxlint covers no-delete-var (0.016083ms)
+  ✔ oxlint covers no-dupe-class-members (0.014334ms)
+  ✔ oxlint covers no-dupe-keys (0.014917ms)
+  ✔ oxlint covers no-duplicate-case (0.016583ms)
+  ✔ oxlint covers no-else-return (0.014416ms)
+  ✔ oxlint covers no-empty (0.015542ms)
+  ✔ oxlint covers no-empty-pattern (0.014792ms)
+  ✔ oxlint covers no-eval (0.014083ms)
+  ✔ oxlint covers no-ex-assign (0.014125ms)
+  ✔ oxlint covers no-extend-native (0.013709ms)
+  ✔ oxlint covers no-extra-bind (0.013458ms)
+  ✔ oxlint covers no-extra-boolean-cast (0.015167ms)
+  ✔ oxlint covers no-extra-label (0.013833ms)
+  ✔ oxlint covers no-fallthrough (0.013583ms)
+  ✔ oxlint covers no-func-assign (0.014084ms)
+  ✔ oxlint covers no-global-assign (0.0155ms)
+  ✔ oxlint covers no-implicit-coercion (0.013833ms)
+  ✔ oxlint covers no-iterator (0.021333ms)
+  ✔ oxlint covers no-label-var (0.0145ms)
+  ✔ oxlint covers no-labels (0.016375ms)
+  ✔ oxlint covers no-lone-blocks (0.014875ms)
+  ✔ oxlint covers no-loop-func (0.0155ms)
+  ✔ oxlint covers no-multi-str (0.014375ms)
+  ✔ oxlint covers no-nested-ternary (0.013625ms)
+  ✔ oxlint covers no-new-func (0.016209ms)
+  ✔ oxlint covers no-new-wrappers (0.015708ms)
+  ✔ oxlint covers no-obj-calls (0.020959ms)
+  ✔ oxlint covers no-promise-executor-return (0.024208ms)
+  ✔ oxlint covers no-proto (0.015292ms)
+  ✔ oxlint covers no-regex-spaces (0.020875ms)
+  ✔ oxlint covers no-script-url (0.018916ms)
+  ✔ oxlint covers no-self-assign (0.014958ms)
+  ✔ oxlint covers no-self-compare (0.014583ms)
+  ✔ oxlint covers no-sequences (0.020792ms)
+  ✔ oxlint covers no-shadow-restricted-names (0.016834ms)
+  ✔ oxlint covers no-sparse-arrays (0.027625ms)
+  ✔ oxlint covers no-template-curly-in-string (0.014833ms)
+  ✔ oxlint covers no-this-before-super (0.014208ms)
+  ✔ oxlint covers no-throw-literal (0.023958ms)
+  ✔ oxlint covers no-unsafe-negation (0.016208ms)
+  ✔ oxlint covers no-unused-expressions (0.013041ms)
+  ✔ oxlint covers no-unused-labels (0.014208ms)
+  ✔ oxlint covers no-use-before-define (0.014709ms)
+  ✔ oxlint covers no-useless-computed-key (0.01225ms)
+  ✔ oxlint covers no-useless-concat (0.012209ms)
+  ✔ oxlint covers no-useless-constructor (0.012ms)
+  ✔ oxlint covers no-useless-escape (0.012167ms)
+  ✔ oxlint covers no-useless-rename (0.01275ms)
+  ✔ oxlint covers no-useless-return (0.012208ms)
+  ✔ oxlint covers no-var (0.012166ms)
+  ✔ oxlint covers no-with (0.011792ms)
+  ✖ oxlint covers object-shorthand (0.049958ms)
+  ✔ oxlint covers prefer-const (0.016167ms)
+  ✔ oxlint covers prefer-template (0.012292ms)
+  ✔ oxlint covers require-yield (0.011959ms)
+  ✔ oxlint covers unicode-bom (0.012958ms)
+  ✔ oxlint covers use-isnan (0.015ms)
+  ✔ oxlint covers valid-typeof (0.013084ms)
+  ✔ oxlint covers import-x/first (0.016792ms)
+  ✔ oxlint covers import-x/no-amd (0.013625ms)
+  ✔ oxlint covers import-x/no-anonymous-default-export (0.014833ms)
+  ✔ oxlint covers import-x/no-cycle (0.012291ms)
+  ✔ oxlint covers import-x/no-default-export (0.012584ms)
+  ✔ oxlint covers import-x/no-duplicates (0.012084ms)
+  ✔ oxlint covers import-x/no-empty-named-blocks (0.01525ms)
+  ✔ oxlint covers import-x/no-mutable-exports (0.012833ms)
+  ✔ oxlint covers import-x/no-self-import (0.011916ms)
+  ✔ oxlint covers import-x/no-webpack-loader-syntax (0.01225ms)
+  ✔ oxlint covers @next/next/google-font-display (0.012542ms)
+  ✔ oxlint covers @next/next/google-font-preconnect (0.012458ms)
+  ✔ oxlint covers @next/next/inline-script-id (0.01225ms)
+  ✔ oxlint covers @next/next/next-script-for-ga (0.012292ms)
+  ✔ oxlint covers @next/next/no-assign-module-variable (0.02ms)
+  ✔ oxlint covers @next/next/no-async-client-component (0.012459ms)
+  ✔ oxlint covers @next/next/no-css-tags (0.017583ms)
+  ✔ oxlint covers @next/next/no-head-element (0.01425ms)
+  ✔ oxlint covers @next/next/no-html-link-for-pages (0.011916ms)
+  ✔ oxlint covers @next/next/no-img-element (0.01225ms)
+  ✔ oxlint covers @next/next/no-page-custom-font (0.013ms)
+  ✔ oxlint covers @next/next/no-sync-scripts (0.021167ms)
+  ✔ oxlint covers @next/next/no-unwanted-polyfillio (0.012583ms)
+  ✔ oxlint covers n/global-require (0.012334ms)
+  ✔ oxlint covers n/no-exports-assign (0.011917ms)
+  ✔ oxlint covers n/no-new-require (0.012416ms)
+  ✔ oxlint covers n/no-path-concat (0.014166ms)
+  ✔ oxlint covers n/no-process-env (0.012542ms)
+  ✔ oxlint covers promise/no-callback-in-promise (0.012625ms)
+  ✔ oxlint covers promise/no-multiple-resolved (0.014375ms)
+  ✔ oxlint covers promise/prefer-await-to-then (0.012042ms)
+  ✔ oxlint covers promise/spec-only (0.012375ms)
+  ✔ oxlint covers react-hooks/exhaustive-deps (0.012042ms)
+  ✔ oxlint covers @typescript-eslint/consistent-type-assertions (0.012375ms)
+  ✔ oxlint covers @typescript-eslint/consistent-type-imports (0.017375ms)
+  ✔ oxlint covers @typescript-eslint/no-empty-object-type (0.01375ms)
+  ✔ oxlint covers @typescript-eslint/no-explicit-any (0.011833ms)
+  ✔ oxlint covers @typescript-eslint/no-unsafe-function-type (0.012041ms)
+  ✔ oxlint covers @typescript-eslint/no-wrapper-object-types (0.012417ms)
+  ✖ oxlint covers @typescript-eslint/no-array-constructor (0.044166ms)
+  ✔ oxlint covers @typescript-eslint/no-loop-func (0.01275ms)
+  ✖ oxlint covers @typescript-eslint/no-redeclare (0.03275ms)
+  ✔ oxlint covers @typescript-eslint/no-unused-expressions (0.011584ms)
+  ✔ oxlint covers @typescript-eslint/no-use-before-define (0.011667ms)
+  ✔ oxlint covers @typescript-eslint/no-useless-constructor (0.010791ms)
+  ✔ oxlint covers @typescript-eslint/consistent-type-exports (0.0125ms)
+  ✔ oxlint covers @typescript-eslint/no-floating-promises (0.012375ms)
+  ✔ oxlint covers @typescript-eslint/no-misused-promises (0.011667ms)
+  ✔ oxlint covers @typescript-eslint/no-unsafe-argument (0.012ms)
+  ✔ oxlint covers @typescript-eslint/no-unsafe-assignment (0.013375ms)
+  ✔ oxlint covers @typescript-eslint/no-unsafe-call (0.011583ms)
+  ✔ oxlint covers @typescript-eslint/no-unsafe-member-access (0.0115ms)
+  ✔ oxlint covers @typescript-eslint/no-unsafe-return (0.01175ms)
+  ✔ oxlint covers @typescript-eslint/only-throw-error (0.011667ms)
+  ✔ oxlint covers @typescript-eslint/return-await (0.011417ms)
+  ✔ oxlint covers unicorn/catch-error-name (0.0125ms)
+  ✔ oxlint covers unicorn/consistent-assert (0.01175ms)
+  ✔ oxlint covers unicorn/consistent-date-clone (0.01325ms)
+  ✔ oxlint covers unicorn/consistent-empty-array-spread (0.011792ms)
+  ✔ oxlint covers unicorn/consistent-existence-index-check (0.011958ms)
+  ✔ oxlint covers unicorn/consistent-function-scoping (0.012083ms)
+  ✖ oxlint covers unicorn/custom-error-definition (0.031916ms)
+  ✔ oxlint covers unicorn/new-for-builtins (0.012458ms)
+  ✔ oxlint covers unicorn/no-abusive-eslint-disable (0.013584ms)
+  ✔ oxlint covers unicorn/no-accessor-recursion (0.012167ms)
+  ✔ oxlint covers unicorn/no-array-callback-reference (0.012ms)
+  ✔ oxlint covers unicorn/no-array-method-this-argument (0.012ms)
+  ✔ oxlint covers unicorn/no-array-reverse (0.012333ms)
+  ✔ oxlint covers unicorn/no-array-sort (0.011917ms)
+  ✔ oxlint covers unicorn/no-await-expression-member (0.01275ms)
+  ✔ oxlint covers unicorn/no-await-in-promise-methods (0.011875ms)
+  ✔ oxlint covers unicorn/no-document-cookie (0.012416ms)
+  ✔ oxlint covers unicorn/no-hex-escape (0.011834ms)
+  ✔ oxlint covers unicorn/no-immediate-mutation (0.013084ms)
+  ✔ oxlint covers unicorn/no-instanceof-builtins (0.011959ms)
+  ✔ oxlint covers unicorn/no-invalid-remove-event-listener (0.012209ms)
+  ✖ oxlint covers unicorn/no-negation-in-equality-check (0.030333ms)
+  ✔ oxlint covers unicorn/no-new-array (0.013417ms)
+  ✔ oxlint covers unicorn/no-new-buffer (0.012125ms)
+  ✔ oxlint covers unicorn/no-single-promise-in-promise-methods (0.01225ms)
+  ✔ oxlint covers unicorn/no-static-only-class (0.011917ms)
+  ✔ oxlint covers unicorn/no-thenable (0.012084ms)
+  ✔ oxlint covers unicorn/no-this-assignment (0.012292ms)
+  ✖ oxlint covers unicorn/no-unnecessary-array-flat-depth (0.038459ms)
+  ✖ oxlint covers unicorn/no-unnecessary-array-splice-count (0.038667ms)
+  ✖ oxlint covers unicorn/no-unnecessary-await (0.032791ms)
+  ✖ oxlint covers unicorn/no-unnecessary-slice-end (0.03325ms)
+  ✔ oxlint covers unicorn/no-unreadable-array-destructuring (0.013458ms)
+  ✔ oxlint covers unicorn/no-unreadable-iife (0.013333ms)
+  ✔ oxlint covers unicorn/no-useless-collection-argument (0.016167ms)
+  ✔ oxlint covers unicorn/no-useless-error-capture-stack-trace (0.026292ms)
+  ✔ oxlint covers unicorn/no-useless-fallback-in-spread (0.012792ms)
+  ✔ oxlint covers unicorn/no-useless-length-check (0.021583ms)
+  ✔ oxlint covers unicorn/no-useless-promise-resolve-reject (0.020458ms)
+  ✔ oxlint covers unicorn/no-useless-spread (0.015167ms)
+  ✔ oxlint covers unicorn/no-useless-switch-case (0.013292ms)
+  ✔ oxlint covers unicorn/no-useless-undefined (0.013291ms)
+  ✔ oxlint covers unicorn/no-zero-fractions (0.015041ms)
+  ✔ oxlint covers unicorn/number-literal-case (0.014416ms)
+  ✔ oxlint covers unicorn/numeric-separators-style (0.013167ms)
+  ✔ oxlint covers unicorn/prefer-add-event-listener (0.012541ms)
+  ✔ oxlint covers unicorn/prefer-array-find (0.012375ms)
+  ✔ oxlint covers unicorn/prefer-array-flat (0.019083ms)
+  ✔ oxlint covers unicorn/prefer-array-flat-map (0.011792ms)
+  ✔ oxlint covers unicorn/prefer-array-index-of (0.012625ms)
+  ✔ oxlint covers unicorn/prefer-array-some (0.011792ms)
+  ✔ oxlint covers unicorn/prefer-at (0.015125ms)
+  ✔ oxlint covers unicorn/prefer-blob-reading-methods (0.012583ms)
+  ✔ oxlint covers unicorn/prefer-class-fields (0.036542ms)
+  ✔ oxlint covers unicorn/prefer-classlist-toggle (0.012708ms)
+  ✔ oxlint covers unicorn/prefer-code-point (0.012625ms)
+  ✔ oxlint covers unicorn/prefer-date-now (0.013ms)
+  ✔ oxlint covers unicorn/prefer-default-parameters (0.014333ms)
+  ✔ oxlint covers unicorn/prefer-dom-node-append (0.063709ms)
+  ✔ oxlint covers unicorn/prefer-dom-node-dataset (0.013875ms)
+  ✔ oxlint covers unicorn/prefer-dom-node-remove (0.017583ms)
+  ✔ oxlint covers unicorn/prefer-dom-node-text-content (0.011833ms)
+  ✔ oxlint covers unicorn/prefer-event-target (0.010958ms)
+  ✔ oxlint covers unicorn/prefer-global-this (0.017292ms)
+  ✖ oxlint covers unicorn/prefer-import-meta-properties (0.039459ms)
+  ✔ oxlint covers unicorn/prefer-includes (0.014ms)
+  ✔ oxlint covers unicorn/prefer-keyboard-event-key (0.011708ms)
+  ✔ oxlint covers unicorn/prefer-logical-operator-over-ternary (0.01175ms)
+  ✔ oxlint covers unicorn/prefer-math-min-max (0.011041ms)
+  ✔ oxlint covers unicorn/prefer-math-trunc (0.020208ms)
+  ✔ oxlint covers unicorn/prefer-modern-dom-apis (0.012292ms)
+  ✔ oxlint covers unicorn/prefer-modern-math-apis (0.011417ms)
+  ✔ oxlint covers unicorn/prefer-native-coercion-functions (0.017334ms)
+  ✔ oxlint covers unicorn/prefer-negative-index (0.01175ms)
+  ✔ oxlint covers unicorn/prefer-object-from-entries (0.011ms)
+  ✔ oxlint covers unicorn/prefer-query-selector (0.013292ms)
+  ✔ oxlint covers unicorn/prefer-response-static-json (0.011083ms)
+  ✔ oxlint covers unicorn/prefer-set-has (0.011ms)
+  ✔ oxlint covers unicorn/prefer-set-size (0.011334ms)
+  ✔ oxlint covers unicorn/prefer-spread (0.011917ms)
+  ✔ oxlint covers unicorn/prefer-string-replace-all (0.01125ms)
+  ✔ oxlint covers unicorn/prefer-string-slice (0.010917ms)
+  ✔ oxlint covers unicorn/prefer-string-starts-ends-with (0.011166ms)
+  ✔ oxlint covers unicorn/prefer-string-trim-start-end (0.012625ms)
+  ✔ oxlint covers unicorn/prefer-structured-clone (0.01775ms)
+  ✔ oxlint covers unicorn/prefer-top-level-await (0.011583ms)
+  ✔ oxlint covers unicorn/relative-url-style (0.012083ms)
+  ✔ oxlint covers unicorn/require-array-join-separator (0.013ms)
+  ✔ oxlint covers unicorn/require-number-to-fixed-digits-argument (0.01175ms)
+  ✔ oxlint covers unicorn/require-post-message-target-origin (0.011166ms)
+  ✔ oxlint covers unicorn/text-encoding-identifier-case (0.011ms)
+  ✔ oxlint covers unicorn/throw-new-error (0.011166ms)
+  ✖ oxlint covers vitest/consistent-test-it (0.031875ms)
+  ✖ oxlint covers vitest/no-disabled-tests (0.0295ms)
+  ✖ oxlint covers vitest/no-focused-tests (0.029375ms)
+  ✖ oxlint covers vitest/no-identical-title (0.028875ms)
+  ✖ oxlint covers vitest/prefer-equality-matcher (0.031ms)
+  ✖ oxlint covers vitest/prefer-to-be (0.031042ms)
+  ✖ oxlint covers vitest/prefer-to-contain (0.030875ms)
+  ✖ oxlint covers vitest/prefer-to-have-length (0.029458ms)
+  ✖ oxlint covers vitest/valid-expect (0.031833ms)
+  ✖ oxlint covers vitest/valid-title (0.030208ms)
+  ✔ oxlint covers no-unused-vars (0.01325ms)
+  ✔ oxlint covers react-hooks/rules-of-hooks (0.013083ms)
+  ✔ oxlint covers @typescript-eslint/no-unused-vars (0.010458ms)
+  ✔ biome covers curly (0.065041ms)
+  ✖ biome covers unicorn/number-literal-case (0.045333ms)
+  ✖ biome covers dot-location (0.030084ms)
+  ✖ biome covers new-parens (0.027834ms)
+  ✖ biome covers no-mixed-operators (0.028834ms)
+  ✖ biome covers no-whitespace-before-property (0.028375ms)
+  ✖ biome covers rest-spread-spacing (0.124ms)
+  ✖ biome covers array-callback-return (0.045334ms)
+  ✔ biome covers default-case-last (0.03175ms)
+  ✔ biome covers eqeqeq (0.016667ms)
+  ✔ biome covers getter-return (0.014833ms)
+  ✔ biome covers no-async-promise-executor (0.027458ms)
+  ✔ biome covers no-cond-assign (0.013458ms)
+  ✔ biome covers no-const-assign (0.012958ms)
+  ✔ biome covers no-debugger (0.013917ms)
+  ✖ biome covers no-delete-var (0.049792ms)
+  ✔ biome covers no-dupe-args (0.019292ms)
+  ✔ biome covers no-dupe-class-members (0.019833ms)
+  ✔ biome covers no-dupe-keys (0.016708ms)
+  ✔ biome covers no-duplicate-case (0.012208ms)
+  ✔ biome covers no-empty (0.013167ms)
+  ✔ biome covers no-empty-pattern (0.01075ms)
+  ✔ biome covers no-eval (0.01575ms)
+  ✔ biome covers no-ex-assign (0.010916ms)
+  ✔ biome covers no-extra-boolean-cast (0.011167ms)
+  ✔ biome covers no-extra-label (0.0105ms)
+  ✔ biome covers no-fallthrough (0.011ms)
+  ✔ biome covers no-func-assign (0.010917ms)
+  ✔ biome covers no-global-assign (0.010208ms)
+  ✔ biome covers no-label-var (0.01025ms)
+  ✖ biome covers no-labels (0.041584ms)
+  ✔ biome covers no-lone-blocks (0.017708ms)
+  ✔ biome covers no-new-symbol (0.012584ms)
+  ✔ biome covers no-obj-calls (0.011083ms)
+  ✔ biome covers no-octal-escape (0.010583ms)
+  ✖ biome covers no-regex-spaces (0.029ms)
+  ✔ biome covers no-self-assign (0.011209ms)
+  ✖ biome covers no-self-compare (0.252458ms)
+  ✔ biome covers no-sequences (0.013625ms)
+  ✔ biome covers no-shadow-restricted-names (0.011458ms)
+  ✔ biome covers no-sparse-arrays (0.011292ms)
+  ✔ biome covers no-template-curly-in-string (0.01075ms)
+  ✔ biome covers no-this-before-super (0.010792ms)
+  ✔ biome covers no-unreachable (0.011375ms)
+  ✔ biome covers no-unsafe-negation (0.010542ms)
+  ✔ biome covers no-unused-labels (0.010708ms)
+  ✔ biome covers no-unused-vars (0.010917ms)
+  ✔ biome covers no-use-before-define (0.010458ms)
+  ✖ biome covers no-useless-computed-key (0.029375ms)
+  ✔ biome covers no-useless-constructor (0.011125ms)
+  ✔ biome covers no-useless-escape (0.011ms)
+  ✔ biome covers no-useless-rename (0.010458ms)
+  ✖ biome covers no-with (0.028208ms)
+  ✔ biome covers prefer-const (0.011083ms)
+  ✔ biome covers prefer-template (0.010708ms)
+  ✔ biome covers require-yield (0.0105ms)
+  ✔ biome covers use-isnan (0.010458ms)
+  ✔ biome covers valid-typeof (0.010167ms)
+  ✔ biome covers @typescript-eslint/consistent-type-exports (0.011208ms)
+  ✔ biome covers @typescript-eslint/consistent-type-imports (0.010208ms)
+  ✔ biome covers @typescript-eslint/no-array-constructor (0.011042ms)
+  ✔ biome covers @typescript-eslint/no-explicit-any (0.012125ms)
+  ✔ biome covers @typescript-eslint/no-floating-promises (0.010917ms)
+  ✔ biome covers @typescript-eslint/no-misused-promises (0.010125ms)
+  ✔ biome covers @typescript-eslint/no-redeclare (0.010667ms)
+  ✔ biome covers @typescript-eslint/no-unused-vars (0.011541ms)
+  ✔ biome covers @typescript-eslint/no-use-before-define (0.010375ms)
+  ✔ biome covers @typescript-eslint/no-useless-constructor (0.010667ms)
+  ✔ biome covers react-hooks/exhaustive-deps (0.011042ms)
+  ✔ biome covers react-hooks/rules-of-hooks (0.010166ms)
+  ✔ biome covers unicorn/new-for-builtins (0.01025ms)
+  ✔ biome covers unicorn/no-document-cookie (0.01025ms)
+  ✔ biome covers unicorn/no-static-only-class (0.01075ms)
+  ✖ biome covers unicorn/no-thenable (0.028375ms)
+  ✖ biome covers unicorn/no-useless-switch-case (0.027584ms)
+  ✔ biome covers unicorn/prefer-array-flat-map (0.020917ms)
+  ✖ biome covers unicorn/prefer-array-index-of (0.040917ms)
+  ✔ biome covers unicorn/prefer-date-now (0.012041ms)
+✖ Layer 1 forward: bridge-disabled eslint rules must have enabled tool equivalents (15.122ms)
+▶ Layer 1 reverse: every tool-enabled rule must trace back to an enabled eslint rule
+  ✔ oxlint curly has an eslint source (0.7665ms)
+  ✔ oxlint eqeqeq has an eslint source (0.048208ms)
+  ✔ oxlint no-console has an eslint source (0.022083ms)
+  ✔ oxlint no-debugger has an eslint source (0.015416ms)
+  ✔ oxlint no-alert has an eslint source (0.012833ms)
+  ✔ oxlint no-empty has an eslint source (0.013458ms)
+  ✔ oxlint no-else-return has an eslint source (0.0125ms)
+  ✔ oxlint no-extra-boolean-cast has an eslint source (0.011458ms)
+  ✔ oxlint no-var has an eslint source (0.012291ms)
+  ✔ oxlint no-self-compare has an eslint source (0.012834ms)
+  ✔ oxlint no-useless-return has an eslint source (0.01125ms)
+  ✔ oxlint no-implicit-coercion has an eslint source (0.011084ms)
+  ✔ oxlint default-case has an eslint source (0.011416ms)
+  ✔ oxlint default-case-last has an eslint source (0.011083ms)
+  ✔ oxlint prefer-template has an eslint source (0.011583ms)
+  ✔ oxlint no-nested-ternary has an eslint source (0.017125ms)
+  ✔ oxlint array-callback-return has an eslint source (0.011916ms)
+  ✔ oxlint no-caller has an eslint source (0.011083ms)
+  ✔ oxlint no-new-func has an eslint source (0.011042ms)
+  ✔ oxlint no-new-wrappers has an eslint source (0.016625ms)
+  ✔ oxlint no-cond-assign has an eslint source (0.011125ms)
+  ✔ oxlint no-fallthrough has an eslint source (0.011084ms)
+  ✔ oxlint no-lone-blocks has an eslint source (0.01125ms)
+  ✔ oxlint no-loop-func has an eslint source (0.010291ms)
+  ✔ oxlint no-labels has an eslint source (0.020417ms)
+  ✔ oxlint no-extra-label has an eslint source (0.011167ms)
+  ✔ oxlint no-label-var has an eslint source (0.011459ms)
+  ✔ oxlint no-sequences has an eslint source (0.010959ms)
+  ✔ oxlint prefer-const has an eslint source (0.011042ms)
+  ✔ oxlint no-const-assign has an eslint source (0.010959ms)
+  ✔ oxlint no-delete-var has an eslint source (0.011458ms)
+  ✔ oxlint no-global-assign has an eslint source (0.011625ms)
+  ✔ oxlint no-shadow-restricted-names has an eslint source (0.01125ms)
+  ✔ oxlint no-undef has an eslint source (0.019042ms)
+  ✔ oxlint no-unused-vars has an eslint source (0.010291ms)
+  ✔ oxlint no-use-before-define has an eslint source (0.010417ms)
+  ✔ oxlint no-unused-expressions has an eslint source (0.010209ms)
+  ✔ oxlint no-unused-labels has an eslint source (0.011ms)
+  ✔ oxlint no-dupe-class-members has an eslint source (0.011333ms)
+  ✔ oxlint no-dupe-keys has an eslint source (0.011125ms)
+  ✔ oxlint no-duplicate-case has an eslint source (0.011042ms)
+  ✔ oxlint no-eval has an eslint source (0.010834ms)
+  ✔ oxlint no-script-url has an eslint source (0.011084ms)
+  ✔ oxlint no-extend-native has an eslint source (0.010666ms)
+  ✔ oxlint no-iterator has an eslint source (0.010875ms)
+  ✔ oxlint no-with has an eslint source (0.011458ms)
+  ✔ oxlint no-proto has an eslint source (0.01075ms)
+  ✔ oxlint no-empty-pattern has an eslint source (0.010916ms)
+  ✔ oxlint no-sparse-arrays has an eslint source (0.01075ms)
+  ✔ oxlint no-extra-bind has an eslint source (0.0105ms)
+  ✔ oxlint no-func-assign has an eslint source (0.010709ms)
+  ✔ oxlint no-ex-assign has an eslint source (0.010708ms)
+  ✔ oxlint no-obj-calls has an eslint source (0.0105ms)
+  ✔ oxlint no-self-assign has an eslint source (0.010833ms)
+  ✔ oxlint getter-return has an eslint source (0.010875ms)
+  ✔ oxlint no-multi-str has an eslint source (0.010667ms)
+  ✔ oxlint no-template-curly-in-string has an eslint source (0.011042ms)
+  ✔ oxlint no-useless-concat has an eslint source (0.011ms)
+  ✔ oxlint no-useless-escape has an eslint source (0.011208ms)
+  ✔ oxlint no-this-before-super has an eslint source (0.011084ms)
+  ✔ oxlint no-useless-constructor has an eslint source (0.009541ms)
+  ✔ oxlint no-throw-literal has an eslint source (0.010833ms)
+  ✔ oxlint no-unreachable has an eslint source (0.011417ms)
+  ✔ oxlint no-useless-computed-key has an eslint source (0.011542ms)
+  ✔ oxlint no-useless-rename has an eslint source (0.010542ms)
+  ✔ oxlint no-unsafe-negation has an eslint source (0.010833ms)
+  ✔ oxlint use-isnan has an eslint source (0.011ms)
+  ✔ oxlint valid-typeof has an eslint source (0.010708ms)
+  ✔ oxlint no-async-promise-executor has an eslint source (0.010666ms)
+  ✔ oxlint no-await-in-loop has an eslint source (0.010541ms)
+  ✔ oxlint no-promise-executor-return has an eslint source (0.010667ms)
+  ✔ oxlint require-yield has an eslint source (0.010709ms)
+  ✔ oxlint no-regex-spaces has an eslint source (0.011542ms)
+  ✔ oxlint unicode-bom has an eslint source (0.01125ms)
+  ✔ oxlint promise/prefer-await-to-then has an eslint source (0.012292ms)
+  ✔ oxlint promise/no-return-in-finally has an eslint source (0.011708ms)
+  ✔ oxlint promise/no-multiple-resolved has an eslint source (0.011292ms)
+  ✔ oxlint promise/no-callback-in-promise has an eslint source (0.0105ms)
+  ✔ oxlint promise/spec-only has an eslint source (0.011ms)
+  ✔ oxlint unicorn/catch-error-name has an eslint source (0.010916ms)
+  ✔ oxlint unicorn/consistent-assert has an eslint source (0.011541ms)
+  ✔ oxlint unicorn/consistent-date-clone has an eslint source (0.010541ms)
+  ✔ oxlint unicorn/consistent-empty-array-spread has an eslint source (0.011333ms)
+  ✔ oxlint unicorn/consistent-existence-index-check has an eslint source (0.010917ms)
+  ✔ oxlint unicorn/consistent-function-scoping has an eslint source (0.010542ms)
+  ✔ oxlint unicorn/new-for-builtins has an eslint source (0.01075ms)
+  ✔ oxlint unicorn/no-abusive-eslint-disable has an eslint source (0.010875ms)
+  ✔ oxlint unicorn/no-accessor-recursion has an eslint source (0.011875ms)
+  ✔ oxlint unicorn/no-array-callback-reference has an eslint source (0.02275ms)
+  ✔ oxlint unicorn/no-array-method-this-argument has an eslint source (0.011792ms)
+  ✔ oxlint unicorn/no-array-reverse has an eslint source (0.015917ms)
+  ✔ oxlint unicorn/no-array-sort has an eslint source (0.018583ms)
+  ✖ oxlint unicorn/no-array-for-each has an eslint source (0.054208ms)
+  ✔ oxlint unicorn/no-await-expression-member has an eslint source (0.013834ms)
+  ✔ oxlint unicorn/no-await-in-promise-methods has an eslint source (0.014ms)
+  ✔ oxlint unicorn/no-hex-escape has an eslint source (0.017375ms)
+  ✔ oxlint unicorn/no-immediate-mutation has an eslint source (0.011333ms)
+  ✔ oxlint unicorn/no-instanceof-builtins has an eslint source (0.010666ms)
+  ✔ oxlint unicorn/no-new-array has an eslint source (0.0875ms)
+  ✔ oxlint unicorn/no-new-buffer has an eslint source (0.101667ms)
+  ✔ oxlint unicorn/no-single-promise-in-promise-methods has an eslint source (0.036ms)
+  ✔ oxlint unicorn/no-static-only-class has an eslint source (0.032ms)
+  ✔ oxlint unicorn/no-thenable has an eslint source (0.029917ms)
+  ✔ oxlint unicorn/no-this-assignment has an eslint source (0.028625ms)
+  ✔ oxlint unicorn/no-unreadable-array-destructuring has an eslint source (0.029333ms)
+  ✔ oxlint unicorn/no-unreadable-iife has an eslint source (0.027958ms)
+  ✔ oxlint unicorn/no-useless-collection-argument has an eslint source (0.029584ms)
+  ✔ oxlint unicorn/no-useless-error-capture-stack-trace has an eslint source (0.028458ms)
+  ✔ oxlint unicorn/no-useless-fallback-in-spread has an eslint source (0.030334ms)
+  ✔ oxlint unicorn/no-useless-length-check has an eslint source (0.028791ms)
+  ✔ oxlint unicorn/no-useless-promise-resolve-reject has an eslint source (0.028792ms)
+  ✔ oxlint unicorn/no-useless-spread has an eslint source (0.028917ms)
+  ✔ oxlint unicorn/no-useless-switch-case has an eslint source (0.027916ms)
+  ✔ oxlint unicorn/no-useless-undefined has an eslint source (0.030459ms)
+  ✔ oxlint unicorn/no-zero-fractions has an eslint source (0.056333ms)
+  ✔ oxlint unicorn/number-literal-case has an eslint source (0.022916ms)
+  ✔ oxlint unicorn/numeric-separators-style has an eslint source (0.016916ms)
+  ✔ oxlint unicorn/prefer-array-find has an eslint source (0.014667ms)
+  ✔ oxlint unicorn/prefer-array-flat has an eslint source (0.014833ms)
+  ✔ oxlint unicorn/prefer-array-flat-map has an eslint source (0.013166ms)
+  ✔ oxlint unicorn/prefer-array-index-of has an eslint source (0.013042ms)
+  ✔ oxlint unicorn/prefer-array-some has an eslint source (0.012041ms)
+  ✔ oxlint unicorn/prefer-at has an eslint source (0.012375ms)
+  ✔ oxlint unicorn/prefer-code-point has an eslint source (0.012125ms)
+  ✔ oxlint unicorn/prefer-date-now has an eslint source (0.011416ms)
+  ✔ oxlint unicorn/prefer-default-parameters has an eslint source (0.011625ms)
+  ✔ oxlint unicorn/prefer-global-this has an eslint source (0.011875ms)
+  ✔ oxlint unicorn/prefer-includes has an eslint source (0.011292ms)
+  ✔ oxlint unicorn/prefer-logical-operator-over-ternary has an eslint source (0.011458ms)
+  ✔ oxlint unicorn/prefer-math-min-max has an eslint source (0.012709ms)
+  ✔ oxlint unicorn/prefer-math-trunc has an eslint source (0.019ms)
+  ✔ oxlint unicorn/prefer-modern-math-apis has an eslint source (0.012ms)
+  ✔ oxlint unicorn/prefer-native-coercion-functions has an eslint source (0.012125ms)
+  ✔ oxlint unicorn/prefer-negative-index has an eslint source (0.011875ms)
+  ✖ oxlint unicorn/prefer-number-properties has an eslint source (0.058041ms)
+  ✔ oxlint unicorn/prefer-object-from-entries has an eslint source (0.014042ms)
+  ✔ oxlint unicorn/prefer-set-has has an eslint source (0.011541ms)
+  ✔ oxlint unicorn/prefer-set-size has an eslint source (0.012792ms)
+  ✔ oxlint unicorn/prefer-spread has an eslint source (0.011708ms)
+  ✔ oxlint unicorn/prefer-string-replace-all has an eslint source (0.012ms)
+  ✔ oxlint unicorn/prefer-string-slice has an eslint source (0.011917ms)
+  ✔ oxlint unicorn/prefer-string-starts-ends-with has an eslint source (0.011708ms)
+  ✔ oxlint unicorn/prefer-string-trim-start-end has an eslint source (0.025167ms)
+  ✔ oxlint unicorn/prefer-structured-clone has an eslint source (0.013416ms)
+  ✔ oxlint unicorn/prefer-top-level-await has an eslint source (0.011042ms)
+  ✔ oxlint unicorn/relative-url-style has an eslint source (0.011334ms)
+  ✔ oxlint unicorn/require-array-join-separator has an eslint source (0.011583ms)
+  ✔ oxlint unicorn/require-number-to-fixed-digits-argument has an eslint source (0.011334ms)
+  ✔ oxlint unicorn/text-encoding-identifier-case has an eslint source (0.01175ms)
+  ✔ oxlint unicorn/throw-new-error has an eslint source (0.011125ms)
+  ✔ oxlint unicorn/prefer-class-fields has an eslint source (0.011125ms)
+  ✔ oxlint unicorn/prefer-blob-reading-methods has an eslint source (0.01125ms)
+  ✔ oxlint unicorn/prefer-response-static-json has an eslint source (0.011167ms)
+  ✔ oxlint unicorn/prefer-add-event-listener has an eslint source (0.011708ms)
+  ✔ oxlint unicorn/prefer-event-target has an eslint source (0.011167ms)
+  ✔ oxlint unicorn/no-document-cookie has an eslint source (0.010916ms)
+  ✔ oxlint unicorn/no-invalid-remove-event-listener has an eslint source (0.010708ms)
+  ✔ oxlint unicorn/prefer-dom-node-append has an eslint source (0.010666ms)
+  ✔ oxlint unicorn/prefer-dom-node-dataset has an eslint source (0.010875ms)
+  ✔ oxlint unicorn/prefer-dom-node-remove has an eslint source (0.01075ms)
+  ✔ oxlint unicorn/prefer-dom-node-text-content has an eslint source (0.010833ms)
+  ✔ oxlint unicorn/prefer-keyboard-event-key has an eslint source (0.011583ms)
+  ✔ oxlint unicorn/prefer-modern-dom-apis has an eslint source (0.012042ms)
+  ✔ oxlint unicorn/prefer-query-selector has an eslint source (0.011208ms)
+  ✔ oxlint unicorn/prefer-classlist-toggle has an eslint source (0.010334ms)
+  ✔ oxlint unicorn/require-post-message-target-origin has an eslint source (0.011583ms)
+  ✔ oxlint unicorn/prefer-node-protocol has an eslint source (0.011709ms)
+  ✔ oxlint import/first has an eslint source (0.028333ms)
+  ✔ oxlint import/no-mutable-exports has an eslint source (0.014166ms)
+  ✔ oxlint import/no-anonymous-default-export has an eslint source (0.012375ms)
+  ✔ oxlint import/no-default-export has an eslint source (0.011125ms)
+  ✔ oxlint import/no-duplicates has an eslint source (0.011333ms)
+  ✔ oxlint import/no-cycle has an eslint source (0.011167ms)
+  ✔ oxlint import/no-self-import has an eslint source (0.011417ms)
+  ✔ oxlint import/no-empty-named-blocks has an eslint source (0.011084ms)
+  ✔ oxlint import/no-amd has an eslint source (0.019042ms)
+  ✔ oxlint import/no-webpack-loader-syntax has an eslint source (0.01125ms)
+  ✔ oxlint react/rules-of-hooks has an eslint source (0.015ms)
+  ✔ oxlint react/exhaustive-deps has an eslint source (0.01175ms)
+  ✔ oxlint react/jsx-key has an eslint source (0.011583ms)
+  ✔ oxlint react/no-array-index-key has an eslint source (0.013583ms)
+  ✖ oxlint react/self-closing-comp has an eslint source (0.045583ms)
+  ✔ oxlint react/jsx-curly-brace-presence has an eslint source (0.01175ms)
+  ✔ oxlint react/jsx-boolean-value has an eslint source (0.010833ms)
+  ✔ oxlint react/jsx-fragments has an eslint source (0.010959ms)
+  ✖ oxlint react/jsx-pascal-case has an eslint source (0.041917ms)
+  ✖ oxlint react/jsx-handler-names has an eslint source (0.029834ms)
+  ✖ oxlint react/jsx-no-duplicate-props has an eslint source (0.03425ms)
+  ✔ oxlint react/jsx-no-target-blank has an eslint source (0.013584ms)
+  ✖ oxlint react/jsx-no-undef has an eslint source (0.029625ms)
+  ✔ oxlint react/jsx-no-comment-textnodes has an eslint source (0.029584ms)
+  ✔ oxlint react/no-unknown-property has an eslint source (0.032167ms)
+  ✔ oxlint react/no-direct-mutation-state has an eslint source (0.014292ms)
+  ✖ oxlint react/no-is-mounted has an eslint source (0.071833ms)
+  ✔ oxlint react/no-danger-with-children has an eslint source (0.017958ms)
+  ✔ oxlint react/no-children-prop has an eslint source (0.0115ms)
+  ✔ oxlint react/no-danger has an eslint source (0.013292ms)
+  ✔ oxlint react/jsx-no-script-url has an eslint source (0.017125ms)
+  ✔ oxlint react/iframe-missing-sandbox has an eslint source (0.011459ms)
+  ✔ oxlint react/button-has-type has an eslint source (0.010458ms)
+  ✔ oxlint react/style-prop-object has an eslint source (0.01025ms)
+  ✔ oxlint nextjs/no-async-client-component has an eslint source (0.011791ms)
+  ✔ oxlint nextjs/no-head-element has an eslint source (0.0115ms)
+  ✔ oxlint nextjs/no-assign-module-variable has an eslint source (0.010875ms)
+  ✔ oxlint nextjs/inline-script-id has an eslint source (0.011334ms)
+  ✔ oxlint nextjs/no-sync-scripts has an eslint source (0.01325ms)
+  ✔ oxlint nextjs/next-script-for-ga has an eslint source (0.013709ms)
+  ✔ oxlint nextjs/google-font-display has an eslint source (0.011167ms)
+  ✔ oxlint nextjs/google-font-preconnect has an eslint source (0.015ms)
+  ✔ oxlint nextjs/no-page-custom-font has an eslint source (0.016666ms)
+  ✔ oxlint nextjs/no-html-link-for-pages has an eslint source (0.015084ms)
+  ✔ oxlint nextjs/no-img-element has an eslint source (0.011791ms)
+  ✔ oxlint nextjs/no-css-tags has an eslint source (0.011333ms)
+  ✔ oxlint nextjs/no-unwanted-polyfillio has an eslint source (0.011292ms)
+  ✔ oxlint node/global-require has an eslint source (0.011417ms)
+  ✔ oxlint node/no-exports-assign has an eslint source (0.010958ms)
+  ✔ oxlint node/no-new-require has an eslint source (0.011875ms)
+  ✔ oxlint node/no-path-concat has an eslint source (0.010333ms)
+  ✔ oxlint node/no-process-env has an eslint source (0.016083ms)
+  ✔ oxlint @37bytes/no-arrow-props/no-arrow-props has an eslint source (0.014292ms)
+  ✔ oxlint @37bytes/no-storage/no-browser-storage has an eslint source (0.011917ms)
+  ✔ oxlint @37bytes/enum-pattern/enum-pattern has an eslint source (0.014ms)
+  ✔ oxlint sonarjs/cognitive-complexity has an eslint source (0.011959ms)
+  ✔ oxlint sonarjs/no-collapsible-if has an eslint source (0.016875ms)
+  ✔ oxlint sonarjs/prefer-single-boolean-return has an eslint source (0.013583ms)
+  ✔ oxlint sonarjs/no-redundant-jump has an eslint source (0.011583ms)
+  ✔ oxlint sonarjs/no-identical-functions has an eslint source (0.011459ms)
+  ✔ oxlint sonarjs/no-duplicated-branches has an eslint source (0.012ms)
+  ✔ oxlint sonarjs/no-all-duplicated-branches has an eslint source (0.010584ms)
+  ✔ oxlint sonarjs/no-duplicate-in-composite has an eslint source (0.011083ms)
+  ✔ oxlint sonarjs/no-dead-store has an eslint source (0.010667ms)
+  ✔ oxlint sonarjs/no-use-of-empty-return-value has an eslint source (0.010917ms)
+  ✔ oxlint sonarjs/no-invariant-returns has an eslint source (0.010708ms)
+  ✔ oxlint sonarjs/no-element-overwrite has an eslint source (0.011ms)
+  ✔ oxlint sonarjs/no-collection-size-mischeck has an eslint source (0.021417ms)
+  ✔ oxlint sonarjs/no-unused-collection has an eslint source (0.016625ms)
+  ✔ oxlint sonarjs/no-ignored-return has an eslint source (0.01375ms)
+  ✔ oxlint sonarjs/new-operator-misuse has an eslint source (0.014708ms)
+  ✔ oxlint sonarjs/no-gratuitous-expressions has an eslint source (0.010958ms)
+  ✔ oxlint sonarjs/no-hardcoded-passwords has an eslint source (0.010792ms)
+  ✔ oxlint sonarjs/no-hardcoded-secrets has an eslint source (0.019917ms)
+  ✔ oxlint regexp/no-invalid-regexp has an eslint source (0.021ms)
+  ✔ oxlint regexp/no-empty-character-class has an eslint source (0.013417ms)
+  ✔ oxlint regexp/no-control-character has an eslint source (0.03825ms)
+  ✔ oxlint regexp/strict has an eslint source (0.020333ms)
+  ✔ oxlint regexp/no-empty-alternative has an eslint source (0.011875ms)
+  ✔ oxlint regexp/no-empty-capturing-group has an eslint source (0.011333ms)
+  ✔ oxlint regexp/no-empty-group has an eslint source (0.033917ms)
+  ✔ oxlint regexp/no-empty-lookarounds-assertion has an eslint source (0.014208ms)
+  ✔ oxlint regexp/no-contradiction-with-assertion has an eslint source (0.013125ms)
+  ✔ oxlint regexp/no-optional-assertion has an eslint source (0.01225ms)
+  ✔ oxlint regexp/no-useless-assertions has an eslint source (0.017709ms)
+  ✔ oxlint regexp/no-useless-backreference has an eslint source (0.011584ms)
+  ✔ oxlint regexp/no-potentially-useless-backreference has an eslint source (0.011333ms)
+  ✔ oxlint regexp/no-super-linear-backtracking has an eslint source (0.013083ms)
+  ✔ oxlint regexp/no-misleading-capturing-group has an eslint source (0.011417ms)
+  ✔ oxlint regexp/no-misleading-unicode-character has an eslint source (0.011209ms)
+  ✔ oxlint regexp/no-missing-g-flag has an eslint source (0.012083ms)
+  ✔ oxlint regexp/no-dupe-disjunctions has an eslint source (0.010959ms)
+  ✔ oxlint regexp/no-escape-backspace has an eslint source (0.013458ms)
+  ✔ oxlint regexp/no-useless-dollar-replacements has an eslint source (0.011541ms)
+  ✔ oxlint regexp/no-lazy-ends has an eslint source (0.018125ms)
+  ✔ oxlint regexp/no-dupe-characters-character-class has an eslint source (0.012084ms)
+  ✔ oxlint regexp/no-useless-character-class has an eslint source (0.012458ms)
+  ✔ oxlint regexp/no-useless-lazy has an eslint source (0.01825ms)
+  ✔ oxlint regexp/no-useless-quantifier has an eslint source (0.010417ms)
+  ✔ oxlint regexp/no-useless-range has an eslint source (0.011042ms)
+  ✔ oxlint regexp/no-useless-two-nums-quantifier has an eslint source (0.011666ms)
+  ✔ oxlint regexp/no-useless-flag has an eslint source (0.011458ms)
+  ✔ oxlint regexp/no-trivially-nested-quantifier has an eslint source (0.020292ms)
+  ✔ oxlint regexp/no-trivially-nested-assertion has an eslint source (0.011541ms)
+  ✔ oxlint regexp/optimal-quantifier-concatenation has an eslint source (0.011833ms)
+  ✔ oxlint regexp/no-legacy-features has an eslint source (0.0115ms)
+  ✔ oxlint regexp/no-non-standard-flag has an eslint source (0.011292ms)
+  ✔ oxlint regexp/no-obscure-range has an eslint source (0.011167ms)
+  ✔ oxlint regexp/no-invisible-character has an eslint source (0.016167ms)
+  ✔ oxlint regexp/no-empty-string-literal has an eslint source (0.011833ms)
+  ✔ oxlint regexp/no-extra-lookaround-assertions has an eslint source (0.013291ms)
+  ✔ oxlint regexp/confusing-quantifier has an eslint source (0.014125ms)
+  ✔ oxlint regexp/optimal-lookaround-quantifier has an eslint source (0.013ms)
+  ✔ oxlint regexp/control-character-escape has an eslint source (0.012625ms)
+  ✔ oxlint regexp/negation has an eslint source (0.011625ms)
+  ✔ oxlint regexp/no-unused-capturing-group has an eslint source (0.011292ms)
+  ✔ oxlint regexp/no-zero-quantifier has an eslint source (0.010958ms)
+  ✔ oxlint regexp/no-useless-set-operand has an eslint source (0.011125ms)
+  ✔ oxlint regexp/no-useless-string-literal has an eslint source (0.010625ms)
+  ✔ oxlint regexp/prefer-predefined-assertion has an eslint source (0.010333ms)
+  ✔ oxlint regexp/match-any has an eslint source (0.011334ms)
+  ✔ oxlint regexp/no-useless-escape has an eslint source (0.010625ms)
+  ✔ oxlint regexp/no-useless-non-capturing-group has an eslint source (0.011208ms)
+  ✔ oxlint regexp/prefer-character-class has an eslint source (0.013042ms)
+  ✔ oxlint regexp/prefer-d has an eslint source (0.011917ms)
+  ✔ oxlint regexp/prefer-w has an eslint source (0.010917ms)
+  ✔ oxlint regexp/prefer-plus-quantifier has an eslint source (0.015625ms)
+  ✔ oxlint regexp/prefer-question-quantifier has an eslint source (0.011375ms)
+  ✔ oxlint regexp/prefer-star-quantifier has an eslint source (0.011166ms)
+  ✔ oxlint regexp/prefer-unicode-codepoint-escapes has an eslint source (0.011ms)
+  ✔ oxlint regexp/prefer-range has an eslint source (0.01275ms)
+  ✔ oxlint regexp/prefer-set-operation has an eslint source (0.010625ms)
+  ✔ oxlint regexp/simplify-set-operations has an eslint source (0.010333ms)
+  ✔ oxlint regexp/sort-flags has an eslint source (0.011625ms)
+  ✔ oxlint regexp/use-ignore-case has an eslint source (0.01ms)
+  ✔ oxlint typescript/consistent-type-imports has an eslint source (0.010917ms)
+  ✔ oxlint typescript/consistent-type-exports has an eslint source (0.010875ms)
+  ✔ oxlint typescript/consistent-type-assertions has an eslint source (0.010334ms)
+  ✔ oxlint typescript/no-explicit-any has an eslint source (0.016583ms)
+  ✔ oxlint typescript/no-empty-object-type has an eslint source (0.010709ms)
+  ✔ oxlint typescript/no-unsafe-function-type has an eslint source (0.010333ms)
+  ✔ oxlint typescript/no-wrapper-object-types has an eslint source (0.010459ms)
+  ✔ oxlint typescript/no-unsafe-argument has an eslint source (0.010917ms)
+  ✔ oxlint typescript/no-unsafe-assignment has an eslint source (0.010292ms)
+  ✔ oxlint typescript/no-unsafe-call has an eslint source (0.010792ms)
+  ✔ oxlint typescript/no-unsafe-member-access has an eslint source (0.01175ms)
+  ✔ oxlint typescript/no-unsafe-return has an eslint source (0.01575ms)
+  ✔ oxlint typescript/no-floating-promises has an eslint source (0.010333ms)
+  ✔ oxlint typescript/no-misused-promises has an eslint source (0.012333ms)
+  ✔ oxlint typescript/return-await has an eslint source (0.009959ms)
+  ✔ oxlint typescript/no-implied-eval has an eslint source (0.014959ms)
+  ✔ oxlint typescript/only-throw-error has an eslint source (0.011125ms)
+  ✔ oxlint storybook/await-interactions has an eslint source (0.009834ms)
+  ✔ oxlint storybook/context-in-play-function has an eslint source (0.009875ms)
+  ✔ oxlint storybook/use-storybook-expect has an eslint source (0.009084ms)
+  ✔ oxlint storybook/use-storybook-testing-library has an eslint source (0.011ms)
+  ✔ oxlint storybook/csf-component has an eslint source (0.009625ms)
+  ✔ oxlint storybook/default-exports has an eslint source (0.010292ms)
+  ✔ oxlint storybook/meta-inline-properties has an eslint source (0.009167ms)
+  ✔ oxlint storybook/meta-satisfies-type has an eslint source (0.009584ms)
+  ✔ oxlint storybook/no-uninstalled-addons has an eslint source (0.009458ms)
+  ✔ oxlint storybook/hierarchy-separator has an eslint source (0.00925ms)
+  ✔ oxlint storybook/no-stories-of has an eslint source (0.009ms)
+  ✔ oxlint storybook/story-exports has an eslint source (0.016084ms)
+  ✔ oxlint storybook/no-redundant-story-name has an eslint source (0.009916ms)
+  ✔ oxlint storybook/prefer-pascal-case has an eslint source (0.011417ms)
+  ✔ biome suspicious/noAssignInExpressions has an eslint source (0.052625ms)
+  ✔ biome suspicious/noAsyncPromiseExecutor has an eslint source (0.010292ms)
+  ✔ biome suspicious/noCatchAssign has an eslint source (0.0095ms)
+  ✖ biome suspicious/noClassAssign has an eslint source (0.048208ms)
+  ✔ biome suspicious/noConsole has an eslint source (0.0105ms)
+  ✔ biome suspicious/noDebugger has an eslint source (0.008792ms)
+  ✔ biome suspicious/noDoubleEquals has an eslint source (0.00975ms)
+  ✔ biome suspicious/noDuplicateCase has an eslint source (0.009083ms)
+  ✔ biome suspicious/noDuplicateObjectKeys has an eslint source (0.009209ms)
+  ✔ biome suspicious/noDuplicateParameters has an eslint source (0.022584ms)
+  ✔ biome suspicious/noEmptyBlockStatements has an eslint source (0.011209ms)
+  ✔ biome suspicious/noFallthroughSwitchClause has an eslint source (0.009208ms)
+  ✔ biome suspicious/noFunctionAssign has an eslint source (0.010167ms)
+  ✔ biome suspicious/noGlobalAssign has an eslint source (0.011666ms)
+  ✔ biome suspicious/noLabelVar has an eslint source (0.009583ms)
+  ✔ biome suspicious/noOctalEscape has an eslint source (0.009ms)
+  ✔ biome suspicious/noRedeclare has an eslint source (0.010834ms)
+  ✔ biome suspicious/noSelfCompare has an eslint source (0.009125ms)
+  ✔ biome suspicious/noShadowRestrictedNames has an eslint source (0.008917ms)
+  ✔ biome suspicious/noSparseArray has an eslint source (0.0095ms)
+  ✔ biome suspicious/noTemplateCurlyInString has an eslint source (0.009084ms)
+  ✔ biome suspicious/noUnsafeNegation has an eslint source (0.010833ms)
+  ✔ biome suspicious/noVar has an eslint source (0.009333ms)
+  ✔ biome suspicious/useDefaultSwitchClauseLast has an eslint source (0.008875ms)
+  ✔ biome suspicious/useGetterReturn has an eslint source (0.0085ms)
+  ✔ biome suspicious/noDocumentCookie has an eslint source (0.010333ms)
+  ✔ biome suspicious/noDuplicateClassMembers has an eslint source (0.008541ms)
+  ✔ biome suspicious/noExplicitAny has an eslint source (0.008334ms)
+  ✖ biome suspicious/noExtraNonNullAssertion has an eslint source (0.027416ms)
+  ✖ biome suspicious/noMisleadingInstantiator has an eslint source (0.023208ms)
+  ✖ biome suspicious/noUnsafeDeclarationMerging has an eslint source (0.022833ms)
+  ✔ biome suspicious/noCommentText has an eslint source (0.010167ms)
+  ✖ biome suspicious/noDuplicateJsxProps has an eslint source (0.023834ms)
+  ✔ biome suspicious/noArrayIndexKey has an eslint source (0.02725ms)
+  ✔ biome suspicious/useGoogleFontDisplay has an eslint source (0.008667ms)
+  ✖ biome suspicious/noDocumentImportInPage has an eslint source (0.022125ms)
+  ✖ biome suspicious/noHeadImportInDocument has an eslint source (0.022792ms)
+  ✔ biome suspicious/noImportCycles has an eslint source (0.008958ms)
+  ✔ biome style/noNestedTernary has an eslint source (0.008625ms)
+  ✔ biome style/useBlockStatements has an eslint source (0.008417ms)
+  ✔ biome style/useConst has an eslint source (0.008458ms)
+  ✔ biome style/useDefaultSwitchClause has an eslint source (0.0085ms)
+  ✔ biome style/useTemplate has an eslint source (0.009667ms)
+  ✔ biome style/useThrowOnlyError has an eslint source (0.011ms)
+  ✔ biome style/useNodejsImportProtocol has an eslint source (0.008375ms)
+  ✔ biome style/useThrowNewError has an eslint source (0.008709ms)
+  ✔ biome style/useTrimStartEnd has an eslint source (0.008958ms)
+  ✔ biome style/useImportType has an eslint source (0.008167ms)
+  ✔ biome style/useExportType has an eslint source (0.0085ms)
+  ✖ biome style/useConsistentArrayType has an eslint source (0.02225ms)
+  ✖ biome style/noNamespace has an eslint source (0.021917ms)
+  ✖ biome style/useAsConstAssertion has an eslint source (0.022042ms)
+  ✔ biome style/useNamingConvention has an eslint source (0.009167ms)
+  ✖ biome style/noInferrableTypes has an eslint source (0.021583ms)
+  ✔ biome style/noImplicitBoolean has an eslint source (0.008541ms)
+  ✔ biome style/useConsistentCurlyBraces has an eslint source (0.008625ms)
+  ✔ biome style/useFragmentSyntax has an eslint source (0.008292ms)
+  ✔ biome style/noHeadElement has an eslint source (0.008291ms)
+  ✔ biome style/noDefaultExport has an eslint source (0.011042ms)
+  ✖ biome style/noCommonJs has an eslint source (0.02225ms)
+  ✔ biome complexity/noExtraBooleanCast has an eslint source (0.009084ms)
+  ✔ biome complexity/noUselessLabel has an eslint source (0.008833ms)
+  ✔ biome complexity/noUselessLoneBlockStatements has an eslint source (0.008375ms)
+  ✔ biome complexity/noCommaOperator has an eslint source (0.00825ms)
+  ✔ biome complexity/noUselessConstructor has an eslint source (0.008834ms)
+  ✔ biome complexity/noUselessRename has an eslint source (0.008917ms)
+  ✔ biome complexity/noUselessStringConcat has an eslint source (0.008833ms)
+  ✔ biome complexity/useFlatMap has an eslint source (0.008458ms)
+  ✔ biome complexity/useDateNow has an eslint source (0.009125ms)
+  ✔ biome complexity/noUselessEscapeInRegex has an eslint source (0.008709ms)
+  ✔ biome complexity/noBannedTypes has an eslint source (0.008083ms)
+  ✖ biome complexity/noUselessTypeConstraint has an eslint source (0.02175ms)
+  ✔ biome complexity/noStaticOnlyClass has an eslint source (0.010166ms)
+  ✖ biome complexity/useOptionalChain has an eslint source (0.021833ms)
+  ✖ biome complexity/noUselessFragments has an eslint source (0.022ms)
+  ✔ biome complexity/noExcessiveCognitiveComplexity has an eslint source (0.011292ms)
+  ✔ biome correctness/noConstAssign has an eslint source (0.008625ms)
+  ✔ biome correctness/noEmptyPattern has an eslint source (0.008041ms)
+  ✔ biome correctness/noGlobalObjectCalls has an eslint source (0.008083ms)
+  ✔ biome correctness/noSelfAssign has an eslint source (0.009083ms)
+  ✔ biome correctness/noUnreachable has an eslint source (0.009167ms)
+  ✔ biome correctness/noUnreachableSuper has an eslint source (0.008333ms)
+  ✔ biome correctness/noUndeclaredVariables has an eslint source (0.009041ms)
+  ✔ biome correctness/noUnusedVariables has an eslint source (0.011ms)
+  ✔ biome correctness/noInvalidUseBeforeDeclaration has an eslint source (0.067125ms)
+  ✔ biome correctness/useIsNan has an eslint source (0.011708ms)
+  ✔ biome correctness/useValidTypeof has an eslint source (0.009917ms)
+  ✔ biome correctness/useYield has an eslint source (0.00925ms)
+  ✔ biome correctness/noInvalidBuiltinInstantiation has an eslint source (0.008833ms)
+  ✔ biome correctness/noUnusedLabels has an eslint source (0.008708ms)
+  ✔ biome correctness/useJsxKeyInIterable has an eslint source (0.008917ms)
+  ✔ biome correctness/noChildrenProp has an eslint source (0.0085ms)
+  ✔ biome correctness/useExhaustiveDependencies has an eslint source (0.008584ms)
+  ✔ biome correctness/useHookAtTopLevel has an eslint source (0.008208ms)
+  ✖ biome correctness/noVoidElementsWithChildren has an eslint source (0.022375ms)
+  ✔ biome correctness/noNextAsyncClientComponent has an eslint source (0.009292ms)
+  ✔ biome correctness/noUndeclaredDependencies has an eslint source (0.008791ms)
+  ✔ biome security/noGlobalEval has an eslint source (0.008459ms)
+  ✔ biome security/noBlankTarget has an eslint source (0.008417ms)
+  ✔ biome security/noDangerouslySetInnerHtml has an eslint source (0.008209ms)
+  ✔ biome security/noDangerouslySetInnerHtmlWithChildren has an eslint source (0.009292ms)
+  ✔ biome performance/noAwaitInLoops has an eslint source (0.011208ms)
+  ✔ biome performance/noImgElement has an eslint source (0.011292ms)
+  ✔ biome performance/useGoogleFontPreconnect has an eslint source (0.008666ms)
+  ✔ biome performance/noUnwantedPolyfillio has an eslint source (0.008875ms)
+  ✔ biome nursery/noProto has an eslint source (0.008833ms)
+  ✔ biome nursery/noScriptUrl has an eslint source (0.008625ms)
+  ✔ biome nursery/noMultiStr has an eslint source (0.008625ms)
+  ✔ biome nursery/noUselessReturn has an eslint source (0.008375ms)
+  ✔ biome nursery/useGlobalThis has an eslint source (0.008209ms)
+  ✔ biome nursery/noFloatingPromises has an eslint source (0.008916ms)
+  ✔ biome nursery/noMisusedPromises has an eslint source (0.008958ms)
+  ✖ biome nursery/noUnnecessaryConditions has an eslint source (0.022667ms)
+  ✖ biome nursery/useExhaustiveSwitchCases has an eslint source (0.022458ms)
+  ✔ biome nursery/noLeakedRender has an eslint source (0.008708ms)
+  ✔ biome nursery/noSyncScripts has an eslint source (0.009292ms)
+  ✔ biome nursery/useInlineScriptId has an eslint source (0.016375ms)
+  ✔ biome suspicious/noFocusedTests has an eslint source (0.009041ms)
+  ✔ biome suspicious/noSkippedTests has an eslint source (0.009125ms)
+  ✖ biome suspicious/noDuplicateTestHooks has an eslint source (0.022458ms)
+  ✖ biome suspicious/noExportsInTest has an eslint source (0.030292ms)
+✖ Layer 1 reverse: every tool-enabled rule must trace back to an enabled eslint rule (9.46425ms)
+▶ collectEnabledEslintRules
+  ✔ spa preset yields the verified count of enabled rules (0.408042ms)
+  ✔ global off entries remove earlier enables (flat-config merge order) (0.053125ms)
+  ✔ files-scoped off does NOT remove (per-glob narrowing) (0.047916ms)
+  ✔ tuple severities are read from element zero (0.045667ms)
+  ✔ object-form severities are read from the severity key (0.052417ms)
+✔ collectEnabledEslintRules (0.968042ms)
+▶ collectEnabledUnion
+  ✔ union covers rules present in any preset (0.447334ms)
+✔ collectEnabledUnion (0.485792ms)
+▶ collectOxlintRules
+  ✔ reads generated config with base rules and override additions (0.460375ms)
+✔ collectOxlintRules (0.519ms)
+▶ collectBiomeRules
+  ✔ reads generated config including option-bearing object severities (0.328792ms)
+✔ collectBiomeRules (0.373875ms)
+▶ resolveOxlintEquivalent
+  ✔ bare core rules pass through unchanged (0.301583ms)
+  ✔ systematic prefix renames apply (0.068834ms)
+  ✔ jsPlugin rules keep their eslint names verbatim (0.0515ms)
+  ✔ @eslint-react rules have NO oxlint equivalent through prefixes (structural bridge gap) (0.050917ms)
+  ✔ import-x/no-self-import resolves to oxlint (covered natively; the gap is biome-only) (0.039958ms)
+  ✔ @typescript-eslint/* bare-name overrides resolve to plain JS names (not typescript/* prefix) (0.049166ms)
+  ✔ systematic prefix rename still works for typescript rules with a real typescript/ variant (0.035792ms)
+✔ resolveOxlintEquivalent (0.984167ms)
+▶ resolveBiomeEquivalent
+  ✔ manual table resolves known pairs with category prefixes (0.30425ms)
+  ✔ partial equivalence is annotated, not silently equal (0.069417ms)
+  ✔ unknown rule returns undefined so callers distinguish unmapped from no-equivalent (0.060208ms)
+✔ resolveBiomeEquivalent (0.519541ms)
+▶ reverseToEslint
+  ✔ reverses oxlint names (0.204ms)
+  ✔ reverses oxlint import/ prefix back to import-x/ (0.042292ms)
+  ✔ reverses oxlint react/ back to react-hooks/ for the hooks rules (0.035416ms)
+  ✔ reverses oxlint react/ legacy names to @eslint-react/* counterparts (0.03425ms)
+  ✔ reverses oxlint unicorn/prefer-node-protocol to n/prefer-node-protocol (active eslint rule) (0.027334ms)
+  ✔ reverses oxlint typescript/no-implied-eval to base eslint rule (not @typescript-eslint/ variant) (0.018916ms)
+  ✔ reverses oxlint bare names that are @typescript-eslint/* in ESLint (0.021666ms)
+  ✔ reverses oxlint local jsPlugin triple-path ids to eslint double-path (0.04775ms)
+  ✔ reverses biome names through the manual table (0.020417ms)
+  ✔ biome many-to-one first-wins: @typescript-eslint/ ordering ensures enabled source wins (0.024875ms)
+  ✔ many-to-one biome reverse is first-wins (order-dependent) (0.016916ms)
+✔ reverseToEslint (0.600375ms)
+ℹ tests 816
+ℹ suites 14
+ℹ pass 741
+ℹ fail 75
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9604.399959
+
+✖ failing tests:
+
+test at __tests__/parity-presets.check.js:284:9
+✖ oxlint verdict parity for spa (0.419ms)
+  AssertionError [ERR_ASSERTION]: eslint vs oxlint drift:
+  spa/__tests__/parity-testing.test.ts: only eslint: func-style, vitest/no-disabled-tests, vitest/no-focused-tests
+  spa/parity-imports.ts: only eslint: func-style, unicorn/prefer-export-from
+  spa/parity-imports.ts: only oxlint: no-useless-return
+  spa/parity-javascript.ts: only eslint: @37bytes/boolean-naming, func-style
+  spa/parity-javascript.ts: only oxlint: unicorn/prefer-number-properties
+  spa/parity-react.tsx: only eslint: @eslint-react/no-leaked-conditional-rendering, @eslint-react/no-nested-component-definitions
+  spa/parity-react.tsx: only oxlint: unicorn/consistent-function-scoping
+  spa/parity-stories.stories.ts: only eslint: import-x/no-default-export
+  spa/parity-stories.stories.ts: only oxlint: storybook/meta-satisfies-type
+  spa/parity-typescript.ts: only eslint: @typescript-eslint/naming-convention, func-style, id-length, unicorn/prefer-export-from, unicorn/prevent-abbreviations
+  spa/parity-typescript.ts: only oxlint: n/prefer-node-protocol
+  
+  11 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-presets.check.js:292:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 11,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-presets.check.js:294:9
+✖ biome verdict parity for spa (0.120292ms)
+  AssertionError [ERR_ASSERTION]: eslint vs biome drift:
+  spa/__tests__/parity-testing.test.ts: only eslint: func-style, unicorn/prefer-top-level-await
+  spa/__tests__/parity-testing.test.ts: only biome: @typescript-eslint/no-floating-promises, import-x/no-extraneous-dependencies, no-empty
+  spa/parity-imports.ts: only eslint: func-style, unicorn/prefer-export-from
+  spa/parity-imports.ts: only biome: import-x/no-commonjs, import-x/no-extraneous-dependencies, no-useless-return
+  spa/parity-javascript.ts: only eslint: @37bytes/boolean-naming, func-style
+  spa/parity-react.tsx: only eslint: @eslint-react/dom-no-missing-button-type, @eslint-react/no-nested-component-definitions, @typescript-eslint/no-unused-vars
+  spa/parity-react.tsx: only biome: @typescript-eslint/naming-convention, @typescript-eslint/no-unnecessary-condition, import-x/no-extraneous-dependencies, no-empty
+  spa/parity-stories.stories.ts: only eslint: import-x/no-anonymous-default-export
+  spa/parity-typescript.ts: only eslint: @37bytes/enum-pattern, func-style, id-length, unicorn/prefer-export-from, unicorn/prevent-abbreviations
+  spa/parity-typescript.ts: only biome: n/prefer-node-protocol
+  
+  10 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-presets.check.js:302:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 10,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-presets.check.js:284:9
+✖ oxlint verdict parity for nextjs (0.11575ms)
+  AssertionError [ERR_ASSERTION]: eslint vs oxlint drift:
+  nextjs/app/dashboard/layout.tsx: only oxlint: import-x/no-default-export
+  nextjs/app/dashboard/page.tsx: only oxlint: import-x/no-default-export
+  nextjs/parity-nextjs-biome-only.tsx: only oxlint: @next/next/no-html-link-for-pages
+  nextjs/parity-nextjs-sync-scripts.tsx: only oxlint: @next/next/no-before-interactive-script-outside-document
+  
+  4 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-presets.check.js:292:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-presets.check.js:294:9
+✖ biome verdict parity for nextjs (0.068292ms)
+  AssertionError [ERR_ASSERTION]: eslint vs biome drift:
+  nextjs/app/dashboard/layout.tsx: only biome: import-x/no-default-export
+  nextjs/app/dashboard/page.tsx: only biome: import-x/no-default-export
+  nextjs/parity-nextjs-biome-only.tsx: only eslint: @next/next/next-script-for-ga, @next/next/no-css-tags, @next/next/no-page-custom-font
+  nextjs/parity-nextjs-sync-scripts.tsx: only biome: import-x/no-extraneous-dependencies
+  
+  4 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-presets.check.js:302:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-presets.check.js:284:9
+✖ oxlint verdict parity for nodejs-runtime (0.107209ms)
+  AssertionError [ERR_ASSERTION]: eslint vs oxlint drift:
+  nodejs-runtime/__tests__/parity-node-testing.test.ts: only eslint: func-style, id-length
+  nodejs-runtime/parity-node.js: only eslint: func-style, no-undef
+  nodejs-runtime/parity-node.ts: only eslint: @typescript-eslint/only-throw-error, func-style, unicorn/prefer-export-from
+  
+  3 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-presets.check.js:292:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-presets.check.js:294:9
+✖ biome verdict parity for nodejs-runtime (0.060417ms)
+  AssertionError [ERR_ASSERTION]: eslint vs biome drift:
+  nodejs-runtime/__tests__/parity-node-testing.test.ts: only eslint: func-style, id-length
+  nodejs-runtime/__tests__/parity-node-testing.test.ts: only biome: @typescript-eslint/no-floating-promises, import-x/no-extraneous-dependencies
+  nodejs-runtime/parity-node.js: only eslint: func-style, no-throw-literal, no-undef
+  nodejs-runtime/parity-node.js: only biome: @typescript-eslint/only-throw-error, import-x/no-commonjs
+  nodejs-runtime/parity-node.ts: only eslint: func-style, unicorn/prefer-export-from
+  
+  5 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-presets.check.js:302:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 5,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-presets.check.js:284:9
+✖ oxlint verdict parity for nodejs-tool (0.107584ms)
+  AssertionError [ERR_ASSERTION]: eslint vs oxlint drift:
+  nodejs-tool/__tests__/parity-tool-testing.test.ts: only eslint: unicorn/prevent-abbreviations, vitest/no-disabled-tests
+  nodejs-tool/parity-tool.ts: only eslint: func-style, id-length, unicorn/prefer-export-from, unicorn/prevent-abbreviations
+  
+  2 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-presets.check.js:292:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-presets.check.js:294:9
+✖ biome verdict parity for nodejs-tool (0.074084ms)
+  AssertionError [ERR_ASSERTION]: eslint vs biome drift:
+  nodejs-tool/__tests__/parity-tool-testing.test.ts: only eslint: unicorn/prevent-abbreviations
+  nodejs-tool/__tests__/parity-tool-testing.test.ts: only biome: import-x/no-extraneous-dependencies
+  nodejs-tool/parity-tool.ts: only eslint: func-style, id-length, unicorn/new-for-builtins, unicorn/prefer-export-from, unicorn/prevent-abbreviations
+  
+  3 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-presets.check.js:302:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers arrow-body-style (0.230375ms)
+  AssertionError [ERR_ASSERTION]: arrow-body-style: bridge disables it but oxlint config does not enable arrow-body-style
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers func-style (0.040667ms)
+  AssertionError [ERR_ASSERTION]: func-style: bridge disables it but oxlint config does not enable func-style
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers id-length (0.031792ms)
+  AssertionError [ERR_ASSERTION]: id-length: bridge disables it but oxlint config does not enable id-length
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers object-shorthand (0.049958ms)
+  AssertionError [ERR_ASSERTION]: object-shorthand: bridge disables it but oxlint config does not enable object-shorthand
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers @typescript-eslint/no-array-constructor (0.044166ms)
+  AssertionError [ERR_ASSERTION]: @typescript-eslint/no-array-constructor: bridge disables it but oxlint config does not enable no-array-constructor
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers @typescript-eslint/no-redeclare (0.03275ms)
+  AssertionError [ERR_ASSERTION]: @typescript-eslint/no-redeclare: bridge disables it but oxlint config does not enable no-redeclare
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers unicorn/custom-error-definition (0.031916ms)
+  AssertionError [ERR_ASSERTION]: unicorn/custom-error-definition: bridge disables it but oxlint config does not enable unicorn/custom-error-definition
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers unicorn/no-negation-in-equality-check (0.030333ms)
+  AssertionError [ERR_ASSERTION]: unicorn/no-negation-in-equality-check: bridge disables it but oxlint config does not enable unicorn/no-negation-in-equality-check
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers unicorn/no-unnecessary-array-flat-depth (0.038459ms)
+  AssertionError [ERR_ASSERTION]: unicorn/no-unnecessary-array-flat-depth: bridge disables it but oxlint config does not enable unicorn/no-unnecessary-array-flat-depth
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers unicorn/no-unnecessary-array-splice-count (0.038667ms)
+  AssertionError [ERR_ASSERTION]: unicorn/no-unnecessary-array-splice-count: bridge disables it but oxlint config does not enable unicorn/no-unnecessary-array-splice-count
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers unicorn/no-unnecessary-await (0.032791ms)
+  AssertionError [ERR_ASSERTION]: unicorn/no-unnecessary-await: bridge disables it but oxlint config does not enable unicorn/no-unnecessary-await
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers unicorn/no-unnecessary-slice-end (0.03325ms)
+  AssertionError [ERR_ASSERTION]: unicorn/no-unnecessary-slice-end: bridge disables it but oxlint config does not enable unicorn/no-unnecessary-slice-end
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers unicorn/prefer-import-meta-properties (0.039459ms)
+  AssertionError [ERR_ASSERTION]: unicorn/prefer-import-meta-properties: bridge disables it but oxlint config does not enable unicorn/prefer-import-meta-properties
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers vitest/consistent-test-it (0.031875ms)
+  AssertionError [ERR_ASSERTION]: vitest/consistent-test-it: bridge disables it but oxlint config does not enable vitest/consistent-test-it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers vitest/no-disabled-tests (0.0295ms)
+  AssertionError [ERR_ASSERTION]: vitest/no-disabled-tests: bridge disables it but oxlint config does not enable vitest/no-disabled-tests
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers vitest/no-focused-tests (0.029375ms)
+  AssertionError [ERR_ASSERTION]: vitest/no-focused-tests: bridge disables it but oxlint config does not enable vitest/no-focused-tests
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers vitest/no-identical-title (0.028875ms)
+  AssertionError [ERR_ASSERTION]: vitest/no-identical-title: bridge disables it but oxlint config does not enable vitest/no-identical-title
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers vitest/prefer-equality-matcher (0.031ms)
+  AssertionError [ERR_ASSERTION]: vitest/prefer-equality-matcher: bridge disables it but oxlint config does not enable vitest/prefer-equality-matcher
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers vitest/prefer-to-be (0.031042ms)
+  AssertionError [ERR_ASSERTION]: vitest/prefer-to-be: bridge disables it but oxlint config does not enable vitest/prefer-to-be
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers vitest/prefer-to-contain (0.030875ms)
+  AssertionError [ERR_ASSERTION]: vitest/prefer-to-contain: bridge disables it but oxlint config does not enable vitest/prefer-to-contain
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers vitest/prefer-to-have-length (0.029458ms)
+  AssertionError [ERR_ASSERTION]: vitest/prefer-to-have-length: bridge disables it but oxlint config does not enable vitest/prefer-to-have-length
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers vitest/valid-expect (0.031833ms)
+  AssertionError [ERR_ASSERTION]: vitest/valid-expect: bridge disables it but oxlint config does not enable vitest/valid-expect
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:114:9
+✖ oxlint covers vitest/valid-title (0.030208ms)
+  AssertionError [ERR_ASSERTION]: vitest/valid-title: bridge disables it but oxlint config does not enable vitest/valid-title
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:129:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers unicorn/number-literal-case (0.045333ms)
+  AssertionError [ERR_ASSERTION]: unicorn/number-literal-case: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers dot-location (0.030084ms)
+  AssertionError [ERR_ASSERTION]: dot-location: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers new-parens (0.027834ms)
+  AssertionError [ERR_ASSERTION]: new-parens: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers no-mixed-operators (0.028834ms)
+  AssertionError [ERR_ASSERTION]: no-mixed-operators: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers no-whitespace-before-property (0.028375ms)
+  AssertionError [ERR_ASSERTION]: no-whitespace-before-property: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers rest-spread-spacing (0.124ms)
+  AssertionError [ERR_ASSERTION]: rest-spread-spacing: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers array-callback-return (0.045334ms)
+  AssertionError [ERR_ASSERTION]: array-callback-return: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers no-delete-var (0.049792ms)
+  AssertionError [ERR_ASSERTION]: no-delete-var: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers no-labels (0.041584ms)
+  AssertionError [ERR_ASSERTION]: no-labels: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers no-regex-spaces (0.029ms)
+  AssertionError [ERR_ASSERTION]: no-regex-spaces: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers no-self-compare (0.252458ms)
+  AssertionError [ERR_ASSERTION]: no-self-compare -> suspicious/noSelfCompare: severity drift (eslint=error, biome=warn)
+  
+  'warn' !== 'error'
+  
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:166:28)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'warn',
+    expected: 'error',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers no-useless-computed-key (0.029375ms)
+  AssertionError [ERR_ASSERTION]: no-useless-computed-key: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers no-with (0.028208ms)
+  AssertionError [ERR_ASSERTION]: no-with: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers unicorn/no-thenable (0.028375ms)
+  AssertionError [ERR_ASSERTION]: unicorn/no-thenable: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers unicorn/no-useless-switch-case (0.027584ms)
+  AssertionError [ERR_ASSERTION]: unicorn/no-useless-switch-case: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:143:9
+✖ biome covers unicorn/prefer-array-index-of (0.040917ms)
+  AssertionError [ERR_ASSERTION]: unicorn/prefer-array-index-of: not in the biome manual table — add an entry (string, {biome, partial}, or null + known-gaps)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:148:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:179:9
+✖ oxlint unicorn/no-array-for-each has an eslint source (0.054208ms)
+  AssertionError [ERR_ASSERTION]: oxlint enables unicorn/no-array-for-each -> unicorn/no-array-for-each, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:186:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:179:9
+✖ oxlint unicorn/prefer-number-properties has an eslint source (0.058041ms)
+  AssertionError [ERR_ASSERTION]: oxlint enables unicorn/prefer-number-properties -> unicorn/prefer-number-properties, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:186:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:179:9
+✖ oxlint react/self-closing-comp has an eslint source (0.045583ms)
+  AssertionError [ERR_ASSERTION]: oxlint enables react/self-closing-comp with no eslint counterpart — promote it into eslint or trim it (policy: promotion-first)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:181:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: null,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:179:9
+✖ oxlint react/jsx-pascal-case has an eslint source (0.041917ms)
+  AssertionError [ERR_ASSERTION]: oxlint enables react/jsx-pascal-case with no eslint counterpart — promote it into eslint or trim it (policy: promotion-first)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:181:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: null,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:179:9
+✖ oxlint react/jsx-handler-names has an eslint source (0.029834ms)
+  AssertionError [ERR_ASSERTION]: oxlint enables react/jsx-handler-names with no eslint counterpart — promote it into eslint or trim it (policy: promotion-first)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:181:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: null,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:179:9
+✖ oxlint react/jsx-no-duplicate-props has an eslint source (0.03425ms)
+  AssertionError [ERR_ASSERTION]: oxlint enables react/jsx-no-duplicate-props with no eslint counterpart — promote it into eslint or trim it (policy: promotion-first)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:181:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: null,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:179:9
+✖ oxlint react/jsx-no-undef has an eslint source (0.029625ms)
+  AssertionError [ERR_ASSERTION]: oxlint enables react/jsx-no-undef with no eslint counterpart — promote it into eslint or trim it (policy: promotion-first)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:181:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: null,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:179:9
+✖ oxlint react/no-is-mounted has an eslint source (0.071833ms)
+  AssertionError [ERR_ASSERTION]: oxlint enables react/no-is-mounted with no eslint counterpart — promote it into eslint or trim it (policy: promotion-first)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:181:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: null,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome suspicious/noClassAssign has an eslint source (0.048208ms)
+  AssertionError [ERR_ASSERTION]: biome enables suspicious/noClassAssign -> no-class-assign, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome suspicious/noExtraNonNullAssertion has an eslint source (0.027416ms)
+  AssertionError [ERR_ASSERTION]: biome enables suspicious/noExtraNonNullAssertion -> @typescript-eslint/no-extra-non-null-assertion, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome suspicious/noMisleadingInstantiator has an eslint source (0.023208ms)
+  AssertionError [ERR_ASSERTION]: biome enables suspicious/noMisleadingInstantiator -> @typescript-eslint/no-misused-new, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome suspicious/noUnsafeDeclarationMerging has an eslint source (0.022833ms)
+  AssertionError [ERR_ASSERTION]: biome enables suspicious/noUnsafeDeclarationMerging -> @typescript-eslint/no-unsafe-declaration-merging, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome suspicious/noDuplicateJsxProps has an eslint source (0.023834ms)
+  AssertionError [ERR_ASSERTION]: biome enables suspicious/noDuplicateJsxProps with no eslint counterpart — promote or trim (policy: promotion-first)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:195:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: null,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome suspicious/noDocumentImportInPage has an eslint source (0.022125ms)
+  AssertionError [ERR_ASSERTION]: biome enables suspicious/noDocumentImportInPage -> @next/next/no-document-import-in-page, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome suspicious/noHeadImportInDocument has an eslint source (0.022792ms)
+  AssertionError [ERR_ASSERTION]: biome enables suspicious/noHeadImportInDocument -> @next/next/no-head-import-in-document, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome style/useConsistentArrayType has an eslint source (0.02225ms)
+  AssertionError [ERR_ASSERTION]: biome enables style/useConsistentArrayType -> @typescript-eslint/array-type, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome style/noNamespace has an eslint source (0.021917ms)
+  AssertionError [ERR_ASSERTION]: biome enables style/noNamespace -> @typescript-eslint/no-namespace, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome style/useAsConstAssertion has an eslint source (0.022042ms)
+  AssertionError [ERR_ASSERTION]: biome enables style/useAsConstAssertion -> @typescript-eslint/prefer-as-const, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome style/noInferrableTypes has an eslint source (0.021583ms)
+  AssertionError [ERR_ASSERTION]: biome enables style/noInferrableTypes -> @typescript-eslint/no-inferrable-types, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome style/noCommonJs has an eslint source (0.02225ms)
+  AssertionError [ERR_ASSERTION]: biome enables style/noCommonJs -> import-x/no-commonjs, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome complexity/noUselessTypeConstraint has an eslint source (0.02175ms)
+  AssertionError [ERR_ASSERTION]: biome enables complexity/noUselessTypeConstraint -> @typescript-eslint/no-unnecessary-type-constraint, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome complexity/useOptionalChain has an eslint source (0.021833ms)
+  AssertionError [ERR_ASSERTION]: biome enables complexity/useOptionalChain -> @typescript-eslint/prefer-optional-chain, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome complexity/noUselessFragments has an eslint source (0.022ms)
+  AssertionError [ERR_ASSERTION]: biome enables complexity/noUselessFragments with no eslint counterpart — promote or trim (policy: promotion-first)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:195:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: null,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome correctness/noVoidElementsWithChildren has an eslint source (0.022375ms)
+  AssertionError [ERR_ASSERTION]: biome enables correctness/noVoidElementsWithChildren with no eslint counterpart — promote or trim (policy: promotion-first)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:195:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: null,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome nursery/noUnnecessaryConditions has an eslint source (0.022667ms)
+  AssertionError [ERR_ASSERTION]: biome enables nursery/noUnnecessaryConditions -> @typescript-eslint/no-unnecessary-condition, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome nursery/useExhaustiveSwitchCases has an eslint source (0.022458ms)
+  AssertionError [ERR_ASSERTION]: biome enables nursery/useExhaustiveSwitchCases -> @typescript-eslint/switch-exhaustiveness-check, but no eslint preset enables it
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:200:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome suspicious/noDuplicateTestHooks has an eslint source (0.022458ms)
+  AssertionError [ERR_ASSERTION]: biome enables suspicious/noDuplicateTestHooks with no eslint counterpart — promote or trim (policy: promotion-first)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:195:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: null,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at __tests__/parity-static.check.js:193:9
+✖ biome suspicious/noExportsInTest has an eslint source (0.030292ms)
+  AssertionError [ERR_ASSERTION]: biome enables suspicious/noExportsInTest with no eslint counterpart — promote or trim (policy: promotion-first)
+      at TestContext.<anonymous> (file:///Users/hal/Projects/public-packages/packages/code-style/__tests__/parity-static.check.js:195:20)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: null,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+ ELIFECYCLE  Command failed with exit code 1.
