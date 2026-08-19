@@ -1,6 +1,6 @@
 # @37bytes/code-style
 
-> **0.0.3**: пакет в активной разработке. API может меняться без предупреждения.
+> **0.0.5**: пакет в активной разработке. API может меняться без предупреждения.
 
 Точка входа для инструментов поддержки качества проектов 37bytes
 
@@ -108,19 +108,19 @@ export default [
 
 ### Кастомные плагины @37bytes
 
-| Правило                                | Описание                                                     |
-| -------------------------------------- | ------------------------------------------------------------ |
-| `@37bytes/no-browser-storage`          | Запрет прямого доступа к localStorage/sessionStorage         |
-| `@37bytes/no-arrow-props`              | Запрет стрелочных функций в JSX-пропсах                      |
-| `@37bytes/boolean-naming`              | Обязательные префиксы булеанов (is/has/should/...)           |
-| `@37bytes/enum-pattern`                | Запрет enum, `as const` + UPPER_CASE                         |
-| `@37bytes/no-slice-self-import`        | Запрет импорта слайса через собственный public API           |
-| `@37bytes/require-server-only`         | Обязательный импорт `server-only` в серверных FSD-модулях    |
-| `@37bytes/require-client-only`         | Обязательная директива `use client` в клиентских FSD-модулях |
-| `@37bytes/no-legacy-folders`           | Запрет устаревших каталогов-свалок в FSD                     |
-| `@37bytes/no-redundant-undefined`      | Запрет лишнего `undefined` в optional-типах                  |
-| `@37bytes/jsx-boolean-value`           | Единый стиль булевых JSX-пропсов                             |
-| `@37bytes/jsx-fragments`               | Единый стиль JSX-фрагментов                                  |
+| Правило                           | Описание                                                     |
+| --------------------------------- | ------------------------------------------------------------ |
+| `@37bytes/no-browser-storage`     | Запрет прямого доступа к localStorage/sessionStorage         |
+| `@37bytes/no-arrow-props`         | Запрет стрелочных функций в JSX-пропсах                      |
+| `@37bytes/boolean-naming`         | Обязательные префиксы булеанов (is/has/should/...)           |
+| `@37bytes/enum-pattern`           | Запрет enum, `as const` + UPPER_CASE                         |
+| `@37bytes/no-slice-self-import`   | Запрет импорта слайса через собственный public API           |
+| `@37bytes/require-server-only`    | Обязательный импорт `server-only` в серверных FSD-модулях    |
+| `@37bytes/require-client-only`    | Обязательная директива `use client` в клиентских FSD-модулях |
+| `@37bytes/no-legacy-folders`      | Запрет устаревших каталогов-свалок в FSD                     |
+| `@37bytes/no-redundant-undefined` | Запрет лишнего `undefined` в optional-типах                  |
+| `@37bytes/jsx-boolean-value`      | Единый стиль булевых JSX-пропсов                             |
+| `@37bytes/jsx-fragments`          | Единый стиль JSX-фрагментов                                  |
 
 ## OxLint (опционально)
 

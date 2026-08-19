@@ -27,6 +27,8 @@ import { storybook } from '#rules/storybook';
 import { testingLibraryRules, testOverrides, vitestRules } from '#rules/testing';
 import { typescript } from '#rules/typescript';
 
+import { fileURLToPath } from 'node:url';
+
 import reactPlugin from '@eslint-react/eslint-plugin';
 import nextPlugin from '@next/eslint-plugin-next';
 import stylisticPlugin from '@stylistic/eslint-plugin';
@@ -47,6 +49,12 @@ import storybookPlugin from 'eslint-plugin-storybook';
 import testingLibraryPlugin from 'eslint-plugin-testing-library';
 import unicornPlugin from 'eslint-plugin-unicorn';
 import globals from 'globals';
+
+// Абсолютный путь, а не имя пакета: имя import-x прогоняет через moduleRequire, который
+// резолвит сначала от расположения eslint и от require.main, и только третьей попыткой от
+// линтуемого файла. В pnpm-монорепозитории первые две уводят в общий хойстнутый стор и
+// могут отдать копию парсера на несколько мажоров старше объявленной.
+const TS_PARSER_PATH = fileURLToPath(import.meta.resolve('@typescript-eslint/parser'));
 
 // ── Test file patterns ───────────────────────────────────────────────────────
 
@@ -91,7 +99,7 @@ const coreConfig = {
         // читать .ts/.tsx: граф остаётся пустым, а no-cycle/named/no-deprecated молча
         // ничего не находят, оставаясь при этом включёнными
         'import-x/parsers': {
-            '@typescript-eslint/parser': ['.ts', '.tsx', '.mts', '.cts']
+            [TS_PARSER_PATH]: ['.ts', '.tsx', '.mts', '.cts']
         },
         // резолвер передаётся объектом, а не именем: по имени import-x ищет пакет
         // eslint-import-resolver-typescript по дереву от линтуемого файла и от себя,
