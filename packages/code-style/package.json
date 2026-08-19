@@ -1,6 +1,6 @@
 {
     "name": "@37bytes/code-style",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Unified linting and formatting configs for 37bytes projects",
     "license": "ISC",
     "type": "module",
@@ -135,6 +135,7 @@
         "@vitest/eslint-plugin": "1.6.23",
         "confusing-browser-globals": "1.0.11",
         "eslint-import-resolver-typescript": "4.4.5",
+        "eslint-plugin-compat": "7.0.2",
         "eslint-plugin-import-x": "4.17.1",
         "eslint-plugin-n": "18.2.2",
         "eslint-plugin-perfectionist": "5.10.0",
@@ -146,7 +147,6 @@
         "eslint-plugin-sonarjs": "4.2.0",
         "eslint-plugin-storybook": "10.5.2",
         "eslint-plugin-testing-library": "7.16.2",
-        "eslint-plugin-compat": "7.0.2",
         "eslint-plugin-unicorn": "72.0.0",
         "globals": "17.7.0",
         "stylelint-config-standard-scss": "17.0.0",
@@ -163,8 +163,8 @@
         "oxlint": "1.73.0",
         "oxlint-tsgolint": "0.25.0",
         "prettier": "3.9.5",
-        "stylelint": "17.14.0",
         "storybook": "10.5.2",
+        "stylelint": "17.14.0",
         "typescript": "6.0.3"
     },
     "scripts": {

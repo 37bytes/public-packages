@@ -33,6 +33,7 @@ import stylisticPlugin from '@stylistic/eslint-plugin';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
 import vitestPlugin from '@vitest/eslint-plugin';
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
 import importPlugin from 'eslint-plugin-import-x';
 import nodePlugin from 'eslint-plugin-n';
 import perfectionistPlugin from 'eslint-plugin-perfectionist';
@@ -86,11 +87,17 @@ const coreConfig = {
         regexp: regexpPlugin
     },
     settings: {
-        'import-x/resolver': {
-            typescript: {
-                alwaysTryTypes: true
-            }
-        }
+        // ExportMap сам открывает импортируемый файл, и без явного парсера он не умеет
+        // читать .ts/.tsx: граф остаётся пустым, а no-cycle/named/no-deprecated молча
+        // ничего не находят, оставаясь при этом включёнными
+        'import-x/parsers': {
+            '@typescript-eslint/parser': ['.ts', '.tsx', '.mts', '.cts']
+        },
+        // резолвер передаётся объектом, а не именем: по имени import-x ищет пакет
+        // eslint-import-resolver-typescript по дереву от линтуемого файла и от себя,
+        // и промах обоих попаданий уводит его в фолбэк require('typescript'), который
+        // грузит компилятор вместо резолвера и валит "Resolve error" на каждом импорте
+        'import-x/resolver-next': [createTypeScriptImportResolver({ alwaysTryTypes: true })]
     },
     rules: {
         ...javascript,

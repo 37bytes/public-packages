@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 
 import tsparser from '@typescript-eslint/parser';
 import { ESLint } from 'eslint';
+import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript';
 
 const __dirname = import.meta.dirname;
 const FIXTURE_ROOT = path.join(__dirname, 'fixtures', 'fsd-project');
@@ -54,12 +55,15 @@ const lint = async (code, relativePath, fsdOptions) => {
                     }
                 },
                 settings: {
-                    'import-x/resolver': {
-                        typescript: {
+                    // тем же ключом, что и в пресетах: import-x отдаёт resolver-next строгий
+                    // приоритет, и переопределение через легаси 'import-x/resolver' было бы
+                    // молча проигнорировано
+                    'import-x/resolver-next': [
+                        createTypeScriptImportResolver({
                             project: path.join(FIXTURE_ROOT, 'tsconfig.json'),
                             alwaysTryTypes: true
-                        }
-                    }
+                        })
+                    ]
                 }
             },
             ...fsd
