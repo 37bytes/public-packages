@@ -115,6 +115,7 @@ export const typescript = {
     // === Promises and Async ===
     '@typescript-eslint/no-floating-promises': ['error', { ignoreVoid: true }],
     '@typescript-eslint/no-misused-promises': 'error',
+    '@typescript-eslint/no-misused-spread': 'error',
     '@typescript-eslint/return-await': 'error',
 
     // === Naming Conventions ===

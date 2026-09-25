@@ -4,6 +4,22 @@
 
 ## [Unreleased]
 
+## [0.0.6] - 2026-09-25
+
+### Added
+
+- `@typescript-eslint/no-misused-spread` (error): ловит spread промиса, строки или функции (`{ ...loadSettings() }` молча даёт `{}`). Раньше это правило незаметно работало только в oxlint через неявную категорию `correctness`; теперь оно в eslint и явно в oxlint. В biome аналога нет (2.5.4).
+- Слой `reactTypescriptConfig` (только `.tsx`) и набор правил `reactTypescript` (также `rules.reactTypescript`). Слой входит в `spa`, `reactLibrary` и `nextjs`; при ручной сборке ставится после `typescriptConfig`.
+
+### Changed
+
+- `@typescript-eslint/no-misused-promises` в `.tsx` больше не проверяет JSX-атрибуты (`checksVoidReturn.attributes: false`): `onClick={asyncHandler}` на компоненте с пропом `() => void` проходит без обёртки в `void`. Остальные проверки правила (async-колбэк в void-аргументе, async-реализация void-метода, промис в условии и в spread) остаются. Зеркало в oxlint добавлено; у biome у `noMisusedPromises` нет опций, там правило не ослаблено.
+- oxlint: категория `correctness` выключена явно (`categories: { correctness: "off" }`). Раньше oxlint включал её сам, и её правила работали мимо конфига и мимо parity-проверок: например, `react/jsx-no-undef` срабатывал после того, как его вырезали. Теперь oxlint запускает только правила, явно перечисленные в `oxlint/rules/`.
+
+### Fixed
+
+- Layer 2 parity запускает oxlint с `--type-aware`: type-aware правила oxlint (например, `typescript/only-throw-error`) теперь тоже сверяются с eslint.
+
 ## [0.0.5] - 2026-08-19
 
 ### Fixed

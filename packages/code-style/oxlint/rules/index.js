@@ -14,7 +14,7 @@ export { node } from '#oxlint/rules/node';
 // Perfectionist (separate config)
 export { perfectionist, perfectionistImportOverrides, perfectionistJsPlugin } from '#oxlint/rules/perfectionist';
 export { quality } from '#oxlint/rules/quality';
-export { react } from '#oxlint/rules/react';
+export { react, reactTypescript } from '#oxlint/rules/react';
 
 export { regexp } from '#oxlint/rules/regexp';
 export { storybook } from '#oxlint/rules/storybook';

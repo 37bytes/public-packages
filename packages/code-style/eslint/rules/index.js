@@ -10,7 +10,7 @@ export { nextjs } from '#rules/nextjs';
 export { node, nodeCjs, nodeStrict } from '#rules/node';
 export { perfectionist, perfectionistReact } from '#rules/perfectionist';
 export { quality } from '#rules/quality';
-export { react } from '#rules/react';
+export { react, reactTypescript } from '#rules/react';
 export { reactCompiler } from '#rules/react-compiler';
 export { reactStylistic } from '#rules/react-stylistic';
 export { regexp } from '#rules/regexp';

@@ -27,7 +27,9 @@
             "specifier": "eslint-plugin-storybook"
         }
     ],
-    "categories": {},
+    "categories": {
+        "correctness": "off"
+    },
     "env": {
         "browser": true,
         "es2022": true,
@@ -470,6 +472,7 @@
                     }
                 ],
                 "typescript/no-misused-promises": "error",
+                "typescript/no-misused-spread": "error",
                 "typescript/return-await": "error",
                 "typescript/no-implied-eval": "warn",
                 "typescript/only-throw-error": [
@@ -477,6 +480,19 @@
                     {
                         "allowThrowingAny": false,
                         "allowThrowingUnknown": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["**/*.tsx"],
+            "rules": {
+                "typescript/no-misused-promises": [
+                    "error",
+                    {
+                        "checksVoidReturn": {
+                            "attributes": false
+                        }
                     }
                 ]
             }

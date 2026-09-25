@@ -147,7 +147,7 @@ const runOxlint = async (directory) => {
         ({ stdout } = await executePackageBinary(
             'oxlint',
             'oxlint',
-            ['--format', 'json', path.join(PARITY_FIXTURES, directory)],
+            ['--type-aware', '--format', 'json', path.join(PARITY_FIXTURES, directory)],
             { cwd: PACKAGE_ROOT }
         ));
     } catch (executionError) {

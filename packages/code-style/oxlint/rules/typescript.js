@@ -65,6 +65,7 @@ export const typescriptRules = {
     'typescript/no-unsafe-return': 'error',
     'typescript/no-floating-promises': ['error', { ignoreVoid: true }],
     'typescript/no-misused-promises': 'error',
+    'typescript/no-misused-spread': 'error',
     'typescript/return-await': 'error',
     'typescript/no-implied-eval': 'warn',
     'typescript/only-throw-error': [

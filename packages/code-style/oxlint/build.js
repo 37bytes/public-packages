@@ -29,6 +29,7 @@ import {
     perfectionistJsPlugin,
     quality,
     react,
+    reactTypescript,
     regexp,
     storybook,
     testing,
@@ -122,6 +123,11 @@ const config = {
                 ...typescriptDisables,
                 ...typescriptRules
             }
+        },
+        {
+            // Must follow the typescript override: later overrides win for tsx.
+            files: overrideFiles.reactTypescript,
+            rules: reactTypescript
         },
         {
             files: overrideFiles.testing,

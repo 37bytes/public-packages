@@ -12,7 +12,7 @@ import { nextjs as nextjsRules } from '#rules/nextjs';
 import { node, nodeCjs, nodeStrict } from '#rules/node';
 import { perfectionistReact, perfectionist as perfectionistRules } from '#rules/perfectionist';
 import { quality } from '#rules/quality';
-import { react } from '#rules/react';
+import { react, reactTypescript } from '#rules/react';
 import { reactCompiler } from '#rules/react-compiler';
 import { regexp } from '#rules/regexp';
 import { storybook } from '#rules/storybook';
@@ -38,6 +38,7 @@ export {
     reactCompilerConfig,
     reactConfig,
     reactLibrary,
+    reactTypescriptConfig,
     // Main configs
     spa,
     storybookConfig,
@@ -84,7 +85,7 @@ export { node, nodeCjs, nodeStrict } from '#rules/node';
 export { perfectionistReact, perfectionist as perfectionistRules, withServerBoundaryFirst } from '#rules/perfectionist';
 export { quality } from '#rules/quality';
 
-export { react } from '#rules/react';
+export { react, reactTypescript } from '#rules/react';
 
 export { reactCompiler } from '#rules/react-compiler';
 
@@ -101,6 +102,7 @@ export const rules = {
     typescript,
     browser,
     react,
+    reactTypescript,
     reactCompiler,
     imports,
     testing,

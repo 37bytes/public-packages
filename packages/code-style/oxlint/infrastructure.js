@@ -30,10 +30,14 @@ export const jsPlugins = [
 
 export const env = { browser: true, es2022: true, node: true };
 
-export const categories = {};
+// oxlint enables the correctness category when it is not set, and those rules never reach config.json,
+// so the parity reverse check could not see them (react/jsx-no-undef kept firing after its 2026-06-07 trim).
+// Only rules listed explicitly in oxlint/rules/ run.
+export const categories = { correctness: 'off' };
 
 export const overrideFiles = {
     typescript: ['**/*.ts', '**/*.tsx'],
+    reactTypescript: ['**/*.tsx'],
     testing: ['**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', '**/*.spec.tsx', '**/test/**', '**/__tests__/**'],
     storybook: ['**/*.stories.tsx', '**/*.stories.ts'],
     // Next.js App Router conventions require default exports — mirror ESLint's nextjsOverrides

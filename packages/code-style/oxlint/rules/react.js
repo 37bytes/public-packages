@@ -32,3 +32,8 @@ export const react = {
     'react/button-has-type': 'warn',
     'react/style-prop-object': 'warn'
 };
+
+/** React + TypeScript rules (tsx only). Maps to reactTypescript in eslint/rules/react.js. */
+export const reactTypescript = {
+    'typescript/no-misused-promises': ['error', { checksVoidReturn: { attributes: false } }]
+};

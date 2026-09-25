@@ -81,3 +81,14 @@ export const react = {
     '@eslint-react/jsx-no-useless-fragment': 'warn', // biome: complexity/noUselessFragments
     '@eslint-react/dom-no-void-elements-with-children': 'error' // biome: correctness/noVoidElementsWithChildren
 };
+
+/**
+ * React + TypeScript rules (tsx only: jsx files have no @typescript-eslint plugin and no type info).
+ * @type {import('eslint').Linter.RulesRecord}
+ */
+export const reactTypescript = {
+    // UI-kit event props are typed `() => void` and never await the handler, so passing an async
+    // function to a JSX attribute is harmless there. Other void-return checks (arguments,
+    // inherited methods, variables) stay on.
+    '@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: { attributes: false } }] // biome: nursery/noMisusedPromises has no options (2.5.4), stays strict
+};

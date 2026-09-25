@@ -39,6 +39,7 @@ export const typeAwareOverrides = {
     rules: {
         // === Promises & Async (biggest performance win) ===
         '@typescript-eslint/no-misused-promises': 'off',
+        '@typescript-eslint/no-misused-spread': 'off',
         '@typescript-eslint/no-floating-promises': 'off',
         '@typescript-eslint/return-await': 'off',
 

@@ -19,7 +19,7 @@ import { nextjs as nextjsRules } from '#rules/nextjs';
 import { node, nodeCjs } from '#rules/node';
 import { perfectionistReact, perfectionist as perfectionistRules } from '#rules/perfectionist';
 import { quality } from '#rules/quality';
-import { react } from '#rules/react';
+import { react, reactTypescript } from '#rules/react';
 import { reactCompiler } from '#rules/react-compiler';
 import { reactStylistic } from '#rules/react-stylistic';
 import { regexp } from '#rules/regexp';
@@ -183,6 +183,18 @@ export const reactConfig = {
                 allowInRender: true
             }
         ]
+    }
+};
+
+/**
+ * React + TypeScript configuration (tsx only).
+ * Requires typescriptConfig earlier in the array: it registers the @typescript-eslint plugin.
+ * @type {import('eslint').Linter.Config}
+ */
+export const reactTypescriptConfig = {
+    files: ['**/*.tsx'],
+    rules: {
+        ...reactTypescript
     }
 };
 
@@ -380,13 +392,13 @@ export const browserLibrary = [coreConfig, browserConfig, typescriptConfig];
  * React library config (browser APIs + React, no app-level rules)
  * @type {import('eslint').Linter.Config[]}
  */
-export const reactLibrary = [coreConfig, browserConfig, typescriptConfig, reactConfig];
+export const reactLibrary = [coreConfig, browserConfig, typescriptConfig, reactConfig, reactTypescriptConfig];
 
 /**
  * SPA config (Vite + React)
  * @type {import('eslint').Linter.Config[]}
  */
-export const spa = [coreConfig, browserConfig, typescriptConfig, reactConfig];
+export const spa = [coreConfig, browserConfig, typescriptConfig, reactConfig, reactTypescriptConfig];
 
 /**
  * Next.js config (React + App Router + Node.js).

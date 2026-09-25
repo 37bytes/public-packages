@@ -10,7 +10,7 @@
  *
  * Type-aware mode (requires oxlint-tsgolint):
  *   oxlint -c node_modules/@37bytes/code-style/oxlint/config.json --type-aware .
- *   Enables 10 type-aware rules (no-misused-promises, no-unsafe-*, etc.)
+ *   Enables type-aware rules (no-misused-promises, no-unsafe-*, etc.)
  *
  * Hybrid setup (OxLint + ESLint):
  *   import { typeAwareOverrides } from '@37bytes/code-style/oxlint/type-aware-overrides';

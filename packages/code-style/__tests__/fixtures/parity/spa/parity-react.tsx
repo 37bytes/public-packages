@@ -45,9 +45,10 @@ const list = items.map((item) => <li key={item}>{item}</li>); // duplicate key=1
 const count = 0;
 const leaky = <div>{count && <span>text</span>}</div>; // parity: no-leaked-conditional-rendering — ESLint/Biome=error; OxLint=absent
 
-// parity: react/jsx-no-undef: error in OxLint absent from ESLint react rules
-// OxLint react/jsx-no-undef=error; ESLint uses no-undef (core, off in TS files) or TS type-checking
-const Undefined = () => <UndefinedComponent />; // parity: jsx-no-undef — OxLint=error; ESLint=absent
+// parity: react/jsx-no-undef: trimmed from OxLint (oxlint/rules/react.js), silent in all three tools
+// OxLint used to fire it through the implicit correctness category; categories.correctness=off since 2026-09-25.
+// ESLint uses no-undef (core, off in TS files) or TS type-checking
+const Undefined = () => <UndefinedComponent />; // parity: jsx-no-undef: OxLint/ESLint/Biome=absent
 
 // parity: biome useNamingConvention does not allow underscore-prefix variables (no leadingUnderscore exception).
 // ESLint @typescript-eslint/naming-convention has leadingUnderscore:'allow'; biome has no such option.

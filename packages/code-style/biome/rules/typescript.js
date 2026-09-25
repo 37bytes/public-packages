@@ -90,16 +90,15 @@ export const typescriptNursery = {
 /**
  * ESLint TS rules with NO Biome equivalent (stay ESLint-only):
  *
- * — @typescript-eslint/no-unsafe-argument
- * — @typescript-eslint/no-unsafe-assignment
- * — @typescript-eslint/no-unsafe-call
- * — @typescript-eslint/no-unsafe-member-access
- * — @typescript-eslint/no-unsafe-return
- * — @typescript-eslint/no-misused-promises (nursery, not stable)
- * — @typescript-eslint/no-floating-promises (nursery, not stable)
- * — @typescript-eslint/return-await
- * — @typescript-eslint/consistent-type-assertions
- * — @typescript-eslint/no-empty-object-type (covered by noBannedTypes)
- * — @typescript-eslint/no-unsafe-function-type (covered by noBannedTypes)
- * — @typescript-eslint/no-wrapper-object-types (covered by noBannedTypes)
+ * - @typescript-eslint/no-unsafe-argument
+ * - @typescript-eslint/no-unsafe-assignment
+ * - @typescript-eslint/no-unsafe-call
+ * - @typescript-eslint/no-unsafe-member-access
+ * - @typescript-eslint/no-unsafe-return
+ * - @typescript-eslint/no-misused-spread (checked 2026-09-25, biome 2.5.4)
+ * - @typescript-eslint/return-await
+ * - @typescript-eslint/consistent-type-assertions
+ * - @typescript-eslint/no-empty-object-type (covered by noBannedTypes)
+ * - @typescript-eslint/no-unsafe-function-type (covered by noBannedTypes)
+ * - @typescript-eslint/no-wrapper-object-types (covered by noBannedTypes)
  */

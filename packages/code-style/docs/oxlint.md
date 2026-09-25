@@ -63,9 +63,9 @@ These stay ESLint-only:
 
 Three layers of deduplication:
 
-1. **`eslint-plugin-oxlint`** — reads `config.json`, disables AST rules in ESLint (~227 rules)
-2. **`type-aware-overrides.js`** — disables type-aware rules covered by tsgolint (10 rules)
-3. **ESLint runs the rest** — naming-convention, boolean-naming, FSD, n/, import-x advanced, etc.
+1. **`eslint-plugin-oxlint`**: reads `config.json`, disables AST rules in ESLint (~227 rules)
+2. **`type-aware-overrides.js`**: disables type-aware rules covered by tsgolint
+3. **ESLint runs the rest**: naming-convention, boolean-naming, FSD, n/, import-x advanced, etc.
 
 ### Consumer setup
 
